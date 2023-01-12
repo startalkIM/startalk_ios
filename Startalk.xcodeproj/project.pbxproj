@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7DB60416296F141500A0AAFA /* STContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB60415296F141500A0AAFA /* STContentVC.swift */; };
+		7DB60418296FB65500A0AAFA /* STChatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB60417296FB65500A0AAFA /* STChatsVC.swift */; };
+		7DB6041A296FB75F00A0AAFA /* STContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB60419296FB75F00A0AAFA /* STContactVC.swift */; };
+		7DB6041C296FB78500A0AAFA /* STDiscoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB6041B296FB78500A0AAFA /* STDiscoverVC.swift */; };
+		7DB6041E296FB79A00A0AAFA /* STMineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB6041D296FB79A00A0AAFA /* STMineVC.swift */; };
 		ABA21320296EA95C00F1D2F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2131F296EA95C00F1D2F7 /* AppDelegate.swift */; };
-		ABA21324296EA95C00F1D2F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA21323296EA95C00F1D2F7 /* ViewController.swift */; };
+		ABA21324296EA95C00F1D2F7 /* STMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA21323296EA95C00F1D2F7 /* STMainVC.swift */; };
 		ABA21327296EA95C00F1D2F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA21325296EA95C00F1D2F7 /* Main.storyboard */; };
 		ABA2132A296EA95C00F1D2F7 /* Startalk.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ABA21328296EA95C00F1D2F7 /* Startalk.xcdatamodeld */; };
 		ABA2132C296EA95D00F1D2F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABA2132B296EA95D00F1D2F7 /* Assets.xcassets */; };
@@ -16,9 +21,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7DB60415296F141500A0AAFA /* STContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STContentVC.swift; sourceTree = "<group>"; };
+		7DB60417296FB65500A0AAFA /* STChatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STChatsVC.swift; sourceTree = "<group>"; };
+		7DB60419296FB75F00A0AAFA /* STContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STContactVC.swift; sourceTree = "<group>"; };
+		7DB6041B296FB78500A0AAFA /* STDiscoverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STDiscoverVC.swift; sourceTree = "<group>"; };
+		7DB6041D296FB79A00A0AAFA /* STMineVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMineVC.swift; sourceTree = "<group>"; };
 		ABA2131C296EA95C00F1D2F7 /* Startalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Startalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABA2131F296EA95C00F1D2F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		ABA21323296EA95C00F1D2F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		ABA21323296EA95C00F1D2F7 /* STMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMainVC.swift; sourceTree = "<group>"; };
 		ABA21326296EA95C00F1D2F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ABA21329296EA95C00F1D2F7 /* Startalk.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Startalk.xcdatamodel; sourceTree = "<group>"; };
 		ABA2132B296EA95D00F1D2F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -37,6 +47,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7DB60414296F11EE00A0AAFA /* views */ = {
+			isa = PBXGroup;
+			children = (
+				ABA21323296EA95C00F1D2F7 /* STMainVC.swift */,
+				7DB60415296F141500A0AAFA /* STContentVC.swift */,
+				7DB60417296FB65500A0AAFA /* STChatsVC.swift */,
+				7DB60419296FB75F00A0AAFA /* STContactVC.swift */,
+				7DB6041B296FB78500A0AAFA /* STDiscoverVC.swift */,
+				7DB6041D296FB79A00A0AAFA /* STMineVC.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
 		ABA21313296EA95C00F1D2F7 = {
 			isa = PBXGroup;
 			children = (
@@ -57,7 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				ABA2131F296EA95C00F1D2F7 /* AppDelegate.swift */,
-				ABA21323296EA95C00F1D2F7 /* ViewController.swift */,
+				7DB60414296F11EE00A0AAFA /* views */,
 				ABA21325296EA95C00F1D2F7 /* Main.storyboard */,
 				ABA2132B296EA95D00F1D2F7 /* Assets.xcassets */,
 				ABA2132D296EA95D00F1D2F7 /* LaunchScreen.storyboard */,
@@ -138,9 +161,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABA21324296EA95C00F1D2F7 /* ViewController.swift in Sources */,
+				ABA21324296EA95C00F1D2F7 /* STMainVC.swift in Sources */,
+				7DB60416296F141500A0AAFA /* STContentVC.swift in Sources */,
+				7DB6041E296FB79A00A0AAFA /* STMineVC.swift in Sources */,
+				7DB60418296FB65500A0AAFA /* STChatsVC.swift in Sources */,
 				ABA21320296EA95C00F1D2F7 /* AppDelegate.swift in Sources */,
+				7DB6041A296FB75F00A0AAFA /* STContactVC.swift in Sources */,
 				ABA2132A296EA95C00F1D2F7 /* Startalk.xcdatamodeld in Sources */,
+				7DB6041C296FB78500A0AAFA /* STDiscoverVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +244,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +298,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -300,7 +328,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.im.startalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.im.startalk2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -328,7 +356,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.im.startalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.im.startalk2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
