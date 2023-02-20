@@ -9,13 +9,19 @@ import UIKit
 
 class STMainVController: UINavigationController {
     let contentVController = STContentVController()
+    var isLoggedin = false
     
     required init?(coder aDecoder: NSCoder) {
         super.init(rootViewController: contentVController)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !isLoggedin{
+            let loginVController = STLoginVController()
+            loginVController.modalPresentationStyle = .fullScreen
+            present(loginVController, animated: false)
+        }
     }
 
 
