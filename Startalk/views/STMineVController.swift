@@ -1,5 +1,5 @@
 //
-//  STMineVC.swift
+//  STMineVController.swift
 //  Startalk
 //
 //  Created by busylei on 2023/1/12.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class STMineVC: UIViewController {
+class STMineVController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
