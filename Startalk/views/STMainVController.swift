@@ -17,11 +17,15 @@ class STMainVController: UINavigationController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if !isLoggedin{
-            let loginVController = STLoginVController()
-            loginVController.modalPresentationStyle = .fullScreen
-            present(loginVController, animated: false)
-        }
+//        if !isLoggedin{
+//            let loginVController = STLoginVController()
+//            loginVController.modalPresentationStyle = .fullScreen
+//            present(loginVController, animated: false)
+//        }
+        
+        let navigationController = STNavigationVController()
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: false)
     }
 
 

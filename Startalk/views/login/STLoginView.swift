@@ -49,6 +49,10 @@ class STLoginView: UIView {
         layoutCorporationAndSwitcher()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func addTitleLabel(){
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 26)
@@ -287,10 +291,6 @@ class STLoginView: UIView {
         self.corporationLabel = label
     }
     
-    func setCorporation(_ value: String){
-        corporationLabel.text = value
-    }
-    
     
     func addNavigationSwitcher(){
         let button = UIButton()
@@ -327,8 +327,12 @@ class STLoginView: UIView {
         ])
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+}
+
+extension STLoginView{
+    
+    func setCorporation(_ value: String){
+        corporationLabel.text = value
     }
 }
 

@@ -19,19 +19,19 @@ class STContentVController: UITabBarController {
     
     func setControllers(){
         let chatsVController = STChatsVController()
-        let soundImsage = UIImage(named: "chats")
+        let soundImsage = UIImage(named: "tabs/chats")
         chatsVController.tabBarItem = UITabBarItem(title: "Chats", image: soundImsage, tag: 1)
         
         let liveVController = STContactVController()
-        let liveImage = UIImage(named: "contact")
+        let liveImage = UIImage(named: "tabs/contact")
         liveVController.tabBarItem = UITabBarItem(title: "Contact", image: liveImage, tag: 2)
         
         let chatVController = STDiscoverVController()
-        let chatImage = UIImage(named: "discover")
+        let chatImage = UIImage(named: "tabs/discover")
         chatVController.tabBarItem = UITabBarItem(title: "Discover", image: chatImage, tag: 3)
         
         let mineVController = STMineVController()
-        let mineImage = UIImage(named: "me")
+        let mineImage = UIImage(named: "tabs/me")
         mineVController.tabBarItem = UITabBarItem(title: "Me", image: mineImage, tag: 4)
         
         viewControllers = [chatsVController, liveVController, chatVController, mineVController]
