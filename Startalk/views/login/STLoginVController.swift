@@ -20,10 +20,6 @@ class STLoginVController: UIViewController, STLoginViewDelegate{
         loginView.setCorporation("iStarTalk")
     }
     
-    func scanButtonClicked() {
-        
-    }
-    
     func scanButtonTapped() {
         
     }
@@ -47,6 +43,10 @@ class STLoginVController: UIViewController, STLoginViewDelegate{
     
     func navigationSwitcherTapped() {
         
+        let viewController = STNavigationListVController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true)
     }
     
 }

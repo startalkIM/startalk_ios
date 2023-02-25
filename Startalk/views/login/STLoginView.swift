@@ -19,9 +19,13 @@ class STLoginView: UIView {
     var forgetPasswordButton: UIButton!
     var loginButton: UIButton!
     var corporationLabel: UILabel!
-    var navigationSwitcher: UIView!
+    var navigationSwitcher: UIButton!
     
-    var delegate: STLoginViewDelegate!
+    var delegate: STLoginViewDelegate? {
+        didSet{
+            delegateDidSet(delegate)
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -89,7 +93,6 @@ class STLoginView: UIView {
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3.5, bottom: 0, right: -3.5)
         
         addSubview(button)
-        button.addTarget(delegate, action: #selector(delegate.scanButtonTapped), for: .touchUpInside)
         self.scanButton = button
     }
     
@@ -187,7 +190,6 @@ class STLoginView: UIView {
         button.setImage(image?.withTintColor(.make(0xE4E4E4)), for: .normal)
         button.setImage(image?.withTintColor(.make(0x00CABE)), for: .selected)
         
-        button.addTarget(delegate, action: #selector(delegate.policyButtonTapped), for: .touchUpInside)
         addSubview(button)
         self.policyButton = button
     }
@@ -217,8 +219,6 @@ class STLoginView: UIView {
         label.attributedText = attributedTitle
         
         label.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: delegate, action: #selector(delegate.policyLabelTapped))
-        label.addGestureRecognizer(tapGesture)
         addSubview(label)
         self.policyLabel = label
     }
@@ -239,7 +239,6 @@ class STLoginView: UIView {
         button.setTitleColor(.make(0x00CABE), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15)
         
-        button.addTarget(delegate, action: #selector(delegate.forgetPasswordButtonTapped), for: .touchUpInside)
         addSubview(button)
         self.forgetPasswordButton = button
     }
@@ -265,7 +264,6 @@ class STLoginView: UIView {
         button.setBackgroundImage(UIColor.make(0xABE9E5).image(), for: .disabled)
         button.setBackgroundImage(UIColor.make(0x00CABE).image(), for: .normal)
         
-        button.addTarget(delegate, action: #selector(delegate.loginButtonTapped), for: .touchUpInside)
         addSubview(button)
         self.loginButton = button
     }
@@ -297,7 +295,6 @@ class STLoginView: UIView {
         let image = UIImage(named: "login/switch")?.withTintColor(.make(0x00CABE))
         button.setImage(image, for: .normal)
         
-        button.addTarget(delegate, action: #selector(delegate.navigationSwitcherTapped), for: .touchUpInside)
         addSubview(button)
         self.navigationSwitcher = button
     }
@@ -325,6 +322,30 @@ class STLoginView: UIView {
             button.heightAnchor.constraint(equalToConstant: 22),
             button.centerYAnchor.constraint(equalTo: layout.centerYAnchor),
         ])
+    }
+    
+    
+    func delegateDidSet(_ delegate: STLoginViewDelegate?){
+        usernameTextFieled.delegate = delegate
+        passwordTextField.delegate = delegate
+        
+        if let delegate = delegate{
+            scanButton.addTarget(delegate, action: #selector(delegate.scanButtonTapped), for: .touchUpInside)
+            policyButton.addTarget(delegate, action: #selector(delegate.policyButtonTapped), for: .touchUpInside)
+            let tapGesture = UITapGestureRecognizer(target: delegate, action: #selector(delegate.policyLabelTapped))
+            policyLabel.addGestureRecognizer(tapGesture)
+            loginButton.addTarget(delegate, action: #selector(delegate.loginButtonTapped), for: .touchUpInside)
+            forgetPasswordButton.addTarget(delegate, action: #selector(delegate.forgetPasswordButtonTapped), for: .touchUpInside)
+            navigationSwitcher.addTarget(delegate, action: #selector(delegate.navigationSwitcherTapped), for: .touchUpInside)
+
+        }else{
+            scanButton.removeTarget(nil, action: nil, for: .touchUpInside)
+            policyButton.removeTarget(nil, action: nil, for: .touchUpInside)
+            policyLabel.gestureRecognizers = nil
+            loginButton.removeTarget(nil, action: nil, for: .touchUpInside)
+            forgetPasswordButton.removeTarget(nil, action: nil, for: .touchUpInside)
+            navigationSwitcher.removeTarget(nil, action: nil, for: .touchUpInside)
+        }
     }
     
 }
