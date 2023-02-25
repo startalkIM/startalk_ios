@@ -48,6 +48,11 @@ class STNavigationListVController: UIViewController, STNavigationListViewDelegat
         navigationItem.rightBarButtonItem = addBarItem
     }
     
+    func presentEditorView(_ editing: Bool){
+        let editorController =  STNavigationEditorVController()
+        let navigationController = UINavigationController(rootViewController: editorController)
+        present(navigationController, animated: true)
+    }
 
     @objc
     func cancelItemTapped() {
@@ -57,11 +62,10 @@ class STNavigationListVController: UIViewController, STNavigationListViewDelegat
     
     @objc
     func addItemTapped(){
-        print("add tapped")
+        presentEditorView(false)
     }
     
     func confirmButtonTapped() {
-        print("confirm tapped")
     }
 }
 

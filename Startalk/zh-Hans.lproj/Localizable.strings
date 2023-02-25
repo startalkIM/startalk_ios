@@ -23,6 +23,11 @@
 "navigation_change" = "修改";
 "navigation_delete" = "删除";
 "navigation_add" = "新增";
+"navigation_configure_manually" = "您也可以手动输入导航";
+"navigation_name" = "导航名";
+"navigation_input_name" = "请输入导航服务器名称或公司名";
+"navigation_location" = "域名/服务器地址（必填）";
+"navigation_input_location" = "请输入您的公司域名，如qunar.com";
 
 
 //unchecked

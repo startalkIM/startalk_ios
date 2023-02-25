@@ -80,17 +80,7 @@ class STLoginView: UIView {
     }
     
     func addScanButton(){
-        let button = UIButton(type: .custom)
-        button.backgroundColor = UIColor.make(0x00CABE)
-        button.setTitle("scan".localized, for: .normal)
-        button.setTitleColor(UIColor.make(0xFFFFFF), for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14, weight: UIFont.Weight(4))
-        let image = UIImage(named: "login/scan")?.withTintColor(.white)
-        button.setImage(image, for: .normal)
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 4
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -3.5, bottom: 0, right: 3.5)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3.5, bottom: 0, right: -3.5)
+        let button = ComponentFactory.makeScanButton()
         
         addSubview(button)
         self.scanButton = button

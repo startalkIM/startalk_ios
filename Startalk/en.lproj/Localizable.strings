@@ -24,7 +24,11 @@
 "navigation_change" = "Change";
 "navigation_delete" = "Delete";
 "navigation_add" = "Add";
-
+"navigation_configure_manually" = "Configure Navigation Manually";
+"navigation_name" = "Navigation Name";
+"navigation_input_name" = "Please enter the server name or company name";
+"navigation_location" = "Domain Name/Server Address (Required)";
+"navigation_input_location" = "Please enter the domain name of your company (eg. qunar.com)";
 
 
 //unchecked
