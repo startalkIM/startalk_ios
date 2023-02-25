@@ -6,6 +6,11 @@
   
 */
 
+"ok" = "确定";
+"cancel" = "取消";
+"continue" = "继续";
+"send" = "发送";
+
 "login" = "登录";
 "login_scan" = "扫码配置导航";
 "login_username" = "用户名";
@@ -14,9 +19,10 @@
 "login_privacy_policy" = "《使用条款和隐私政策》";
 "login_forget_password" = "忘记密码";
 
-
+"navigation_title" = "导航地址列表";
 "navigation_change" = "修改";
 "navigation_delete" = "删除";
+"navigation_add" = "新增";
 
 
 //unchecked

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct STNavigationItem{
+struct STNavigationLocation{
     var name: String
     var location: String
 }

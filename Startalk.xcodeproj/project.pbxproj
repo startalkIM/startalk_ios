@@ -18,8 +18,9 @@
 		AB12F9A729A4C26A00C639B6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB12F9A929A4C26A00C639B6 /* Localizable.strings */; };
 		AB12F9AC29A4C62400C639B6 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9AB29A4C62400C639B6 /* String+.swift */; };
 		AB12F9B329A85F5C00C639B6 /* STNavigationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9B229A85F5C00C639B6 /* STNavigationTableCell.swift */; };
-		AB12F9B529A8717E00C639B6 /* STNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9B429A8717E00C639B6 /* STNavigationItem.swift */; };
-		AB12F9B729A8A7A500C639B6 /* STNavigationVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9B629A8A7A500C639B6 /* STNavigationVController.swift */; };
+		AB12F9B529A8717E00C639B6 /* STNavigationLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9B429A8717E00C639B6 /* STNavigationLocation.swift */; };
+		AB12F9B729A8A7A500C639B6 /* STNavigationListVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9B629A8A7A500C639B6 /* STNavigationListVController.swift */; };
+		AB12F9B929A8CC2D00C639B6 /* STNavigationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9B829A8CC2D00C639B6 /* STNavigationListView.swift */; };
 		ABA21320296EA95C00F1D2F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2131F296EA95C00F1D2F7 /* AppDelegate.swift */; };
 		ABA21324296EA95C00F1D2F7 /* STMainVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA21323296EA95C00F1D2F7 /* STMainVController.swift */; };
 		ABA21327296EA95C00F1D2F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA21325296EA95C00F1D2F7 /* Main.storyboard */; };
@@ -41,8 +42,9 @@
 		AB12F9AA29A4C26F00C639B6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		AB12F9AB29A4C62400C639B6 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		AB12F9B229A85F5C00C639B6 /* STNavigationTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationTableCell.swift; sourceTree = "<group>"; };
-		AB12F9B429A8717E00C639B6 /* STNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationItem.swift; sourceTree = "<group>"; };
-		AB12F9B629A8A7A500C639B6 /* STNavigationVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationVController.swift; sourceTree = "<group>"; };
+		AB12F9B429A8717E00C639B6 /* STNavigationLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationLocation.swift; sourceTree = "<group>"; };
+		AB12F9B629A8A7A500C639B6 /* STNavigationListVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationListVController.swift; sourceTree = "<group>"; };
+		AB12F9B829A8CC2D00C639B6 /* STNavigationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationListView.swift; sourceTree = "<group>"; };
 		ABA2131C296EA95C00F1D2F7 /* Startalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Startalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABA2131F296EA95C00F1D2F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABA21323296EA95C00F1D2F7 /* STMainVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMainVController.swift; sourceTree = "<group>"; };
@@ -100,8 +102,9 @@
 		AB12F9AD29A63A2600C639B6 /* navigation */ = {
 			isa = PBXGroup;
 			children = (
-				AB12F9B629A8A7A500C639B6 /* STNavigationVController.swift */,
-				AB12F9B429A8717E00C639B6 /* STNavigationItem.swift */,
+				AB12F9B629A8A7A500C639B6 /* STNavigationListVController.swift */,
+				AB12F9B829A8CC2D00C639B6 /* STNavigationListView.swift */,
+				AB12F9B429A8717E00C639B6 /* STNavigationLocation.swift */,
 				AB12F9B229A85F5C00C639B6 /* STNavigationTableCell.swift */,
 			);
 			path = navigation;
@@ -215,17 +218,18 @@
 				ABA21324296EA95C00F1D2F7 /* STMainVController.swift in Sources */,
 				AB12F9B329A85F5C00C639B6 /* STNavigationTableCell.swift in Sources */,
 				7DB60416296F141500A0AAFA /* STContentVController.swift in Sources */,
+				AB12F9B929A8CC2D00C639B6 /* STNavigationListView.swift in Sources */,
 				7DB6041E296FB79A00A0AAFA /* STMineVController.swift in Sources */,
 				AB12F97B29A34C1000C639B6 /* STLoginView.swift in Sources */,
 				7DB60418296FB65500A0AAFA /* STChatsVController.swift in Sources */,
 				ABA21320296EA95C00F1D2F7 /* AppDelegate.swift in Sources */,
 				AB12F98029A396E900C639B6 /* STLoginVController.swift in Sources */,
-				AB12F9B729A8A7A500C639B6 /* STNavigationVController.swift in Sources */,
+				AB12F9B729A8A7A500C639B6 /* STNavigationListVController.swift in Sources */,
 				7DB6041A296FB75F00A0AAFA /* STContactVController.swift in Sources */,
 				ABA2132A296EA95C00F1D2F7 /* Startalk.xcdatamodeld in Sources */,
 				7DB6041C296FB78500A0AAFA /* STDiscoverVController.swift in Sources */,
 				AB12F9AC29A4C62400C639B6 /* String+.swift in Sources */,
-				AB12F9B529A8717E00C639B6 /* STNavigationItem.swift in Sources */,
+				AB12F9B529A8717E00C639B6 /* STNavigationLocation.swift in Sources */,
 				AB12F97E29A392E100C639B6 /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
