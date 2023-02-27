@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class STLoginManager{
     static let BASE_URL = "https://i.startalk.im/newapi"
@@ -16,6 +17,8 @@ class STLoginManager{
     let httpClient = STHttpClient(BASE_URL)
     let identifiers: STIdentifiers
     let navigationManager: STNavigationManager
+    
+    @Published var isLoggedIn: Bool = false
     
     init(identifiers: STIdentifiers, navigationManager: STNavigationManager) {
         self.identifiers = identifiers
@@ -34,10 +37,11 @@ class STLoginManager{
         let request = STLoginRequest(u: username, h: domain, p: encryptedPassword, mk: deviceUid)
         
         let url = httpClient.buildUrl(path: Self.LOGIN_PATH)
-        httpClient.post(url, entity: request) { (result: STHttpResult<STLoginResponse>) -> Void in
+        httpClient.post(url, entity: request) { [self] (result: STHttpResult<STLoginResponse>) -> Void in
             switch result{
             case .response(let response):
                 print(response)
+                isLoggedIn = true
                 completionHandler(true, "")
             case .failure(let message):
                 completionHandler(false, message)

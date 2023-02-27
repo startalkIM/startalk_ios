@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 class STMainVController: UINavigationController {
+    let loginManager = STKit.shared.loginManager
+    
     let contentVController = STContentVController()
-    var isLoggedin = false
+    
+    var loginSubscription: AnyCancellable?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(rootViewController: contentVController)
@@ -17,13 +21,31 @@ class STMainVController: UINavigationController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if !isLoggedin{
-            let loginVController = STLoginVController()
-            loginVController.modalPresentationStyle = .fullScreen
-            present(loginVController, animated: false)
+        
+        loginSubscription = loginManager.$isLoggedIn.sink{ [self] isLoggedIn in
+            loginStateChanged(isLoggedIn)
         }
     }
 
+    func showLoginView(){
+        let loginVController = STLoginVController()
+        loginVController.modalPresentationStyle = .fullScreen
+        present(loginVController, animated: true)
+    }
+    
+    func hideLoginView(){
+        dismiss(animated: true)
+    }
+    
+    func loginStateChanged(_ value: Bool){
+        DispatchQueue.main.async { [self] in
+            if value{
+                hideLoginView()
+            }else{
+                showLoginView()
+            }
+        }
+    }
 
 }
 
