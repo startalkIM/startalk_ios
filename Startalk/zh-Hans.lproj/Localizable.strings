@@ -30,6 +30,9 @@
 "navigation_input_location" = "请输入您的公司域名，如qunar.com";
 
 
+"network_request_failed" = "请求失败";
+
+
 //unchecked
 "ok" = "确定";
 "cancel" = "取消";

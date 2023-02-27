@@ -31,6 +31,9 @@
 "navigation_input_location" = "Please enter the domain name of your company (eg. qunar.com)";
 
 
+"network_request_failed" = "Request failed";
+
+
 //unchecked
 "ok" = "OK";
 "cancel" = "Cancel";

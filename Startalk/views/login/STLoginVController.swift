@@ -8,16 +8,24 @@
 import UIKit
 
 class STLoginVController: UIViewController, STLoginViewDelegate{
+    let loginManager = STKit.shared.loginManager
+    
+    
+    var usernameTextField: UITextField!
+    var passwordTextField: UITextField!
     
     override func loadView() {
         let loginView = STLoginView()
+        usernameTextField = loginView.usernameTextFieled
+        passwordTextField = loginView.passwordTextField
+        
         loginView.delegate = self
         
         view = loginView
         
         //loginView.policyButton.isSelected = true
         loginView.loginButton.isEnabled = true
-        loginView.setCorporation("iStarTalk")
+        loginView.setCorporation("cn")
     }
     
     func scanButtonTapped() {
@@ -38,7 +46,15 @@ class STLoginVController: UIViewController, STLoginViewDelegate{
     }
     
     func loginButtonTapped() {
-        
+        let username = usernameTextField.text ?? ""
+        let password = passwordTextField.text ?? ""
+        loginManager.login(username: username, password: password) { success, message in
+            if success{
+                print("login succcess")
+            }else{
+                print("login failed", message)
+            }
+        }
     }
     
     func navigationSwitcherTapped() {
