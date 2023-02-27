@@ -9,6 +9,7 @@ import Foundation
 
 class STNavigationManager{
     var domain: String{
-        "startalk.im"
+        //"startalk.im"
+        "qtalk"
     }
 }
