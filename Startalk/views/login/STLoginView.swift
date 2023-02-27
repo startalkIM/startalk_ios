@@ -323,6 +323,8 @@ class STLoginView: UIView {
         
         if let delegate = delegate{
             scanButton.addTarget(delegate, action: #selector(delegate.scanButtonTapped), for: .touchUpInside)
+            usernameTextFieled.addTarget(delegate, action: #selector(delegate.usernameChanged), for: .editingChanged)
+            passwordTextField.addTarget(delegate, action: #selector(delegate.passwordChanged), for: .editingChanged)
             policyButton.addTarget(delegate, action: #selector(delegate.policyButtonTapped), for: .touchUpInside)
             let tapGesture = UITapGestureRecognizer(target: delegate, action: #selector(delegate.policyLabelTapped))
             policyLabel.addGestureRecognizer(tapGesture)
@@ -332,6 +334,8 @@ class STLoginView: UIView {
 
         }else{
             scanButton.removeTarget(nil, action: nil, for: .touchUpInside)
+            usernameTextFieled.removeTarget(nil, action: nil, for: .editingChanged)
+            passwordTextField.removeTarget(nil, action: nil, for: .editingChanged)
             policyButton.removeTarget(nil, action: nil, for: .touchUpInside)
             policyLabel.gestureRecognizers = nil
             loginButton.removeTarget(nil, action: nil, for: .touchUpInside)
@@ -353,6 +357,10 @@ extension STLoginView{
 protocol STLoginViewDelegate: UITextFieldDelegate{
     func scanButtonTapped()
     
+    func usernameChanged()
+    
+    func passwordChanged()
+    
     func policyButtonTapped()
     
     func policyLabelTapped()
@@ -362,4 +370,6 @@ protocol STLoginViewDelegate: UITextFieldDelegate{
     func loginButtonTapped()
     
     func navigationSwitcherTapped()
+    
+   
 }

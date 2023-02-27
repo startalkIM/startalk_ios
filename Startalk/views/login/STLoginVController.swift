@@ -10,30 +10,53 @@ import UIKit
 class STLoginVController: UIViewController, STLoginViewDelegate{
     let loginManager = STKit.shared.loginManager
     
-    
     var usernameTextField: UITextField!
     var passwordTextField: UITextField!
+    var policyButton: UIButton!
+    var loginButton: UIButton!
     
     override func loadView() {
         let loginView = STLoginView()
         usernameTextField = loginView.usernameTextFieled
         passwordTextField = loginView.passwordTextField
+        policyButton = loginView.policyButton
+        loginButton = loginView.loginButton
         
         loginView.delegate = self
-        
         view = loginView
         
-        //loginView.policyButton.isSelected = true
-        loginView.loginButton.isEnabled = true
+        checkLoginButton()
         loginView.setCorporation("cn")
     }
     
+    func checkLoginButton(){
+        let usernameValid = !(usernameTextField.text ?? "").isEmpty
+        let passwrodValid = !(passwordTextField.text ?? "").isEmpty
+        if policyButton.isSelected && usernameValid && passwrodValid{
+            loginButton.isEnabled = true
+        }else{
+            loginButton.isEnabled = false
+        }
+    }
+}
+
+
+extension STLoginVController{
     func scanButtonTapped() {
         
     }
     
+    func usernameChanged() {
+        checkLoginButton()
+    }
+    
+    func passwordChanged() {
+        checkLoginButton()
+    }
+    
     func policyButtonTapped() {
-        
+        policyButton.isSelected.toggle()
+        checkLoginButton()
     }
     
     func policyLabelTapped() {
@@ -69,5 +92,4 @@ class STLoginVController: UIViewController, STLoginViewDelegate{
         navigationController.modalPresentationStyle = .fullScreen
         present(navigationController, animated: true)
     }
-    
 }
