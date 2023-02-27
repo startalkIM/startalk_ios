@@ -12,7 +12,6 @@
 "send" = "Send";
 
 "login" = "Login";
-"login_scan" = "Scan";
 "login_username" = "Username";
 "login_password" = "Password";
 "login_agree" = "Agreed";
@@ -24,6 +23,7 @@
 "navigation_change" = "Change";
 "navigation_delete" = "Delete";
 "navigation_add" = "Add";
+"navigation_scan" = "Scan";
 "navigation_configure_manually" = "Configure Navigation Manually";
 "navigation_name" = "Navigation Name";
 "navigation_input_name" = "Please enter the server name or company name";

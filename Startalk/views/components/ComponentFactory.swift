@@ -12,7 +12,7 @@ class ComponentFactory{
     static func makeScanButton() -> UIButton{
         let button = UIButton()
         button.backgroundColor = UIColor.make(0x00CABE)
-        button.setTitle("scan".localized, for: .normal)
+        button.setTitle("navigation_scan".localized, for: .normal)
         button.setTitleColor(UIColor.make(0xFFFFFF), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: UIFont.Weight(4))
         let image = UIImage(named: "login/scan")?.withTintColor(.white)

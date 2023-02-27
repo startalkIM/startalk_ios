@@ -38,6 +38,10 @@ class STLoginVController: UIViewController, STLoginViewDelegate{
             loginButton.isEnabled = false
         }
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
 }
 
 

@@ -248,7 +248,7 @@ class STLoginView: UIView {
     
     func addLoginButton(){
         let button = UIButton()
-        button.setTitle("login", for: .normal)
+        button.setTitle("login".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .make(0x00CABE)
         button.layer.cornerRadius = 24.0

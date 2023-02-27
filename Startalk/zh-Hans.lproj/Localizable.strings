@@ -12,7 +12,6 @@
 "send" = "发送";
 
 "login" = "登录";
-"login_scan" = "扫码配置导航";
 "login_username" = "用户名";
 "login_password" = "密码";
 "login_agree" = "同意";
@@ -23,6 +22,7 @@
 "navigation_change" = "修改";
 "navigation_delete" = "删除";
 "navigation_add" = "新增";
+"navigation_scan" = "扫码配置导航";
 "navigation_configure_manually" = "您也可以手动输入导航";
 "navigation_name" = "导航名";
 "navigation_input_name" = "请输入导航服务器名称或公司名";
