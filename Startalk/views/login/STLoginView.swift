@@ -101,6 +101,8 @@ class STLoginView: UIView {
         let textField = UITextField()
         textField.placeholder = "login_username".localized
         textField.backgroundColor = .white
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
         
         addSubview(textField)
         textField.delegate = delegate

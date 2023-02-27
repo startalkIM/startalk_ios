@@ -16,8 +16,8 @@ class STKit{
     
     private init(){
         identifiers = STIdentifiers()
-        loginManager = STLoginManager()
         navigationManager = STNavigationManager()
+        loginManager = STLoginManager(identifiers: identifiers, navigationManager: navigationManager)
     }
     
     

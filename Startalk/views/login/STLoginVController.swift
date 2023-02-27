@@ -48,7 +48,12 @@ class STLoginVController: UIViewController, STLoginViewDelegate{
     func loginButtonTapped() {
         let username = usernameTextField.text ?? ""
         let password = passwordTextField.text ?? ""
+        
+        showLoadingView()
         loginManager.login(username: username, password: password) { success, message in
+            DispatchQueue.main.async {
+                self.hideLoadingView()
+            }
             if success{
                 print("login succcess")
             }else{

@@ -14,8 +14,13 @@ class STLoginManager{
     let logger = Logger(STLoginManager.self)
     
     let httpClient = STHttpClient(BASE_URL)
-    let navigationManager = STNavigationManager()
-    let identifiers = STIdentifiers()
+    let identifiers: STIdentifiers
+    let navigationManager: STNavigationManager
+    
+    init(identifiers: STIdentifiers, navigationManager: STNavigationManager) {
+        self.identifiers = identifiers
+        self.navigationManager = navigationManager
+    }
     
     func login(username: String, password: String, completionHandler: @escaping (Bool, String) -> Void){
         let domain = navigationManager.domain
