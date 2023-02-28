@@ -19,7 +19,7 @@ class STLoginManager{
     let identifiers: STIdentifiers
     let navigationManager: STNavigationManager
     
-    @Published var isLoggedIn: Bool = false
+    var delegate: STLoginDelegate?
     
     init(identifiers: STIdentifiers, navigationManager: STNavigationManager) {
         self.identifiers = identifiers
@@ -42,7 +42,7 @@ class STLoginManager{
             switch result{
             case .response(let response):
                 print(response)
-                isLoggedIn = true
+                delegate?.didLogin()
                 completionHandler(true, "")
             case .failure(let message):
                 completionHandler(false, message)

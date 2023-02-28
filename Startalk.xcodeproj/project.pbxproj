@@ -36,6 +36,9 @@
 		AB12F9EC29AC79DD00C639B6 /* STHttpResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9EB29AC79DD00C639B6 /* STHttpResult.swift */; };
 		AB12F9EE29AC8D6700C639B6 /* STLoaingVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9ED29AC8D6700C639B6 /* STLoaingVController.swift */; };
 		AB12F9F029AC8E2F00C639B6 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9EF29AC8E2F00C639B6 /* UIViewController+.swift */; };
+		AB12F9F229AE531A00C639B6 /* STSwitchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9F129AE531A00C639B6 /* STSwitchController.swift */; };
+		AB12F9F429AE56F400C639B6 /* STAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9F329AE56F400C639B6 /* STAppState.swift */; };
+		AB12F9F629AE574700C639B6 /* STLoginDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9F529AE574700C639B6 /* STLoginDelegate.swift */; };
 		ABA21320296EA95C00F1D2F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2131F296EA95C00F1D2F7 /* AppDelegate.swift */; };
 		ABA21324296EA95C00F1D2F7 /* STMainVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA21323296EA95C00F1D2F7 /* STMainVController.swift */; };
 		ABA21327296EA95C00F1D2F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA21325296EA95C00F1D2F7 /* Main.storyboard */; };
@@ -75,6 +78,9 @@
 		AB12F9EB29AC79DD00C639B6 /* STHttpResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STHttpResult.swift; sourceTree = "<group>"; };
 		AB12F9ED29AC8D6700C639B6 /* STLoaingVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STLoaingVController.swift; sourceTree = "<group>"; };
 		AB12F9EF29AC8E2F00C639B6 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		AB12F9F129AE531A00C639B6 /* STSwitchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STSwitchController.swift; sourceTree = "<group>"; };
+		AB12F9F329AE56F400C639B6 /* STAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STAppState.swift; sourceTree = "<group>"; };
+		AB12F9F529AE574700C639B6 /* STLoginDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STLoginDelegate.swift; sourceTree = "<group>"; };
 		ABA2131C296EA95C00F1D2F7 /* Startalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Startalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABA2131F296EA95C00F1D2F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABA21323296EA95C00F1D2F7 /* STMainVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMainVController.swift; sourceTree = "<group>"; };
@@ -149,6 +155,7 @@
 			children = (
 				AB12F9BF29AA28BA00C639B6 /* ComponentFactory.swift */,
 				AB12F9ED29AC8D6700C639B6 /* STLoaingVController.swift */,
+				AB12F9F129AE531A00C639B6 /* STSwitchController.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -158,6 +165,7 @@
 			children = (
 				AB12F9C729AB67DD00C639B6 /* STKit.swift */,
 				AB12F9E429AC425500C639B6 /* STIdentifiers.swift */,
+				AB12F9F329AE56F400C639B6 /* STAppState.swift */,
 				AB12F9E129AC3D3A00C639B6 /* login */,
 				AB12F9CB29AB682F00C639B6 /* STNavigationManager.swift */,
 			);
@@ -195,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				AB12F9C929AB682300C639B6 /* STLoginManager.swift */,
+				AB12F9F529AE574700C639B6 /* STLoginDelegate.swift */,
 			);
 			path = login;
 			sourceTree = "<group>";
@@ -316,6 +325,7 @@
 				AB12F9B929A8CC2D00C639B6 /* STNavigationListView.swift in Sources */,
 				7DB6041E296FB79A00A0AAFA /* STMineVController.swift in Sources */,
 				AB12F97B29A34C1000C639B6 /* STLoginView.swift in Sources */,
+				AB12F9F629AE574700C639B6 /* STLoginDelegate.swift in Sources */,
 				7DB60418296FB65500A0AAFA /* STChatsVController.swift in Sources */,
 				AB12F9D329AB6C4000C639B6 /* Logger.swift in Sources */,
 				ABA21320296EA95C00F1D2F7 /* AppDelegate.swift in Sources */,
@@ -326,8 +336,10 @@
 				AB12F9D529AB7E1400C639B6 /* RSAUtil.swift in Sources */,
 				AB12F9C229AA345300C639B6 /* STNavigationEditorVController.swift in Sources */,
 				7DB6041A296FB75F00A0AAFA /* STContactVController.swift in Sources */,
+				AB12F9F229AE531A00C639B6 /* STSwitchController.swift in Sources */,
 				ABA2132A296EA95C00F1D2F7 /* Startalk.xcdatamodeld in Sources */,
 				AB12F9BD29AA169100C639B6 /* STNavigationEditorView.swift in Sources */,
+				AB12F9F429AE56F400C639B6 /* STAppState.swift in Sources */,
 				AB12F9E529AC425500C639B6 /* STIdentifiers.swift in Sources */,
 				7DB6041C296FB78500A0AAFA /* STDiscoverVController.swift in Sources */,
 				AB12F9EC29AC79DD00C639B6 /* STHttpResult.swift in Sources */,

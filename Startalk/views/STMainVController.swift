@@ -8,44 +8,47 @@
 import UIKit
 import Combine
 
-class STMainVController: UINavigationController {
+class STMainVController: STSwitchController, STLoginDelegate{
+    
+    let loginController: STLoginVController
+    
+    let contentController: UINavigationController
+    
+    let appState  = STKit.shared.appState
     let loginManager = STKit.shared.loginManager
     
-    let contentVController = STContentVController()
+    required init?(coder: NSCoder) {
+        loginController = STLoginVController()
     
-    var loginSubscription: AnyCancellable?
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(rootViewController: contentVController)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        let tabController = STContentVController()
+        contentController = UINavigationController(rootViewController: tabController)
         
-        loginSubscription = loginManager.$isLoggedIn.sink{ [self] isLoggedIn in
-            loginStateChanged(isLoggedIn)
-        }
-    }
-
-    func showLoginView(){
-        let loginVController = STLoginVController()
-        loginVController.modalPresentationStyle = .fullScreen
-        present(loginVController, animated: true)
+        super.init(coder: coder)
+        
     }
     
-    func hideLoginView(){
-        dismiss(animated: true)
-    }
-    
-    func loginStateChanged(_ value: Bool){
-        DispatchQueue.main.async { [self] in
-            if value{
-                hideLoginView()
-            }else{
-                showLoginView()
-            }
+    override func viewDidLoad() {
+        if appState.isLoggedIn{
+            setViewController(contentController)
+        }else{
+            setViewController(loginController)
         }
+        
+        loginManager.delegate = self
     }
-
 }
 
+
+extension STMainVController{
+    func didLogin() {
+        DispatchQueue.main.async { [self] in
+            setViewController(contentController)
+        }
+    }
+    
+    func didLogout() {
+        DispatchQueue.main.async { [self] in
+            setViewController(loginController)
+        }
+    }
+}

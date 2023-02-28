@@ -11,11 +11,13 @@ class STKit{
     static let shared = STKit()
     
     let identifiers: STIdentifiers
+    let appState: STAppState
     let loginManager: STLoginManager
     let navigationManager: STNavigationManager
     
     private init(){
         identifiers = STIdentifiers()
+        appState = STAppState()
         navigationManager = STNavigationManager()
         loginManager = STLoginManager(identifiers: identifiers, navigationManager: navigationManager)
     }
