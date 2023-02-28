@@ -30,7 +30,8 @@ class STNavigationListVController: UIViewController, STNavigationListViewDelegat
        setNavigationBar()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         let indexPath = IndexPath(row: selectedIndex, section: 0)
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
     }
