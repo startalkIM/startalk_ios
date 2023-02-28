@@ -10,6 +10,7 @@
 "cancel" = "Cancel";
 "continue" = "Continue";
 "send" = "Send";
+"reminder"="Reminder";
 
 "login" = "Login";
 "login_username" = "Username";
@@ -17,6 +18,9 @@
 "login_agree" = "Agreed";
 "login_privacy_policy" = " privacy policy";
 "login_forget_password" = "Forget Password";
+"login_argree_first" = "Please check privacy policy first";
+"login_waiting" = "login...";
+"login_unauthenticated" = "Authentication failed";
 
 
 "navigation_title" = "Navigation Management";

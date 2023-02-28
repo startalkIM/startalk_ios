@@ -32,18 +32,45 @@ class STLoginVController: UIViewController, STLoginViewDelegate{
     func checkLoginButton(){
         let usernameValid = !(usernameTextField.text ?? "").isEmpty
         let passwrodValid = !(passwordTextField.text ?? "").isEmpty
-        if policyButton.isSelected && usernameValid && passwrodValid{
-            loginButton.isEnabled = true
-        }else{
-            loginButton.isEnabled = false
+        
+        loginButton.isEnabled = usernameValid && passwrodValid
+    }
+    
+    func login(){
+        guard policyButton.isSelected else{
+            showAlert(title: "reminder".localized, message: "login_argree_first".localized)
+            return
+        }
+        
+        guard let username = usernameTextField.text, !username.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty
+        else{
+            return
+        }
+        
+        showLoadingView("login_waiting".localized)
+                
+        loginManager.login(username: username, password: password) { success, message in
+            DispatchQueue.main.async {
+                self.hideLoadingView{
+                    if !success{
+                        self.showAlert(message: "login_unauthenticated".localized)
+                    }
+                }
+
+            }
+            
         }
     }
+
+}
+
+extension STLoginVController{
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
 }
-
 
 extension STLoginVController{
     func scanButtonTapped() {
@@ -60,7 +87,6 @@ extension STLoginVController{
     
     func policyButtonTapped() {
         policyButton.isSelected.toggle()
-        checkLoginButton()
     }
     
     func policyLabelTapped() {
@@ -73,20 +99,7 @@ extension STLoginVController{
     }
     
     func loginButtonTapped() {
-        let username = usernameTextField.text ?? ""
-        let password = passwordTextField.text ?? ""
-        
-        showLoadingView()
-        loginManager.login(username: username, password: password) { success, message in
-            DispatchQueue.main.async {
-                self.hideLoadingView()
-            }
-            if success{
-                print("login succcess")
-            }else{
-                print("login failed", message)
-            }
-        }
+      login()
     }
     
     func navigationSwitcherTapped() {
@@ -96,4 +109,18 @@ extension STLoginVController{
         navigationController.modalPresentationStyle = .fullScreen
         present(navigationController, animated: true)
     }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == usernameTextField{
+            usernameTextField.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
+        }else if textField == passwordTextField{
+            passwordTextField.resignFirstResponder()
+            login()
+        }
+        
+        return true
+    }
+
 }

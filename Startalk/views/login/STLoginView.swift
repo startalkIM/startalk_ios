@@ -103,6 +103,7 @@ class STLoginView: UIView {
         textField.backgroundColor = .white
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
+        textField.returnKeyType = .next
         
         addSubview(textField)
         textField.delegate = delegate

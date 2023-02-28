@@ -10,6 +10,7 @@
 "cancel" = "取消";
 "continue" = "继续";
 "send" = "发送";
+"reminder"="提示";
 
 "login" = "登录";
 "login_username" = "用户名";
@@ -17,6 +18,9 @@
 "login_agree" = "同意";
 "login_privacy_policy" = "《使用条款和隐私政策》";
 "login_forget_password" = "忘记密码";
+"login_argree_first" = "请选择同意Startalk服务条款后登录";
+"login_waiting" = "登录中...";
+"login_unauthenticated" = "验证失败";
 
 "navigation_title" = "导航地址列表";
 "navigation_change" = "修改";
