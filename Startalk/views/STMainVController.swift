@@ -29,9 +29,9 @@ class STMainVController: STSwitchController, STLoginDelegate{
     
     override func viewDidLoad() {
         if appState.isLoggedIn{
-            setViewController(contentController)
+            show(contentController)
         }else{
-            setViewController(loginController)
+            show(loginController)
         }
         
         loginManager.delegate = self
@@ -42,13 +42,13 @@ class STMainVController: STSwitchController, STLoginDelegate{
 extension STMainVController{
     func didLogin() {
         DispatchQueue.main.async { [self] in
-            setViewController(contentController)
+            show(contentController)
         }
     }
     
     func didLogout() {
         DispatchQueue.main.async { [self] in
-            setViewController(loginController)
+            show(loginController)
         }
     }
 }

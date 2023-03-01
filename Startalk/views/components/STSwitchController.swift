@@ -11,7 +11,7 @@ class STSwitchController: UIViewController {
     
     var viewController: UIViewController?
 
-    func setViewController(_ viewController: UIViewController){
+    func show(_ viewController: UIViewController){
         removeViewController()
      
         if presentedViewController != nil{
