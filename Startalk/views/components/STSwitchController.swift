@@ -12,19 +12,33 @@ class STSwitchController: UIViewController {
     var viewController: UIViewController?
 
     func setViewController(_ viewController: UIViewController){
-        if let currentViewController = self.viewController{
-            removeViewController(currentViewController)
+        removeViewController()
+     
+        if presentedViewController != nil{
+            dismiss(animated: false){ [self] in
+                addViewController(viewController)
+            }
+        }else{
+            addViewController(viewController)
         }
-        addChild(viewController)
-        let contentView = viewController.view!
-        contentView.frame = view.bounds
-        view.addSubview(contentView)
-        viewController.didMove(toParent: self)
+        
     }
-    
-    private func removeViewController(_ viewController: UIViewController){
-        viewController.willMove(toParent: nil)
-        viewController.view.removeFromSuperview()
-        viewController.removeFromParent()
+    private func addViewController(_ viewController: UIViewController){
+        addChild(viewController)
+        
+        viewController.view.frame = view.bounds
+        view.addSubview(viewController.view)
+        
+        viewController.didMove(toParent: self)
+        
+        self.viewController = viewController
+    }
+    private func removeViewController(){
+        if let viewController = self.viewController{
+            viewController.willMove(toParent: nil)
+            viewController.view.removeFromSuperview()
+            viewController.removeFromParent()
+        }
+        self.viewController = nil
     }
 }

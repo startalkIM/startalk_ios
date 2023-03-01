@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 class STLoginManager{
-    //static let BASE_URL = "https://i.startalk.im/newapi"
-    static let BASE_URL = "https://uk.startalk.im/newapi"
+    static let BASE_URL = "https://i.startalk.im/newapi"
+//    static let BASE_URL = "https://uk.startalk.im/newapi"
     static let LOGIN_PATH = "/nck/qtlogin.qunar"
     
     let logger = Logger(STLoginManager.self)
@@ -42,8 +42,8 @@ class STLoginManager{
             switch result{
             case .response(let response):
                 print(response)
-                delegate?.didLogin()
                 completionHandler(true, "")
+                delegate?.didLogin()
             case .failure(let message):
                 completionHandler(false, message)
             default:
