@@ -25,7 +25,7 @@ class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
         self.captureSession = session
 
-        scanView.previewLayer.session = session
+        scanView.session = session
     }
     
     override func viewDidLoad() {

@@ -17,6 +17,15 @@ class STScanView: UIView {
            layer as! AVCaptureVideoPreviewLayer
     }
     
+    var session: AVCaptureSession? {
+        get {
+            return previewLayer.session
+        }
+        set {
+            previewLayer.session = newValue
+        }
+    }
+    
     private let scanLine: STScanLineView
     var isAnimating = false
     
