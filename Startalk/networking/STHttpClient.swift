@@ -12,7 +12,7 @@ class STHttpClient{
     static let HEADER_FIELD_CONTENT_TYPE = "Content-Type"
     static let CONTENT_TYPE_JSON = "application/json"
     
-    let logger = Logger(STHttpClient.self)
+    let logger = STLogger(STHttpClient.self)
     let urlSession: URLSession = URLSession(configuration: .default)
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()

@@ -41,4 +41,8 @@ class STSwitchController: UIViewController {
         }
         self.viewController = nil
     }
+    
+    override var prefersStatusBarHidden: Bool {
+        return viewController?.prefersStatusBarHidden ?? false
+    }
 }

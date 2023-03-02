@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Logger<T>{
+class STLogger<T>{
     let type: T.Type
     var level: Level = .info
     
