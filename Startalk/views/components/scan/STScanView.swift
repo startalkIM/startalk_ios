@@ -18,6 +18,8 @@ class STScanView: UIView {
     }
     
     private let scanLine: STScanLineView
+    var isAnimating = false
+    
     var startPosition = 0.2
     var endPosition = 0.6
     
@@ -28,7 +30,7 @@ class STScanView: UIView {
         scanLine.contentMode = .redraw
         addSubview(scanLine)
         
-        previewLayer.videoGravity = .resizeAspect
+        previewLayer.videoGravity = .resizeAspectFill
     }
     
     required init?(coder: NSCoder) {
@@ -40,12 +42,12 @@ class STScanView: UIView {
         
         let distance = endPosition - startPosition
         let fadding: CGFloat = 1 / 16
-        let duration: CGFloat = 2.5
         
         setLineFrame(startPosition)
         scanLine.layer.opacity = 0
         
-        UIView.animateKeyframes(withDuration: duration, delay: 0, options: .repeat) {
+        isAnimating = true
+        UIView.animateKeyframes(withDuration: 2.5, delay: 0, options: .repeat) {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: fadding) { [self] in
                 setLineFrame(startPosition + distance * fadding)
                 scanLine.layer.opacity = 1
@@ -53,12 +55,13 @@ class STScanView: UIView {
             let middelDuration: CGFloat =  1 - 2 * fadding
             UIView.addKeyframe(withRelativeStartTime: fadding, relativeDuration: middelDuration) { [self] in
                 setLineFrame(endPosition - distance * fadding)
-                scanLine.layer.opacity = 1
             }
             UIView.addKeyframe(withRelativeStartTime: 1 - fadding, relativeDuration: fadding) { [self] in
                 setLineFrame(endPosition)
                 scanLine.layer.opacity = 0
             }
+        } completion: { [self] _ in
+            isAnimating = false
         }
     }
     

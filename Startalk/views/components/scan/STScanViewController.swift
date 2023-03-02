@@ -17,7 +17,7 @@ class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     var captureSession: AVCaptureSession!
     
     override func loadView() {
-        let scanView = STScanView()
+        let scanView = makeView()
         guard let session = makeCaptureSession() else{
             return
         }
@@ -26,41 +26,49 @@ class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         self.view = scanView
         self.captureSession = session
     }
-   
+    
+    override func viewDidLoad() {
+        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+        tryStartCapturing()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+      tryStopCapturing()
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
+    @objc
+    func receiveForeground(_ notification: Notification){
+        tryStartCapturing()
+    }
+    
+    func tryStartCapturing(){
         if !captureSession.isRunning{
             DispatchQueue.global().async { [self] in
                 captureSession.startRunning()
             }
         }
-        scanView.startLineScan()
+        if !scanView.isAnimating{
+            scanView.startLineScan()
+        }
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
+    
+    func tryStopCapturing(){
         if captureSession.isRunning{
             DispatchQueue.global().async { [self] in
                 captureSession.stopRunning()
             }
         }
-    }
-
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        captureSession.stopRunning()
-
-        guard let metadataObject = metadataObjects.first else{ return }
-        guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
-        guard let stringValue = readableObject.stringValue else { return }
-        
-        scanView.stopLineScan()
-        didCapture(stringValue)
-    }
-
-    override var prefersStatusBarHidden: Bool {
-        return true
+        if scanView.isAnimating{
+            scanView.stopLineScan()
+        }
     }
 
 }
@@ -99,12 +107,26 @@ extension STScanViewController{
         
         return session
     }
+    
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        captureSession.stopRunning()
+
+        guard let metadataObject = metadataObjects.first else{ return }
+        guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
+        guard let stringValue = readableObject.stringValue else { return }
+        
+        scanView.stopLineScan()
+        didCapture(stringValue)
+    }
 }
 
 
 extension STScanViewController{
     
     func didCapture(_ value: String){
-        print("captureed ", value)
+    }
+    
+    func makeView() -> STScanView{
+        STScanView()
     }
 }

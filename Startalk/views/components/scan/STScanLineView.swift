@@ -11,14 +11,17 @@ class STScanLineView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        isOpaque = false
+        _init()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        isOpaque = false
+        _init()
     }
     
+    private func _init(){
+        isOpaque = false
+    }
 
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else{
