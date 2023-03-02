@@ -14,22 +14,23 @@ class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     var scanView: STScanView{
         view as! STScanView
     }
-    var captureSession: AVCaptureSession!
+    var captureSession: AVCaptureSession?
     
     override func loadView() {
         let scanView = makeView()
+        self.view = scanView
+        
         guard let session = makeCaptureSession() else{
             return
         }
-        scanView.previewLayer.session = session
-        
-        self.view = scanView
         self.captureSession = session
+
+        scanView.previewLayer.session = session
     }
     
     override func viewDidLoad() {
         NotificationCenter.default.removeObserver(self)
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -50,9 +51,9 @@ class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     func tryStartCapturing(){
-        if !captureSession.isRunning{
+        if captureSession?.isRunning == false{
             DispatchQueue.global().async { [self] in
-                captureSession.startRunning()
+                captureSession?.startRunning()
             }
         }
         if !scanView.isAnimating{
@@ -61,9 +62,9 @@ class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     func tryStopCapturing(){
-        if captureSession.isRunning{
+        if captureSession?.isRunning == true{
             DispatchQueue.global().async { [self] in
-                captureSession.stopRunning()
+                captureSession?.stopRunning()
             }
         }
         if scanView.isAnimating{
@@ -109,7 +110,7 @@ extension STScanViewController{
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        captureSession.stopRunning()
+        captureSession?.stopRunning()
 
         guard let metadataObject = metadataObjects.first else{ return }
         guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }

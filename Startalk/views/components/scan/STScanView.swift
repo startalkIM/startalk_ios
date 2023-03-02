@@ -70,14 +70,15 @@ class STScanView: UIView {
     }
     
     private func setLineFrame(_ position: CGFloat){
-        let width = bounds.width
-        let height = bounds.height
+        let safeFrame = safeAreaLayoutGuide.layoutFrame
+        let width = safeFrame.width
+        let height = safeFrame.height
         
         let lineWidth = width
         let lineHeight = width * (1 - sqrt(3) / 2)
         
-        let x: CGFloat = 0
-        let y = height * position - lineHeight
+        let x: CGFloat = safeFrame.origin.x
+        let y = safeFrame.origin.y + height * position - lineHeight
         scanLine.frame = CGRect(x: x, y: y, width: lineWidth, height: lineHeight)
     }
 }
