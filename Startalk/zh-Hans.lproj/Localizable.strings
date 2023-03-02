@@ -35,6 +35,7 @@
 
 
 "network_request_failed" = "请求失败";
+"camera_access_unauthorized" = "相机权限未开启";
 
 
 //unchecked

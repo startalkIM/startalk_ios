@@ -34,6 +34,12 @@ class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        if status == .denied{
+            showAlert(message: "camera_access_unauthorized".localized)
+            return
+        }
+        
         tryStartCapturing()
     }
 

@@ -40,6 +40,8 @@ class STScanView: UIView {
         addSubview(scanLine)
         
         previewLayer.videoGravity = .resizeAspectFill
+        
+        backgroundColor = .black
     }
     
     required init?(coder: NSCoder) {
