@@ -151,13 +151,17 @@ extension STScanViewController{
     
     func turnTorchOn(){
         configureDevice { device in
-            try device.setTorchModeOn(level: 0.5)
+            if device.hasTorch && device.isTorchAvailable{
+                try device.setTorchModeOn(level: 0.5)
+            }
         }
     }
     
     func turnTorchOff(){
         configureDevice { device in
-            device.torchMode = .off
+            if device.hasTorch && device.isTorchAvailable{
+                device.torchMode = .off
+            }
         }
     }
     
