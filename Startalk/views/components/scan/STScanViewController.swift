@@ -9,18 +9,27 @@ import UIKit
 import AVFoundation
 
 class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+    static let LIGHT_MONITOR_INTERVAL: Double = 1
     let logger = STLogger(STScanViewController.self)
 
     var scanView: STScanView{
         view as! STScanView
     }
+    var captureDevice: AVCaptureDevice?
     var captureSession: AVCaptureSession?
+    var timer: Timer?
+    var isDark: Bool = false
     
     override func loadView() {
         let scanView = makeView()
         self.view = scanView
         
-        guard let session = makeCaptureSession() else{
+        guard let device = AVCaptureDevice.default(for: .video) else{
+            return
+        }
+        self.captureDevice = device
+        
+        guard let session = makeCaptureSession(device) else{
             return
         }
         self.captureSession = session
@@ -30,7 +39,7 @@ class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     override func viewDidLoad() {
         NotificationCenter.default.removeObserver(self)
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -44,7 +53,7 @@ class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-      tryStopCapturing()
+        tryStopCapturing()
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -65,6 +74,9 @@ class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         if !scanView.isAnimating{
             scanView.startLineScan()
         }
+        if timer == nil, let device = captureDevice{
+            startLightDecting(device)
+        }
     }
     
     func tryStopCapturing(){
@@ -76,18 +88,29 @@ class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         if scanView.isAnimating{
             scanView.stopLineScan()
         }
+        
+        timer?.invalidate()
+        timer = nil
     }
-
+    
+    func startLightDecting(_ device: AVCaptureDevice){
+        let interval = Self.LIGHT_MONITOR_INTERVAL
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true){ [self] _ in
+            if device.iso == device.activeFormat.maxISO{
+                if !isDark{
+                    darkDetected()
+                }
+                isDark = true
+            }else{
+                isDark = false
+            }
+        }
+    }
 }
 
 extension STScanViewController{
-    private func makeCaptureSession() -> AVCaptureSession?{
+    private func makeCaptureSession(_ device: AVCaptureDevice) -> AVCaptureSession?{
         let session = AVCaptureSession()
-
-        guard let device = AVCaptureDevice.default(for: .video) else {
-            logger.warn("Could not find default video capture device")
-            return nil
-        }
         let input: AVCaptureDeviceInput
         do {
             input = try AVCaptureDeviceInput(device: device)
@@ -125,6 +148,38 @@ extension STScanViewController{
         scanView.stopLineScan()
         didCapture(stringValue)
     }
+    
+    func turnTorchOn(){
+        configureDevice { device in
+            try device.setTorchModeOn(level: 0.5)
+        }
+    }
+    
+    func turnTorchOff(){
+        configureDevice { device in
+            device.torchMode = .off
+        }
+    }
+    
+    private func configureDevice(_ block: (AVCaptureDevice) throws -> Void){
+        if let device = captureDevice{
+            
+            do{
+                try device.lockForConfiguration()
+            }catch{
+                logger.warn("Hit error congiguring capture device", error)
+                return
+            }
+            
+            do{
+               try block(device)
+            }catch{
+                logger.warn("Hit error congiguring capture device", error)
+            }
+            
+            device.unlockForConfiguration()
+        }
+    }
 }
 
 
@@ -135,5 +190,8 @@ extension STScanViewController{
     
     func makeView() -> STScanView{
         STScanView()
+    }
+    
+    func darkDetected(){
     }
 }
