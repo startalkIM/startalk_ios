@@ -8,12 +8,12 @@
 import UIKit
 import AVFoundation
 
-class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class STBaseScanVController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     static let LIGHT_MONITOR_INTERVAL: Double = 1
-    let logger = STLogger(STScanViewController.self)
+    let logger = STLogger(STBaseScanVController.self)
 
-    var scanView: STScanView{
-        view as! STScanView
+    var scanView: STBaseScanView{
+        view as! STBaseScanView
     }
     var captureDevice: AVCaptureDevice?
     var captureSession: AVCaptureSession?
@@ -108,7 +108,7 @@ class STScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
 }
 
-extension STScanViewController{
+extension STBaseScanVController{
     private func makeCaptureSession(_ device: AVCaptureDevice) -> AVCaptureSession?{
         let session = AVCaptureSession()
         let input: AVCaptureDeviceInput
@@ -187,13 +187,13 @@ extension STScanViewController{
 }
 
 
-extension STScanViewController{
+extension STBaseScanVController{
     
     func didCapture(_ value: String){
     }
     
-    func makeView() -> STScanView{
-        STScanView()
+    func makeView() -> STBaseScanView{
+        STBaseScanView()
     }
     
     func darkDetected(){

@@ -36,7 +36,7 @@ class STMainVController: STSwitchController, STLoginDelegate{
 //
 //        loginManager.delegate = self
         
-        show(STScanViewController())
+        show(STBaseScanVController())
         
     }
 }

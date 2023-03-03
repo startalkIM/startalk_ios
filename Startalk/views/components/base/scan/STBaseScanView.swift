@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-class STScanView: UIView {
+class STBaseScanView: UIView {
     override class var layerClass: AnyClass{
         AVCaptureVideoPreviewLayer.self
     }
