@@ -93,18 +93,19 @@ class STBaseScanVController: UIViewController, AVCaptureMetadataOutputObjectsDel
         timer = nil
     }
     
-    func startLightDecting(_ device: AVCaptureDevice){
-        let interval = Self.LIGHT_MONITOR_INTERVAL
-        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true){ [self] _ in
-            if device.iso == device.activeFormat.maxISO{
-                if !isDark{
-                    darkDetected()
-                }
-                isDark = true
-            }else{
-                isDark = false
-            }
-        }
+    
+    //MARK: functions should overridden by child class
+    
+    func makeView() -> STBaseScanView{
+        STBaseScanView()
+    }
+    
+    
+    func didCapture(_ value: String){
+    }
+    
+    
+    func didDetectDark(){
     }
 }
 
@@ -184,18 +185,18 @@ extension STBaseScanVController{
             device.unlockForConfiguration()
         }
     }
-}
-
-
-extension STBaseScanVController{
     
-    func didCapture(_ value: String){
-    }
-    
-    func makeView() -> STBaseScanView{
-        STBaseScanView()
-    }
-    
-    func darkDetected(){
+    func startLightDecting(_ device: AVCaptureDevice){
+        let interval = Self.LIGHT_MONITOR_INTERVAL
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true){ [self] _ in
+            if device.iso == device.activeFormat.maxISO{
+                if !isDark{
+                    didDetectDark()
+                }
+                isDark = true
+            }else{
+                isDark = false
+            }
+        }
     }
 }
