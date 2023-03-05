@@ -11,9 +11,18 @@ import CoreImage.CIFilterBuiltins
 
 class STQrCodeUtil{
     
-    static let scale = UIScreen.main.scale
+    private static let scale = UIScreen.main.scale
     
-    static func makeImage(_ data: Data, size: CGFloat) -> UIImage?{
+    private static let detector: CIDetector = {
+        let context = CIContext()
+        let options = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
+        return CIDetector(ofType: CIDetectorTypeQRCode, context: context, options: options)!
+    }()
+    
+    static func makeImage(_ text: String, size: CGFloat) -> UIImage?{
+        guard let data = text.data(using: .utf8) else{
+            return nil
+        }
         let generator = CIFilter.qrCodeGenerator()
         generator.message = data
         let ciImage = generator.outputImage
@@ -29,7 +38,14 @@ class STQrCodeUtil{
         }
     }
     
-//    static func extract() -> Data{
-//        
-//    }
+    static func extractText(_ image: UIImage) -> String?{
+        guard let ciImage = CIImage(image: image) else{
+            return nil
+        }
+        let features = detector.features(in: ciImage)
+        guard let feature = features.first as? CIQRCodeFeature else{
+            return nil
+        }
+        return feature.messageString
+    }
 }
