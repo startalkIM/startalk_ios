@@ -78,9 +78,11 @@ extension STLoginVController{
         scanViewController.modalPresentationStyle = .fullScreen
         
         scanViewController.completion = { text in
-            let editorController = STNavigationEditorVController()
-            editorController.locaiton = text
-            self.presentInNavigationController(editorController, animated: true)
+            self.dismiss(animated: true){
+                let editorController = STNavigationEditorVController()
+                editorController.locaiton = text
+                self.presentInNavigationController(editorController, animated: true)
+            }
         }
         present(scanViewController, animated: true)
     }
