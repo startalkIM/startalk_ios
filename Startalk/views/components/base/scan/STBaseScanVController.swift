@@ -12,7 +12,7 @@ class STBaseScanVController: UIViewController, AVCaptureMetadataOutputObjectsDel
     static let LIGHT_MONITOR_INTERVAL: Double = 1
     let logger = STLogger(STBaseScanVController.self)
 
-    var scanView: STBaseScanView{
+    var baseScanView: STBaseScanView{
         view as! STBaseScanView
     }
     var captureDevice: AVCaptureDevice?
@@ -71,8 +71,8 @@ class STBaseScanVController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 captureSession?.startRunning()
             }
         }
-        if !scanView.isAnimating{
-            scanView.startLineScan()
+        if !baseScanView.isAnimating{
+            baseScanView.startLineScan()
         }
         if timer == nil, let device = captureDevice{
             startLightDecting(device)
@@ -85,8 +85,8 @@ class STBaseScanVController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 captureSession?.stopRunning()
             }
         }
-        if scanView.isAnimating{
-            scanView.stopLineScan()
+        if baseScanView.isAnimating{
+            baseScanView.stopLineScan()
         }
         
         timer?.invalidate()
@@ -105,7 +105,7 @@ class STBaseScanVController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     
-    func didDetectDark(){
+    func brightnessDetected(){
     }
 }
 
@@ -146,7 +146,7 @@ extension STBaseScanVController{
         guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
         guard let stringValue = readableObject.stringValue else { return }
         
-        scanView.stopLineScan()
+        baseScanView.stopLineScan()
         didCapture(stringValue)
     }
     
@@ -189,14 +189,8 @@ extension STBaseScanVController{
     func startLightDecting(_ device: AVCaptureDevice){
         let interval = Self.LIGHT_MONITOR_INTERVAL
         timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true){ [self] _ in
-            if device.iso == device.activeFormat.maxISO{
-                if !isDark{
-                    didDetectDark()
-                }
-                isDark = true
-            }else{
-                isDark = false
-            }
+            isDark = (device.iso == device.activeFormat.maxISO)
+            brightnessDetected()
         }
     }
 }

@@ -12,6 +12,8 @@
 "send" = "Send";
 "reminder"="Reminder";
 
+"alblum" = "Alblum";
+
 "login" = "Login";
 "login_username" = "Username";
 "login_password" = "Password";
@@ -33,6 +35,10 @@
 "navigation_input_name" = "Please enter the server name or company name";
 "navigation_location" = "Domain Name/Server Address (Required)";
 "navigation_input_location" = "Please enter the domain name of your company (eg. qunar.com)";
+
+"scan" = "Scan";
+"scan_turn_light_on" = "Tap to turn light on";
+"scan_turn_light_off" = "Tap to turn light off";
 
 
 "network_request_failed" = "Request failed";

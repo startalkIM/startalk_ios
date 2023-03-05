@@ -12,6 +12,8 @@
 "send" = "发送";
 "reminder"="提示";
 
+"alblum" = "相册";
+
 "login" = "登录";
 "login_username" = "用户名";
 "login_password" = "密码";
@@ -33,6 +35,9 @@
 "navigation_location" = "域名/服务器地址（必填）";
 "navigation_input_location" = "请输入您的公司域名，如qunar.com";
 
+"scan" = "扫描";
+"scan_turn_light_on" = "轻触照亮";
+"scan_turn_light_off" = "轻触关闭";
 
 "network_request_failed" = "请求失败";
 "camera_access_unauthorized" = "相机权限未开启";

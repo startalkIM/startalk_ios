@@ -28,4 +28,8 @@ class STQrCodeUtil{
             return nil
         }
     }
+    
+//    static func extract() -> Data{
+//        
+//    }
 }

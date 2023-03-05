@@ -74,7 +74,9 @@ extension STLoginVController{
 
 extension STLoginVController{
     func scanButtonTapped() {
-        
+        let scanViewController = STScanVController()
+        scanViewController.modalPresentationStyle = .fullScreen
+        present(scanViewController, animated: true)
     }
     
     func usernameChanged() {

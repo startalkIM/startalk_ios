@@ -28,16 +28,13 @@ class STMainVController: STSwitchController, STLoginDelegate{
     }
     
     override func viewDidLoad() {
-//        if appState.isLoggedIn{
-//            show(contentController)
-//        }else{
-//            show(loginController)
-//        }
-//
-//        loginManager.delegate = self
-        
-        show(STBaseScanVController())
-        
+        if appState.isLoggedIn{
+            show(contentController)
+        }else{
+            show(loginController)
+        }
+
+        loginManager.delegate = self
     }
 }
 
