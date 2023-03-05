@@ -181,7 +181,7 @@
 				AB12F9E429AC425500C639B6 /* STIdentifiers.swift */,
 				AB12F9F329AE56F400C639B6 /* STAppState.swift */,
 				AB12F9E129AC3D3A00C639B6 /* login */,
-				AB12F9CB29AB682F00C639B6 /* STNavigationManager.swift */,
+				ABF80B6029B4A01100EA1861 /* navigation */,
 			);
 			path = kit;
 			sourceTree = "<group>";
@@ -276,6 +276,14 @@
 				ABF80B5629B0BA3400EA1861 /* scan */,
 			);
 			path = base;
+			sourceTree = "<group>";
+		};
+		ABF80B6029B4A01100EA1861 /* navigation */ = {
+			isa = PBXGroup;
+			children = (
+				AB12F9CB29AB682F00C639B6 /* STNavigationManager.swift */,
+			);
+			path = navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

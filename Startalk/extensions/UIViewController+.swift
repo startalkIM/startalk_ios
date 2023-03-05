@@ -34,4 +34,11 @@ extension UIViewController{
         alertController.addAction(okAction)
         present(alertController, animated: true)
     }
+    
+    func presentInNavigationController(_ viewController: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil){
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = viewController.modalPresentationStyle
+        navigationController.modalTransitionStyle = viewController.modalTransitionStyle
+        present(navigationController, animated: true, completion: completion)
+    }
 }

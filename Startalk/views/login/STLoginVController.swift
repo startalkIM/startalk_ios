@@ -76,6 +76,12 @@ extension STLoginVController{
     func scanButtonTapped() {
         let scanViewController = STScanVController()
         scanViewController.modalPresentationStyle = .fullScreen
+        
+        scanViewController.completion = { text in
+            let editorController = STNavigationEditorVController()
+            editorController.locaiton = text
+            self.presentInNavigationController(editorController, animated: true)
+        }
         present(scanViewController, animated: true)
     }
     
@@ -107,9 +113,8 @@ extension STLoginVController{
     func navigationSwitcherTapped() {
         
         let viewController = STNavigationListVController()
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        present(navigationController, animated: true)
+        viewController.modalPresentationStyle = .fullScreen
+        presentInNavigationController(viewController, animated: true)
     }
     
     

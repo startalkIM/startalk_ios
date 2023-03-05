@@ -9,6 +9,7 @@ import UIKit
 
 class STScanVController: STBaseScanVController{
     
+    var completion: ((String) -> Void)?
     var scanView: STScanView!
     var isLightOn = false
     
@@ -26,7 +27,9 @@ class STScanVController: STBaseScanVController{
     
     
     override func didCapture(_ value: String){
-        print("qr code is ", value)
+        dismiss(animated: true){
+            self.completion?(value)
+        }
     }
     
    

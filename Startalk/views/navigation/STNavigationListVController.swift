@@ -51,8 +51,7 @@ class STNavigationListVController: UIViewController, STNavigationListViewDelegat
     
     func presentEditorView(_ editing: Bool){
         let editorController =  STNavigationEditorVController()
-        let navigationController = UINavigationController(rootViewController: editorController)
-        present(navigationController, animated: true)
+        navigationController?.pushViewController(editorController, animated: true)
     }
 
     @objc
