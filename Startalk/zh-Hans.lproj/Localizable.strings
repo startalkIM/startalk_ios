@@ -40,6 +40,7 @@
 "navigation_name_too_long" = "名字长度应当少于32";
 "navigation_location_too_long" = "地址长度应当少于512";
 "navigation_invalid_location" = "无效的导航地址";
+"navigation_qr_code" = "二维码"
 
 "scan" = "扫描";
 "scan_turn_light_on" = "轻触照亮";

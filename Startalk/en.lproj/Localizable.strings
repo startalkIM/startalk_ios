@@ -41,7 +41,7 @@
 "navigation_name_too_long" = "name length should less than 32";
 "navigation_location_too_long" = "location length should less than 512";
 "navigation_invalid_location" = "Invalid navigation location";
-
+"navigation_qr_code" = "QR code"
 
 
 "scan" = "Scan";
