@@ -72,8 +72,15 @@ extension STLoginVController: UIImagePickerControllerDelegate & UINavigationCont
         
         scanViewController.completion = { text in
             self.dismiss(animated: true){
+                let navigationManager = STKit.shared.navigationManager
                 let editorController = STNavigationEditorVController()
-                editorController.location.location = text
+                if let location = navigationManager.queryLocation(text){
+                    editorController.type = .edit
+                    editorController.location = location
+                }else{
+                    editorController.type = .add
+                    editorController.location.location = text
+                }
                 editorController.modalPresentationStyle = .fullScreen
                 self.presentInNavigationController(editorController, animated: true)
             }

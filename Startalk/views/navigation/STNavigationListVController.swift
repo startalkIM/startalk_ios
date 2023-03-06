@@ -51,9 +51,16 @@ class STNavigationListVController: UIViewController, STNavigationListViewDelegat
         }
     }
     
-    func presentEditorView(_ editing: Bool){
-        let editorController =  STNavigationEditorVController()
-        navigationController?.pushViewController(editorController, animated: true)
+    func presentEditorView(editing: Bool, index: Int = 0){
+        let editorViewControlller = STNavigationEditorVController()
+        if editing{
+            editorViewControlller.type = .edit
+            let location = navigationManager.locations[index]
+            editorViewControlller.location = location
+        }else{
+            editorViewControlller.type = .add
+        }
+        navigationController?.pushViewController(editorViewControlller, animated: true)
     }
 
     @objc
@@ -64,7 +71,7 @@ class STNavigationListVController: UIViewController, STNavigationListViewDelegat
     
     @objc
     func addItemTapped(){
-        presentEditorView(false)
+        presentEditorView(editing: false)
     }
     
     func confirmButtonTapped() {
@@ -95,7 +102,7 @@ extension STNavigationListVController{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         let index = indexPath.row
         if index == navigationManager.currentLocationIndex{
-            showEditorViewController(index)
+            presentEditorView(editing: true, index: index)
         }else{
             navigationManager.setLocationIndex(index)
         }
@@ -123,7 +130,7 @@ extension STNavigationListVController: NavigationTableViewCellDelegate{
     func editButtonTapped(sender: STNavigationTableCell) {
         if let indexPath = tableView.indexPath(for: sender){
             let index = indexPath.row
-            showEditorViewController(index)
+            presentEditorView(editing: true, index: index)
         }
     }
     
@@ -136,15 +143,6 @@ extension STNavigationListVController: NavigationTableViewCellDelegate{
                 navigationManager.removeLocation(at: index)
             }
         }
-    }
-    
-    
-    func showEditorViewController(_ index: Int){
-        let location = navigationManager.locations[index]
-        let editorViewControlller = STNavigationEditorVController()
-        editorViewControlller.type = .edit
-        editorViewControlller.location = location
-        navigationController?.pushViewController(editorViewControlller, animated: true)
     }
     
 }

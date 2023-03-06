@@ -100,8 +100,6 @@ class STNavigationEditorVController: STEditableViewController {
         let locationValid = StringUtil.isNotEmpty(locationTextField.text)
         navigationItem.rightBarButtonItem?.isEnabled = nameValid && locationValid
     }
-    
-   
 }
 
 enum STNavigationEditorType{
@@ -118,6 +116,7 @@ extension STNavigationEditorVController: STNavigationEditorViewDelegate{
         scanViewController.completion = { [self] text in
             dismiss(animated: true)
             locationTextField.text = text
+            checkSaveBarItem()
         }
         present(scanViewController, animated: true)
     }

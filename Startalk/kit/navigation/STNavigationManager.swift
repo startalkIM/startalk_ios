@@ -35,6 +35,10 @@ class STNavigationManager{
             currentLocationIndex = index
         }
     }
+    
+    func queryLocation(_ value: String) -> STNavigationLocation?{
+        return nil
+    }
 }
 
 protocol STNavigationManagerDelegate{
