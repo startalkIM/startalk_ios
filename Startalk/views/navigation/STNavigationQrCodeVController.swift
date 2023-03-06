@@ -27,7 +27,7 @@ class STNavigationQrCodeVController: UIViewController {
         
         nameLabel.text = location.name
         
-        imageView.image = STQrCodeUtil.makeImage(location.location, size: 280)
+        imageView.image = STQrCodeUtil.makeImage(location.value, size: 280)
         
         navigationController?.navigationBar.tintColor = .black
         

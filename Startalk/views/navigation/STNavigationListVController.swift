@@ -23,7 +23,8 @@ class STNavigationListVController: UIViewController, STNavigationListViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       setNavigationBar()
+        setNavigationBar()
+        navigationManager.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -149,8 +150,10 @@ extension STNavigationListVController: NavigationTableViewCellDelegate{
 
 extension STNavigationListVController: STNavigationManagerDelegate{
 
-    func locationsChanged(manager: STNavigationManager) {
-        tableView.reloadData()
-        setSelectedRow()
+    func locationsChanged() {
+        DispatchQueue.main.async { [self] in
+            tableView.reloadData()
+            setSelectedRow()
+        }
     }
 }

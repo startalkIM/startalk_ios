@@ -19,7 +19,7 @@ class STKit{
         identifiers = STIdentifiers()
         appState = STAppState()
         navigationManager = STNavigationManager()
-        loginManager = STLoginManager(identifiers: identifiers, navigationManager: navigationManager)
+        loginManager = STLoginManager()
     }
     
     

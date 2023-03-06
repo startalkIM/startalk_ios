@@ -236,7 +236,7 @@ class STNavigationTableCell: UITableViewCell {
 extension STNavigationTableCell{
     func setItem(_ item: STNavigationLocation){
         titleLabel.text = item.name
-        locationLabel.text = item.location
+        locationLabel.text = item.value
     }
 }
 

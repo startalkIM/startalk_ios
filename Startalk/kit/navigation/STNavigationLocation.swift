@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct STNavigationLocation{
+struct STNavigationLocation: Codable{
     var id: Int
     var name: String
-    var location: String
+    var value: String
     
-    static let empty = Self(id: 0, name: "", location: "")
+    static let empty = Self(id: 0, name: "", value: "")
     
 }

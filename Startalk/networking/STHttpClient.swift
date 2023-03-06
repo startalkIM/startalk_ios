@@ -16,14 +16,8 @@ class STHttpClient{
     let urlSession: URLSession = URLSession(configuration: .default)
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
-    
-    let baseUrl: String
-    
-    init(_ baseUrl: String) {
-        self.baseUrl = baseUrl
-    }
 
-    func buildUrl(path: String, params: [String: Any?] = [:]) -> URL{
+    func buildUrl(baseUrl: String, path: String, params: [String: Any?] = [:]) -> URL{
         var urlComponents = URLComponents(string: baseUrl + path)!
         var  queryItems: [URLQueryItem] = []
         for (key, value) in params {
@@ -38,14 +32,14 @@ class STHttpClient{
         return urlComponents.url!
     }
     
-    func request<T: Codable>(_ url: URL, completionHandler: @escaping (STHttpResult<T>) -> Void){
+    func request<T: Codable>(_ url: URL, completionHandler: @escaping (T?, Error?) -> Void){
         let dataTask = urlSession.dataTask(with: url) { [self] data, response, error in
             handle(data: data, error: error, url: url, completionHandler: completionHandler)
         }
         dataTask.resume()
     }
     
-    func post<T: Codable>(_ url: URL, entity: Codable, completionHandler: @escaping (STHttpResult<T>) -> Void){
+    func post<T: Codable>(_ url: URL, entity: Codable, completionHandler: @escaping (T?, Error?) -> Void){
         
         let bodyData = try! encoder.encode(entity)
         
@@ -61,41 +55,22 @@ class STHttpClient{
         dataTask.resume()
     }
     
-    private func handle<T: Codable>(data: Data?, error: Error?, url: URL,  completionHandler: @escaping (STHttpResult<T>) -> Void){
+    private func handle<T: Codable>(data: Data?, error: Error?, url: URL,  completionHandler: @escaping (T?, Error?) -> Void){
         if let error = error {
-            logger.error("Http request error", error)
-            fail(error.localizedDescription, completionHandler)
+            completionHandler(nil, error)
             return
         }
         
         guard let data = data else{
-            logger.error("Response data is nil of url \(url)")
-            fail("network_request_failed".localized, completionHandler)
+            completionHandler(nil, nil)
             return
         }
        
         do{
-            let response = try decoder.decode(STHttpResponse<T>.self, from: data)
-            let result: STHttpResult<T>
-            if response.ret{
-                let data = response.data
-                if let data = data{
-                    result = .response(data)
-                }else{
-                    result = .success
-                }
-            }else{
-                let message = response.errmsg
-                result = .failure(message)
-            }
-            completionHandler(result)
+            let response = try decoder.decode(T.self, from: data)
+            completionHandler(response, nil)
         }catch{
-            logger.error("Hint error parsing response of url \(url)", error)
+            completionHandler(nil, error)
         }
-    }
-    
-    private func fail<T>(_ message: String, _ completionHandler: @escaping (STHttpResult<T>) -> Void){
-        let result = STHttpResult<T>.failure(message)
-        completionHandler(result)
     }
 }

@@ -69,6 +69,8 @@ class STNavigationEditorView: UIView {
     
     func addNameTextField(){
         let textField = UITextField()
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
         textField.font = .systemFont(ofSize: 14)
         textField.placeholder = "navigation_input_name".localized
         textField.layer.borderWidth = 1
@@ -87,6 +89,9 @@ class STNavigationEditorView: UIView {
     
     func addLocationTextField(){
         let textField = UITextField()
+        textField.textContentType = .URL
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.font = .systemFont(ofSize: 14)
         textField.placeholder = "navigation_input_location".localized
         textField.layer.borderWidth = 1
@@ -176,7 +181,7 @@ class STNavigationEditorView: UIView {
 extension STNavigationEditorView{
     func setItem(_ item: STNavigationLocation){
         nameTextField.text = item.name
-        locationTextField.text = item.location
+        locationTextField.text = item.value
     }
 }
 

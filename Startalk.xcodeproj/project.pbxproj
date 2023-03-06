@@ -31,8 +31,8 @@
 		AB12F9D529AB7E1400C639B6 /* RSAUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9D429AB7E1400C639B6 /* RSAUtil.swift */; };
 		AB12F9D829AB847600C639B6 /* rsa_public_key.pem in Resources */ = {isa = PBXBuildFile; fileRef = AB12F9D729AB847600C639B6 /* rsa_public_key.pem */; };
 		AB12F9E529AC425500C639B6 /* STIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9E429AC425500C639B6 /* STIdentifiers.swift */; };
-		AB12F9E729AC4BEC00C639B6 /* STHttpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9E629AC4BEC00C639B6 /* STHttpResponse.swift */; };
-		AB12F9EC29AC79DD00C639B6 /* STHttpResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9EB29AC79DD00C639B6 /* STHttpResult.swift */; };
+		AB12F9E729AC4BEC00C639B6 /* STApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9E629AC4BEC00C639B6 /* STApiResponse.swift */; };
+		AB12F9EC29AC79DD00C639B6 /* STApiResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9EB29AC79DD00C639B6 /* STApiResult.swift */; };
 		AB12F9EE29AC8D6700C639B6 /* STLoaingVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9ED29AC8D6700C639B6 /* STLoaingVController.swift */; };
 		AB12F9F029AC8E2F00C639B6 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9EF29AC8E2F00C639B6 /* UIViewController+.swift */; };
 		AB12F9F229AE531A00C639B6 /* STSwitchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9F129AE531A00C639B6 /* STSwitchController.swift */; };
@@ -56,6 +56,7 @@
 		ABF80B6829B5DB3D00EA1861 /* StringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6729B5DB3D00EA1861 /* StringUtil.swift */; };
 		ABF80B6A29B5E6AC00EA1861 /* STNavigationQrCodeVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6929B5E6AC00EA1861 /* STNavigationQrCodeVController.swift */; };
 		ABF80B6C29B5E6C400EA1861 /* STNavigationQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6B29B5E6C400EA1861 /* STNavigationQrCodeView.swift */; };
+		ABF80B6E29B6332F00EA1861 /* STApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6D29B6332F00EA1861 /* STApiClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,8 +85,8 @@
 		AB12F9D429AB7E1400C639B6 /* RSAUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSAUtil.swift; sourceTree = "<group>"; };
 		AB12F9D729AB847600C639B6 /* rsa_public_key.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rsa_public_key.pem; sourceTree = "<group>"; };
 		AB12F9E429AC425500C639B6 /* STIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STIdentifiers.swift; sourceTree = "<group>"; };
-		AB12F9E629AC4BEC00C639B6 /* STHttpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STHttpResponse.swift; sourceTree = "<group>"; };
-		AB12F9EB29AC79DD00C639B6 /* STHttpResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STHttpResult.swift; sourceTree = "<group>"; };
+		AB12F9E629AC4BEC00C639B6 /* STApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STApiResponse.swift; sourceTree = "<group>"; };
+		AB12F9EB29AC79DD00C639B6 /* STApiResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STApiResult.swift; sourceTree = "<group>"; };
 		AB12F9ED29AC8D6700C639B6 /* STLoaingVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STLoaingVController.swift; sourceTree = "<group>"; };
 		AB12F9EF29AC8E2F00C639B6 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		AB12F9F129AE531A00C639B6 /* STSwitchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STSwitchController.swift; sourceTree = "<group>"; };
@@ -111,6 +112,7 @@
 		ABF80B6729B5DB3D00EA1861 /* StringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtil.swift; sourceTree = "<group>"; };
 		ABF80B6929B5E6AC00EA1861 /* STNavigationQrCodeVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationQrCodeVController.swift; sourceTree = "<group>"; };
 		ABF80B6B29B5E6C400EA1861 /* STNavigationQrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationQrCodeView.swift; sourceTree = "<group>"; };
+		ABF80B6D29B6332F00EA1861 /* STApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STApiClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,9 +213,10 @@
 		AB12F9CD29AB6A6B00C639B6 /* networking */ = {
 			isa = PBXGroup;
 			children = (
-				AB12F9E629AC4BEC00C639B6 /* STHttpResponse.swift */,
-				AB12F9EB29AC79DD00C639B6 /* STHttpResult.swift */,
 				AB12F9D029AB6ADB00C639B6 /* STHttpClient.swift */,
+				AB12F9E629AC4BEC00C639B6 /* STApiResponse.swift */,
+				AB12F9EB29AC79DD00C639B6 /* STApiResult.swift */,
+				ABF80B6D29B6332F00EA1861 /* STApiClient.swift */,
 			);
 			path = networking;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				AB12F9D329AB6C4000C639B6 /* STLogger.swift in Sources */,
 				ABA21320296EA95C00F1D2F7 /* AppDelegate.swift in Sources */,
 				AB12F9CC29AB682F00C639B6 /* STNavigationManager.swift in Sources */,
+				ABF80B6E29B6332F00EA1861 /* STApiClient.swift in Sources */,
 				ABF80B6C29B5E6C400EA1861 /* STNavigationQrCodeView.swift in Sources */,
 				AB12F98029A396E900C639B6 /* STLoginVController.swift in Sources */,
 				ABF80B6A29B5E6AC00EA1861 /* STNavigationQrCodeVController.swift in Sources */,
@@ -408,12 +412,12 @@
 				7DB6041C296FB78500A0AAFA /* STDiscoverVController.swift in Sources */,
 				ABF80B5529B0B13B00EA1861 /* STScanLineView.swift in Sources */,
 				ABF80B6229B4C50800EA1861 /* STNavigationLocation.swift in Sources */,
-				AB12F9EC29AC79DD00C639B6 /* STHttpResult.swift in Sources */,
+				AB12F9EC29AC79DD00C639B6 /* STApiResult.swift in Sources */,
 				AB12F9D129AB6ADB00C639B6 /* STHttpClient.swift in Sources */,
 				AB12F9C829AB67DD00C639B6 /* STKit.swift in Sources */,
 				AB12F9CA29AB682300C639B6 /* STLoginManager.swift in Sources */,
 				AB12F9AC29A4C62400C639B6 /* String+.swift in Sources */,
-				AB12F9E729AC4BEC00C639B6 /* STHttpResponse.swift in Sources */,
+				AB12F9E729AC4BEC00C639B6 /* STApiResponse.swift in Sources */,
 				ABF80B6429B584F400EA1861 /* STNavigation.swift in Sources */,
 				AB12F9C029AA28BA00C639B6 /* ComponentFactory.swift in Sources */,
 				ABF80B5D29B1E04D00EA1861 /* STScanView.swift in Sources */,

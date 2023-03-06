@@ -35,7 +35,7 @@ class STNavigationEditorVController: STEditableViewController {
         super.viewDidLoad()
         
         nameTextField.text = location.name
-        locationTextField.text = location.location
+        locationTextField.text = location.value
         
         navigationController?.navigationBar.tintColor = .black
         if type == .add{
@@ -44,7 +44,7 @@ class STNavigationEditorVController: STEditableViewController {
             navigationItem.title = "navigation_editor_edit".localized
         }
         
-        if self == navigationController?.viewControllers.first {
+        if isFirstController {
             let cancelBarItem = UIBarButtonItem(title: "cancel".localized, style: .plain, target: self, action: #selector(cancel))
             navigationItem.leftBarButtonItem = cancelBarItem
         }
@@ -53,6 +53,10 @@ class STNavigationEditorVController: STEditableViewController {
         navigationItem.rightBarButtonItem = saveBarItem
         
         checkSaveBarItem()
+    }
+    
+    var isFirstController: Bool{
+        self == navigationController?.viewControllers.first
     }
     
     @objc
@@ -78,13 +82,22 @@ class STNavigationEditorVController: STEditableViewController {
         }
         
         location.name = name
-        location.location = value
+        location.value = value
 
+        showLoadingView()
         let competion: (Bool) -> Void = { [self] success in
-            if success{
-                dismiss(animated: true)
-            }else{
-                showAlert(title: "reminder".localized, message: "navigation_invalid_location".localized)
+            DispatchQueue.main.async {
+                self.hideLoadingView{
+                    if success{
+                        if self.isFirstController{
+                            self.dismiss(animated: true)
+                        }else{
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }else{
+                        self.showAlert(title: "reminder".localized, message: "navigation_invalid_location".localized)
+                    }
+                }
             }
         }
         switch type{

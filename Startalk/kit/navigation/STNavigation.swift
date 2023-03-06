@@ -42,11 +42,20 @@ extension STNavigation: Codable{
     }
     
     init(from decoder: Decoder) throws {
-        let rawContainer = try decoder.container(keyedBy: DecodingKeys.self)
-        let container = try rawContainer.nestedContainer(keyedBy: BaseAddressKeys.self, forKey: .baseaddess)
-        self.domain = try container.decode(String.self, forKey: .domain)
-        self.host = try container.decode(String.self, forKey: .xmpp)
-        self.port = try container.decode(Int.self, forKey: .protobufPort)
-        self.apiUrl = try container.decode(String.self, forKey: .httpurl)
+        let rawContainer = try? decoder.container(keyedBy: DecodingKeys.self)
+        if let rawContainer = rawContainer, rawContainer.contains(.baseaddess){
+            let container = try rawContainer.nestedContainer(keyedBy: BaseAddressKeys.self, forKey: .baseaddess)
+            self.domain = try container.decode(String.self, forKey: .domain)
+            self.host = try container.decode(String.self, forKey: .xmpp)
+            self.port = try container.decode(Int.self, forKey: .protobufPort)
+            self.apiUrl = try container.decode(String.self, forKey: .httpurl)
+        }else{
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.domain = try container.decode(String.self, forKey: .domain)
+            self.host = try container.decode(String.self, forKey: .host)
+            self.port = try container.decode(Int.self, forKey: .port)
+            self.apiUrl = try container.decode(String.self, forKey: .apiUrl)
+        }
+        
     }
 }

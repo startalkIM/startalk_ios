@@ -349,7 +349,7 @@ class STLoginView: UIView {
 
 extension STLoginView{
     
-    func setCorporation(_ value: String){
+    func setNavigationName(_ value: String){
         corporationLabel.text = value
     }
 }

@@ -9,11 +9,16 @@ import UIKit
 
 class STLoginVController: STEditableViewController, STLoginViewDelegate{
     let loginManager = STKit.shared.loginManager
+    let navigationManager = STKit.shared.navigationManager
     
     var usernameTextField: UITextField!
     var passwordTextField: UITextField!
     var policyButton: UIButton!
     var loginButton: UIButton!
+    
+    var loginView: STLoginView{
+        view as! STLoginView
+    }
     
     override func loadView() {
         let loginView = STLoginView()
@@ -26,9 +31,12 @@ class STLoginVController: STEditableViewController, STLoginViewDelegate{
         view = loginView
         
         checkLoginButton()
-        loginView.setCorporation("cn")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        let navigationName = navigationManager.getLocationName()
+        loginView.setNavigationName(navigationName)
+    }
     func checkLoginButton(){
         let usernameValid = StringUtil.isNotEmpty(usernameTextField.text)
         let passwrodValid = StringUtil.isNotEmpty(passwordTextField.text)
@@ -79,7 +87,7 @@ extension STLoginVController: UIImagePickerControllerDelegate & UINavigationCont
                     editorController.location = location
                 }else{
                     editorController.type = .add
-                    editorController.location.location = text
+                    editorController.location.value = text
                 }
                 editorController.modalPresentationStyle = .fullScreen
                 self.presentInNavigationController(editorController, animated: true)

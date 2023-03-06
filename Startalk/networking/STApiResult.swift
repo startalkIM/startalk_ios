@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum STHttpResult<T>{
+enum STApiResult<T>{
     case success
     case response(T)
     case failure(String)
