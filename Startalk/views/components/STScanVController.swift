@@ -90,9 +90,7 @@ extension STScanVController: UIImagePickerControllerDelegate & UINavigationContr
             if let completion = completion{
                 completion(text)
             }else{
-                dismiss(animated: true){
-                    self.dismiss(animated: true)
-                }
+                presentingViewController?.dismiss(animated: true)
             }
         }else{
             dismiss(animated: true)

@@ -18,7 +18,6 @@
 		AB12F9A729A4C26A00C639B6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB12F9A929A4C26A00C639B6 /* Localizable.strings */; };
 		AB12F9AC29A4C62400C639B6 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9AB29A4C62400C639B6 /* String+.swift */; };
 		AB12F9B329A85F5C00C639B6 /* STNavigationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9B229A85F5C00C639B6 /* STNavigationTableCell.swift */; };
-		AB12F9B529A8717E00C639B6 /* STNavigationLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9B429A8717E00C639B6 /* STNavigationLocation.swift */; };
 		AB12F9B729A8A7A500C639B6 /* STNavigationListVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9B629A8A7A500C639B6 /* STNavigationListVController.swift */; };
 		AB12F9B929A8CC2D00C639B6 /* STNavigationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9B829A8CC2D00C639B6 /* STNavigationListView.swift */; };
 		AB12F9BD29AA169100C639B6 /* STNavigationEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9BC29AA169100C639B6 /* STNavigationEditorView.swift */; };
@@ -51,6 +50,7 @@
 		ABF80B5829B0BAA600EA1861 /* STBaseScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5729B0BAA600EA1861 /* STBaseScanView.swift */; };
 		ABF80B5D29B1E04D00EA1861 /* STScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5C29B1E04D00EA1861 /* STScanView.swift */; };
 		ABF80B5F29B1E05F00EA1861 /* STScanVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5E29B1E05F00EA1861 /* STScanVController.swift */; };
+		ABF80B6229B4C50800EA1861 /* STNavigationLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6129B4C50800EA1861 /* STNavigationLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,7 +66,6 @@
 		AB12F9AA29A4C26F00C639B6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		AB12F9AB29A4C62400C639B6 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		AB12F9B229A85F5C00C639B6 /* STNavigationTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationTableCell.swift; sourceTree = "<group>"; };
-		AB12F9B429A8717E00C639B6 /* STNavigationLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationLocation.swift; sourceTree = "<group>"; };
 		AB12F9B629A8A7A500C639B6 /* STNavigationListVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationListVController.swift; sourceTree = "<group>"; };
 		AB12F9B829A8CC2D00C639B6 /* STNavigationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationListView.swift; sourceTree = "<group>"; };
 		AB12F9BC29AA169100C639B6 /* STNavigationEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationEditorView.swift; sourceTree = "<group>"; };
@@ -101,6 +100,7 @@
 		ABF80B5729B0BAA600EA1861 /* STBaseScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STBaseScanView.swift; sourceTree = "<group>"; };
 		ABF80B5C29B1E04D00EA1861 /* STScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STScanView.swift; sourceTree = "<group>"; };
 		ABF80B5E29B1E05F00EA1861 /* STScanVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STScanVController.swift; sourceTree = "<group>"; };
+		ABF80B6129B4C50800EA1861 /* STNavigationLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +154,6 @@
 			children = (
 				AB12F9B629A8A7A500C639B6 /* STNavigationListVController.swift */,
 				AB12F9B829A8CC2D00C639B6 /* STNavigationListView.swift */,
-				AB12F9B429A8717E00C639B6 /* STNavigationLocation.swift */,
 				AB12F9B229A85F5C00C639B6 /* STNavigationTableCell.swift */,
 				AB12F9C129AA345300C639B6 /* STNavigationEditorVController.swift */,
 				AB12F9BC29AA169100C639B6 /* STNavigationEditorView.swift */,
@@ -282,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				AB12F9CB29AB682F00C639B6 /* STNavigationManager.swift */,
+				ABF80B6129B4C50800EA1861 /* STNavigationLocation.swift */,
 			);
 			path = navigation;
 			sourceTree = "<group>";
@@ -389,13 +389,13 @@
 				AB12F9E529AC425500C639B6 /* STIdentifiers.swift in Sources */,
 				7DB6041C296FB78500A0AAFA /* STDiscoverVController.swift in Sources */,
 				ABF80B5529B0B13B00EA1861 /* STScanLineView.swift in Sources */,
+				ABF80B6229B4C50800EA1861 /* STNavigationLocation.swift in Sources */,
 				AB12F9EC29AC79DD00C639B6 /* STHttpResult.swift in Sources */,
 				AB12F9D129AB6ADB00C639B6 /* STHttpClient.swift in Sources */,
 				AB12F9C829AB67DD00C639B6 /* STKit.swift in Sources */,
 				AB12F9CA29AB682300C639B6 /* STLoginManager.swift in Sources */,
 				AB12F9AC29A4C62400C639B6 /* String+.swift in Sources */,
 				AB12F9E729AC4BEC00C639B6 /* STHttpResponse.swift in Sources */,
-				AB12F9B529A8717E00C639B6 /* STNavigationLocation.swift in Sources */,
 				AB12F9C029AA28BA00C639B6 /* ComponentFactory.swift in Sources */,
 				ABF80B5D29B1E04D00EA1861 /* STScanView.swift in Sources */,
 				AB12F97E29A392E100C639B6 /* UIColor+.swift in Sources */,

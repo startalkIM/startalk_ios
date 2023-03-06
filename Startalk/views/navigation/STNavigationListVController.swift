@@ -9,8 +9,8 @@ import UIKit
 
 class STNavigationListVController: UIViewController, STNavigationListViewDelegate {
     let items:[STNavigationLocation] = [
-        STNavigationLocation(name: "uk", location: "https://www.baidu.com"),
-        STNavigationLocation(name: "cn", location: "https://cc.com"),
+        STNavigationLocation(id: 0, name: "uk", location: "https://www.baidu.com"),
+        STNavigationLocation(id: 1, name: "cn", location: "https://cc.com"),
     ]
     let selectedIndex = 0
     

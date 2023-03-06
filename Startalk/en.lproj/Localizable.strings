@@ -26,7 +26,7 @@
 
 
 "navigation_title" = "Navigation Management";
-"navigation_change" = "Change";
+"navigation_change" = "Edit";
 "navigation_delete" = "Delete";
 "navigation_add" = "Add";
 "navigation_scan" = "Scan";
@@ -35,6 +35,9 @@
 "navigation_input_name" = "Please enter the server name or company name";
 "navigation_location" = "Domain Name/Server Address (Required)";
 "navigation_input_location" = "Please enter the domain name of your company (eg. qunar.com)";
+"navigation_editor_add" = "Add navigaton";
+"navigation_editor_edit" = "Edit navigaton";
+
 
 "scan" = "Scan";
 "scan_turn_light_on" = "Tap to turn light on";

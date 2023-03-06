@@ -34,6 +34,8 @@
 "navigation_input_name" = "请输入导航服务器名称或公司名";
 "navigation_location" = "域名/服务器地址（必填）";
 "navigation_input_location" = "请输入您的公司域名，如qunar.com";
+"navigation_editor_add" = "增加导航";
+"navigation_editor_edit" = "修改导航";
 
 "scan" = "扫描";
 "scan_turn_light_on" = "轻触照亮";

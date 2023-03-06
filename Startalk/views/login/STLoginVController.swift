@@ -80,7 +80,7 @@ extension STLoginVController{
         scanViewController.completion = { text in
             self.dismiss(animated: true){
                 let editorController = STNavigationEditorVController()
-                editorController.locaiton = text
+                editorController.location.location = text
                 self.presentInNavigationController(editorController, animated: true)
             }
         }
