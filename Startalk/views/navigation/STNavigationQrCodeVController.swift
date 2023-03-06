@@ -29,6 +29,8 @@ class STNavigationQrCodeVController: UIViewController {
         
         imageView.image = STQrCodeUtil.makeImage(location.location, size: 280)
         
+        navigationController?.navigationBar.tintColor = .black
+        
         navigationItem.title = "navigation_qr_code".localized
     }
 

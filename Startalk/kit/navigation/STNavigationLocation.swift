@@ -14,9 +14,4 @@ struct STNavigationLocation{
     
     static let empty = Self(id: 0, name: "", location: "")
     
-    
-    enum UpdateType{
-        case add
-        case edit
-    }
 }

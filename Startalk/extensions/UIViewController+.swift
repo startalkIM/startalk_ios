@@ -35,6 +35,18 @@ extension UIViewController{
         present(alertController, animated: true)
     }
     
+    func showDestructiveConfirmation(title: String, message: String, destructive: @escaping () -> Void){
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "cancel".localized, style: .cancel)
+        alertController.addAction(cancelAction)
+        
+        let destructiveAction = UIAlertAction(title: title, style: .destructive){_ in
+            destructive()
+        }
+        alertController.addAction(destructiveAction)
+        present(alertController, animated: true)
+    }
+    
     func presentInNavigationController(_ viewController: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil){
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = viewController.modalPresentationStyle

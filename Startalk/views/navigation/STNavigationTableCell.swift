@@ -85,7 +85,7 @@ class STNavigationTableCell: UITableViewCell {
     }
     
     func addQrCodeButton(){
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setImage(UIImage(named: "navigation/qrcode"), for: .normal)
         button.tintColor = .make(0x616161)
         
@@ -95,7 +95,7 @@ class STNavigationTableCell: UITableViewCell {
     }
     
     func addEditButton(){
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle("navigation_change".localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 12)
@@ -107,7 +107,7 @@ class STNavigationTableCell: UITableViewCell {
     }
     
     func addDeleteButton(){
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle("navigation_delete".localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 12)
@@ -259,7 +259,7 @@ extension STNavigationTableCell{
     
     @objc
     func tapDelete(){
-        delegate?.deleteButtonTapped(send: self)
+        delegate?.deleteButtonTapped(sender: self)
     }
 }
 
@@ -271,6 +271,6 @@ protocol NavigationTableViewCellDelegate{
     
     func editButtonTapped(sender: STNavigationTableCell)
     
-    func deleteButtonTapped(send: STNavigationTableCell)
+    func deleteButtonTapped(sender: STNavigationTableCell)
     
 }

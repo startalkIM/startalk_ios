@@ -9,25 +9,24 @@ import Foundation
 import Combine
 
 class STLoginManager{
-    static let BASE_URL = "https://i.startalk.im/newapi"
-//    static let BASE_URL = "https://uk.startalk.im/newapi"
     static let LOGIN_PATH = "/nck/qtlogin.qunar"
     
     let logger = STLogger(STLoginManager.self)
     
-    let httpClient = STHttpClient(BASE_URL)
     let identifiers: STIdentifiers
-    let navigationManager: STNavigationManager
+    var navigation: STNavigation
+    let httpClient: STHttpClient
     
     var delegate: STLoginDelegate?
     
     init(identifiers: STIdentifiers, navigationManager: STNavigationManager) {
         self.identifiers = identifiers
-        self.navigationManager = navigationManager
+        self.navigation = navigationManager.navigation
+        self.httpClient = STHttpClient(navigation.apiUrl)
     }
     
     func login(username: String, password: String, completionHandler: @escaping (Bool, String) -> Void){
-        let domain = navigationManager.domain
+        let domain = navigation.domain
         let encryptedPassword = RSAUtil.encrpyt(password)
         guard let encryptedPassword = encryptedPassword else{
             let message = "encrypting password failed"
@@ -50,6 +49,13 @@ class STLoginManager{
                 break
             }
         }
+    }
+}
+
+extension STLoginManager: STNavigationManagerDelegate{
+    
+    func navigationChanged(manager: STNavigationManager) {
+        navigation = manager.navigation
     }
 }
 

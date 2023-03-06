@@ -12,6 +12,7 @@
 "send" = "发送";
 "reminder"="提示";
 "save"="保存";
+"delete" = "删除";
 
 "alblum" = "相册";
 
@@ -40,7 +41,8 @@
 "navigation_name_too_long" = "名字长度应当少于32";
 "navigation_location_too_long" = "地址长度应当少于512";
 "navigation_invalid_location" = "无效的导航地址";
-"navigation_qr_code" = "二维码"
+"navigation_qr_code" = "二维码";
+"navigation_confirm_delete" = "确认删除导航?";
 
 "scan" = "扫描";
 "scan_turn_light_on" = "轻触照亮";

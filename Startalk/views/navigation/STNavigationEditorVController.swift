@@ -17,7 +17,7 @@ class STNavigationEditorVController: STEditableViewController {
     var nameTextField: UITextField!
     var locationTextField: UITextField!
     
-    var type: STNavigationLocation.UpdateType = .add
+    var type: STNavigationEditorType = .add
     var location: STNavigationLocation = .empty
     
     let navigationManager = STKit.shared.navigationManager
@@ -80,12 +80,18 @@ class STNavigationEditorVController: STEditableViewController {
         location.name = name
         location.location = value
 
-        navigationManager.updateLocation(location, type: type) { [self] success in
+        let competion: (Bool) -> Void = { [self] success in
             if success{
                 dismiss(animated: true)
             }else{
                 showAlert(title: "reminder".localized, message: "navigation_invalid_location".localized)
             }
+        }
+        switch type{
+        case .add:
+            navigationManager.addLocation(location, completion: competion)
+        case .edit:
+            navigationManager.updateLocation(location, completion: competion)
         }
     }
     

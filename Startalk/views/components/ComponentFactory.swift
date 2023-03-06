@@ -14,7 +14,7 @@ class ComponentFactory{
         button.backgroundColor = UIColor.make(0x00CABE)
         button.setTitle("navigation_scan".localized, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: UIFont.Weight(4))
-        let image = UIImage(named: "login/scan")?.withTintColor(.white)
+        let image = UIImage(named: "login/scan")
         button.setImage(image, for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 4
