@@ -11,6 +11,7 @@
 "continue" = "继续";
 "send" = "发送";
 "reminder"="提示";
+"save"="保存";
 
 "alblum" = "相册";
 
@@ -36,6 +37,9 @@
 "navigation_input_location" = "请输入您的公司域名，如qunar.com";
 "navigation_editor_add" = "增加导航";
 "navigation_editor_edit" = "修改导航";
+"navigation_name_too_long" = "名字长度应当少于32";
+"navigation_location_too_long" = "地址长度应当少于512";
+"navigation_invalid_location" = "无效的导航地址";
 
 "scan" = "扫描";
 "scan_turn_light_on" = "轻触照亮";

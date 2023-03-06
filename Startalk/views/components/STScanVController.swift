@@ -38,7 +38,7 @@ class STScanVController: STBaseScanVController{
         if let completion = completion{
             completion(value)
         }else{
-            dismiss(animated: true)
+            presentingViewController?.dismiss(animated: true)
         }
     }
     
@@ -87,11 +87,7 @@ extension STScanVController: UIImagePickerControllerDelegate & UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         if let image = info[.originalImage] as? UIImage, let text = STQrCodeUtil.extractText(image){
-            if let completion = completion{
-                completion(text)
-            }else{
-                presentingViewController?.dismiss(animated: true)
-            }
+            didCapture(text)
         }else{
             dismiss(animated: true)
         }

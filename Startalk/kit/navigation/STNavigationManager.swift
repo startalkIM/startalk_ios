@@ -12,4 +12,8 @@ class STNavigationManager{
         "startalk.im"
 //        "qtalk"
     }
+    
+    func updateLocation(_ location: STNavigationLocation, type: STNavigationLocation.UpdateType, completion: (Bool) -> Void){
+        completion(true)
+    }
 }

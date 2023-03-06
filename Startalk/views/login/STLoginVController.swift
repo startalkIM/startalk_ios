@@ -7,7 +7,7 @@
 
 import UIKit
 
-class STLoginVController: UIViewController, STLoginViewDelegate{
+class STLoginVController: STEditableViewController, STLoginViewDelegate{
     let loginManager = STKit.shared.loginManager
     
     var usernameTextField: UITextField!
@@ -30,8 +30,8 @@ class STLoginVController: UIViewController, STLoginViewDelegate{
     }
     
     func checkLoginButton(){
-        let usernameValid = !(usernameTextField.text ?? "").isEmpty
-        let passwrodValid = !(passwordTextField.text ?? "").isEmpty
+        let usernameValid = StringUtil.isNotEmpty(usernameTextField.text)
+        let passwrodValid = StringUtil.isNotEmpty(passwordTextField.text)
         
         loginButton.isEnabled = usernameValid && passwrodValid
     }
@@ -65,14 +65,7 @@ class STLoginVController: UIViewController, STLoginViewDelegate{
 
 }
 
-extension STLoginVController{
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-}
-
-extension STLoginVController{
+extension STLoginVController: UIImagePickerControllerDelegate & UINavigationControllerDelegate{
     func scanButtonTapped() {
         let scanViewController = STScanVController()
         scanViewController.modalPresentationStyle = .fullScreen
@@ -81,6 +74,7 @@ extension STLoginVController{
             self.dismiss(animated: true){
                 let editorController = STNavigationEditorVController()
                 editorController.location.location = text
+                editorController.modalPresentationStyle = .fullScreen
                 self.presentInNavigationController(editorController, animated: true)
             }
         }

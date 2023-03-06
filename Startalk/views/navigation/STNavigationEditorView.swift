@@ -15,6 +15,12 @@ class STNavigationEditorView: UIView {
     var locationLabel: UILabel!
     var locationTextField: UITextField!
     
+    var delegate: STNavigationEditorViewDelegate?{
+        didSet{
+            delegateDidSet(delegate)
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -153,6 +159,18 @@ class STNavigationEditorView: UIView {
             textField.heightAnchor.constraint(equalToConstant: 36),
         ])
     }
+    
+    func delegateDidSet(_ delegate: STNavigationEditorViewDelegate?){
+        if let delegate = delegate{
+            scanButton.addTarget(delegate, action: #selector(delegate.scanButtonTapped), for: .touchUpInside)
+            nameTextField.addTarget(delegate, action: #selector(delegate.nameChanged), for: .editingChanged)
+            locationTextField.addTarget(delegate, action: #selector(delegate.locationChanged), for: .editingChanged)
+        }else{
+            scanButton.removeTarget(nil, action: nil, for: .touchUpInside)
+            nameTextField.removeTarget(nil, action: nil, for: .editingChanged)
+            locationTextField.removeTarget(nil, action: nil, for: .editingChanged)
+        }
+    }
 }
 
 extension STNavigationEditorView{
@@ -162,6 +180,12 @@ extension STNavigationEditorView{
     }
 }
 
+@objc
 protocol STNavigationEditorViewDelegate: UITextFieldDelegate{
     
+    func scanButtonTapped()
+    
+    func nameChanged()
+    
+    func locationChanged()
 }

@@ -51,6 +51,9 @@
 		ABF80B5D29B1E04D00EA1861 /* STScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5C29B1E04D00EA1861 /* STScanView.swift */; };
 		ABF80B5F29B1E05F00EA1861 /* STScanVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5E29B1E05F00EA1861 /* STScanVController.swift */; };
 		ABF80B6229B4C50800EA1861 /* STNavigationLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6129B4C50800EA1861 /* STNavigationLocation.swift */; };
+		ABF80B6429B584F400EA1861 /* STNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6329B584F400EA1861 /* STNavigation.swift */; };
+		ABF80B6629B5BA4800EA1861 /* STEditableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6529B5BA4800EA1861 /* STEditableViewController.swift */; };
+		ABF80B6829B5DB3D00EA1861 /* StringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6729B5DB3D00EA1861 /* StringUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +104,9 @@
 		ABF80B5C29B1E04D00EA1861 /* STScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STScanView.swift; sourceTree = "<group>"; };
 		ABF80B5E29B1E05F00EA1861 /* STScanVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STScanVController.swift; sourceTree = "<group>"; };
 		ABF80B6129B4C50800EA1861 /* STNavigationLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationLocation.swift; sourceTree = "<group>"; };
+		ABF80B6329B584F400EA1861 /* STNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigation.swift; sourceTree = "<group>"; };
+		ABF80B6529B5BA4800EA1861 /* STEditableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STEditableViewController.swift; sourceTree = "<group>"; };
+		ABF80B6729B5DB3D00EA1861 /* StringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +197,7 @@
 				AB12F9D229AB6C4000C639B6 /* STLogger.swift */,
 				AB12F9D429AB7E1400C639B6 /* RSAUtil.swift */,
 				ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */,
+				ABF80B6729B5DB3D00EA1861 /* StringUtil.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -272,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				AB12F9F129AE531A00C639B6 /* STSwitchController.swift */,
+				ABF80B6529B5BA4800EA1861 /* STEditableViewController.swift */,
 				ABF80B5629B0BA3400EA1861 /* scan */,
 			);
 			path = base;
@@ -282,6 +290,7 @@
 			children = (
 				AB12F9CB29AB682F00C639B6 /* STNavigationManager.swift */,
 				ABF80B6129B4C50800EA1861 /* STNavigationLocation.swift */,
+				ABF80B6329B584F400EA1861 /* STNavigation.swift */,
 			);
 			path = navigation;
 			sourceTree = "<group>";
@@ -362,6 +371,7 @@
 			files = (
 				ABA21324296EA95C00F1D2F7 /* STMainVController.swift in Sources */,
 				AB12F9B329A85F5C00C639B6 /* STNavigationTableCell.swift in Sources */,
+				ABF80B6829B5DB3D00EA1861 /* StringUtil.swift in Sources */,
 				AB12F9F029AC8E2F00C639B6 /* UIViewController+.swift in Sources */,
 				7DB60416296F141500A0AAFA /* STContentVController.swift in Sources */,
 				ABF80B4F29AF3A6000EA1861 /* STQrCodeUtil.swift in Sources */,
@@ -396,8 +406,10 @@
 				AB12F9CA29AB682300C639B6 /* STLoginManager.swift in Sources */,
 				AB12F9AC29A4C62400C639B6 /* String+.swift in Sources */,
 				AB12F9E729AC4BEC00C639B6 /* STHttpResponse.swift in Sources */,
+				ABF80B6429B584F400EA1861 /* STNavigation.swift in Sources */,
 				AB12F9C029AA28BA00C639B6 /* ComponentFactory.swift in Sources */,
 				ABF80B5D29B1E04D00EA1861 /* STScanView.swift in Sources */,
+				ABF80B6629B5BA4800EA1861 /* STEditableViewController.swift in Sources */,
 				AB12F97E29A392E100C639B6 /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

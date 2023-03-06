@@ -11,6 +11,7 @@
 "continue" = "Continue";
 "send" = "Send";
 "reminder"="Reminder";
+"save"="Save";
 
 "alblum" = "Alblum";
 
@@ -37,6 +38,10 @@
 "navigation_input_location" = "Please enter the domain name of your company (eg. qunar.com)";
 "navigation_editor_add" = "Add navigaton";
 "navigation_editor_edit" = "Edit navigaton";
+"navigation_name_too_long" = "name length should less than 32";
+"navigation_location_too_long" = "location length should less than 512";
+"navigation_invalid_location" = "Invalid navigation location";
+
 
 
 "scan" = "Scan";
