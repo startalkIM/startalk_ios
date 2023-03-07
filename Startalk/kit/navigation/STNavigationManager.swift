@@ -16,111 +16,63 @@ class STNavigationManager{
     let encoder = PropertyListEncoder()
     let decoder = PropertyListDecoder()
     let httpClient = STHttpClient()
-    lazy var apiClient = STApiClient.shared
     
     var locations: [STNavigationLocation] = [
         STNavigationLocation(id: 0, name: "uk", value: "https://www.qtalk.app:8080/newapi/nck/qtalk_nav.qunar"),
         STNavigationLocation(id: 1, name: "cn", value: "https://i.startalk.im/newapi/nck/qtalk_nav.qunar?c=startalk.im"),
     ]
-    var currentLocationIndex: Int?
+    private var locationIndex: Int = 0
     
     var navigation: STNavigation = .default
     
     var delegate: STNavigationManagerDelegate?
     
     init(){
-        let locations = getLocations()
+        let locations = pickLocations()
         if let locations = locations{
             self.locations = locations
         }
         
-        if self.locations.isEmpty{
-            currentLocationIndex = nil
-        }else{
-            currentLocationIndex = getCurrentIndex()
-            if currentLocationIndex == nil{
-                currentLocationIndex = 0
-                setCurrentIndex(0)
-            }
+        let index = pickCurrentIndex()
+        if let index = index{
+            locationIndex = index
         }
         
-        let navigation = getNavigation()
+        let navigation = pickNavigation()
         if let navigation = navigation{
             self.navigation = navigation
         }
         
-        fetchCurrentNavigation()
+        if let index = getLocationIndex(){
+            reloadNavigation(location: self.locations[index])
+        }
     }
     
-    func getLocations() -> [STNavigationLocation]?{
-        let array = defaults.array(forKey: Self.LOCATIONS_KEY)
-        if let array = array{
-            var locations: [STNavigationLocation] = []
-            for object in array{
-                if let data = object as? Data{
-                    let location = try? decoder.decode(STNavigationLocation.self, from: data)
-                    if let location = location{
-                        locations.append(location)
-                    }
-                }
-            }
-            return locations
-        }else{
+    func getLocationIndex() -> Int?{
+        if locations.isEmpty{
             return nil
+        }else{
+            return locationIndex
         }
     }
     
-    func getCurrentIndex() -> Int?{
-        return defaults.integer(forKey: Self.LOCATION_INDEX_KEY)
-    }
-    
-    func getNavigation() -> STNavigation?{
-        if let data = defaults.data(forKey: Self.NAVIGATION_KEY) {
-            return try? decoder.decode(STNavigation.self, from: data)
-        }
-        return nil
-    }
-    
-    func setLocations(_ locations: [STNavigationLocation]){
-        self.locations = locations
-        var array: [Data] = []
-        for location in locations {
-            let data = try! encoder.encode(location)
-            array.append(data)
-        }
-        defaults.set(array, forKey: Self.LOCATIONS_KEY)
-    }
-    
-    func setCurrentIndex(_ index: Int?){
-        defaults.set(index, forKey: Self.LOCATION_INDEX_KEY)
-    }
-    
-    func setNavigation(_ navigation: STNavigation){
-        self.navigation = navigation
-        let data = try! encoder.encode(navigation)
-        defaults.set(data, forKey: Self.NAVIGATION_KEY)
-    }
-    
-    func fetchCurrentNavigation(){
-        if let index = currentLocationIndex{
-            let location = locations[index]
-            fetchNavigation(location: location.value) { [self] navigation in
-                if let navigation = navigation{
-                   setNavigation(navigation)
-                }
+    func reloadNavigation(location: STNavigationLocation){
+        fetchNavigation(location: location.value) { [self] navigation in
+            if let navigation = navigation{
+               setAndStoreNavigation(navigation)
             }
         }
     }
     
     func addLocation(_ location: STNavigationLocation, completion: @escaping (Bool) -> Void){
-        var contains = false
+        var index: Int? = nil
         var maxId = 0
-        for l in locations{
-            if isEqual(location.value, l.value){
-                contains = true
+        for i in 0..<locations.count{
+            if URLUtil.equals(location.value, locations[i].value){
+                index = i
             }
-            if maxId < l.id{
-                maxId = l.id
+            if maxId < locations[i].id{
+                maxId = locations[i].id
             }
         }
         
@@ -129,28 +81,21 @@ class STNavigationManager{
                 completion(false)
                 return
             }
-            if !contains{
+            setAndStoreNavigation(navigation)
+            
+            if let index = index{
+                locations[index].name = location.name
+                locations[index].value = location.value
+                locationIndex = index
+            }else{
                 var location = location
                 location.id = maxId + 1
                 locations.insert(location, at: 0)
-                currentLocationIndex = 0
-            }else{
-                for i in 0..<locations.count{
-                    if isEqual(locations[i].value, location.value){
-                        locations[i].name = location.name
-                        locations[i].value = location.value
-                        currentLocationIndex = i
-                        break
-                    }
-                }
+                locationIndex = 0
             }
-            self.navigation = navigation
-            
-            setLocations(locations)
-            setCurrentIndex(currentLocationIndex)
-            setNavigation(navigation)
-            
-            apiClient.baseUrl = navigation.apiUrl
+            storeLocations(locations)
+            storeCurrentIndex(locationIndex)
+                        
             delegate?.locationsChanged()
             completion(true)
         }
@@ -162,21 +107,19 @@ class STNavigationManager{
         for i in 0..<locations.count{
             if locations[i].id == location.id{
                 fetchNavigation(location: location.value) { [self] navigation in
-                    if let navigation = navigation{
-                        locations[i].name = location.name
-                        locations[i].value = location.value
-                        setLocations(locations)
-                        
-                        if currentLocationIndex == i{
-                            self.navigation = navigation
-                            setNavigation(navigation)
-                            apiClient.baseUrl = navigation.apiUrl
-                        }
-                        delegate?.locationsChanged()
-                        completion(true)
-                    }else{
+                    guard let navigation = navigation else{
                         completion(false)
+                        return
                     }
+                    locations[i].name = location.name
+                    locations[i].value = location.value
+                    storeLocations(locations)
+                    
+                    if locationIndex == i{
+                       setAndStoreNavigation(navigation)
+                    }
+                    delegate?.locationsChanged()
+                    completion(true)
                 }
                 break
             }
@@ -184,59 +127,39 @@ class STNavigationManager{
     }
     
     func removeLocation(at index: Int){
-        if 0 <= index && index < locations.count{
-            if currentLocationIndex!  > index{
-                currentLocationIndex = currentLocationIndex! - 1
-            }else if currentLocationIndex! == index{
-                currentLocationIndex = nil
-            }
+        if (0..<locations.count).contains(index){
+            
             locations.remove(at: index)
-            
-            if currentLocationIndex == nil{
-                if locations.isEmpty{
-                    navigation = .default
-                    apiClient.baseUrl = navigation.apiUrl
-                    setNavigation(navigation)
-                }else{
-                    currentLocationIndex = 0
-                    let location = locations[0]
-                    fetchNavigation(location: location.value) { navigation in
-                        if let navigation = navigation{
-                            self.navigation = navigation
-                        }else{
-                            self.navigation = .default
-                        }
-                        self.apiClient.baseUrl = self.navigation.apiUrl
-                        self.setNavigation(self.navigation)
-                    }
-                }
-                setCurrentIndex(currentLocationIndex)
-            }
-            
-            setLocations(locations)
+            storeLocations(locations)
             delegate?.locationsChanged()
+            
+            if index < locationIndex{
+                locationIndex = locationIndex - 1
+                storeCurrentIndex(locationIndex)
+            }else if index == locationIndex{
+                setAndStoreIndex(0)
+                
+                setAndStoreNavigation(.default)
+                if let index = getLocationIndex(){
+                    reloadNavigation(location: locations[index])
+                }
+            }
         }
         
     }
     
-    func setLocationIndex(_ index: Int){
-        if 0 <= index && index < locations.count{
-            currentLocationIndex = index
-            setCurrentIndex(currentLocationIndex)
+    func changeLocationIndex(to index: Int){
+        if (0..<locations.count).contains(index){
+            setAndStoreIndex(index)
             
             let location = locations[index]
-            fetchNavigation(location: location.value) { navigation in
-                if let navigation = navigation{
-                    self.navigation = navigation
-                    self.apiClient.baseUrl = navigation.apiUrl
-                }
-            }
+            reloadNavigation(location: location)
         }
     }
     
     func queryLocation(_ value: String) -> STNavigationLocation?{
         for location in locations {
-            if isEqual(value, location.value){
+            if URLUtil.equals(value, location.value){
                 return location
             }
         }
@@ -244,7 +167,7 @@ class STNavigationManager{
     }
     
     func getLocationName() -> String{
-        if let index = currentLocationIndex{
+        if let index = getLocationIndex(){
             let location = locations[index]
             return location.name
         }else{
@@ -270,28 +193,65 @@ class STNavigationManager{
             completion(response)
         }
     }
+}
+
+extension STNavigationManager{
     
-    private func isEqual(_ value1: String, _ value2: String) -> Bool{
-        let url1 = URL(string: value1)
-        let url2 = URL(string: value2)
-        guard let url1 = url1, let url2 = url2 else{
-            return false
+    private func pickLocations() -> [STNavigationLocation]?{
+        let array = defaults.array(forKey: Self.LOCATIONS_KEY)
+        if let array = array{
+            var locations: [STNavigationLocation] = []
+            for object in array{
+                if let data = object as? Data{
+                    let location = try? decoder.decode(STNavigationLocation.self, from: data)
+                    if let location = location{
+                        locations.append(location)
+                    }
+                }
+            }
+            return locations
+        }else{
+            return nil
         }
-        if url1.scheme != url2.scheme{
-            return false
+    }
+    
+    private func pickCurrentIndex() -> Int?{
+        return defaults.integer(forKey: Self.LOCATION_INDEX_KEY)
+    }
+    
+    private func pickNavigation() -> STNavigation?{
+        if let data = defaults.data(forKey: Self.NAVIGATION_KEY) {
+            return try? decoder.decode(STNavigation.self, from: data)
         }
-        if url1.host != url2.host{
-            return false
+        return nil
+    }
+    
+    private func storeLocations(_ locations: [STNavigationLocation]){
+        var array: [Data] = []
+        for location in locations {
+            let data = try! encoder.encode(location)
+            array.append(data)
         }
-        let port1 = url1.port ?? 80
-        let port2 = url2.port ?? 80
-        if port1 != port2{
-            return false
-        }
-        if url1.path != url2.path{
-            return false
-        }
-        return true
+        defaults.set(array, forKey: Self.LOCATIONS_KEY)
+    }
+    
+    private func storeCurrentIndex(_ index: Int){
+        defaults.set(index, forKey: Self.LOCATION_INDEX_KEY)
+    }
+    
+    private func storeNavigation(_ navigation: STNavigation){
+        let data = try! encoder.encode(navigation)
+        defaults.set(data, forKey: Self.NAVIGATION_KEY)
+    }
+    
+    private func setAndStoreIndex(_ index: Int){
+        self.locationIndex = index
+        storeCurrentIndex(index)
+    }
+    
+    private func setAndStoreNavigation(_ navigation: STNavigation){
+        self.navigation = navigation
+        storeNavigation(navigation)
     }
 }
 

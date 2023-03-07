@@ -8,24 +8,20 @@
 import Foundation
 
 class STApiClient{
-    static let shared: STApiClient = {
-        let navigationManager = STKit.shared.navigationManager
-        let baseUrl = navigationManager.navigation.apiUrl
-        return STApiClient(baseUrl)
-    }()
+    static let shared: STApiClient = STApiClient()
+    lazy var navigationManager = STKit.shared.navigationManager
     
     let logger = STLogger(STApiClient.self)
     
-    var baseUrl: String
     let httpClient: STHttpClient
     
-    private init(_ baseUrl: String) {
-        self.baseUrl = baseUrl
+    private init() {
         self.httpClient = STHttpClient()
     }
     
     func buildUrl(path: String, params: [String: Any?] = [:]) -> URL{
-        httpClient.buildUrl(baseUrl: baseUrl, path: path, params: params)
+        let baseUrl = navigationManager.navigation.apiUrl
+        return httpClient.buildUrl(baseUrl: baseUrl, path: path, params: params)
     }
     
     func request<T: Codable>(_ url: URL, completionHandler: @escaping (STApiResult<T>) -> Void){

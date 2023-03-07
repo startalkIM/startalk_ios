@@ -57,6 +57,7 @@
 		ABF80B6A29B5E6AC00EA1861 /* STNavigationQrCodeVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6929B5E6AC00EA1861 /* STNavigationQrCodeVController.swift */; };
 		ABF80B6C29B5E6C400EA1861 /* STNavigationQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6B29B5E6C400EA1861 /* STNavigationQrCodeView.swift */; };
 		ABF80B6E29B6332F00EA1861 /* STApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6D29B6332F00EA1861 /* STApiClient.swift */; };
+		ABF80B7129B74E3100EA1861 /* URLUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B7029B74E3100EA1861 /* URLUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,6 +114,7 @@
 		ABF80B6929B5E6AC00EA1861 /* STNavigationQrCodeVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationQrCodeVController.swift; sourceTree = "<group>"; };
 		ABF80B6B29B5E6C400EA1861 /* STNavigationQrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNavigationQrCodeView.swift; sourceTree = "<group>"; };
 		ABF80B6D29B6332F00EA1861 /* STApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STApiClient.swift; sourceTree = "<group>"; };
+		ABF80B7029B74E3100EA1861 /* URLUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 				AB12F9F329AE56F400C639B6 /* STAppState.swift */,
 				AB12F9E129AC3D3A00C639B6 /* login */,
 				ABF80B6029B4A01100EA1861 /* navigation */,
+				ABF80B6F29B71F3C00EA1861 /* api */,
 			);
 			path = kit;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				AB12F9D429AB7E1400C639B6 /* RSAUtil.swift */,
 				ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */,
 				ABF80B6729B5DB3D00EA1861 /* StringUtil.swift */,
+				ABF80B7029B74E3100EA1861 /* URLUtil.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -214,9 +218,6 @@
 			isa = PBXGroup;
 			children = (
 				AB12F9D029AB6ADB00C639B6 /* STHttpClient.swift */,
-				AB12F9E629AC4BEC00C639B6 /* STApiResponse.swift */,
-				AB12F9EB29AC79DD00C639B6 /* STApiResult.swift */,
-				ABF80B6D29B6332F00EA1861 /* STApiClient.swift */,
 			);
 			path = networking;
 			sourceTree = "<group>";
@@ -302,6 +303,16 @@
 				ABF80B6329B584F400EA1861 /* STNavigation.swift */,
 			);
 			path = navigation;
+			sourceTree = "<group>";
+		};
+		ABF80B6F29B71F3C00EA1861 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				AB12F9E629AC4BEC00C639B6 /* STApiResponse.swift */,
+				AB12F9EB29AC79DD00C639B6 /* STApiResult.swift */,
+				ABF80B6D29B6332F00EA1861 /* STApiClient.swift */,
+			);
+			path = api;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -415,6 +426,7 @@
 				AB12F9EC29AC79DD00C639B6 /* STApiResult.swift in Sources */,
 				AB12F9D129AB6ADB00C639B6 /* STHttpClient.swift in Sources */,
 				AB12F9C829AB67DD00C639B6 /* STKit.swift in Sources */,
+				ABF80B7129B74E3100EA1861 /* URLUtil.swift in Sources */,
 				AB12F9CA29AB682300C639B6 /* STLoginManager.swift in Sources */,
 				AB12F9AC29A4C62400C639B6 /* String+.swift in Sources */,
 				AB12F9E729AC4BEC00C639B6 /* STApiResponse.swift in Sources */,

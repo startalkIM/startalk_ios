@@ -46,7 +46,7 @@ class STNavigationListVController: UIViewController, STNavigationListViewDelegat
     }
     
     func setSelectedRow(){
-        if let index = navigationManager.currentLocationIndex{
+        if let index = navigationManager.getLocationIndex(){
             let indexPath = IndexPath(row: index, section: 0)
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
         }
@@ -102,10 +102,10 @@ extension STNavigationListVController{
 extension STNavigationListVController{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         let index = indexPath.row
-        if index == navigationManager.currentLocationIndex{
+        if index == navigationManager.getLocationIndex(){
             presentEditorView(editing: true, index: index)
         }else{
-            navigationManager.setLocationIndex(index)
+            navigationManager.changeLocationIndex(to: index)
         }
     }
 }
