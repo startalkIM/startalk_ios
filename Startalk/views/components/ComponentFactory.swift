@@ -16,6 +16,7 @@ class ComponentFactory{
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: UIFont.Weight(4))
         let image = UIImage(named: "login/scan")
         button.setImage(image, for: .normal)
+        button.imageView?.tintColor = .white
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 4
         button.tintColor = .white
