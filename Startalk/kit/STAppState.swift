@@ -8,6 +8,5 @@
 import Foundation
 
 class STAppState{
-    var isLoggedIn: Bool = false
     
 }

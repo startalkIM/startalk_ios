@@ -198,18 +198,9 @@ class STNavigationManager{
 extension STNavigationManager{
     
     private func pickLocations() -> [STNavigationLocation]?{
-        let array = defaults.array(forKey: Self.LOCATIONS_KEY)
-        if let array = array{
-            var locations: [STNavigationLocation] = []
-            for object in array{
-                if let data = object as? Data{
-                    let location = try? decoder.decode(STNavigationLocation.self, from: data)
-                    if let location = location{
-                        locations.append(location)
-                    }
-                }
-            }
-            return locations
+        let data = defaults.data(forKey: Self.LOCATIONS_KEY)
+        if let data = data{
+            return try? decoder.decode([STNavigationLocation].self, from: data)
         }else{
             return nil
         }
@@ -222,17 +213,14 @@ extension STNavigationManager{
     private func pickNavigation() -> STNavigation?{
         if let data = defaults.data(forKey: Self.NAVIGATION_KEY) {
             return try? decoder.decode(STNavigation.self, from: data)
+        }else{
+            return nil
         }
-        return nil
     }
     
     private func storeLocations(_ locations: [STNavigationLocation]){
-        var array: [Data] = []
-        for location in locations {
-            let data = try! encoder.encode(location)
-            array.append(data)
-        }
-        defaults.set(array, forKey: Self.LOCATIONS_KEY)
+        let data = try! encoder.encode(locations)
+        defaults.set(data, forKey: Self.LOCATIONS_KEY)
     }
     
     private func storeCurrentIndex(_ index: Int){

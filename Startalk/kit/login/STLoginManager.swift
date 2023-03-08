@@ -16,6 +16,7 @@ class STLoginManager{
     lazy var identifiers = STKit.shared.identifiers
     lazy var apiClient: STApiClient = .shared
     lazy var navigationManager = STKit.shared.navigationManager
+    lazy var userState = STKit.shared.userState
     
     var delegate: STLoginDelegate?
     
@@ -34,9 +35,11 @@ class STLoginManager{
         apiClient.post(url, entity: request) { [self] (result: STApiResult<STLoginResponse>) -> Void in
             switch result{
             case .response(let response):
-                print(response)
+        
+                userState.setLoggedIn(username: response.u, token: response.t)
                 completionHandler(true, "")
                 delegate?.didLogin()
+                
             case .failure(let message):
                 completionHandler(false, message)
             default:

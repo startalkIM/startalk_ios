@@ -8,10 +8,30 @@
 import Foundation
 
 class STIdentifiers{
+    static private let DEVICE_UID_KEY = "device_uid"
+    
+    static let defaults = UserDefaults.standard
+    
     let platform = "iOS"
     var deviceUid: String
     
     init() {
-        self.deviceUid = "B7012F62039C4BA78C945A61E81945D5"
+        let uuid = Self.pickDeviceUid()
+        if let uuid = uuid{
+            deviceUid = uuid
+        }else{
+            deviceUid = StringUtil.makeUUID()
+            Self.storeDeviceUid(deviceUid)
+        }
+    }
+}
+
+extension STIdentifiers{
+    static func pickDeviceUid() -> String?{
+        defaults.string(forKey: Self.DEVICE_UID_KEY)
+    }
+    
+    static func storeDeviceUid(_ value: String){
+        defaults.set(value, forKey: Self.DEVICE_UID_KEY)
     }
 }

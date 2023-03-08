@@ -12,12 +12,14 @@ class STKit{
     
     let identifiers: STIdentifiers
     let appState: STAppState
+    let userState: STUserState
     let loginManager: STLoginManager
     let navigationManager: STNavigationManager
     
     private init(){
         identifiers = STIdentifiers()
         appState = STAppState()
+        userState = STUserState()
         navigationManager = STNavigationManager()
         loginManager = STLoginManager()
     }

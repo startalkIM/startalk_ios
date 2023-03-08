@@ -14,7 +14,7 @@ class STMainVController: STSwitchController, STLoginDelegate{
     
     let contentController: UINavigationController
     
-    let appState  = STKit.shared.appState
+    let userState  = STKit.shared.userState
     let loginManager = STKit.shared.loginManager
     
     required init?(coder: NSCoder) {
@@ -28,7 +28,7 @@ class STMainVController: STSwitchController, STLoginDelegate{
     }
     
     override func viewDidLoad() {
-        if appState.isLoggedIn{
+        if userState.isLoggedIn{
             show(contentController)
         }else{
             show(loginController)
