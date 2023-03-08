@@ -12,6 +12,8 @@ class STMineVController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = "Me"
+        
         let label = UILabel()
         label.text = "Me"
         label.sizeToFit()

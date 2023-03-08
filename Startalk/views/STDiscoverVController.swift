@@ -12,6 +12,8 @@ class STDiscoverVController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = "Discover"
+        
         let label = UILabel()
         label.text = "Discover"
         label.sizeToFit()

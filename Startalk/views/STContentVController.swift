@@ -11,10 +11,7 @@ class STContentVController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-            
         setControllers()
-        
-        navigationItem.title = "Chats"
     }
     
     func setControllers(){
@@ -35,5 +32,9 @@ class STContentVController: UITabBarController {
         mineVController.tabBarItem = UITabBarItem(title: "Me", image: mineImage, tag: 4)
         
         viewControllers = [chatsVController, liveVController, chatVController, mineVController]
+    }
+    
+    override var navigationItem: UINavigationItem{
+        selectedViewController?.navigationItem ?? super.navigationItem
     }
 }

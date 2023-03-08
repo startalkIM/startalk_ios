@@ -12,6 +12,8 @@ class STChatsVController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = "Chats"
+        
         let label = UILabel()
         label.text = "Chats"
         label.sizeToFit()

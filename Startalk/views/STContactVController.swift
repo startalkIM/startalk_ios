@@ -12,6 +12,9 @@ class STContactVController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = "Contact"
+
+        
         let label = UILabel()
         label.text = "Contact"
         label.sizeToFit()
