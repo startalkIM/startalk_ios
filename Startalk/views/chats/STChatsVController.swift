@@ -12,7 +12,7 @@ class STChatsVController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Chats"
+        navigationItem.title = "chats".localized
         
         let label = UILabel()
         label.text = "Chats"

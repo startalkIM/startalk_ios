@@ -39,6 +39,8 @@
 		AB12F9F429AE56F400C639B6 /* STAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9F329AE56F400C639B6 /* STAppState.swift */; };
 		AB12F9F629AE574700C639B6 /* STLoginDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9F529AE574700C639B6 /* STLoginDelegate.swift */; };
 		AB8BBB0829B85C6F00125DAB /* STUserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB0729B85C6F00125DAB /* STUserState.swift */; };
+		AB8BBB0F29B87E5C00125DAB /* STChatTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB0E29B87E5C00125DAB /* STChatTableCell.swift */; };
+		AB8BBB1129B8AAFA00125DAB /* STBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1029B8AAFA00125DAB /* STBadgeView.swift */; };
 		ABA21320296EA95C00F1D2F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2131F296EA95C00F1D2F7 /* AppDelegate.swift */; };
 		ABA21324296EA95C00F1D2F7 /* STMainVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA21323296EA95C00F1D2F7 /* STMainVController.swift */; };
 		ABA21327296EA95C00F1D2F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA21325296EA95C00F1D2F7 /* Main.storyboard */; };
@@ -95,6 +97,8 @@
 		AB12F9F329AE56F400C639B6 /* STAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STAppState.swift; sourceTree = "<group>"; };
 		AB12F9F529AE574700C639B6 /* STLoginDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STLoginDelegate.swift; sourceTree = "<group>"; };
 		AB8BBB0729B85C6F00125DAB /* STUserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STUserState.swift; sourceTree = "<group>"; };
+		AB8BBB0E29B87E5C00125DAB /* STChatTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STChatTableCell.swift; sourceTree = "<group>"; };
+		AB8BBB1029B8AAFA00125DAB /* STBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STBadgeView.swift; sourceTree = "<group>"; };
 		ABA2131C296EA95C00F1D2F7 /* Startalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Startalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABA2131F296EA95C00F1D2F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABA21323296EA95C00F1D2F7 /* STMainVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMainVController.swift; sourceTree = "<group>"; };
@@ -134,10 +138,10 @@
 			isa = PBXGroup;
 			children = (
 				ABA21323296EA95C00F1D2F7 /* STMainVController.swift */,
+				7DB60415296F141500A0AAFA /* STContentVController.swift */,
 				AB12F97929A34B8500C639B6 /* login */,
 				AB12F9AD29A63A2600C639B6 /* navigation */,
-				7DB60415296F141500A0AAFA /* STContentVController.swift */,
-				7DB60417296FB65500A0AAFA /* STChatsVController.swift */,
+				AB8BBB0D29B8740300125DAB /* chats */,
 				7DB60419296FB75F00A0AAFA /* STContactVController.swift */,
 				7DB6041B296FB78500A0AAFA /* STDiscoverVController.swift */,
 				7DB6041D296FB79A00A0AAFA /* STMineVController.swift */,
@@ -240,6 +244,16 @@
 				AB12F9F529AE574700C639B6 /* STLoginDelegate.swift */,
 			);
 			path = login;
+			sourceTree = "<group>";
+		};
+		AB8BBB0D29B8740300125DAB /* chats */ = {
+			isa = PBXGroup;
+			children = (
+				7DB60417296FB65500A0AAFA /* STChatsVController.swift */,
+				AB8BBB0E29B87E5C00125DAB /* STChatTableCell.swift */,
+				AB8BBB1029B8AAFA00125DAB /* STBadgeView.swift */,
+			);
+			path = chats;
 			sourceTree = "<group>";
 		};
 		ABA21313296EA95C00F1D2F7 = {
@@ -394,6 +408,7 @@
 			files = (
 				ABA21324296EA95C00F1D2F7 /* STMainVController.swift in Sources */,
 				AB12F9B329A85F5C00C639B6 /* STNavigationTableCell.swift in Sources */,
+				AB8BBB0F29B87E5C00125DAB /* STChatTableCell.swift in Sources */,
 				ABF80B6829B5DB3D00EA1861 /* StringUtil.swift in Sources */,
 				AB12F9F029AC8E2F00C639B6 /* UIViewController+.swift in Sources */,
 				7DB60416296F141500A0AAFA /* STContentVController.swift in Sources */,
@@ -408,6 +423,7 @@
 				ABA21320296EA95C00F1D2F7 /* AppDelegate.swift in Sources */,
 				AB12F9CC29AB682F00C639B6 /* STNavigationManager.swift in Sources */,
 				AB8BBB0829B85C6F00125DAB /* STUserState.swift in Sources */,
+				AB8BBB1129B8AAFA00125DAB /* STBadgeView.swift in Sources */,
 				ABF80B6E29B6332F00EA1861 /* STApiClient.swift in Sources */,
 				ABF80B6C29B5E6C400EA1861 /* STNavigationQrCodeView.swift in Sources */,
 				AB12F98029A396E900C639B6 /* STLoginVController.swift in Sources */,
@@ -610,7 +626,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.im.startalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.im.startalk2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -639,7 +655,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.im.startalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.im.startalk2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

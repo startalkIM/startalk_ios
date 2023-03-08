@@ -12,7 +12,7 @@ class STContactVController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Contact"
+        navigationItem.title = "contact".localized
 
         
         let label = UILabel()

@@ -55,6 +55,11 @@
 "camera_access_unauthorized" = "Camera access not enabled";
 
 
+"chats" = "Chats";
+"contact" = "Contact";
+"discover" = "Discover";
+"mine" = "Me";
+
 //unchecked
 "ok" = "OK";
 "cancel" = "Cancel";

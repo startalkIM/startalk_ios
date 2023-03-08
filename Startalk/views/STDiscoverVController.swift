@@ -12,7 +12,7 @@ class STDiscoverVController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Discover"
+        navigationItem.title = "discover".localized
         
         let label = UILabel()
         label.text = "Discover"

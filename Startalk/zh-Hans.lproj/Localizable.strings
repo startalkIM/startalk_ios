@@ -52,6 +52,12 @@
 "camera_access_unauthorized" = "相机权限未开启";
 
 
+"chats" = "消息";
+"contact" = "通讯录";
+"discover" = "发现";
+"mine" = "我的";
+
+
 //unchecked
 "ok" = "确定";
 "cancel" = "取消";
