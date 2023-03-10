@@ -60,6 +60,9 @@
 "discover" = "Discover";
 "mine" = "Me";
 
+
+"chat_messages" = "%d messages";
+
 //unchecked
 "ok" = "OK";
 "cancel" = "Cancel";

@@ -57,6 +57,7 @@
 "discover" = "发现";
 "mine" = "我的";
 
+"chat_messages" = "%d条";
 
 //unchecked
 "ok" = "确定";
