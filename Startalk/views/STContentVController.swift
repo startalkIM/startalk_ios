@@ -9,9 +9,14 @@ import UIKit
 
 class STContentVController: UITabBarController {
 
+    let contentDelegate = STContentVControllerDelegate()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setControllers()
+        
+        setNavigationItem()
+        delegate = contentDelegate
     }
     
     func setControllers(){
@@ -19,22 +24,33 @@ class STContentVController: UITabBarController {
         let soundImsage = UIImage(named: "tabs/chats")
         chatsVController.tabBarItem = UITabBarItem(title: "Chats", image: soundImsage, tag: 1)
         
-        let liveVController = STContactVController()
-        let liveImage = UIImage(named: "tabs/contact")
-        liveVController.tabBarItem = UITabBarItem(title: "Contact", image: liveImage, tag: 2)
+        let contactVController = STContactVController()
+        let contactImage = UIImage(named: "tabs/contact")
+        contactVController.tabBarItem = UITabBarItem(title: "Contact", image: contactImage, tag: 2)
         
-        let chatVController = STDiscoverVController()
-        let chatImage = UIImage(named: "tabs/discover")
-        chatVController.tabBarItem = UITabBarItem(title: "Discover", image: chatImage, tag: 3)
+        let discoverVController = STDiscoverVController()
+        let discoverImage = UIImage(named: "tabs/discover")
+        discoverVController.tabBarItem = UITabBarItem(title: "Discover", image: discoverImage, tag: 3)
         
         let mineVController = STMineVController()
         let mineImage = UIImage(named: "tabs/me")
         mineVController.tabBarItem = UITabBarItem(title: "Me", image: mineImage, tag: 4)
         
-        viewControllers = [chatsVController, liveVController, chatVController, mineVController]
+        viewControllers = [chatsVController, contactVController, discoverVController, mineVController]
     }
     
-    override var navigationItem: UINavigationItem{
-        selectedViewController?.navigationItem ?? super.navigationItem
+    
+    func setNavigationItem(){
+        if let viewController = selectedViewController{
+            navigationItem.copy(from: viewController.navigationItem)
+        }
     }
+}
+
+class STContentVControllerDelegate: NSObject, UITabBarControllerDelegate{
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        tabBarController.navigationItem.copy(from: viewController.navigationItem)
+    }
+    
 }

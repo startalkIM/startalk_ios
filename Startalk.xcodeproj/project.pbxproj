@@ -44,6 +44,7 @@
 		AB8BBB1329B9EDEE00125DAB /* STChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1229B9EDEE00125DAB /* STChat.swift */; };
 		AB8BBB1529B9F3B100125DAB /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1429B9F3B100125DAB /* DateUtil.swift */; };
 		AB8BBB1729BB00C000125DAB /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1629BB00C000125DAB /* UIImageView+.swift */; };
+		AB8BBB1B29BC594200125DAB /* UINavigationItem+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1A29BC594200125DAB /* UINavigationItem+.swift */; };
 		ABA21320296EA95C00F1D2F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2131F296EA95C00F1D2F7 /* AppDelegate.swift */; };
 		ABA21324296EA95C00F1D2F7 /* STMainVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA21323296EA95C00F1D2F7 /* STMainVController.swift */; };
 		ABA21327296EA95C00F1D2F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA21325296EA95C00F1D2F7 /* Main.storyboard */; };
@@ -105,6 +106,7 @@
 		AB8BBB1229B9EDEE00125DAB /* STChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STChat.swift; sourceTree = "<group>"; };
 		AB8BBB1429B9F3B100125DAB /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		AB8BBB1629BB00C000125DAB /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		AB8BBB1A29BC594200125DAB /* UINavigationItem+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+.swift"; sourceTree = "<group>"; };
 		ABA2131C296EA95C00F1D2F7 /* Startalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Startalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABA2131F296EA95C00F1D2F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABA21323296EA95C00F1D2F7 /* STMainVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMainVController.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				AB12F9AB29A4C62400C639B6 /* String+.swift */,
 				AB12F9EF29AC8E2F00C639B6 /* UIViewController+.swift */,
 				AB8BBB1629BB00C000125DAB /* UIImageView+.swift */,
+				AB8BBB1A29BC594200125DAB /* UINavigationItem+.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				AB12F9C029AA28BA00C639B6 /* ComponentFactory.swift in Sources */,
 				ABF80B5D29B1E04D00EA1861 /* STScanView.swift in Sources */,
 				ABF80B6629B5BA4800EA1861 /* STEditableViewController.swift in Sources */,
+				AB8BBB1B29BC594200125DAB /* UINavigationItem+.swift in Sources */,
 				AB12F97E29A392E100C639B6 /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
