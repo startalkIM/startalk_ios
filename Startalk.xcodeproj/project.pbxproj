@@ -45,6 +45,8 @@
 		AB8BBB1529B9F3B100125DAB /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1429B9F3B100125DAB /* DateUtil.swift */; };
 		AB8BBB1729BB00C000125DAB /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1629BB00C000125DAB /* UIImageView+.swift */; };
 		AB8BBB1B29BC594200125DAB /* UINavigationItem+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1A29BC594200125DAB /* UINavigationItem+.swift */; };
+		AB8BBB1E29BC958F00125DAB /* FileCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1D29BC958F00125DAB /* FileCacher.swift */; };
+		AB8BBB2029BC95CB00125DAB /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1F29BC95CB00125DAB /* FileStorage.swift */; };
 		ABA21320296EA95C00F1D2F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2131F296EA95C00F1D2F7 /* AppDelegate.swift */; };
 		ABA21324296EA95C00F1D2F7 /* STMainVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA21323296EA95C00F1D2F7 /* STMainVController.swift */; };
 		ABA21327296EA95C00F1D2F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA21325296EA95C00F1D2F7 /* Main.storyboard */; };
@@ -107,6 +109,8 @@
 		AB8BBB1429B9F3B100125DAB /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		AB8BBB1629BB00C000125DAB /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		AB8BBB1A29BC594200125DAB /* UINavigationItem+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+.swift"; sourceTree = "<group>"; };
+		AB8BBB1D29BC958F00125DAB /* FileCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCacher.swift; sourceTree = "<group>"; };
+		AB8BBB1F29BC95CB00125DAB /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
 		ABA2131C296EA95C00F1D2F7 /* Startalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Startalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABA2131F296EA95C00F1D2F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABA21323296EA95C00F1D2F7 /* STMainVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMainVController.swift; sourceTree = "<group>"; };
@@ -215,6 +219,7 @@
 				AB12F9E129AC3D3A00C639B6 /* login */,
 				ABF80B6029B4A01100EA1861 /* navigation */,
 				ABF80B6F29B71F3C00EA1861 /* api */,
+				AB8BBB1C29BC950C00125DAB /* files */,
 			);
 			path = kit;
 			sourceTree = "<group>";
@@ -266,6 +271,15 @@
 				AB8BBB1029B8AAFA00125DAB /* STBadgeView.swift */,
 			);
 			path = chats;
+			sourceTree = "<group>";
+		};
+		AB8BBB1C29BC950C00125DAB /* files */ = {
+			isa = PBXGroup;
+			children = (
+				AB8BBB1D29BC958F00125DAB /* FileCacher.swift */,
+				AB8BBB1F29BC95CB00125DAB /* FileStorage.swift */,
+			);
+			path = files;
 			sourceTree = "<group>";
 		};
 		ABA21313296EA95C00F1D2F7 = {
@@ -419,6 +433,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB8BBB1729BB00C000125DAB /* UIImageView+.swift in Sources */,
+				AB8BBB2029BC95CB00125DAB /* FileStorage.swift in Sources */,
 				ABA21324296EA95C00F1D2F7 /* STMainVController.swift in Sources */,
 				AB12F9B329A85F5C00C639B6 /* STNavigationTableCell.swift in Sources */,
 				AB8BBB0F29B87E5C00125DAB /* STChatTableCell.swift in Sources */,
@@ -435,6 +450,7 @@
 				AB12F9D329AB6C4000C639B6 /* STLogger.swift in Sources */,
 				ABA21320296EA95C00F1D2F7 /* AppDelegate.swift in Sources */,
 				AB12F9CC29AB682F00C639B6 /* STNavigationManager.swift in Sources */,
+				AB8BBB1E29BC958F00125DAB /* FileCacher.swift in Sources */,
 				AB8BBB0829B85C6F00125DAB /* STUserState.swift in Sources */,
 				AB8BBB1129B8AAFA00125DAB /* STBadgeView.swift in Sources */,
 				ABF80B6E29B6332F00EA1861 /* STApiClient.swift in Sources */,
