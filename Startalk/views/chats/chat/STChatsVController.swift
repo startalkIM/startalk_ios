@@ -9,7 +9,7 @@ import UIKit
 
 class STChatsVController: UITableViewController {
     let messageManager = STKit.shared.messageManager
-    let notificaitonCenter = STKit.shared.notificationCenter
+    let notificationCenter = STKit.shared.notificationCenter
     
     lazy var messagesSource = messageManager.makeChatDataSource()
     
@@ -23,9 +23,13 @@ class STChatsVController: UITableViewController {
         
         tableView.tableHeaderView = UIView()
         
-        notificaitonCenter.observeChatListChanged(self) { [self] in
+        notificationCenter.observeChatListChanged(self) { [self] in
            reloadData()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        notificationCenter.unobserveChatListChanged(self)
     }
     
     func reloadData(){

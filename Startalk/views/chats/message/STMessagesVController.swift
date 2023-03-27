@@ -71,6 +71,12 @@ class STMessagesVController: UIViewController {
             updateMessageState(idState)
         }
     }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        notificationCenter.unobserveMessagesAppended(self)
+        notificationCenter.unobserveMessageStateChanged(self)
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         let indexPath = IndexPath(row: messageSource.count - 1, section: 0)
