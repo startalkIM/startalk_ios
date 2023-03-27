@@ -8,13 +8,15 @@
 import UIKit
 import XMPPClient
 
-class STMessagesVController: UIViewController {
+class STMessagesVController: UIViewController, STMessagesViewDelegate {
     var messageManager = STKit.shared.messageManager
     var notificationCenter = STKit.shared.notificationCenter
 
     let chat: STChat
     let messageSource: STMessageDataSource
+    
     var tableView: UITableView!
+    var inputField: UITextField!
     
     init(_ chat: STChat){
         self.chat = chat
@@ -26,61 +28,44 @@ class STMessagesVController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func loadView() {
+        let view = STMessagesView()
+        view.delegate = self
+        tableView = view.tableView
+        inputField = view.inputField
+        self.view = view
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
         navigationItem.title = chat.title
-
-        let textField = UITextField()
-        textField.borderStyle = .line
-        textField.returnKeyType = .send
-        textField.delegate = self
-        view.addSubview(textField)
-        
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            textField.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            textField.widthAnchor.constraint(equalToConstant: 300),
-            textField.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        
-        tableView = UITableView()
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.register(ReceivedCell.self, forCellReuseIdentifier: "receive")
-        tableView.register(SendCell.self, forCellReuseIdentifier: "send")
-
-        view.addSubview(tableView)
-        
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.allowsSelection = false
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 10),
-            tableView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         notificationCenter.observeMessagesAppended(self) { [self] messages in
             reloadData(messages)
         }
-        
         notificationCenter.observeMessageStateChanged(self) { [self] idState in
             updateMessageState(idState)
         }
-    }
-    
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        notificationCenter.unobserveMessagesAppended(self)
-        notificationCenter.unobserveMessageStateChanged(self)
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
+        messageSource.reload()
+        tableView.reloadData()
         let indexPath = IndexPath(row: messageSource.count - 1, section: 0)
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let indexPath = IndexPath(row: messageSource.count - 1, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        notificationCenter.unobserveMessagesAppended(self)
+        notificationCenter.unobserveMessageStateChanged(self)
     }
    
     func reloadData(_ messages: [STMessage]){
@@ -123,12 +108,12 @@ extension STMessagesVController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messageSource.message(at: indexPath.row)
         if message.direction == .receive{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "receive", for: indexPath) as! ReceivedCell
-            cell.label.text = message.content.value
+            let cell = tableView.dequeueReusableCell(withIdentifier: STReceiveMessageTableCell.IDENTIFIER, for: indexPath) as! STReceiveMessageTableCell
+            cell.setMessage(message)
             return cell
         }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "send", for: indexPath) as! SendCell
-            cell.label.text = message.content.value
+            let cell = tableView.dequeueReusableCell(withIdentifier: STSendMessageTableCell.IDENTIFIER, for: indexPath) as! STSendMessageTableCell
+            cell.setMessage(message)
             return cell
 
         }
@@ -136,7 +121,7 @@ extension STMessagesVController: UITableViewDataSource{
     }
 }
 
-extension STMessagesVController: UITextFieldDelegate{
+extension STMessagesVController{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)
@@ -145,51 +130,12 @@ extension STMessagesVController: UITextFieldDelegate{
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         let text = textField.text
-        guard let text = text else{ return }
+        guard var text = text else{ return }
         textField.text = nil
 
-        messageManager.sendTextMessage(to: chat.id, content: text)
-    }
-}
-
-class ReceivedCell: UITableViewCell{
-    var label: UILabel!
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        label = UILabel()
-        contentView.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-        ])
-        label.textColor = .black
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class SendCell: UITableViewCell{
-    var label: UILabel!
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        label = UILabel()
-        contentView.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-        ])
-        label.textColor = .systemGreen
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !text.isEmpty{
+            messageManager.sendTextMessage(to: chat.id, content: text)
+        }
     }
 }

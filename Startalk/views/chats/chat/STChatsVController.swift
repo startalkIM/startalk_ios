@@ -22,13 +22,19 @@ class STChatsVController: UITableViewController {
         tableView.rowHeight = STChatTableCell.CELL_HEIGHT
         
         tableView.tableHeaderView = UIView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         notificationCenter.observeChatListChanged(self) { [self] in
            reloadData()
         }
+        reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         notificationCenter.unobserveChatListChanged(self)
     }
     
