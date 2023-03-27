@@ -74,3 +74,32 @@ class STHttpClient{
         }
     }
 }
+
+extension STHttpClient{
+    static let COOKIE_DEFAULT_EXPIRE_INTERVAL: TimeInterval = 60 * 60 * 24 * 30
+    
+    func setCookie(url: String, name: String, value: String){
+        let storage = HTTPCookieStorage.shared
+        
+        guard let url = URL(string: url) else { return }
+        
+        guard let host = url.host else { return }
+        let path = url.path
+        let expireDate = Date(timeIntervalSinceNow: Self.COOKIE_DEFAULT_EXPIRE_INTERVAL)
+        
+        let properties: [HTTPCookiePropertyKey : Any] = [
+            .domain: host,
+            .path: path,
+            
+            .name: name,
+            .value: value,
+            
+            .expires: expireDate,
+        ]
+        
+        let cookie = HTTPCookie(properties: properties)
+        if let cookie = cookie{
+            storage.setCookie(cookie)
+        }
+    }
+}

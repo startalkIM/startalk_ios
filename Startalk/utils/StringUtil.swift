@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CryptoKit
 
 class StringUtil{
     
@@ -23,5 +24,10 @@ class StringUtil{
             char == "-"
         }
         return uuid
+    }
+    
+    static func md5(data: Data) -> String{
+        let digest = Insecure.MD5.hash(data: data)
+        return digest.map {String(format: "%02hhx", $0)}.joined()
     }
 }

@@ -21,10 +21,10 @@ struct STNavigation{
     }
         
     static let `default` = STNavigation(
-        domain: "startalk.im",
-        host: "i.startalk.im",
+        domain: "qtalk",
+        host: "qtalk.app",
         port: 5202,
-        apiUrl: "https://i.startalk.im/newapi"
+        apiUrl: "https://uk.startalk.im/newapi"
     )
 }
 

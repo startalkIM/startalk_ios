@@ -14,9 +14,10 @@ class STLoginManager{
     let logger = STLogger(STLoginManager.self)
     
     lazy var identifiers = STKit.shared.identifiers
-    lazy var apiClient: STApiClient = .shared
+    lazy var apiClient = STKit.shared.apiClient
     lazy var navigationManager = STKit.shared.navigationManager
     lazy var userState = STKit.shared.userState
+    lazy var appStateManager = STKit.shared.appStateManager
     
     var delegate: STLoginDelegate?
     
@@ -37,6 +38,8 @@ class STLoginManager{
             case .response(let response):
         
                 userState.setLoggedIn(username: response.u, token: response.t)
+                appStateManager.setLoggedIn()
+                
                 completionHandler(true, "")
                 delegate?.didLogin()
                 

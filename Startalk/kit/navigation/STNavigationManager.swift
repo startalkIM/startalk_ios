@@ -248,3 +248,18 @@ protocol STNavigationManagerDelegate{
     func locationsChanged()
     
 }
+
+extension STNavigationManager{
+    var domain: String{
+        navigation.domain
+    }
+    var host: String{
+        navigation.host
+    }
+    var port: Int{
+        navigation.port
+    }
+    var apiUrl: String{
+        navigation.apiUrl
+    }
+}

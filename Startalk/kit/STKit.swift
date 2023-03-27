@@ -11,17 +11,29 @@ class STKit{
     static let shared = STKit()
     
     let identifiers: STIdentifiers
-    let appState: STAppState
+    let appStateManager: STAppStateManager
     let userState: STUserState
-    let loginManager: STLoginManager
     let navigationManager: STNavigationManager
+    let loginManager: STLoginManager
+    let messageManager: STMessageManager
+    
+    let apiClient: STApiClient
+    let xmppClient: STXmppClient
+    
+    let notificationCenter: STNotificationCenter
     
     private init(){
         identifiers = STIdentifiers()
-        appState = STAppState()
+        appStateManager = STAppStateManager()
         userState = STUserState()
         navigationManager = STNavigationManager()
         loginManager = STLoginManager()
+        messageManager = STMessageManager()
+        
+        apiClient = STApiClient()
+        xmppClient = STXmppClient()
+        
+        notificationCenter = STNotificationCenter()
     }
     
     

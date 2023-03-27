@@ -8,19 +8,23 @@
 import Foundation
 
 class STApiClient{
-    static let shared: STApiClient = STApiClient()
-    lazy var navigationManager = STKit.shared.navigationManager
-    
     let logger = STLogger(STApiClient.self)
+
+    lazy var navigationManager = STKit.shared.navigationManager
+    lazy var userState = STKit.shared.userState
+    lazy var xmppClient = STKit.shared.xmppClient
     
     let httpClient: STHttpClient
     
-    private init() {
+    init() {
         self.httpClient = STHttpClient()
     }
     
+    var baseUrl: String{
+        navigationManager.apiUrl
+    }
+    
     func buildUrl(path: String, params: [String: Any?] = [:]) -> URL{
-        let baseUrl = navigationManager.navigation.apiUrl
         return httpClient.buildUrl(baseUrl: baseUrl, path: path, params: params)
     }
     
@@ -67,5 +71,35 @@ class STApiClient{
     private func fail<T>(_ message: String, _ completionHandler: @escaping (STApiResult<T>) -> Void){
         let result = STApiResult<T>.failure(message)
         completionHandler(result)
+    }
+}
+
+extension STApiClient{
+    static let COOKIE_CKEY_NAME = "q_ckey"
+    static let COOKIE_USER_NAME = "u"
+    
+    func setCookies(){
+        setUserCookie()
+        setCKeyCookie()
+    }
+    
+    func setUserCookie(){
+        let username = userState.username
+        httpClient.setCookie(url: baseUrl, name: Self.COOKIE_USER_NAME, value: username)
+    }
+    
+    func setCKeyCookie(){
+        let username = userState.username
+        let xmppToken = xmppClient.token
+        let time: Int64 = Int64(Date().timeIntervalSince1970 * 1000)
+        
+        let rawCode = "\(xmppToken)\(time)"
+        var code = StringUtil.md5(data: rawCode.data(using: .utf8)!)
+        code = code.uppercased()
+        
+        let text = "u=\(username)&k=\(code)&t=\(time)"
+        let value = text.data(using: .utf8)!.base64EncodedString()
+        
+        httpClient.setCookie(url: baseUrl, name: Self.COOKIE_CKEY_NAME, value: value)
     }
 }
