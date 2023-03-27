@@ -20,7 +20,10 @@ public struct XCServiceConfiguration {
 public struct XCHeader {
   public var from: XMPPClient.XCJid
   public var to: XMPPClient.XCJid
+  public var realFrom: XMPPClient.XCJid?
+  public var realTo: XMPPClient.XCJid?
   public var isGroup: Swift.Bool
+  public init(from: XMPPClient.XCJid, to: XMPPClient.XCJid, realFrom: XMPPClient.XCJid?, realTo: XMPPClient.XCJid?, isGroup: Swift.Bool)
   public init(from: XMPPClient.XCJid, to: XMPPClient.XCJid, isGroup: Swift.Bool)
 }
 public struct XCEvent {

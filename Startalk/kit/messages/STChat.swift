@@ -18,6 +18,7 @@ struct STChat{
     var isGroup: Bool
     var title: String
     var photo: String
+    var messageId: String?
     var brief: String
     var state: STMessage.State
     var unreadCount: Int

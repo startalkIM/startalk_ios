@@ -1083,6 +1083,226 @@
           },
           {
             "kind": "Var",
+            "name": "realFrom",
+            "printedName": "realFrom",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "XMPPClient.XCJid?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "XCJid",
+                    "printedName": "XMPPClient.XCJid",
+                    "usr": "s:10XMPPClient5XCJidV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10XMPPClient8XCHeaderV8realFromAA5XCJidVSgvp",
+            "mangledName": "$s10XMPPClient8XCHeaderV8realFromAA5XCJidVSgvp",
+            "moduleName": "XMPPClient",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "XMPPClient.XCJid?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "XCJid",
+                        "printedName": "XMPPClient.XCJid",
+                        "usr": "s:10XMPPClient5XCJidV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient8XCHeaderV8realFromAA5XCJidVSgvg",
+                "mangledName": "$s10XMPPClient8XCHeaderV8realFromAA5XCJidVSgvg",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "XMPPClient.XCJid?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "XCJid",
+                        "printedName": "XMPPClient.XCJid",
+                        "usr": "s:10XMPPClient5XCJidV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient8XCHeaderV8realFromAA5XCJidVSgvs",
+                "mangledName": "$s10XMPPClient8XCHeaderV8realFromAA5XCJidVSgvs",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient8XCHeaderV8realFromAA5XCJidVSgvM",
+                "mangledName": "$s10XMPPClient8XCHeaderV8realFromAA5XCJidVSgvM",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "realTo",
+            "printedName": "realTo",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "XMPPClient.XCJid?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "XCJid",
+                    "printedName": "XMPPClient.XCJid",
+                    "usr": "s:10XMPPClient5XCJidV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10XMPPClient8XCHeaderV6realToAA5XCJidVSgvp",
+            "mangledName": "$s10XMPPClient8XCHeaderV6realToAA5XCJidVSgvp",
+            "moduleName": "XMPPClient",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "XMPPClient.XCJid?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "XCJid",
+                        "printedName": "XMPPClient.XCJid",
+                        "usr": "s:10XMPPClient5XCJidV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient8XCHeaderV6realToAA5XCJidVSgvg",
+                "mangledName": "$s10XMPPClient8XCHeaderV6realToAA5XCJidVSgvg",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "XMPPClient.XCJid?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "XCJid",
+                        "printedName": "XMPPClient.XCJid",
+                        "usr": "s:10XMPPClient5XCJidV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient8XCHeaderV6realToAA5XCJidVSgvs",
+                "mangledName": "$s10XMPPClient8XCHeaderV6realToAA5XCJidVSgvs",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient8XCHeaderV6realToAA5XCJidVSgvM",
+                "mangledName": "$s10XMPPClient8XCHeaderV6realToAA5XCJidVSgvM",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "isGroup",
             "printedName": "isGroup",
             "children": [
@@ -1165,6 +1385,73 @@
                 "accessorKind": "_modify"
               }
             ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(from:to:realFrom:realTo:isGroup:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "XCHeader",
+                "printedName": "XMPPClient.XCHeader",
+                "usr": "s:10XMPPClient8XCHeaderV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "XCJid",
+                "printedName": "XMPPClient.XCJid",
+                "usr": "s:10XMPPClient5XCJidV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "XCJid",
+                "printedName": "XMPPClient.XCJid",
+                "usr": "s:10XMPPClient5XCJidV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "XMPPClient.XCJid?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "XCJid",
+                    "printedName": "XMPPClient.XCJid",
+                    "usr": "s:10XMPPClient5XCJidV"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "XMPPClient.XCJid?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "XCJid",
+                    "printedName": "XMPPClient.XCJid",
+                    "usr": "s:10XMPPClient5XCJidV"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:10XMPPClient8XCHeaderV4from2to8realFrom0E2To7isGroupAcA5XCJidV_A2JSgAKSbtcfc",
+            "mangledName": "$s10XMPPClient8XCHeaderV4from2to8realFrom0E2To7isGroupAcA5XCJidV_A2JSgAKSbtcfc",
+            "moduleName": "XMPPClient",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
           },
           {
             "kind": "Constructor",

@@ -15,18 +15,26 @@ class STMessageStorage{
         messages.last?.timestamp
     }
     
-    func addMessages(_ newMessages: [STMessage]){
+    func addMessages(_ newMessages: [STMessage]) -> Int{
+        var count = 0
         for newMessage in newMessages {
             var index = messages.count
+            var equals = false
             for i in stride(from: self.messages.count - 1, through: 0, by: -1){
                 let message = messages[i]
                 if message.timestamp <= newMessage.timestamp{
+                    equals = (message.id == newMessage.id)
                     break
                 }
                 index -= 1
             }
+            if equals{
+                continue
+            }
             messages.insert(newMessage, at: index)
+            count += 1
         }
+        return count
     }
     
     func updateMessage(withId id: String, state: STMessage.State){

@@ -70,6 +70,23 @@ extension STNotificationCenter{
         center.post(name: .STMessageAppended, object: messages)
     }
     
+    //MARK: message state changed
+
+    func observeMessageStateChanged(_ observer: AnyObject, handler: @escaping (STMessageIdState) -> Void){
+        addObserver(observer, name: .STMessageStateChanged) { notification in
+            if let idState = notification.object as? STMessageIdState{
+                handler(idState)
+            }
+        }
+    }
+    
+    func unobserveMessageStateChanged(_ observer: AnyObject){
+        removeObserver(observer, name: .STMessageStateChanged)
+    }
+    
+    func notifyMessageStateChanged(_ idState: STMessageIdState){
+        center.post(name: .STMessageStateChanged, object: idState)
+    }
     
     //MARK: chat list changed
     func observeChatListChanged(_ observer: AnyObject, handler: @escaping () -> Void){
@@ -91,6 +108,10 @@ extension Notification.Name{
     
     static let STMessageAppended = Notification.Name("ST_message_appended")
     
+    static let STMessageStateChanged = Notification.Name("ST_message_state_changed")
+    
     static let STChatListChanged = Notification.Name("ST_chat_list_changed")
+    
+
 
 }

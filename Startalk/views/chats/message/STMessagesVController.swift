@@ -19,7 +19,7 @@ class STMessagesVController: UIViewController {
     init(_ chat: STChat){
         self.chat = chat
         messageSource = messageManager.makeMessageDataSource(chatId: chat.id)
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -46,7 +46,7 @@ class STMessagesVController: UIViewController {
             textField.heightAnchor.constraint(equalToConstant: 40)
         ])
         
-        let tableView = UITableView()
+        tableView = UITableView()
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.register(ReceivedCell.self, forCellReuseIdentifier: "receive")
@@ -63,16 +63,47 @@ class STMessagesVController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        notificationCenter.observeMessagesAppended(self) { [self] _ in
-            reloadData()
+        notificationCenter.observeMessagesAppended(self) { [self] messages in
+            reloadData(messages)
+        }
+        
+        notificationCenter.observeMessageStateChanged(self) { [self] idState in
+            updateMessageState(idState)
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        let indexPath = IndexPath(row: messageSource.count - 1, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+    }
    
-    func reloadData(){
-        messageSource.reload()
+    func reloadData(_ messages: [STMessage]){
+        let contains = messages.contains { message in
+            message.xmppId == chat.id
+        }
+        if contains{
+            messageSource.reload()
+            DispatchQueue.main.async { [self] in
+                tableView.reloadData()
+                let indexPath = IndexPath(row: messageSource.count - 1, section: 0)
+                tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+        }
+    }
+    
+    func updateMessageState(_ idState: STMessageIdState){
         DispatchQueue.main.async { [self] in
-            tableView.reloadData()
+            
+            if let indexPaths = tableView.indexPathsForVisibleRows{
+                for indexPath in indexPaths {
+                    let index = indexPath.row
+                    let message = messageSource.message(at: index)
+                    if message.id == idState.id{
+                        tableView.reloadRows(at: [indexPath], with: .fade)
+                    }
+                }
+            }
+            
         }
     }
 }

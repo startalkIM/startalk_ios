@@ -58,6 +58,7 @@ extension STMessage: Codable{
     enum HeaderKeys: CodingKey{
         case from
         case to
+        case realfrom
         case msec_times
     }
     
@@ -72,6 +73,7 @@ extension STMessage: Codable{
         let headerContainer = try container.nestedContainer(keyedBy: HeaderKeys.self, forKey: .message)
         let from = try headerContainer.decode(String.self, forKey: .from)
         let to = try headerContainer.decode(String.self, forKey: .to)
+        let realFrom = try? headerContainer.decode(String.self, forKey: .realfrom)
         let timeText = try headerContainer.decode(String.self, forKey: .msec_times)
         let time = Int64(timeText)!
 
@@ -79,12 +81,28 @@ extension STMessage: Codable{
         let id = try contentContainer.decode(String.self, forKey: .id)
         let content = try contentContainer.decode(String.self, forKey: .content)
 
-        let header = XCHeader(from: XCJid(from)!, to: XCJid(to)!, isGroup: false)
+        let fromJid = XCJid(from)
+        guard let fromJid = fromJid else{
+            throw DecodingError.dataCorruptedError(forKey: .from, in: headerContainer, debugDescription: "could not parse from")
+        }
+        let toJid = XCJid(to)
+        guard let toJid = toJid else{
+            throw DecodingError.dataCorruptedError(forKey: .to, in: headerContainer, debugDescription: "could not parse to")
+        }
+        var realFromJid: XCJid? = nil
+        if let realFrom = realFrom{
+            realFromJid = XCJid(realFrom)
+        }
+        let header = XCHeader(from: fromJid, to: toJid, realFrom: realFromJid, realTo: nil, isGroup: false)
+        
         let messageContent = XCTextMessageContent(value: content)
         let messsage = XCMessage(header: header, id: id, type: .text, content: messageContent, clientType: .ios, timestamp: time)
 
-        let readInt = try container.decode(Int.self, forKey: .read_flag)
-        let read = (readInt == 1)
+        var read = true
+        if container.contains(.read_flag){
+            let readInt = try container.decode(Int.self, forKey: .read_flag)
+            read = (readInt == 1)
+        }
 
         self.message = messsage
         
@@ -105,10 +123,27 @@ extension STMessage{
         message.id
     }
     var from: String{
-        message.header.from.bare
+        get{
+            message.header.from.bare
+        }
+        set{
+            if let jid = XCJid(newValue){
+                message.header.from = jid
+            }
+        }
     }
     var to: String{
-        message.header.to.bare
+        get{
+            message.header.to.bare
+        }
+        set{
+            if let jid = XCJid(newValue){
+                message.header.to = jid
+            }
+        }
+    }
+    var realFrom: String?{
+        message.header.realFrom?.bare
     }
     var isGroup: Bool{
         get{

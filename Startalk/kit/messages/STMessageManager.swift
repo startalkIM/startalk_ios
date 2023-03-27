@@ -32,6 +32,9 @@ class STMessageManager{
             var messages = messages
             for i in 0..<messages.count{
                 messages[i].isGroup = true
+                if let realFrom = messages[i].realFrom{
+                    messages[i].from = realFrom
+                }
             }
             addHistoryMessages(messages)
         }
@@ -57,12 +60,28 @@ class STMessageManager{
     //MARK: receive message from xmpp client
     
     func receivedMessage(_ message: XCMessage){
-        let message = STMessage.receive(message)
+        var message = STMessage.receive(message)
+        if message.isGroup{
+            let realFrom = message.realFrom
+            let from = message.from
+            
+            message.to = from
+            if let realFrom = realFrom{
+                message.from = realFrom
+            }
+        }
         appendMessages([message])
     }
     
     func receviedMessageSentEvent(_ messsageId: String, timestamp: Int64){
+        messageStorage.updateMessage(withId: messsageId, state: .sent)
+        let idState = STMessageIdState(id: messsageId, state: .sent)
+        notificationCenter.notifyMessageStateChanged(idState)
         
+        let updated = chatStorage.updateMessage(withId: messsageId, state: .sent)
+        if updated{
+            notificationCenter.notifyChatListChanged()
+        }
     }
     
     //MARK: send message
@@ -87,7 +106,10 @@ class STMessageManager{
     
     //MARK: private common functions
     private func appendMessages(_ messages: [STMessage]){
-        messageStorage.addMessages(messages)
+        let count = messageStorage.addMessages(messages)
+        if count == 0{
+            return
+        }
         notificationCenter.notifyMessagesAppended(messages)
         chatStorage.addMessages(messages)
         notificationCenter.notifyChatListChanged()
