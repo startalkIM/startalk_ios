@@ -62,7 +62,7 @@ class STMessagesView: UIView {
         inputField = UITextField()
         inputField.returnKeyType = .send
         inputField.clipsToBounds = true
-        inputField.backgroundColor = .white
+        inputField.backgroundColor = UIColor(named: "InputBackground")
         addSubview(inputField)
     }
     
