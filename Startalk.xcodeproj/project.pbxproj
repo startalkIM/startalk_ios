@@ -208,6 +208,7 @@
 				7DB6041B296FB78500A0AAFA /* STDiscoverVController.swift */,
 				7DB6041D296FB79A00A0AAFA /* STMineVController.swift */,
 				AB12F9BE29AA27F600C639B6 /* components */,
+				ABF80B5A29B1DFFD00EA1861 /* base */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -252,7 +253,6 @@
 		AB12F9BE29AA27F600C639B6 /* components */ = {
 			isa = PBXGroup;
 			children = (
-				ABF80B5A29B1DFFD00EA1861 /* base */,
 				AB8BBB1029B8AAFA00125DAB /* STBadgeView.swift */,
 				AB12F9BF29AA28BA00C639B6 /* ComponentFactory.swift */,
 				AB12F9ED29AC8D6700C639B6 /* STLoaingVController.swift */,
