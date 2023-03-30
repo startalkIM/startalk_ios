@@ -8,7 +8,7 @@
 import UIKit
 import XMPPClient
 
-class STMessagesVController: UIViewController, STMessagesViewDelegate {
+class STMessagesVController: STEditableViewController2, STMessagesViewDelegate {
     var messageManager = STKit.shared.messageManager
     var notificationCenter = STKit.shared.notificationCenter
 
@@ -53,26 +53,10 @@ class STMessagesVController: UIViewController, STMessagesViewDelegate {
         loadData(animated: false)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        let indexPath = IndexPath(row: messageSource.count - 1, section: 0)
-        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         notificationCenter.unobserveMessagesAppended(self)
         notificationCenter.unobserveMessageStateChanged(self)
-    }
-   
-    func receive(_ messages: [STMessage]){
-        let contains = messages.contains { message in
-            message.xmppId == chat.id
-        }
-        if contains{
-            loadData(animated: true)
-        }else{
-        }
     }
     
     func loadData(animated: Bool){
@@ -84,19 +68,29 @@ class STMessagesVController: UIViewController, STMessagesViewDelegate {
         }
     }
     
+    func receive(_ messages: [STMessage]){
+        let contains = messages.contains { message in
+            message.xmppId == chat.id
+        }
+        if contains{
+            loadData(animated: true)
+        }else{
+        }
+    }
+    
     func updateMessageState(_ idState: STMessageIdState){
         DispatchQueue.main.async { [self] in
-            
             if let indexPaths = tableView.indexPathsForVisibleRows{
+                var updateIndexPaths: [IndexPath] = []
                 for indexPath in indexPaths {
                     let index = indexPath.row
                     let message = messageSource.message(at: index)
                     if message.id == idState.id{
-                        tableView.reloadRows(at: [indexPath], with: .fade)
+                        updateIndexPaths.append(indexPath)
                     }
                 }
+                tableView.reloadRows(at: updateIndexPaths, with: .fade)
             }
-            
         }
     }
 }

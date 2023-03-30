@@ -52,7 +52,7 @@ class STMessagesView: UIView {
         tableView.register(STReceiveMessageTableCell.self, forCellReuseIdentifier: STReceiveMessageTableCell.IDENTIFIER)
         tableView.register(STSendMessageTableCell.self, forCellReuseIdentifier: STSendMessageTableCell.IDENTIFIER)
 
-        
+        tableView.keyboardDismissMode = .onDrag
         tableView.allowsSelection = false
         addSubview(tableView)
         
