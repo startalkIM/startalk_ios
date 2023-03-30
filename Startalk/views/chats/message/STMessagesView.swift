@@ -52,8 +52,6 @@ class STMessagesView: UIView {
         tableView.register(STReceiveMessageTableCell.self, forCellReuseIdentifier: STReceiveMessageTableCell.IDENTIFIER)
         tableView.register(STSendMessageTableCell.self, forCellReuseIdentifier: STSendMessageTableCell.IDENTIFIER)
 
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = (STReceiveMessageTableCell.ESTIMATED_HEIGHT + STSendMessageTableCell.ESTIMATED_HEIGHT) / 2
         
         tableView.allowsSelection = false
         addSubview(tableView)
@@ -69,9 +67,9 @@ class STMessagesView: UIView {
     func layoutElements(){
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: topAnchor),
         ])
         
         inputField.translatesAutoresizingMaskIntoConstraints = false

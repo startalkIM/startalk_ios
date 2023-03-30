@@ -45,15 +45,12 @@ class STMessagesVController: UIViewController, STMessagesViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         notificationCenter.observeMessagesAppended(self) { [self] messages in
-            reloadData(messages)
+            receive(messages)
         }
         notificationCenter.observeMessageStateChanged(self) { [self] idState in
             updateMessageState(idState)
         }
-        messageSource.reload()
-        tableView.reloadData()
-        let indexPath = IndexPath(row: messageSource.count - 1, section: 0)
-        tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        loadData(animated: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -68,17 +65,22 @@ class STMessagesVController: UIViewController, STMessagesViewDelegate {
         notificationCenter.unobserveMessageStateChanged(self)
     }
    
-    func reloadData(_ messages: [STMessage]){
+    func receive(_ messages: [STMessage]){
         let contains = messages.contains { message in
             message.xmppId == chat.id
         }
         if contains{
-            messageSource.reload()
-            DispatchQueue.main.async { [self] in
-                tableView.reloadData()
-                let indexPath = IndexPath(row: messageSource.count - 1, section: 0)
-                tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-            }
+            loadData(animated: true)
+        }else{
+        }
+    }
+    
+    func loadData(animated: Bool){
+        messageSource.reload()
+        DispatchQueue.main.async { [self] in
+            tableView.reloadData()
+            let indexPath = IndexPath(row: messageSource.count - 1, section: 0)
+            tableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
         }
     }
     
