@@ -29,7 +29,7 @@ class STLoginView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         
         addTitleLabel()
         addScanButton()
@@ -100,7 +100,7 @@ class STLoginView: UIView {
     func addUsernameTextField(){
         let textField = UITextField()
         textField.placeholder = "login_username".localized
-        textField.backgroundColor = .white
+        textField.backgroundColor = .systemBackground
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.returnKeyType = .next
@@ -143,7 +143,7 @@ class STLoginView: UIView {
         textfield.isSecureTextEntry = true
         textfield.autocorrectionType = .no
         textfield.clearButtonMode = .whileEditing
-        textfield.backgroundColor = .white
+        textfield.backgroundColor = .systemBackground
         textfield.returnKeyType = .go
         
         textfield.delegate = delegate
