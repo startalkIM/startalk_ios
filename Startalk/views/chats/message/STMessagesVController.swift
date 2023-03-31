@@ -128,7 +128,6 @@ extension STMessagesVController{
         if !text.isEmpty{
             messageManager.sendTextMessage(to: chat.id, content: text)
         }
-        textField.resignFirstResponder()
         return true
     }
 }

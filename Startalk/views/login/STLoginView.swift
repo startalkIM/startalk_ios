@@ -60,7 +60,7 @@ class STLoginView: UIView {
     func addTitleLabel(){
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 26)
-        label.textColor = UIColor.make(0x333333)
+        label.textColor = UIColor(named: "title")
         label.text = "login".localized
         label.sizeToFit()
         
