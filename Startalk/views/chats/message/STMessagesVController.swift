@@ -120,18 +120,15 @@ extension STMessagesVController: UITableViewDataSource{
 extension STMessagesVController{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
         let text = textField.text
-        guard var text = text else{ return }
+        guard var text = text else{ return true}
         textField.text = nil
 
-        text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        text = text.trimmingCharacters(in: .whitespaces)
         if !text.isEmpty{
             messageManager.sendTextMessage(to: chat.id, content: text)
         }
+        textField.resignFirstResponder()
+        return true
     }
 }

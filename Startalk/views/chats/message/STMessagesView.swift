@@ -45,8 +45,8 @@ class STMessagesView: KeyboardView {
         
         inputField = UITextField()
         inputField.returnKeyType = .send
-        inputField.clipsToBounds = true
-        inputField.backgroundColor = UIColor(named: "InputBackground")
+        inputField.borderStyle = .roundedRect
+        inputField.enablesReturnKeyAutomatically = true
         addSubview(inputField)
     }
     
@@ -66,7 +66,6 @@ class STMessagesView: KeyboardView {
             inputField.bottomAnchor.constraint(equalTo: safeKeyboardLayoutGuide.topAnchor, constant: -20),
             inputField.heightAnchor.constraint(equalToConstant: 40),
         ])
-        inputField.layer.cornerRadius = 5
     }
     
     func delegateDidSet(_ delegate: STMessagesViewDelegate?){
