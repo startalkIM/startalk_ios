@@ -59,6 +59,8 @@
 		ABA2132A296EA95C00F1D2F7 /* Startalk.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ABA21328296EA95C00F1D2F7 /* Startalk.xcdatamodeld */; };
 		ABA2132C296EA95D00F1D2F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABA2132B296EA95D00F1D2F7 /* Assets.xcassets */; };
 		ABA2132F296EA95D00F1D2F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA2132D296EA95D00F1D2F7 /* LaunchScreen.storyboard */; };
+		ABC79D4629D6E82A0025C155 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4529D6E82A0025C155 /* KeyboardView.swift */; };
+		ABC79D4829D71C1E0025C155 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4729D71C1E0025C155 /* UITableView+.swift */; };
 		ABF80B4F29AF3A6000EA1861 /* STQrCodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */; };
 		ABF80B5129AF6A0E00EA1861 /* STBaseScanVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5029AF6A0E00EA1861 /* STBaseScanVController.swift */; };
 		ABF80B5529B0B13B00EA1861 /* STScanLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5429B0B13B00EA1861 /* STScanLineView.swift */; };
@@ -156,6 +158,8 @@
 		ABA2132B296EA95D00F1D2F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABA2132E296EA95D00F1D2F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ABA21330296EA95D00F1D2F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABC79D4529D6E82A0025C155 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
+		ABC79D4729D71C1E0025C155 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STQrCodeUtil.swift; sourceTree = "<group>"; };
 		ABF80B5029AF6A0E00EA1861 /* STBaseScanVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STBaseScanVController.swift; sourceTree = "<group>"; };
 		ABF80B5429B0B13B00EA1861 /* STScanLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STScanLineView.swift; sourceTree = "<group>"; };
@@ -232,6 +236,7 @@
 				AB8BBB1A29BC594200125DAB /* UINavigationItem+.swift */,
 				ABFC90CF29CDC2E10040BDE5 /* TimeInterval+.swift */,
 				AB5A51EC29CF0E4300656FC4 /* Date+.swift */,
+				ABC79D4729D71C1E0025C155 /* UITableView+.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -388,6 +393,7 @@
 			children = (
 				AB12F9F129AE531A00C639B6 /* STSwitchController.swift */,
 				ABF80B6529B5BA4800EA1861 /* STEditableViewController.swift */,
+				ABC79D4529D6E82A0025C155 /* KeyboardView.swift */,
 				ABF80B5629B0BA3400EA1861 /* scan */,
 			);
 			path = base;
@@ -557,6 +563,7 @@
 				AB12F9F029AC8E2F00C639B6 /* UIViewController+.swift in Sources */,
 				AB5A520129D1D7D800656FC4 /* STReceiveMessageTableCell.swift in Sources */,
 				7DB60416296F141500A0AAFA /* STContentVController.swift in Sources */,
+				ABC79D4829D71C1E0025C155 /* UITableView+.swift in Sources */,
 				ABFC90D729CDC3410040BDE5 /* STChatTableCell.swift in Sources */,
 				ABFC90D629CDC3410040BDE5 /* STChat.swift in Sources */,
 				ABF80B4F29AF3A6000EA1861 /* STQrCodeUtil.swift in Sources */,
@@ -605,6 +612,7 @@
 				AB5A51F329D17E1900656FC4 /* STChatDataSource.swift in Sources */,
 				ABFC90EB29CDC3E00040BDE5 /* STXmppClient.swift in Sources */,
 				AB12F9C829AB67DD00C639B6 /* STKit.swift in Sources */,
+				ABC79D4629D6E82A0025C155 /* KeyboardView.swift in Sources */,
 				AB5A51F129D1586A00656FC4 /* STChatStorage.swift in Sources */,
 				ABF80B7129B74E3100EA1861 /* URLUtil.swift in Sources */,
 				AB12F9CA29AB682300C639B6 /* STLoginManager.swift in Sources */,

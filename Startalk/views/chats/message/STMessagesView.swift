@@ -7,12 +7,10 @@
 
 import UIKit
 
-class STMessagesView: UIView {
+class STMessagesView: KeyboardView {
     
     var tableView: UITableView!
     var inputField: UITextField!
-    var bottomConstaint: NSLayoutConstraint!
-    var bottomSpace: CGFloat = 10
     
     var delegate: STMessagesViewDelegate? {
         didSet{
@@ -26,22 +24,10 @@ class STMessagesView: UIView {
         backgroundColor = .systemGray6
         addElements()
         layoutElements()
-    
-        addKeyboardObserver()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    func addKeyboardObserver(){
-        let center = NotificationCenter.default
-        center.addObserver(self, selector: #selector(keyboardWillAppear(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        center.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func addElements(){
@@ -70,16 +56,15 @@ class STMessagesView: UIView {
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.topAnchor.constraint(equalTo: topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: inputField.topAnchor, constant: -20),
         ])
         
         inputField.translatesAutoresizingMaskIntoConstraints = false
-        bottomConstaint = inputField.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -bottomSpace)
         NSLayoutConstraint.activate([
             inputField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
             inputField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            inputField.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20),
+            inputField.bottomAnchor.constraint(equalTo: safeKeyboardLayoutGuide.topAnchor, constant: -20),
             inputField.heightAnchor.constraint(equalToConstant: 40),
-            bottomConstaint,
         ])
         inputField.layer.cornerRadius = 5
     }
@@ -90,34 +75,8 @@ class STMessagesView: UIView {
         inputField.delegate = delegate
     }
     
-    @objc
-    func keyboardWillAppear(_ notification: Notification){
-        let userInfo = notification.userInfo
-        guard let userInfo = userInfo else { return }
-        let frameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-        guard let frameValue = frameValue else{ return }
-        
-        let frame = frameValue.cgRectValue
-        let height = frame.size.height
-        DispatchQueue.main.async { [self] in
-            bottomConstaint.constant = -(bottomSpace + height)
-            layoutIfNeeded()
-            
-            let count = tableView.dataSource?.tableView(tableView, numberOfRowsInSection: 0)
-            if let count = count{
-                let indexPath = IndexPath(row: count - 1, section: 0)
-                tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-
-            }
-        }
-    }
-    
-    @objc
-    func keyboardWillDisappear(_ notification: Notification){
-        DispatchQueue.main.async { [self] in
-            bottomConstaint.constant = -bottomSpace
-            layoutIfNeeded()
-        }
+    override func onKeyboardShow() {
+        tableView.scrollsToBottom(animated: false)
     }
 }
 
