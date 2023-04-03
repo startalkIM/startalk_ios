@@ -11,8 +11,12 @@ class STEditableViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
+        endEditing()
     }
 
+    func endEditing(){
+        
+    }
 }
 
 class STEditableViewController2: UIViewController{
@@ -27,6 +31,10 @@ class STEditableViewController2: UIViewController{
     @objc
     func hideKeyboard(){
         view.endEditing(true)
+        endEditing()
     }
     
+    func endEditing(){
+        
+    }
 }

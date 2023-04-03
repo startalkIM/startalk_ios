@@ -48,7 +48,6 @@ class STMessagesView: KeyboardView {
         tableView.register(STReceiveMessageTableCell.self, forCellReuseIdentifier: STReceiveMessageTableCell.IDENTIFIER)
         tableView.register(STSendMessageTableCell.self, forCellReuseIdentifier: STSendMessageTableCell.IDENTIFIER)
 
-        tableView.keyboardDismissMode = .onDrag
         tableView.allowsSelection = false
         addSubview(tableView)
         
@@ -101,13 +100,24 @@ class STMessagesView: KeyboardView {
     }
     
     func setStickersViewVisible(_ visible: Bool){
-        stickersHideTopConstraint.isActive = !visible
-        stickersShowTopConstraint.isActive = visible
+        if visible{
+            stickersHideTopConstraint.isActive = false
+            stickersShowTopConstraint.isActive = true
+        }else{
+            stickersShowTopConstraint.isActive = false
+            stickersHideTopConstraint.isActive = true
+        }
     }
     
     func setFunctionsViewVisible(_ visible: Bool){
-        functionsHideTopConstraint.isActive = !visible
-        functionsShowTopConstraint.isActive = visible
+        if visible{
+            functionsHideTopConstraint.isActive = false
+            functionsShowTopConstraint.isActive = true
+        }else{
+            functionsShowTopConstraint.isActive = false
+            functionsHideTopConstraint.isActive = true
+        }
+        
     }
     
     func delegateDidSet(_ delegate: STMessagesViewDelegate?){
@@ -153,7 +163,7 @@ extension STMessagesView{
             }
         case .more:
             setFunctionsViewVisible(true)
-            if inputState == .idle, inputState == .voice{
+            if inputState == .idle || inputState == .voice{
                 animate { [self] in
                     layoutIfNeeded()
                     tableView.scrollsToBottom(animated: false)

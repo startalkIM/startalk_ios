@@ -100,6 +100,13 @@ class STMessagesVController: STEditableViewController2{
             }
         }
     }
+    
+    override func endEditing() {
+        let state = messagesView.inputState
+        if state != .idle && state != .voice{
+            messagesView.changeState(to: .idle)
+        }
+    }
 }
 
 extension STMessagesVController: UITableViewDataSource{
@@ -185,9 +192,11 @@ extension STMessagesVController: STMessagesViewDelegate{
         
     }
     
+}
+
+extension STMessagesVController: UIScrollViewDelegate{
     
-    
-    
-    
-    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        endEditing()
+    }
 }
