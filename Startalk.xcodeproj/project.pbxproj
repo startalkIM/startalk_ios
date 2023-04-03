@@ -61,6 +61,9 @@
 		ABA2132F296EA95D00F1D2F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA2132D296EA95D00F1D2F7 /* LaunchScreen.storyboard */; };
 		ABC79D4629D6E82A0025C155 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4529D6E82A0025C155 /* KeyboardView.swift */; };
 		ABC79D4829D71C1E0025C155 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4729D71C1E0025C155 /* UITableView+.swift */; };
+		ABC79D4A29D97DCA0025C155 /* STMessageInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */; };
+		ABC79D4C29D98C2E0025C155 /* STMessageInputState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4B29D98C2E0025C155 /* STMessageInputState.swift */; };
+		ABC79D4E29DA8DA50025C155 /* NSLayoutDimension+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4D29DA8DA50025C155 /* NSLayoutDimension+.swift */; };
 		ABF80B4F29AF3A6000EA1861 /* STQrCodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */; };
 		ABF80B5129AF6A0E00EA1861 /* STBaseScanVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5029AF6A0E00EA1861 /* STBaseScanVController.swift */; };
 		ABF80B5529B0B13B00EA1861 /* STScanLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5429B0B13B00EA1861 /* STScanLineView.swift */; };
@@ -160,6 +163,9 @@
 		ABA21330296EA95D00F1D2F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ABC79D4529D6E82A0025C155 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		ABC79D4729D71C1E0025C155 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
+		ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageInputBar.swift; sourceTree = "<group>"; };
+		ABC79D4B29D98C2E0025C155 /* STMessageInputState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageInputState.swift; sourceTree = "<group>"; };
+		ABC79D4D29DA8DA50025C155 /* NSLayoutDimension+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutDimension+.swift"; sourceTree = "<group>"; };
 		ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STQrCodeUtil.swift; sourceTree = "<group>"; };
 		ABF80B5029AF6A0E00EA1861 /* STBaseScanVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STBaseScanVController.swift; sourceTree = "<group>"; };
 		ABF80B5429B0B13B00EA1861 /* STScanLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STScanLineView.swift; sourceTree = "<group>"; };
@@ -237,6 +243,7 @@
 				ABFC90CF29CDC2E10040BDE5 /* TimeInterval+.swift */,
 				AB5A51EC29CF0E4300656FC4 /* Date+.swift */,
 				ABC79D4729D71C1E0025C155 /* UITableView+.swift */,
+				ABC79D4D29DA8DA50025C155 /* NSLayoutDimension+.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -435,6 +442,8 @@
 				AB5A51FE29D1CE6300656FC4 /* STMessagesView.swift */,
 				AB5A520029D1D7D800656FC4 /* STReceiveMessageTableCell.swift */,
 				AB5A520229D1E78A00656FC4 /* STSendMessageTableCell.swift */,
+				ABC79D4B29D98C2E0025C155 /* STMessageInputState.swift */,
+				ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */,
 			);
 			path = message;
 			sourceTree = "<group>";
@@ -589,6 +598,7 @@
 				ABFC90E829CDC3D70040BDE5 /* STAppStateManager.swift in Sources */,
 				AB12F9EE29AC8D6700C639B6 /* STLoaingVController.swift in Sources */,
 				AB12F9D529AB7E1400C639B6 /* RSAUtil.swift in Sources */,
+				ABC79D4E29DA8DA50025C155 /* NSLayoutDimension+.swift in Sources */,
 				AB12F9C229AA345300C639B6 /* STNavigationEditorVController.swift in Sources */,
 				ABFC90E329CDC3C50040BDE5 /* STMessage.swift in Sources */,
 				7DB6041A296FB75F00A0AAFA /* STContactVController.swift in Sources */,
@@ -603,6 +613,7 @@
 				ABFC90E629CDC3C50040BDE5 /* STMessageStorage.swift in Sources */,
 				AB12F9E529AC425500C639B6 /* STIdentifiers.swift in Sources */,
 				7DB6041C296FB78500A0AAFA /* STDiscoverVController.swift in Sources */,
+				ABC79D4A29D97DCA0025C155 /* STMessageInputBar.swift in Sources */,
 				ABF80B5529B0B13B00EA1861 /* STScanLineView.swift in Sources */,
 				ABF80B6229B4C50800EA1861 /* STNavigationLocation.swift in Sources */,
 				AB12F9EC29AC79DD00C639B6 /* STApiResult.swift in Sources */,
@@ -615,6 +626,7 @@
 				ABC79D4629D6E82A0025C155 /* KeyboardView.swift in Sources */,
 				AB5A51F129D1586A00656FC4 /* STChatStorage.swift in Sources */,
 				ABF80B7129B74E3100EA1861 /* URLUtil.swift in Sources */,
+				ABC79D4C29D98C2E0025C155 /* STMessageInputState.swift in Sources */,
 				AB12F9CA29AB682300C639B6 /* STLoginManager.swift in Sources */,
 				ABFC90E429CDC3C50040BDE5 /* STMessageManager.swift in Sources */,
 				AB12F9AC29A4C62400C639B6 /* String+.swift in Sources */,

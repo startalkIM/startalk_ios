@@ -62,6 +62,9 @@
 
 
 "chat_messages" = "%d messages";
+"chat_hold_talk" = "Hold to Talk";
+"chat_release_send" = "Release to Send";
+
 
 //unchecked
 "ok" = "OK";

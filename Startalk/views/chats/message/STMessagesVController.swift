@@ -16,7 +16,7 @@ class STMessagesVController: STEditableViewController2, STMessagesViewDelegate {
     let messageSource: STMessageDataSource
     
     var tableView: UITableView!
-    var inputField: UITextField!
+    var inputBar: STMessageInputBar!
     
     init(_ chat: STChat){
         self.chat = chat
@@ -32,7 +32,8 @@ class STMessagesVController: STEditableViewController2, STMessagesViewDelegate {
         let view = STMessagesView()
         view.delegate = self
         tableView = view.tableView
-        inputField = view.inputField
+        inputBar = view.inputBar
+        tableView.dataSource = self
         self.view = view
     }
     

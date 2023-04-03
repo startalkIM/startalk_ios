@@ -58,6 +58,9 @@
 "mine" = "我的";
 
 "chat_messages" = "%d条";
+"chat_hold_talk" = "按住说话";
+"chat_release_send" = "松开结束";
+
 
 //unchecked
 "ok" = "确定";

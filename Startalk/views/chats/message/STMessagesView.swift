@@ -10,7 +10,7 @@ import UIKit
 class STMessagesView: KeyboardView {
     
     var tableView: UITableView!
-    var inputField: UITextField!
+    var inputBar: STMessageInputBar!
     
     var delegate: STMessagesViewDelegate? {
         didSet{
@@ -43,11 +43,8 @@ class STMessagesView: KeyboardView {
         addSubview(tableView)
         
         
-        inputField = UITextField()
-        inputField.returnKeyType = .send
-        inputField.borderStyle = .roundedRect
-        inputField.enablesReturnKeyAutomatically = true
-        addSubview(inputField)
+        inputBar = STMessageInputBar()
+        addSubview(inputBar)
     }
     
     func layoutElements(){
@@ -56,22 +53,20 @@ class STMessagesView: KeyboardView {
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.topAnchor.constraint(equalTo: topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: inputField.topAnchor, constant: -20),
+            tableView.bottomAnchor.constraint(equalTo: inputBar.topAnchor, constant: -20),
         ])
         
-        inputField.translatesAutoresizingMaskIntoConstraints = false
+        inputBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            inputField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            inputField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            inputField.bottomAnchor.constraint(equalTo: safeKeyboardLayoutGuide.topAnchor, constant: -20),
-            inputField.heightAnchor.constraint(equalToConstant: 40),
+            inputBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            inputBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            inputBar.bottomAnchor.constraint(equalTo: safeKeyboardLayoutGuide.topAnchor),
         ])
     }
     
     func delegateDidSet(_ delegate: STMessagesViewDelegate?){
-        tableView.dataSource = delegate
         tableView.delegate = delegate
-        inputField.delegate = delegate
+        inputBar.delegate = delegate
     }
     
     override func onKeyboardShow() {
@@ -80,6 +75,6 @@ class STMessagesView: KeyboardView {
 }
 
 
-protocol STMessagesViewDelegate: UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate{
+protocol STMessagesViewDelegate: STMessageInputBarDelegate, UITableViewDelegate{
     
 }
