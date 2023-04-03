@@ -9,6 +9,8 @@ import UIKit
 
 class STMessagesView: KeyboardView {
     
+    var inputState: STMessageInputState = .idle
+
     var tableView: UITableView!
     var inputBar: STMessageInputBar!
     
@@ -71,6 +73,13 @@ class STMessagesView: KeyboardView {
     
     override func onKeyboardShow() {
         tableView.scrollsToBottom(animated: false)
+    }
+}
+
+extension STMessagesView{
+    func setState(_ state: STMessageInputState){
+        self.inputState = state
+        inputBar.setState(state)
     }
 }
 

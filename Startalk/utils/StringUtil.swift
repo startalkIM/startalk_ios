@@ -18,6 +18,19 @@ class StringUtil{
         return string != nil && string != ""
     }
     
+    
+    static func validContent(_ string: String?) -> String?{
+        if let string = string{
+            if !string.isEmpty{
+                let string = string.trimmingCharacters(in: .whitespacesAndNewlines)
+                if !string.isEmpty{
+                    return string
+                }
+            }
+        }
+        return nil
+    }
+    
     static func makeUUID() -> String{
         var uuid = UUID().uuidString
         uuid.removeAll { char in

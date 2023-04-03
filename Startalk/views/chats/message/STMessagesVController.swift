@@ -8,7 +8,9 @@
 import UIKit
 import XMPPClient
 
-class STMessagesVController: STEditableViewController2, STMessagesViewDelegate {
+class STMessagesVController: STEditableViewController2{
+    static let RETURN_KEY = "\n"
+    
     var messageManager = STKit.shared.messageManager
     var notificationCenter = STKit.shared.notificationCenter
 
@@ -17,6 +19,10 @@ class STMessagesVController: STEditableViewController2, STMessagesViewDelegate {
     
     var tableView: UITableView!
     var inputBar: STMessageInputBar!
+    
+    var messagesView: STMessagesView{
+        view as! STMessagesView
+    }
     
     init(_ chat: STChat){
         self.chat = chat
@@ -118,17 +124,65 @@ extension STMessagesVController: UITableViewDataSource{
     }
 }
 
-extension STMessagesVController{
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let text = textField.text
-        guard var text = text else{ return true}
-        textField.text = nil
-
-        text = text.trimmingCharacters(in: .whitespaces)
-        if !text.isEmpty{
-            messageManager.sendTextMessage(to: chat.id, content: text)
+extension STMessagesVController: STMessagesViewDelegate{
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == Self.RETURN_KEY{
+            let inputText = textView.text
+            if let inputText = StringUtil.validContent(inputText){
+                messageManager.sendTextMessage(to: chat.id, content: inputText)
+            }
+            textView.text = ""
+            return false
+        }else{
+            return true
         }
-        return true
     }
+    
+    func voiceButtonTapped() {
+        let state: STMessageInputState
+        if messagesView.inputState == .voice{
+            state = .text
+        }else{
+            state = .voice
+        }
+        messagesView.setState(state)
+    }
+    
+    func stickerButtonTapped() {
+        let state: STMessageInputState
+        if messagesView.inputState == .sticker{
+            state = .text
+        }else{
+            state = .sticker
+        }
+        messagesView.setState(state)
+    }
+    
+    func moreButtonTapped() {
+        let state: STMessageInputState
+        if messagesView.inputState == .more{
+            state = .text
+        }else{
+            state = .more
+        }
+        messagesView.setState(state)
+    }
+    
+    func inputVoiceButtonTouchDown() {
+        
+    }
+    
+    func inputVoiceButtonTouchUpInside() {
+        
+    }
+    
+    func inputVoiceButtonTouchUpOutside() {
+        
+    }
+    
+    
+    
+    
+    
+    
 }

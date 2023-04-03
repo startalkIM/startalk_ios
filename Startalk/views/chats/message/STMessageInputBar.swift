@@ -10,7 +10,7 @@ import UIKit
 class STMessageInputBar: UIView{
     static let UNIT_SIZE: CGFloat = 40
     static let TEXT_MAX_HEIGHT: CGFloat = 108
-        
+    
     var state: STMessageInputState = .idle
     
     var voiceButton: UIButton!
@@ -22,7 +22,11 @@ class STMessageInputBar: UIView{
     var inputTextTopConstraint: NSLayoutConstraint!
     var inputVoiceTopConstraint: NSLayoutConstraint!
     
-    var delegate: STMessageInputBarDelegate!
+    var delegate: STMessageInputBarDelegate?{
+        didSet{
+            delegateDidSet(delegate)
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,11 +49,12 @@ class STMessageInputBar: UIView{
         voiceButton = UIButton(type: .custom)
         voiceButton.setImage(voiceImage, for: .normal)
         voiceButton.setImage(keyboardImage, for: .selected)
-        voiceButton.addTarget(self, action: #selector(voiceButtonTapped), for: .touchUpInside)
         addSubview(voiceButton)
         
         inputTextView = UITextView()
         inputTextView.isEditable = true
+        inputTextView.returnKeyType = .send
+        inputTextView.enablesReturnKeyAutomatically = true
         inputTextView.clipsToBounds = true
         inputTextView.font = .systemFont(ofSize: 16)
         inputTextView.backgroundColor = .systemBackground
@@ -136,14 +141,12 @@ class STMessageInputBar: UIView{
         inputTextTopConstraint.isActive = true
         inputVoiceTopConstraint.isActive = false
         
-        if state == .text{
-            inputTextView.becomeFirstResponder()
-        }else{
+        if state != .text{
             inputTextView.resignFirstResponder()
         }
         
         switch state{
-        case .idle, .text:
+        case .idle:
             break
         case .voice:
             voiceButton.isSelected = true
@@ -151,6 +154,8 @@ class STMessageInputBar: UIView{
             inputVoiceButton.isHidden = false
             inputTextTopConstraint.isActive = false
             inputVoiceTopConstraint.isActive = true
+        case .text:
+            inputTextView.becomeFirstResponder()
         case .sticker:
             stickerButton.isSelected = true
         case .more:
@@ -158,28 +163,38 @@ class STMessageInputBar: UIView{
         }
     }
     
-    @objc
-    func voiceButtonTapped(){
-        let state: STMessageInputState
-        if voiceButton.isSelected{
-            state = .text
+    func delegateDidSet(_ delegate: STMessageInputBarDelegate?){
+        inputTextView.delegate = delegate
+        if let delegate = delegate{
+            voiceButton.addTarget(delegate, action: #selector(STMessageInputBarDelegate.voiceButtonTapped), for: .touchUpInside)
+            stickerButton.addTarget(delegate, action: #selector(STMessageInputBarDelegate.stickerButtonTapped), for: .touchUpInside)
+            moreButton.addTarget(delegate, action: #selector(STMessageInputBarDelegate.moreButtonTapped), for: .touchUpInside)
+            
+            inputVoiceButton.addTarget(delegate, action: #selector(STMessageInputBarDelegate.inputVoiceButtonTouchDown), for: .touchDown)
+            inputVoiceButton.addTarget(delegate, action: #selector(STMessageInputBarDelegate.inputVoiceButtonTouchUpInside), for: .touchUpInside)
+            inputVoiceButton.addTarget(delegate, action: #selector(STMessageInputBarDelegate.inputVoiceButtonTouchUpOutside), for: .touchUpOutside)
         }else{
-            state = .voice
+            voiceButton.removeTarget(nil, action: nil, for: .touchUpInside)
+            stickerButton.removeTarget(nil, action: nil, for: .touchUpInside)
+            moreButton.removeTarget(nil, action: nil, for: .touchUpInside)
+            
+            inputVoiceButton.removeTarget(nil, action: nil, for: .allEvents)
         }
-        setState(state)
-    }
-    
-    @objc
-    func stickerButtonTapped(){
-        
-    }
-    
-    @objc
-    func moreButtonTapped(){
-        
     }
 }
 
+@objc
 protocol STMessageInputBarDelegate: UITextViewDelegate{
     
+    func voiceButtonTapped()
+    
+    func stickerButtonTapped()
+    
+    func moreButtonTapped()
+    
+    func inputVoiceButtonTouchDown()
+    
+    func inputVoiceButtonTouchUpInside()
+    
+    func inputVoiceButtonTouchUpOutside()
 }

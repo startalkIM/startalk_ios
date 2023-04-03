@@ -438,11 +438,11 @@
 		ABFC90D829CDC3630040BDE5 /* message */ = {
 			isa = PBXGroup;
 			children = (
+				ABC79D4B29D98C2E0025C155 /* STMessageInputState.swift */,
 				ABFC90D929CDC3630040BDE5 /* STMessagesVController.swift */,
 				AB5A51FE29D1CE6300656FC4 /* STMessagesView.swift */,
 				AB5A520029D1D7D800656FC4 /* STReceiveMessageTableCell.swift */,
 				AB5A520229D1E78A00656FC4 /* STSendMessageTableCell.swift */,
-				ABC79D4B29D98C2E0025C155 /* STMessageInputState.swift */,
 				ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */,
 			);
 			path = message;
