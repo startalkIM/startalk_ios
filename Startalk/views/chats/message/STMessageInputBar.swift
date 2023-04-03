@@ -63,7 +63,7 @@ class STMessageInputBar: UIView{
         inputVoiceButton = UIButton(type: .custom)
         inputVoiceButton.setTitle("chat_hold_talk".localized, for: .normal)
         inputVoiceButton.setTitle("chat_release_send".localized, for: .highlighted)
-        inputVoiceButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .black)
+        inputVoiceButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         inputVoiceButton.setTitleColor(.label, for: .normal)
         inputVoiceButton.backgroundColor = .systemBackground
         inputVoiceButton.isHidden = true
@@ -141,25 +141,26 @@ class STMessageInputBar: UIView{
         inputTextTopConstraint.isActive = true
         inputVoiceTopConstraint.isActive = false
         
-        if state != .text{
-            inputTextView.resignFirstResponder()
-        }
-        
         switch state{
         case .idle:
-            break
+            inputTextView.resignFirstResponder()
         case .voice:
             voiceButton.isSelected = true
             inputTextView.isHidden = true
             inputVoiceButton.isHidden = false
             inputTextTopConstraint.isActive = false
             inputVoiceTopConstraint.isActive = true
-        case .text:
-            inputTextView.becomeFirstResponder()
+            inputTextView.resignFirstResponder()
+        case .text(let spontaneous):
+            if !spontaneous{
+                inputTextView.becomeFirstResponder()
+            }
         case .sticker:
             stickerButton.isSelected = true
+            inputTextView.resignFirstResponder()
         case .more:
             moreButton.isSelected = true
+            inputTextView.resignFirstResponder()
         }
     }
     

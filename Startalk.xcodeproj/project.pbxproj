@@ -64,6 +64,8 @@
 		ABC79D4A29D97DCA0025C155 /* STMessageInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */; };
 		ABC79D4C29D98C2E0025C155 /* STMessageInputState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4B29D98C2E0025C155 /* STMessageInputState.swift */; };
 		ABC79D4E29DA8DA50025C155 /* NSLayoutDimension+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4D29DA8DA50025C155 /* NSLayoutDimension+.swift */; };
+		ABC79D5029DAD20A0025C155 /* STMessageStickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4F29DAD20A0025C155 /* STMessageStickersView.swift */; };
+		ABC79D5229DAD2860025C155 /* STMessageInputFunctionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D5129DAD2860025C155 /* STMessageInputFunctionsView.swift */; };
 		ABF80B4F29AF3A6000EA1861 /* STQrCodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */; };
 		ABF80B5129AF6A0E00EA1861 /* STBaseScanVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5029AF6A0E00EA1861 /* STBaseScanVController.swift */; };
 		ABF80B5529B0B13B00EA1861 /* STScanLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5429B0B13B00EA1861 /* STScanLineView.swift */; };
@@ -166,6 +168,8 @@
 		ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageInputBar.swift; sourceTree = "<group>"; };
 		ABC79D4B29D98C2E0025C155 /* STMessageInputState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageInputState.swift; sourceTree = "<group>"; };
 		ABC79D4D29DA8DA50025C155 /* NSLayoutDimension+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutDimension+.swift"; sourceTree = "<group>"; };
+		ABC79D4F29DAD20A0025C155 /* STMessageStickersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageStickersView.swift; sourceTree = "<group>"; };
+		ABC79D5129DAD2860025C155 /* STMessageInputFunctionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageInputFunctionsView.swift; sourceTree = "<group>"; };
 		ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STQrCodeUtil.swift; sourceTree = "<group>"; };
 		ABF80B5029AF6A0E00EA1861 /* STBaseScanVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STBaseScanVController.swift; sourceTree = "<group>"; };
 		ABF80B5429B0B13B00EA1861 /* STScanLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STScanLineView.swift; sourceTree = "<group>"; };
@@ -438,12 +442,14 @@
 		ABFC90D829CDC3630040BDE5 /* message */ = {
 			isa = PBXGroup;
 			children = (
-				ABC79D4B29D98C2E0025C155 /* STMessageInputState.swift */,
 				ABFC90D929CDC3630040BDE5 /* STMessagesVController.swift */,
+				ABC79D4B29D98C2E0025C155 /* STMessageInputState.swift */,
 				AB5A51FE29D1CE6300656FC4 /* STMessagesView.swift */,
 				AB5A520029D1D7D800656FC4 /* STReceiveMessageTableCell.swift */,
 				AB5A520229D1E78A00656FC4 /* STSendMessageTableCell.swift */,
 				ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */,
+				ABC79D4F29DAD20A0025C155 /* STMessageStickersView.swift */,
+				ABC79D5129DAD2860025C155 /* STMessageInputFunctionsView.swift */,
 			);
 			path = message;
 			sourceTree = "<group>";
@@ -575,6 +581,7 @@
 				ABC79D4829D71C1E0025C155 /* UITableView+.swift in Sources */,
 				ABFC90D729CDC3410040BDE5 /* STChatTableCell.swift in Sources */,
 				ABFC90D629CDC3410040BDE5 /* STChat.swift in Sources */,
+				ABC79D5029DAD20A0025C155 /* STMessageStickersView.swift in Sources */,
 				ABF80B4F29AF3A6000EA1861 /* STQrCodeUtil.swift in Sources */,
 				AB12F9B929A8CC2D00C639B6 /* STNavigationListView.swift in Sources */,
 				ABFC90DA29CDC3630040BDE5 /* STMessagesVController.swift in Sources */,
@@ -608,6 +615,7 @@
 				ABF80B5829B0BAA600EA1861 /* STBaseScanView.swift in Sources */,
 				ABF80B5129AF6A0E00EA1861 /* STBaseScanVController.swift in Sources */,
 				ABFC90D029CDC2E10040BDE5 /* TimeInterval+.swift in Sources */,
+				ABC79D5229DAD2860025C155 /* STMessageInputFunctionsView.swift in Sources */,
 				ABFC90D529CDC3410040BDE5 /* STChatsVController.swift in Sources */,
 				ABFC90DD29CDC3B10040BDE5 /* STNotificationCenter.swift in Sources */,
 				ABFC90E629CDC3C50040BDE5 /* STMessageStorage.swift in Sources */,

@@ -8,11 +8,15 @@
 import UIKit
 
 class KeyboardView: UIView {
+    static let ANIMATION_DURATION: TimeInterval = 0.25
+    
     
     private(set) var theKeyboardLayoutGuide: UILayoutGuide
     private(set) var safeKeyboardLayoutGuide: UILayoutGuide
     private var theTopConstraint: NSLayoutConstraint!
     private var safeTopConstraint: NSLayoutConstraint!
+    
+    private var animation: AnimationBlock?
     
     override init(frame: CGRect) {
         theKeyboardLayoutGuide = UILayoutGuide()
@@ -62,8 +66,11 @@ class KeyboardView: UIView {
         UIView.animate(withDuration: duration, delay: 0, options: options) { [self] in
             theTopConstraint.constant = frame.height
             safeTopConstraint.constant = frame.height
+            animation?.before?()
             layoutIfNeeded()
-            onKeyboardShow()
+            animation?.after?()
+        } completion: { _ in
+            self.animation = nil
         }
     }
     
@@ -75,8 +82,11 @@ class KeyboardView: UIView {
         UIView.animate(withDuration: duration, delay: 0, options: options) { [self] in
             theTopConstraint.constant = 0
             safeTopConstraint.constant = safeAreaInsets.bottom
+            animation?.before?()
             layoutIfNeeded()
-            onKeyboardHide()
+            animation?.after?()
+        } completion: {_ in
+            self.animation = nil
         }
     }
     
@@ -94,11 +104,18 @@ class KeyboardView: UIView {
         return (animationOptions, duration, frame)
     }
     
-    func onKeyboardShow(){
-        
+    func addAnimation(before: (() -> Void)? = nil, after: (() -> Void)? = nil){
+        self.animation = AnimationBlock(before: before, after: after)
     }
     
-    func onKeyboardHide(){
-        
+    func animate(animation: @escaping () -> Void, completion: ((Bool) -> Void)? = nil){
+        UIView.animate(withDuration: Self.ANIMATION_DURATION, animations: animation, completion: completion)
+    }
+}
+
+extension KeyboardView{
+    struct AnimationBlock{
+        var before: (() -> Void)?
+        var after: (() -> Void)?
     }
 }

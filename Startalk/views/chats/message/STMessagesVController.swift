@@ -138,34 +138,39 @@ extension STMessagesVController: STMessagesViewDelegate{
         }
     }
     
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        messagesView.changeState(to: .text(true))
+        return true
+    }
+    
     func voiceButtonTapped() {
         let state: STMessageInputState
         if messagesView.inputState == .voice{
-            state = .text
+            state = .text(false)
         }else{
             state = .voice
         }
-        messagesView.setState(state)
+        messagesView.changeState(to: state)
     }
     
     func stickerButtonTapped() {
         let state: STMessageInputState
         if messagesView.inputState == .sticker{
-            state = .text
+            state = .text(false)
         }else{
             state = .sticker
         }
-        messagesView.setState(state)
+        messagesView.changeState(to: state)
     }
     
     func moreButtonTapped() {
         let state: STMessageInputState
-        if messagesView.inputState == .more{
-            state = .text
+        if messagesView.inputState  == .more{
+            state = .text(false)
         }else{
             state = .more
         }
-        messagesView.setState(state)
+        messagesView.changeState(to: state)
     }
     
     func inputVoiceButtonTouchDown() {

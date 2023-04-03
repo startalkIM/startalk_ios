@@ -13,6 +13,14 @@ class STMessagesView: KeyboardView {
 
     var tableView: UITableView!
     var inputBar: STMessageInputBar!
+    var stickersView: STMessageStickersView!
+    var functionsView: STMessageInputFunctionsView!
+    
+    var stickersHideTopConstraint: NSLayoutConstraint!
+    var stickersShowTopConstraint: NSLayoutConstraint!
+    
+    var functionsHideTopConstraint: NSLayoutConstraint!
+    var functionsShowTopConstraint: NSLayoutConstraint!
     
     var delegate: STMessagesViewDelegate? {
         didSet{
@@ -47,6 +55,12 @@ class STMessagesView: KeyboardView {
         
         inputBar = STMessageInputBar()
         addSubview(inputBar)
+        
+        stickersView = STMessageStickersView()
+        addSubview(stickersView)
+        
+        functionsView = STMessageInputFunctionsView()
+        addSubview(functionsView)
     }
     
     func layoutElements(){
@@ -64,22 +78,100 @@ class STMessagesView: KeyboardView {
             inputBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             inputBar.bottomAnchor.constraint(equalTo: safeKeyboardLayoutGuide.topAnchor),
         ])
+        
+        stickersView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stickersView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            stickersView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            stickersView.topAnchor.constraint(greaterThanOrEqualTo: inputBar.bottomAnchor),
+        ])
+        stickersHideTopConstraint = stickersView.topAnchor.constraint(equalTo: bottomAnchor)
+        stickersShowTopConstraint = stickersView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+        stickersHideTopConstraint.isActive = true
+        
+        functionsView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            functionsView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            functionsView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            functionsView.topAnchor.constraint(greaterThanOrEqualTo: inputBar.bottomAnchor),
+        ])
+        functionsHideTopConstraint = functionsView.topAnchor.constraint(equalTo: bottomAnchor)
+        functionsShowTopConstraint = functionsView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+        functionsHideTopConstraint.isActive = true
+    }
+    
+    func setStickersViewVisible(_ visible: Bool){
+        stickersHideTopConstraint.isActive = !visible
+        stickersShowTopConstraint.isActive = visible
+    }
+    
+    func setFunctionsViewVisible(_ visible: Bool){
+        functionsHideTopConstraint.isActive = !visible
+        functionsShowTopConstraint.isActive = visible
     }
     
     func delegateDidSet(_ delegate: STMessagesViewDelegate?){
         tableView.delegate = delegate
         inputBar.delegate = delegate
     }
-    
-    override func onKeyboardShow() {
-        tableView.scrollsToBottom(animated: false)
-    }
 }
 
 extension STMessagesView{
-    func setState(_ state: STMessageInputState){
-        self.inputState = state
+    func changeState(to state: STMessageInputState){
+        switch state{
+        case .idle, .voice:
+            if inputState == .sticker || inputState == .more {
+                setStickersViewVisible(false)
+                setFunctionsViewVisible(false)
+                animate {
+                    self.layoutIfNeeded()
+                }
+            }
+        case .text(_):
+            addAnimation{ [self] in
+                setStickersViewVisible(false)
+                setFunctionsViewVisible(false)
+            } after: { [self] in
+                tableView.scrollsToBottom(animated: false)
+            }
+        case .sticker:
+            setStickersViewVisible(true)
+            if inputState == .idle || inputState == .voice{
+                animate { [self] in
+                    layoutIfNeeded()
+                    tableView.scrollsToBottom(animated: false)
+                }
+            }else if inputState == .more {
+                functionsView.isHidden = true
+                setFunctionsViewVisible(false)
+                animate { [self] in
+                    layoutIfNeeded()
+                    tableView.scrollsToBottom(animated: false)
+                } completion: { _ in
+                    self.functionsView.isHidden = false
+                }
+            }
+        case .more:
+            setFunctionsViewVisible(true)
+            if inputState == .idle, inputState == .voice{
+                animate { [self] in
+                    layoutIfNeeded()
+                    tableView.scrollsToBottom(animated: false)
+                }
+            }else if inputState == .sticker {
+                stickersView.isHidden = true
+                setStickersViewVisible(false)
+                animate { [self] in
+                    layoutIfNeeded()
+                    tableView.scrollsToBottom(animated: false)
+                } completion: { _ in
+                    self.stickersView.isHidden = false
+                }
+            }
+            
+        }
         inputBar.setState(state)
+        inputState = state
     }
 }
 

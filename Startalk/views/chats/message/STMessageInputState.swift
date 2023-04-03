@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum STMessageInputState{
+enum STMessageInputState: Equatable{
     case idle
     case voice
-    case text
+    case text(Bool)
     case sticker
     case more
 }
