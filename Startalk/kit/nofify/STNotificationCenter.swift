@@ -9,49 +9,58 @@ import Foundation
 
 class STNotificationCenter{
     let center = NotificationCenter.default
-    var holders: [Notification.Name: [(AnyObject, NSObjectProtocol)]] = [: ]
+    var holders: [Notification.Name: [Handle]] = [: ]
     let queue = OperationQueue()
     
     init() {
-        queue.name = "st notification center queue"
+        queue.name = "startalk notification center queue"
     }
     
-    private func addObserver(_ observer: AnyObject, name: Notification.Name, handler: @escaping (Notification) -> Void){
+    private func addObserver(_ observer: AnyObject, name: Notification.Name, object: Any? = nil,handler: @escaping (Notification) -> Void){
         let currentHandle = removeHandle(observer: observer, name: name)
         if let currentHandle = currentHandle{
             center.removeObserver(currentHandle, name: name, object: nil)
         }
-        let handle = center.addObserver(forName: name, object: nil, queue: queue, using: handler)
-        addHandle(handle, name: name, observer: observer)
+        let token = center.addObserver(forName: name, object: nil, queue: queue, using: handler)
+        addHandle(token, name: name, observer: observer, object: object)
     }
     
     private func removeObserver(_ observer: AnyObject, name: Notification.Name){
-        let handle = removeHandle(observer: observer, name: name)
-        if let handle = handle{
-            center.removeObserver(handle, name: name, object: nil)
+        let token = removeHandle(observer: observer, name: name)
+        if let token = token{
+            center.removeObserver(token, name: name, object: nil)
         }
     }
     
-    private func addHandle(_ handle: NSObjectProtocol, name: Notification.Name, observer: AnyObject){
+    private func addHandle(_ token: NSObjectProtocol, name: Notification.Name, observer: AnyObject, object: Any?){
         if holders[name] == nil{
             holders[name] = []
         }
-        holders[name]!.append((observer, handle))
+        let handle = Handle(observer: observer, token: token, object: object)
+        holders[name]!.append(handle)
     }
     
     private func removeHandle(observer: AnyObject, name: Notification.Name) -> NSObjectProtocol?{
-        let index = holders[name]?.firstIndex{ $0.0 === observer }
+        let index = holders[name]?.firstIndex{ $0.observer === observer }
         if let index = index{
-            let pair = holders[name]?.remove(at: index)
-            return pair?.1
+            let handle = holders[name]?.remove(at: index)
+            return handle?.token
         }else{
             return nil
         }
     }
 }
 
+extension STNotificationCenter{
+    struct Handle{
+        var observer: AnyObject
+        var token: NSObjectProtocol
+        var object: Any?
+    }
+}
 
 extension STNotificationCenter{
+    
     
     //MARK: message appended
     func observeMessagesAppended(_ observer: AnyObject, handler: @escaping ([STMessage]) -> Void){
@@ -111,7 +120,5 @@ extension Notification.Name{
     static let STMessageStateChanged = Notification.Name("ST_message_state_changed")
     
     static let STChatListChanged = Notification.Name("ST_chat_list_changed")
-    
-
 
 }
