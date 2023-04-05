@@ -60,6 +60,11 @@ class STMessagesVController: STEditableViewController2{
         loadData(animated: false)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.scrollsToBottom(animated: false)
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         notificationCenter.unobserveMessagesAppended(self)
@@ -68,11 +73,8 @@ class STMessagesVController: STEditableViewController2{
     
     func loadData(animated: Bool){
         messageSource.reload()
-        DispatchQueue.main.async { [self] in
-            tableView.reloadData()
-            let indexPath = IndexPath(row: messageSource.count - 1, section: 0)
-            tableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
-        }
+        tableView.reloadData()
+        tableView.scrollsToBottom(animated: animated)
     }
     
     func receive(_ messages: [STMessage]){
@@ -80,7 +82,9 @@ class STMessagesVController: STEditableViewController2{
             message.xmppId == chat.id
         }
         if contains{
-            loadData(animated: true)
+            DispatchQueue.main.async {
+                self.loadData(animated: true)
+            }
         }else{
         }
     }

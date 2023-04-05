@@ -7,14 +7,20 @@
 
 import UIKit
 
-extension UIScrollView{
+extension UITableView{
     
     func scrollsToBottom(animated: Bool){
-        let width = contentSize.width
-        let height = contentSize.height
-        if height > 0{
-            let rect = CGRect(x: 0, y: height - 1, width: width, height: 1)
-            scrollRectToVisible(rect, animated: animated)
+        if numberOfSections > 0{
+            let lastSection = numberOfSections - 1
+            let rows = numberOfRows(inSection: lastSection)
+            let lastRow: Int
+            if rows > 0 {
+                lastRow = rows - 1
+            }else{
+                lastRow = NSNotFound
+            }
+            let indexPath = IndexPath(row: lastRow, section: lastSection)
+            scrollToRow(at: indexPath, at: .bottom, animated: animated)
         }
     }
 }
