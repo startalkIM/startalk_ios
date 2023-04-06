@@ -15,7 +15,7 @@ class STDiscoverVController: UIViewController {
         navigationItem.title = "discover".localized
         
         let label = UILabel()
-        label.text = "Discover"
+        label.text = "discover".localized
         label.sizeToFit()
         label.center = view.center
         view.addSubview(label)

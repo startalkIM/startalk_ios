@@ -18,9 +18,7 @@ class STLoginManager{
     lazy var navigationManager = STKit.shared.navigationManager
     lazy var userState = STKit.shared.userState
     lazy var appStateManager = STKit.shared.appStateManager
-    
-    var delegate: STLoginDelegate?
-    
+        
     func login(username: String, password: String, completionHandler: @escaping (Bool, String) -> Void){
         let domain = navigationManager.navigation.domain
         let encryptedPassword = RSAUtil.encrpyt(password)
@@ -38,10 +36,7 @@ class STLoginManager{
             case .response(let response):
         
                 userState.setLoggedIn(username: response.u, token: response.t)
-                appStateManager.setLoggedIn()
-                
                 completionHandler(true, "")
-                delegate?.didLogin()
                 
             case .failure(let message):
                 completionHandler(false, message)

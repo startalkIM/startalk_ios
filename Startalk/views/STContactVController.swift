@@ -16,7 +16,7 @@ class STContactVController: UIViewController {
 
         
         let label = UILabel()
-        label.text = "Contact"
+        label.text = "contact".localized
         label.sizeToFit()
         label.center = view.center
         view.addSubview(label)

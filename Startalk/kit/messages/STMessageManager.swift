@@ -9,6 +9,7 @@ import Foundation
 import XMPPClient
 
 class STMessageManager{
+    lazy var appStateManager = STKit.shared.appStateManager
     lazy var notificationCenter = STKit.shared.notificationCenter
     lazy var xmppClient = STKit.shared.xmppClient
     
@@ -20,23 +21,9 @@ class STMessageManager{
     //MARK: synchronize with server
     func synchronizeMessages(){
         let lastTime = messageStorage.lastMessageTimestamp
-        messageLoader.fetchPrivate(since: lastTime){ [self] messages in
-            var messages = messages
-            for i in 0..<messages.count{
-                messages[i].isGroup = false
-            }
+        messageLoader.fetch(since: lastTime){ [self] messages in
             addHistoryMessages(messages)
-        }
-        
-        messageLoader.fetchGroup(since: lastTime){ [self] messages in
-            var messages = messages
-            for i in 0..<messages.count{
-                messages[i].isGroup = true
-                if let realFrom = messages[i].realFrom{
-                    messages[i].from = realFrom
-                }
-            }
-            addHistoryMessages(messages)
+            appStateManager.setLoaded()
         }
     }
     

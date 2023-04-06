@@ -54,6 +54,8 @@
 "network_request_failed" = "Request failed";
 "camera_access_unauthorized" = "Camera access not enabled";
 
+"state_connecting" = "connecting...";
+"state_loading" = "loading...";
 
 "chats" = "Chats";
 "contact" = "Contact";

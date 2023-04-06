@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class STNotificationCenter{
     let center = NotificationCenter.default
@@ -60,7 +61,34 @@ extension STNotificationCenter{
 }
 
 extension STNotificationCenter{
+    //MARK: application activity
+    func observeAppWillBecomeActive(_ observer: AnyObject, handler: @escaping () -> Void){
+        addObserver(observer, name: UIApplication.willEnterForegroundNotification) { _ in
+            handler()
+        }
+    }
     
+    func observeAppWillResignActive(_ observer: AnyObject, handler: @escaping () -> Void){
+        addObserver(observer, name: UIApplication.willResignActiveNotification) { _ in
+            handler()
+        }
+    }
+    
+    
+    
+    //MARK: app state
+    
+    func observeAppStateChanged(_ observer: AnyObject, handler: @escaping (STAppState) -> Void){
+        addObserver(observer, name: .STAppStateChanged) { notification in
+            if let state = notification.object as? STAppState{
+                handler(state)
+            }
+        }
+    }
+    
+    func notifyAppStateChanged(_ state: STAppState){
+        center.post(name: .STAppStateChanged, object: state)
+    }
     
     //MARK: message appended
     func observeMessagesAppended(_ observer: AnyObject, handler: @escaping ([STMessage]) -> Void){
@@ -78,6 +106,8 @@ extension STNotificationCenter{
     func notifyMessagesAppended(_ messages: [STMessage]){
         center.post(name: .STMessageAppended, object: messages)
     }
+    
+    
     
     //MARK: message state changed
 
@@ -97,6 +127,9 @@ extension STNotificationCenter{
         center.post(name: .STMessageStateChanged, object: idState)
     }
     
+    
+    
+    
     //MARK: chat list changed
     func observeChatListChanged(_ observer: AnyObject, handler: @escaping () -> Void){
         addObserver(observer, name: .STChatListChanged) { _ in
@@ -114,11 +147,12 @@ extension STNotificationCenter{
 }
 
 extension Notification.Name{
+    static let STAppStateChanged = Notification.Name("startalk_app_state_changed")
     
-    static let STMessageAppended = Notification.Name("ST_message_appended")
+    static let STMessageAppended = Notification.Name("startalk_message_appended")
     
-    static let STMessageStateChanged = Notification.Name("ST_message_state_changed")
+    static let STMessageStateChanged = Notification.Name("startalk_message_state_changed")
     
-    static let STChatListChanged = Notification.Name("ST_chat_list_changed")
+    static let STChatListChanged = Notification.Name("startalk_chat_list_changed")
 
 }

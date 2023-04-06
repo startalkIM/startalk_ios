@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  STAppDelegate.swift
 //  Startalk
 //
 //  Created by lei on 2023/1/11.
@@ -9,12 +9,14 @@ import UIKit
 import CoreData
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class STAppDelegate: UIResponder, UIApplicationDelegate {
 
     var window:UIWindow?
+    
+    var appStateManager: STAppStateManager = STKit.shared.appStateManager
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
+        appStateManager.initialize()
         return true
     }
 

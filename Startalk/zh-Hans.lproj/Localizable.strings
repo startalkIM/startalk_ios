@@ -51,6 +51,8 @@
 "network_request_failed" = "请求失败";
 "camera_access_unauthorized" = "相机权限未开启";
 
+"state_connecting" = "连接中...";
+"state_loading" = "loading...";
 
 "chats" = "消息";
 "contact" = "通讯录";

@@ -12,6 +12,8 @@ class STUserState{
     static private let USERNAME_KEY = "username"
     static private let USER_TOKEN_KEY = "user_token"
     
+    lazy var appStateManager = STKit.shared.appStateManager
+
     let defaults = UserDefaults.standard
     
     var isLoggedIn: Bool = false
@@ -33,6 +35,8 @@ class STUserState{
         
         self.token = token
         storeToken(token)
+        
+        appStateManager.setLoggedIn()
     }
     
     func setLoggedOut(){
@@ -44,6 +48,8 @@ class STUserState{
         
         self.token = ""
         storeToken(nil)
+        
+        appStateManager.setLoggedOut()
     }
 }
 

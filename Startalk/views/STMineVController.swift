@@ -12,10 +12,10 @@ class STMineVController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Me"
+        navigationItem.title = "mine".localized
         
         let label = UILabel()
-        label.text = "Me"
+        label.text = "mine".localized
         label.sizeToFit()
         label.center = view.center
         view.addSubview(label)

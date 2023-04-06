@@ -8,15 +8,14 @@
 import UIKit
 import Combine
 
-class STMainVController: STSwitchController, STLoginDelegate{
+class STMainVController: STSwitchController{
     
     let loginController: STLoginVController
     
     let contentController: UINavigationController
     
-    let userState  = STKit.shared.userState
-    let loginManager = STKit.shared.loginManager
     let appStateManager = STKit.shared.appStateManager
+    let notificationCenter = STKit.shared.notificationCenter
     
     required init?(coder: NSCoder) {
         loginController = STLoginVController()
@@ -29,28 +28,22 @@ class STMainVController: STSwitchController, STLoginDelegate{
     }
     
     override func viewDidLoad() {
-        if userState.isLoggedIn{
-            show(contentController)
-            appStateManager.setLoggedIn()
-        }else{
+        if appStateManager.state == .login{
             show(loginController)
-        }
-
-        loginManager.delegate = self
-    }
-}
-
-
-extension STMainVController{
-    func didLogin() {
-        DispatchQueue.main.async { [self] in
+        }else{
             show(contentController)
         }
+
+        notificationCenter.observeAppStateChanged(self, handler: stateChanged(_:))
     }
     
-    func didLogout() {
+    func stateChanged(_ state: STAppState){
         DispatchQueue.main.async { [self] in
-            show(loginController)
+            if state == .login{
+                show(loginController)
+            }else{
+                show(contentController)
+            }
         }
     }
 }

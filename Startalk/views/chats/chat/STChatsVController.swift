@@ -15,7 +15,7 @@ class STChatsVController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "chats"
+        navigationItem.title = "chats".localized
                 
         tableView.separatorInset = UIEdgeInsets(top: 0, left: STChatTableCell.SEPARATOR_INSET, bottom: 0, right: 0)
         tableView.register(STChatTableCell.self, forCellReuseIdentifier: STChatTableCell.IDENTIFIER)

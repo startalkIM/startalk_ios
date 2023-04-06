@@ -20,13 +20,43 @@ class STHistoryMessagesLoader{
     lazy var navigationManager = STKit.shared.navigationManager
     lazy var xmppClient = STKit.shared.xmppClient
     
-    func fetchPrivate(since: Date?, completion: @escaping ([STMessage]) -> Void){
-        fetch(since: since, path: Self.PRIVATE_PATH, completion: completion)
-    }
+    var semaphore: DispatchSemaphore = DispatchSemaphore(value: 1)
+    var isPrivateLoaded: Bool = false
+    var isGroupLoaded: Bool = false
+    var messages: [STMessage] = []
     
-    func fetchGroup(since: Date?, completion: @escaping ([STMessage]) -> Void){
-        fetch(since: since, path: Self.GROUP_PATH, completion: completion)
-
+    func fetch(since: Date?, completion: @escaping ([STMessage]) -> Void ){
+        isPrivateLoaded = false
+        isGroupLoaded = false
+        messages = []
+        
+        fetch(since: since, path: Self.PRIVATE_PATH) { [self] messages in
+            semaphore.wait()
+            
+            var messages = messages
+            messages.indices.forEach{ messages[$0].isGroup = false}
+            self.messages.append(contentsOf: messages)
+            isPrivateLoaded = true
+            if isGroupLoaded{
+                completion(self.messages)
+            }
+            
+            semaphore.signal()
+        }
+        
+        fetch(since: since, path: Self.GROUP_PATH) { [self] messages in
+            semaphore.wait()
+            
+            var messages = messages
+            messages.indices.forEach{ messages[$0].isGroup = true}
+            self.messages.append(contentsOf: messages)
+            isGroupLoaded = true
+            if isPrivateLoaded{
+                completion(self.messages)
+            }
+            
+            semaphore.signal()
+        }
     }
     
     private func fetch(since: Date?, path: String, completion: @escaping ([STMessage]) -> Void){
