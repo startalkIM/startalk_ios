@@ -262,4 +262,7 @@ extension STServiceManager{
     var apiUrl: String{
         navigation.apiUrl
     }
+    var pushUrl: String{
+        navigation.pushUrl
+    }
 }

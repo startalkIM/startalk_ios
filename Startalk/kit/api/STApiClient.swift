@@ -24,8 +24,16 @@ class STApiClient{
         serviceManager.apiUrl
     }
     
+    var pushUrl: String{
+        serviceManager.pushUrl
+    }
+    
     func buildUrl(path: String, params: [String: Any?] = [:]) -> URL{
         return httpClient.buildUrl(baseUrl: baseUrl, path: path, params: params)
+    }
+    
+    func buildPushUrl(path: String, params: [String: Any?] = [:]) -> URL {
+        return httpClient.buildUrl(baseUrl: pushUrl, path: path, params: params)
     }
     
     func request<T: Codable>(_ url: URL, completionHandler: @escaping (STApiResult<T>) -> Void){

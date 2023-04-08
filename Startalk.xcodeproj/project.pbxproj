@@ -58,6 +58,7 @@
 		ABA2132A296EA95C00F1D2F7 /* Startalk.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ABA21328296EA95C00F1D2F7 /* Startalk.xcdatamodeld */; };
 		ABA2132C296EA95D00F1D2F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABA2132B296EA95D00F1D2F7 /* Assets.xcassets */; };
 		ABA2132F296EA95D00F1D2F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA2132D296EA95D00F1D2F7 /* LaunchScreen.storyboard */; };
+		ABBC9E1029E196810097ADED /* STNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBC9E0F29E196810097ADED /* STNotificationManager.swift */; };
 		ABC79D4629D6E82A0025C155 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4529D6E82A0025C155 /* KeyboardView.swift */; };
 		ABC79D4829D71C1E0025C155 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4729D71C1E0025C155 /* UITableView+.swift */; };
 		ABC79D4A29D97DCA0025C155 /* STMessageInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */; };
@@ -161,6 +162,7 @@
 		ABA2132B296EA95D00F1D2F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABA2132E296EA95D00F1D2F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ABA21330296EA95D00F1D2F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABBC9E0F29E196810097ADED /* STNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNotificationManager.swift; sourceTree = "<group>"; };
 		ABC79D4529D6E82A0025C155 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		ABC79D4729D71C1E0025C155 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageInputBar.swift; sourceTree = "<group>"; };
@@ -288,7 +290,8 @@
 				ABF80B6029B4A01100EA1861 /* service */,
 				ABF80B6F29B71F3C00EA1861 /* api */,
 				ABFC90E929CDC3E00040BDE5 /* xmpp */,
-				ABFC90DB29CDC3B10040BDE5 /* nofify */,
+				ABBC9E0E29E185850097ADED /* notification */,
+				ABFC90DB29CDC3B10040BDE5 /* localNotification */,
 				AB8BBB1C29BC950C00125DAB /* files */,
 			);
 			path = kit;
@@ -386,6 +389,14 @@
 			path = Startalk;
 			sourceTree = "<group>";
 		};
+		ABBC9E0E29E185850097ADED /* notification */ = {
+			isa = PBXGroup;
+			children = (
+				ABBC9E0F29E196810097ADED /* STNotificationManager.swift */,
+			);
+			path = notification;
+			sourceTree = "<group>";
+		};
 		ABF80B5629B0BA3400EA1861 /* scan */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,12 +462,12 @@
 			path = message;
 			sourceTree = "<group>";
 		};
-		ABFC90DB29CDC3B10040BDE5 /* nofify */ = {
+		ABFC90DB29CDC3B10040BDE5 /* localNotification */ = {
 			isa = PBXGroup;
 			children = (
 				ABFC90DC29CDC3B10040BDE5 /* STNotificationCenter.swift */,
 			);
-			path = nofify;
+			path = localNotification;
 			sourceTree = "<group>";
 		};
 		ABFC90DE29CDC3C50040BDE5 /* messages */ = {
@@ -583,6 +594,7 @@
 				AB12F9B929A8CC2D00C639B6 /* STServicesView.swift in Sources */,
 				ABFC90DA29CDC3630040BDE5 /* STMessagesVController.swift in Sources */,
 				7DB6041E296FB79A00A0AAFA /* STMineVController.swift in Sources */,
+				ABBC9E1029E196810097ADED /* STNotificationManager.swift in Sources */,
 				AB12F97B29A34C1000C639B6 /* STLoginView.swift in Sources */,
 				AB5A51ED29CF0E4300656FC4 /* Date+.swift in Sources */,
 				AB5A51FD29D1C76C00656FC4 /* STMessageIdState.swift in Sources */,
