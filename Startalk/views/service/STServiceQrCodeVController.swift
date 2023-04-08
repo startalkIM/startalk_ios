@@ -1,5 +1,5 @@
 //
-//  STNavigationQrCodeVController.swift
+//  STServiceQrCodeVController.swift
 //  Startalk
 //
 //  Created by lei on 2023/3/6.
@@ -7,15 +7,15 @@
 
 import UIKit
 
-class STNavigationQrCodeVController: UIViewController {
+class STServiceQrCodeVController: UIViewController {
 
-    var location: STNavigationLocation = .empty
+    var service: STService = .empty
     
     var nameLabel: UILabel!
     var imageView: UIImageView!
     
     override func loadView() {
-        let codeView = STNavigationQrCodeView()
+        let codeView = STServiceQrCodeView()
         nameLabel = codeView.nameLabel
         imageView = codeView.imageView
         
@@ -25,13 +25,13 @@ class STNavigationQrCodeVController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameLabel.text = location.name
+        nameLabel.text = service.name
         
-        imageView.image = STQrCodeUtil.makeImage(location.value, size: 280)
+        imageView.image = STQrCodeUtil.makeImage(service.location, size: 280)
         
         navigationController?.navigationBar.tintColor = .black
         
-        navigationItem.title = "navigation_qr_code".localized
+        navigationItem.title = "service_qr_code".localized
     }
 
 

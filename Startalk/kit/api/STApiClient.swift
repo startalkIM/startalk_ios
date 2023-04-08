@@ -10,7 +10,7 @@ import Foundation
 class STApiClient{
     let logger = STLogger(STApiClient.self)
 
-    lazy var navigationManager = STKit.shared.navigationManager
+    lazy var serviceManager = STKit.shared.serviceManager
     lazy var userState = STKit.shared.userState
     lazy var xmppClient = STKit.shared.xmppClient
     
@@ -21,7 +21,7 @@ class STApiClient{
     }
     
     var baseUrl: String{
-        navigationManager.apiUrl
+        serviceManager.apiUrl
     }
     
     func buildUrl(path: String, params: [String: Any?] = [:]) -> URL{

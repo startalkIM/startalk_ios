@@ -1,5 +1,5 @@
 //
-//  STNavigationView.swift
+//  STServicesView.swift
 //  Startalk
 //
 //  Created by lei on 2023/2/24.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-class STNavigationListView: UIView {
+class STServicesView: UIView {
     var tableView: UITableView!
     var button: UIButton!
     
-    var delegate: STNavigationListViewDelegate?{
+    var delegate: STServicesViewDelegate?{
         didSet{
             delegateDidSet(delegate)
         }
@@ -29,7 +29,7 @@ class STNavigationListView: UIView {
     
     func addSubViews(){
         tableView = UITableView()
-        tableView.register(STNavigationTableCell.self, forCellReuseIdentifier: STNavigationTableCell.IDENTIFIER)
+        tableView.register(STServieTableCell.self, forCellReuseIdentifier: STServieTableCell.IDENTIFIER)
         addSubview(tableView)
         
         button = makeButton()
@@ -45,7 +45,7 @@ class STNavigationListView: UIView {
             tableView.topAnchor.constraint(equalTo: safeLayout.topAnchor),
         ])
         
-        tableView.rowHeight = STNavigationTableCell.CELL_HEIGHT
+        tableView.rowHeight = STServieTableCell.CELL_HEIGHT
         tableView.separatorStyle = .none
     }
     
@@ -88,7 +88,7 @@ class STNavigationListView: UIView {
         return button
     }
     
-    func delegateDidSet(_ delegate: STNavigationListViewDelegate?){
+    func delegateDidSet(_ delegate: STServicesViewDelegate?){
         tableView.dataSource = delegate
         tableView.delegate = delegate
         
@@ -102,7 +102,7 @@ class STNavigationListView: UIView {
 
 
 @objc
-protocol STNavigationListViewDelegate: UITableViewDataSource, UITableViewDelegate{
+protocol STServicesViewDelegate: UITableViewDataSource, UITableViewDelegate{
     
     func confirmButtonTapped()
     

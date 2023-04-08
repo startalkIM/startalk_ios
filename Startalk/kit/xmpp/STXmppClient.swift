@@ -11,7 +11,7 @@ import UIKit
 class STXmppClient{
     let logger = STLogger(STXmppClient.self)
     
-    lazy var navigationManager = STKit.shared.navigationManager
+    lazy var serviceManager = STKit.shared.serviceManager
     lazy var userState = STKit.shared.userState
     lazy var identifiers = STKit.shared.identifiers
     lazy var appStateManager = STKit.shared.appStateManager
@@ -25,9 +25,9 @@ class STXmppClient{
     func connnect(){
         guard self.stream == nil else{ return }
         
-        let host = navigationManager.host
-        let port: UInt16 = UInt16(navigationManager.port)
-        let domain = navigationManager.domain
+        let host = serviceManager.host
+        let port: UInt16 = UInt16(serviceManager.port)
+        let domain = serviceManager.domain
     
         let username = userState.username
         let password = makeXmppPassword()

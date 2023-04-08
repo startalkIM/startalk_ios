@@ -1,5 +1,5 @@
 //
-//  NavigationTableViewCell.swift
+//  STServieTableCell.swift
 //  Startalk
 //
 //  Created by lei on 2023/2/24.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class STNavigationTableCell: UITableViewCell {
-    static let IDENTIFIER = "navigationCell"
+class STServieTableCell: UITableViewCell {
+    static let IDENTIFIER = "ServiceCell"
     static let CELL_HEIGHT: CGFloat = 130
     
     var contentBackground: UIView!
@@ -19,7 +19,7 @@ class STNavigationTableCell: UITableViewCell {
     var editButton: UIButton!
     var deleteButton: UIButton!
     
-    var delegate: NavigationTableViewCellDelegate?
+    var delegate: STServieTableCellDelegate?
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -75,7 +75,7 @@ class STNavigationTableCell: UITableViewCell {
     func addCheckButton(){
         let button =  UIButton()
         
-        let image = UIImage(named: "navigation/check")
+        let image = UIImage(named: "service/check")
         button.setImage(image?.withTintColor(.make(0xE4E4E4)), for: .normal)
         button.setImage(image?.withTintColor(.make(0x00CABE)), for: .selected)
         
@@ -86,7 +86,7 @@ class STNavigationTableCell: UITableViewCell {
     
     func addQrCodeButton(){
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "navigation/qrcode"), for: .normal)
+        button.setImage(UIImage(named: "service/qrcode"), for: .normal)
         button.tintColor = .make(0x616161)
         
         button.addTarget(self, action: #selector(tapQrcode), for: .touchUpInside)
@@ -96,7 +96,7 @@ class STNavigationTableCell: UITableViewCell {
     
     func addEditButton(){
         let button = UIButton(type: .system)
-        button.setTitle("navigation_change".localized, for: .normal)
+        button.setTitle("service_change".localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 12)
         button.layer.borderWidth = 1
@@ -108,7 +108,7 @@ class STNavigationTableCell: UITableViewCell {
     
     func addDeleteButton(){
         let button = UIButton(type: .system)
-        button.setTitle("navigation_delete".localized, for: .normal)
+        button.setTitle("service_delete".localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 12)
         button.layer.borderWidth = 1
@@ -233,14 +233,14 @@ class STNavigationTableCell: UITableViewCell {
 
 }
 
-extension STNavigationTableCell{
-    func setItem(_ item: STNavigationLocation){
+extension STServieTableCell{
+    func setItem(_ item: STService){
         titleLabel.text = item.name
-        locationLabel.text = item.value
+        locationLabel.text = item.location
     }
 }
 
-extension STNavigationTableCell{
+extension STServieTableCell{
     
     @objc
     func tapCheck(){
@@ -263,14 +263,14 @@ extension STNavigationTableCell{
     }
 }
 
-protocol NavigationTableViewCellDelegate{
+protocol STServieTableCellDelegate{
     
-    func checkButtonTapped(sender: STNavigationTableCell)
+    func checkButtonTapped(sender: STServieTableCell)
     
-    func qrCodeButtonTapped(sender: STNavigationTableCell)
+    func qrCodeButtonTapped(sender: STServieTableCell)
     
-    func editButtonTapped(sender: STNavigationTableCell)
+    func editButtonTapped(sender: STServieTableCell)
     
-    func deleteButtonTapped(sender: STNavigationTableCell)
+    func deleteButtonTapped(sender: STServieTableCell)
     
 }

@@ -13,7 +13,7 @@ class STKit{
     let identifiers: STIdentifiers
     let appStateManager: STAppStateManager
     let userState: STUserState
-    let navigationManager: STNavigationManager
+    let serviceManager: STServiceManager
     let loginManager: STLoginManager
     let messageManager: STMessageManager
     
@@ -26,7 +26,7 @@ class STKit{
         identifiers = STIdentifiers()
         appStateManager = STAppStateManager()
         userState = STUserState()
-        navigationManager = STNavigationManager()
+        serviceManager = STServiceManager()
         loginManager = STLoginManager()
         messageManager = STMessageManager()
         

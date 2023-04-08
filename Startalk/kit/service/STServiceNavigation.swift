@@ -1,5 +1,5 @@
 //
-//  STNavigation.swift
+//  STServiceNavigation.swift
 //  Startalk
 //
 //  Created by lei on 2023/3/6.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct STNavigation{
+struct STServiceNavigation{
     var domain: String
     var host: String
     var port: Int
@@ -20,7 +20,7 @@ struct STNavigation{
         self.apiUrl = apiUrl
     }
         
-    static let `default` = STNavigation(
+    static let `default` = STServiceNavigation(
         domain: "qtalk",
         host: "qtalk.app",
         port: 5202,
@@ -28,7 +28,7 @@ struct STNavigation{
     )
 }
 
-extension STNavigation: Codable{
+extension STServiceNavigation: Codable{
     
     enum DecodingKeys: CodingKey{
         case baseaddess

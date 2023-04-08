@@ -17,7 +17,7 @@ class STHistoryMessagesLoader{
     
     lazy var apiClient = STKit.shared.apiClient
     lazy var userState = STKit.shared.userState
-    lazy var navigationManager = STKit.shared.navigationManager
+    lazy var serviceManager = STKit.shared.serviceManager
     lazy var xmppClient = STKit.shared.xmppClient
     
     var semaphore: DispatchSemaphore = DispatchSemaphore(value: 1)
@@ -62,7 +62,7 @@ class STHistoryMessagesLoader{
     private func fetch(since: Date?, path: String, completion: @escaping ([STMessage]) -> Void){
         
         let user = userState.username
-        let domain = navigationManager.domain
+        let domain = serviceManager.domain
         let time: Int64
         if let since = since{
             time = since.milliseconds

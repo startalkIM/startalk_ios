@@ -15,12 +15,12 @@ class STLoginManager{
     
     lazy var identifiers = STKit.shared.identifiers
     lazy var apiClient = STKit.shared.apiClient
-    lazy var navigationManager = STKit.shared.navigationManager
+    lazy var serviceManager = STKit.shared.serviceManager
     lazy var userState = STKit.shared.userState
     lazy var appStateManager = STKit.shared.appStateManager
         
     func login(username: String, password: String, completionHandler: @escaping (Bool, String) -> Void){
-        let domain = navigationManager.navigation.domain
+        let domain = serviceManager.navigation.domain
         let encryptedPassword = RSAUtil.encrpyt(password)
         guard let encryptedPassword = encryptedPassword else{
             let message = "encrypting password failed"

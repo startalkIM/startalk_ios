@@ -9,7 +9,7 @@ import UIKit
 
 class STLoginVController: STEditableViewController, STLoginViewDelegate{
     let loginManager = STKit.shared.loginManager
-    let navigationManager = STKit.shared.navigationManager
+    let serviceManager = STKit.shared.serviceManager
     
     var usernameTextField: UITextField!
     var passwordTextField: UITextField!
@@ -34,8 +34,8 @@ class STLoginVController: STEditableViewController, STLoginViewDelegate{
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let navigationName = navigationManager.getLocationName()
-        loginView.setNavigationName(navigationName)
+        let serviceName = serviceManager.getServiceName()
+        loginView.setServiceName(serviceName)
     }
     func checkLoginButton(){
         let usernameValid = StringUtil.isNotEmpty(usernameTextField.text)
@@ -79,15 +79,14 @@ extension STLoginVController: UIImagePickerControllerDelegate & UINavigationCont
         scanViewController.modalPresentationStyle = .fullScreen
         
         scanViewController.completion = { text in
-            self.dismiss(animated: true){
-                let navigationManager = STKit.shared.navigationManager
-                let editorController = STNavigationEditorVController()
-                if let location = navigationManager.queryLocation(text){
+            self.dismiss(animated: true){ [self] in
+                let editorController = STServiceEditorVController()
+                if let service = serviceManager.queryService(text){
                     editorController.type = .edit
-                    editorController.location = location
+                    editorController.service = service
                 }else{
                     editorController.type = .add
-                    editorController.location.value = text
+                    editorController.service.location = text
                 }
                 editorController.modalPresentationStyle = .fullScreen
                 self.presentInNavigationController(editorController, animated: true)
@@ -121,9 +120,9 @@ extension STLoginVController: UIImagePickerControllerDelegate & UINavigationCont
       login()
     }
     
-    func navigationSwitcherTapped() {
+    func serviceSwitcherTapped() {
         
-        let viewController = STNavigationListVController()
+        let viewController = STServicesVController()
         viewController.modalPresentationStyle = .fullScreen
         presentInNavigationController(viewController, animated: true)
     }

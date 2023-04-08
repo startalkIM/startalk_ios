@@ -1,5 +1,5 @@
 //
-//  STNavigationEditorVController.swift
+//  STServiceEditorVController.swift
 //  Startalk
 //
 //  Created by lei on 2023/2/25.
@@ -7,23 +7,23 @@
 
 import UIKit
 
-class STNavigationEditorVController: STEditableViewController {
+class STServiceEditorVController: STEditableViewController {
     private static let MAX_NAME_SIZE = 32
     private static let MAX_LOCATION_SIZE = 512
     
-    var editorView: STNavigationEditorView{
-        view as! STNavigationEditorView
+    var editorView: STServiceEditorView{
+        view as! STServiceEditorView
     }
     var nameTextField: UITextField!
     var locationTextField: UITextField!
     
-    var type: STNavigationEditorType = .add
-    var location: STNavigationLocation = .empty
+    var type: STServiceEditorType = .add
+    var service: STService = .empty
     
-    let navigationManager = STKit.shared.navigationManager
+    let serviceManager = STKit.shared.serviceManager
     
     override func loadView() {
-        let view = STNavigationEditorView()
+        let view = STServiceEditorView()
         nameTextField = view.nameTextField
         locationTextField = view.locationTextField
         
@@ -34,14 +34,14 @@ class STNavigationEditorVController: STEditableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameTextField.text = location.name
-        locationTextField.text = location.value
+        nameTextField.text = service.name
+        locationTextField.text = service.location
         
         navigationController?.navigationBar.tintColor = .black
         if type == .add{
-            navigationItem.title = "navigation_editor_add".localized
+            navigationItem.title = "service_editor_add".localized
         }else{
-            navigationItem.title = "navigation_editor_edit".localized
+            navigationItem.title = "service_editor_edit".localized
         }
         
         if isFirstController {
@@ -73,16 +73,16 @@ class STNavigationEditorVController: STEditableViewController {
             return
         }
         if name.count > Self.MAX_NAME_SIZE{
-            showAlert(title: "reminder".localized, message: "navigation_name_too_long".localized)
+            showAlert(title: "reminder".localized, message: "service_name_too_long".localized)
             return
         }
         if value.count > Self.MAX_LOCATION_SIZE{
-            showAlert(title: "reminder".localized, message: "navigation_location_too_long".localized)
+            showAlert(title: "reminder".localized, message: "service_location_too_long".localized)
             return
         }
         
-        location.name = name
-        location.value = value
+        service.name = name
+        service.location = value
 
         showLoadingView()
         let competion: (Bool) -> Void = { [self] success in
@@ -95,16 +95,16 @@ class STNavigationEditorVController: STEditableViewController {
                             self.navigationController?.popViewController(animated: true)
                         }
                     }else{
-                        self.showAlert(title: "reminder".localized, message: "navigation_invalid_location".localized)
+                        self.showAlert(title: "reminder".localized, message: "service_invalid_location".localized)
                     }
                 }
             }
         }
         switch type{
         case .add:
-            navigationManager.addLocation(location, completion: competion)
+            serviceManager.addService(service, completion: competion)
         case .edit:
-            navigationManager.updateLocation(location, completion: competion)
+            serviceManager.updateService(service, completion: competion)
         }
     }
     
@@ -115,12 +115,12 @@ class STNavigationEditorVController: STEditableViewController {
     }
 }
 
-enum STNavigationEditorType{
+enum STServiceEditorType{
     case add
     case edit
     
 }
-extension STNavigationEditorVController: STNavigationEditorViewDelegate{
+extension STServiceEditorVController: STServiceEditorViewDelegate{
     
     func scanButtonTapped() {
         let scanViewController = STScanVController()

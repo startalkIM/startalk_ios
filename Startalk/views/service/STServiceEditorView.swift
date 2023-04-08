@@ -1,5 +1,5 @@
 //
-//  STNavigationEditorView.swift
+//  STServiceEditorView.swift
 //  Startalk
 //
 //  Created by lei on 2023/2/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class STNavigationEditorView: UIView {
+class STServiceEditorView: UIView {
     var scanButton: UIButton!
     var descriptionLabel: UILabel!
     var nameLabel: UILabel!
@@ -15,7 +15,7 @@ class STNavigationEditorView: UIView {
     var locationLabel: UILabel!
     var locationTextField: UITextField!
     
-    var delegate: STNavigationEditorViewDelegate?{
+    var delegate: STServiceEditorViewDelegate?{
         didSet{
             delegateDidSet(delegate)
         }
@@ -51,7 +51,7 @@ class STNavigationEditorView: UIView {
     
     func addDescriptionLabel(){
         let label = UILabel()
-        label.text = "navigation_configure_manually".localized
+        label.text = "service_configure_manually".localized
         label.font = .systemFont(ofSize: 14)
         label.textColor = .make(0xBFBFBF)
         
@@ -61,7 +61,7 @@ class STNavigationEditorView: UIView {
     
     func addNameLabel(){
         let label = UILabel()
-        label.text = "navigation_name".localized
+        label.text = "service_name".localized
         label.font = .systemFont(ofSize: 16)
         addSubview(label)
         self.nameLabel = label
@@ -72,7 +72,7 @@ class STNavigationEditorView: UIView {
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.font = .systemFont(ofSize: 14)
-        textField.placeholder = "navigation_input_name".localized
+        textField.placeholder = "service_input_name".localized
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.make(0xDDDDDD).cgColor
         addSubview(textField)
@@ -81,7 +81,7 @@ class STNavigationEditorView: UIView {
     
     func addLocationLabel(){
         let label = UILabel()
-        label.text = "navigation_location".localized
+        label.text = "service_location".localized
         label.font = .systemFont(ofSize: 16)
         addSubview(label)
         self.locationLabel = label
@@ -93,7 +93,7 @@ class STNavigationEditorView: UIView {
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.font = .systemFont(ofSize: 14)
-        textField.placeholder = "navigation_input_location".localized
+        textField.placeholder = "service_input_location".localized
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.make(0xDDDDDD).cgColor
         addSubview(textField)
@@ -165,7 +165,7 @@ class STNavigationEditorView: UIView {
         ])
     }
     
-    func delegateDidSet(_ delegate: STNavigationEditorViewDelegate?){
+    func delegateDidSet(_ delegate: STServiceEditorViewDelegate?){
         if let delegate = delegate{
             scanButton.addTarget(delegate, action: #selector(delegate.scanButtonTapped), for: .touchUpInside)
             nameTextField.addTarget(delegate, action: #selector(delegate.nameChanged), for: .editingChanged)
@@ -178,15 +178,15 @@ class STNavigationEditorView: UIView {
     }
 }
 
-extension STNavigationEditorView{
-    func setItem(_ item: STNavigationLocation){
+extension STServiceEditorView{
+    func setItem(_ item: STService){
         nameTextField.text = item.name
-        locationTextField.text = item.value
+        locationTextField.text = item.location
     }
 }
 
 @objc
-protocol STNavigationEditorViewDelegate: UITextFieldDelegate{
+protocol STServiceEditorViewDelegate: UITextFieldDelegate{
     
     func scanButtonTapped()
     

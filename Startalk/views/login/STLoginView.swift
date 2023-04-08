@@ -19,7 +19,7 @@ class STLoginView: UIView {
     var forgetPasswordButton: UIButton!
     var loginButton: UIButton!
     var corporationLabel: UILabel!
-    var navigationSwitcher: UIButton!
+    var serviceSwitcher: UIButton!
     
     var delegate: STLoginViewDelegate? {
         didSet{
@@ -40,7 +40,7 @@ class STLoginView: UIView {
         addForgetPasswordButton()
         addLoginButton()
         addCorporationLabel()
-        addNavigationSwitcher()
+        addServiceSwitcher()
         
         layoutTitleLabel()
         layoutScanButton()
@@ -283,20 +283,20 @@ class STLoginView: UIView {
     }
     
     
-    func addNavigationSwitcher(){
+    func addServiceSwitcher(){
         let button = UIButton()
         let image = UIImage(named: "login/switch")?.withTintColor(.make(0x00CABE))
         button.setImage(image, for: .normal)
         
         addSubview(button)
-        self.navigationSwitcher = button
+        self.serviceSwitcher = button
     }
     
     func layoutCorporationAndSwitcher(){
         let layout = UILayoutGuide()
         addLayoutGuide(layout)
         let label = corporationLabel!
-        let button = navigationSwitcher!
+        let button = serviceSwitcher!
         label.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -331,7 +331,7 @@ class STLoginView: UIView {
             policyLabel.addGestureRecognizer(tapGesture)
             loginButton.addTarget(delegate, action: #selector(delegate.loginButtonTapped), for: .touchUpInside)
             forgetPasswordButton.addTarget(delegate, action: #selector(delegate.forgetPasswordButtonTapped), for: .touchUpInside)
-            navigationSwitcher.addTarget(delegate, action: #selector(delegate.navigationSwitcherTapped), for: .touchUpInside)
+            serviceSwitcher.addTarget(delegate, action: #selector(delegate.serviceSwitcherTapped), for: .touchUpInside)
 
         }else{
             scanButton.removeTarget(nil, action: nil, for: .touchUpInside)
@@ -341,7 +341,7 @@ class STLoginView: UIView {
             policyLabel.gestureRecognizers = nil
             loginButton.removeTarget(nil, action: nil, for: .touchUpInside)
             forgetPasswordButton.removeTarget(nil, action: nil, for: .touchUpInside)
-            navigationSwitcher.removeTarget(nil, action: nil, for: .touchUpInside)
+            serviceSwitcher.removeTarget(nil, action: nil, for: .touchUpInside)
         }
     }
     
@@ -349,7 +349,7 @@ class STLoginView: UIView {
 
 extension STLoginView{
     
-    func setNavigationName(_ value: String){
+    func setServiceName(_ value: String){
         corporationLabel.text = value
     }
 }
@@ -370,7 +370,7 @@ protocol STLoginViewDelegate: UITextFieldDelegate{
     
     func loginButtonTapped()
     
-    func navigationSwitcherTapped()
+    func serviceSwitcherTapped()
     
    
 }

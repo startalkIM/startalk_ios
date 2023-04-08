@@ -1,5 +1,5 @@
 //
-//  STNavigationListVController.swift
+//  STServicesVController.swift
 //  Startalk
 //
 //  Created by lei on 2023/2/24.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-class STNavigationListVController: UIViewController, STNavigationListViewDelegate {
+class STServicesVController: UIViewController, STServicesViewDelegate {
     
-    let navigationManager = STKit.shared.navigationManager
+    let serviceManager = STKit.shared.serviceManager
     var tableView: UITableView!
     
     override func loadView() {
-        let listView = STNavigationListView()
+        let listView = STServicesView()
         listView.delegate = self
         
         tableView = listView.tableView
@@ -24,7 +24,7 @@ class STNavigationListVController: UIViewController, STNavigationListViewDelegat
         super.viewDidLoad()
         
         setNavigationBar()
-        navigationManager.delegate = self
+        serviceManager.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,30 +34,30 @@ class STNavigationListVController: UIViewController, STNavigationListViewDelegat
     
     
     func setNavigationBar(){
-        navigationItem.title = "navigation_title".localized
+        navigationItem.title = "service_title".localized
         
         let cancelBarItem = UIBarButtonItem(title: "cancel".localized, style: .plain, target: self, action: #selector(cancelItemTapped))
         cancelBarItem.tintColor = .black
         navigationItem.leftBarButtonItem = cancelBarItem
         
-        let addBarItem = UIBarButtonItem(title: "navigation_add".localized, style: .plain, target: self, action: #selector(addItemTapped))
+        let addBarItem = UIBarButtonItem(title: "service_add".localized, style: .plain, target: self, action: #selector(addItemTapped))
         addBarItem.tintColor = .black
         navigationItem.rightBarButtonItem = addBarItem
     }
     
     func setSelectedRow(){
-        if let index = navigationManager.getLocationIndex(){
+        if let index = serviceManager.getServiceIndex(){
             let indexPath = IndexPath(row: index, section: 0)
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
         }
     }
     
     func presentEditorView(editing: Bool, index: Int = 0){
-        let editorViewControlller = STNavigationEditorVController()
+        let editorViewControlller = STServiceEditorVController()
         if editing{
             editorViewControlller.type = .edit
-            let location = navigationManager.locations[index]
-            editorViewControlller.location = location
+            let service = serviceManager.services[index]
+            editorViewControlller.service = service
         }else{
             editorViewControlller.type = .add
         }
@@ -80,77 +80,77 @@ class STNavigationListVController: UIViewController, STNavigationListViewDelegat
     }
 }
 
-extension STNavigationListVController{
+extension STServicesVController{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return navigationManager.locations.count
+        return serviceManager.services.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCell(withIdentifier: STNavigationTableCell.IDENTIFIER, for: indexPath) as! STNavigationTableCell
-        let item = navigationManager.locations[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: STServieTableCell.IDENTIFIER, for: indexPath) as! STServieTableCell
+        let item = serviceManager.services[indexPath.row]
         cell.setItem(item)
         cell.delegate = self
         return cell
     }
 }
 
-extension STNavigationListVController{
+extension STServicesVController{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         let index = indexPath.row
-        if index == navigationManager.getLocationIndex(){
+        if index == serviceManager.getServiceIndex(){
             presentEditorView(editing: true, index: index)
         }else{
-            navigationManager.changeLocationIndex(to: index)
+            serviceManager.changeServiceIndex(to: index)
         }
     }
 }
 
-extension STNavigationListVController: NavigationTableViewCellDelegate{
-    func checkButtonTapped(sender: STNavigationTableCell) {
+extension STServicesVController: STServieTableCellDelegate{
+    func checkButtonTapped(sender: STServieTableCell) {
         if let indexPath = tableView.indexPath(for: sender){
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
             tableView(tableView, didSelectRowAt: indexPath)
         }
     }
     
-    func qrCodeButtonTapped(sender: STNavigationTableCell) {
+    func qrCodeButtonTapped(sender: STServieTableCell) {
         if let indexPath = tableView.indexPath(for: sender){
             let index = indexPath.row
-            let location = navigationManager.locations[index]
-            let codeViewController = STNavigationQrCodeVController()
-            codeViewController.location = location
+            let service = serviceManager.services[index]
+            let codeViewController = STServiceQrCodeVController()
+            codeViewController.service = service
             navigationController?.pushViewController(codeViewController, animated: true)
         }
     }
     
-    func editButtonTapped(sender: STNavigationTableCell) {
+    func editButtonTapped(sender: STServieTableCell) {
         if let indexPath = tableView.indexPath(for: sender){
             let index = indexPath.row
             presentEditorView(editing: true, index: index)
         }
     }
     
-    func deleteButtonTapped(sender: STNavigationTableCell) {
+    func deleteButtonTapped(sender: STServieTableCell) {
         if let indexPath = tableView.indexPath(for: sender){
             let title = "delete".localized
-            let message = "navigation_confirm_delete".localized
+            let message = "service_confirm_delete".localized
             showDestructiveConfirmation(title: title, message: message) { [self] in
                 let index = indexPath.row
-                navigationManager.removeLocation(at: index)
+                serviceManager.removeService(at: index)
             }
         }
     }
     
 }
 
-extension STNavigationListVController: STNavigationManagerDelegate{
+extension STServicesVController: STServiceManagerDelegate{
 
-    func locationsChanged() {
+    func servicesChanged() {
         DispatchQueue.main.async { [self] in
             tableView.reloadData()
             setSelectedRow()

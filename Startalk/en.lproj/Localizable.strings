@@ -27,23 +27,23 @@
 "login_unauthenticated" = "Authentication failed";
 
 
-"navigation_title" = "Navigation Management";
-"navigation_change" = "Edit";
-"navigation_delete" = "Delete";
-"navigation_add" = "Add";
-"navigation_scan" = "Scan";
-"navigation_configure_manually" = "Configure Navigation Manually";
-"navigation_name" = "Navigation Name";
-"navigation_input_name" = "Please enter the server name or company name";
-"navigation_location" = "Domain Name/Server Address (Required)";
-"navigation_input_location" = "Please enter the domain name of your company (eg. qunar.com)";
-"navigation_editor_add" = "Add navigaton";
-"navigation_editor_edit" = "Edit navigaton";
-"navigation_name_too_long" = "name length should less than 32";
-"navigation_location_too_long" = "location length should less than 512";
-"navigation_invalid_location" = "Invalid navigation location";
-"navigation_qr_code" = "QR code";
-"navigation_confirm_delete" = "Confirm deleting navigation?";
+"service_title" = "Service Management";
+"service_change" = "Edit";
+"service_delete" = "Delete";
+"service_add" = "Add";
+"service_scan" = "Scan";
+"service_configure_manually" = "Configure Service Manually";
+"service_name" = "Service Name";
+"service_input_name" = "Please enter the service name or company name";
+"service_location" = "Service Location (Required)";
+"service_input_location" = "Please enter the service location (eg. qunar.com)";
+"service_editor_add" = "Add service";
+"service_editor_edit" = "Edit service";
+"service_name_too_long" = "name length should less than 32";
+"service_location_too_long" = "location length should less than 512";
+"service_invalid_location" = "Invalid service location";
+"service_qr_code" = "QR code";
+"service_confirm_delete" = "Confirm deleting service configuration?";
 
 
 "scan" = "Scan";

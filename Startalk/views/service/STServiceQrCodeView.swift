@@ -1,5 +1,5 @@
 //
-//  STNavigationQrCodeView.swift
+//  STServiceQrCodeView.swift
 //  Startalk
 //
 //  Created by lei on 2023/3/6.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class STNavigationQrCodeView: UIView {
+class STServiceQrCodeView: UIView {
     var containerView: UIView!
     var nameLabel: UILabel!
     var imageView: UIImageView!
