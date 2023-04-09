@@ -163,6 +163,7 @@
 		ABA2132E296EA95D00F1D2F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ABA21330296EA95D00F1D2F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ABBC9E0F29E196810097ADED /* STNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNotificationManager.swift; sourceTree = "<group>"; };
+		ABBC9E1129E199030097ADED /* Startalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Startalk.entitlements; sourceTree = "<group>"; };
 		ABC79D4529D6E82A0025C155 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		ABC79D4729D71C1E0025C155 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageInputBar.swift; sourceTree = "<group>"; };
@@ -372,6 +373,7 @@
 		ABA2131E296EA95C00F1D2F7 /* Startalk */ = {
 			isa = PBXGroup;
 			children = (
+				ABBC9E1129E199030097ADED /* Startalk.entitlements */,
 				ABA2131F296EA95C00F1D2F7 /* STAppDelegate.swift */,
 				7DB60414296F11EE00A0AAFA /* views */,
 				AB12F9C329AB532500C639B6 /* kit */,
@@ -810,6 +812,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Startalk/Startalk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CXAJ3S9LVA;
@@ -825,8 +828,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.im.startalk2;
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.im.startalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -839,6 +842,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Startalk/Startalk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CXAJ3S9LVA;
@@ -854,8 +858,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.im.startalk2;
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.im.startalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

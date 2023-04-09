@@ -43,4 +43,8 @@ class StringUtil{
         let digest = Insecure.MD5.hash(data: data)
         return digest.map {String(format: "%02hhx", $0)}.joined()
     }
+    
+    static func hex(data: Data) -> String{
+        return data.map {String(format: "%02hhx", $0)}.joined()
+    }
 }

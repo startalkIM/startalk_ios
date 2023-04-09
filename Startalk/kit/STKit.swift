@@ -20,6 +20,7 @@ class STKit{
     let apiClient: STApiClient
     let xmppClient: STXmppClient
     
+    let notificationManager: STNotificationManager
     let notificationCenter: STNotificationCenter
     
     private init(){
@@ -33,8 +34,7 @@ class STKit{
         apiClient = STApiClient()
         xmppClient = STXmppClient()
         
+        notificationManager = STNotificationManager()
         notificationCenter = STNotificationCenter()
     }
-    
-    
 }

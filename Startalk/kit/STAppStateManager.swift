@@ -12,6 +12,7 @@ class STAppStateManager{
     lazy var apiClient = STKit.shared.apiClient
     lazy var xmppClient = STKit.shared.xmppClient
     lazy var messageManager = STKit.shared.messageManager
+    lazy var notificationManager = STKit.shared.notificationManager
     lazy var notificationCenter = STKit.shared.notificationCenter
     
     var state: STAppState = .connecting
@@ -35,16 +36,18 @@ class STAppStateManager{
     }
     
     private func connect(){
-        xmppClient.connnect()
-        
         setState(.connecting)
+        
+        xmppClient.connnect()
+        notificationManager.setup()
     }
     
     private func load(){
+        setState(.loading)
+
         apiClient.setCookies()
         messageManager.synchronizeMessages()
-        
-        setState(.loading)
+        notificationManager.appConnected()
     }
     
     private func run(){
@@ -52,10 +55,10 @@ class STAppStateManager{
     }
     
     private func disconnect(to state: STAppState){
-        xmppClient.disconnect()
-        
         assert(state == .login || state == .inactive)
         setState(state)
+        
+        xmppClient.disconnect()
     }
     
     func setState(_ state: STAppState){
@@ -66,7 +69,7 @@ class STAppStateManager{
 
 extension STAppStateManager{
     func setLoggedIn(){
-       connect()
+        connect()
     }
     
     func setConnected(){
@@ -79,6 +82,12 @@ extension STAppStateManager{
     
     func setLoggedOut(){
         disconnect(to: .login)
+    }
+}
+
+extension STAppStateManager{
+    var isConnected: Bool {
+        state == .loading || state == .running
     }
 }
 

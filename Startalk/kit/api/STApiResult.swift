@@ -12,3 +12,7 @@ enum STApiResult<T>{
     case response(T)
     case failure(String)
 }
+
+struct Empty: Codable{
+    
+}

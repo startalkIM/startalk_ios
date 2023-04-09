@@ -13,14 +13,17 @@ class STAppDelegate: UIResponder, UIApplicationDelegate {
 
     var window:UIWindow?
     
-    var appStateManager: STAppStateManager = STKit.shared.appStateManager
+    var appStateManager = STKit.shared.appStateManager
+    var notificationManager = STKit.shared.notificationManager
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         appStateManager.initialize()
         return true
     }
 
-    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data){
+        notificationManager.receiveToken(deviceToken)
+    }
     
     // MARK: - Core Data stack
 

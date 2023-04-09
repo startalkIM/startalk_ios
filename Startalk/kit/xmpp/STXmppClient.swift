@@ -86,15 +86,12 @@ extension STXmppClient{
         }
     }
     
-    private func makeXmppResource() -> String{
-        let appVersion = Bundle.main.object(forInfoDictionaryKey: Self.APP_VERSION_KEY) as? String ??  Self.APP_DEFAULT_VERSION
-        
-        let device = UIDevice.current
-        let platform = device.systemName
-        let systemVersion = device.systemVersion
-        let deviceName = device.name
-        
+    private func makeXmppResource() -> String{        
+        let platform = identifiers.systemName
+        let systemVersion = identifiers.systemVersion
+        let deviceName = identifiers.deviceName
         let deviceUid = identifiers.deviceUid
+        let appVersion = identifiers.appVersion
        
         return "V[\(appVersion)]_P[\(platform)]_S[\(systemVersion)]_D[\(deviceName)]_ID[\(deviceUid)]"
     }
