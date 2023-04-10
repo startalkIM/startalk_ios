@@ -30,10 +30,9 @@ class STMessageManager{
     private func addHistoryMessages(_ messages: [STMessage]){
         if messages.isEmpty{ return }
         
-        let userJid = xmppClient.jid.bare
         var messages = messages
         for i in 0..<messages.count{
-            if messages[i].from == userJid{
+            if isSelf(messages[i].from){
                 messages[i].direction = .send
             }else{
                 messages[i].direction = .receive
@@ -56,6 +55,9 @@ class STMessageManager{
             if let realFrom = realFrom{
                 message.from = realFrom
             }
+        }
+        if isSelf(message.from){
+            message.direction = .send
         }
         appendMessages([message])
     }
@@ -100,6 +102,11 @@ class STMessageManager{
         notificationCenter.notifyMessagesAppended(messages)
         chatStorage.addMessages(messages)
         notificationCenter.notifyChatListChanged()
+    }
+    
+    private func isSelf(_ user: String) -> Bool{
+        let selfJid = xmppClient.jid.bare
+        return selfJid == user
     }
 }
 

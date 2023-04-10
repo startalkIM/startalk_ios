@@ -48,7 +48,13 @@ class STHistoryMessagesLoader{
             semaphore.wait()
             
             var messages = messages
-            messages.indices.forEach{ messages[$0].isGroup = true}
+            messages.indices.forEach{ i in
+                messages[i].isGroup = true
+                if let realFrom = messages[i].realFrom{
+                    messages[i].from = realFrom
+                }
+            }
+           
             self.messages.append(contentsOf: messages)
             isGroupLoaded = true
             if isPrivateLoaded{
