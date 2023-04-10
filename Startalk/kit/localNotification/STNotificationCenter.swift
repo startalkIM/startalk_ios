@@ -68,8 +68,8 @@ extension STNotificationCenter{
         }
     }
     
-    func observeAppWillResignActive(_ observer: AnyObject, handler: @escaping () -> Void){
-        addObserver(observer, name: UIApplication.willResignActiveNotification) { _ in
+    func observeAppDidEnterBackground(_ observer: AnyObject, handler: @escaping () -> Void){
+        addObserver(observer, name: UIApplication.didEnterBackgroundNotification) { _ in
             handler()
         }
     }

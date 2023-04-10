@@ -19,7 +19,7 @@ class STAppStateManager{
     
     func initialize(){
         notificationCenter.observeAppWillBecomeActive(self, handler: appWillBecomeActive)
-        notificationCenter.observeAppWillResignActive(self, handler: appWillResignActive)
+        notificationCenter.observeAppDidEnterBackground(self, handler: appDidEnterBackground)
         appWillBecomeActive()
     }
     
@@ -31,7 +31,7 @@ class STAppStateManager{
         }
     }
     
-    func appWillResignActive(){
+    func appDidEnterBackground(){
         disconnect(to: .inactive)
     }
     

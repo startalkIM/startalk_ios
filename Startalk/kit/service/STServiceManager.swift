@@ -19,7 +19,7 @@ class STServiceManager{
     
     var services: [STService] = [
         STService(id: 0, name: "uk", location: "https://www.qtalk.app:8080/newapi/nck/qtalk_nav.qunar"),
-        STService(id: 1, name: "cn", location: "https://i.startalk.im/newapi/nck/qtalk_nav.qunar?c=startalk.im"),
+        STService(id: 1, name: "cn", location: "https://startalk.soundsecho.com/newapi/nck/qtalk_nav.qunar?c=startalk.im"),
     ]
     private var serviceIndex: Int = 0
     

@@ -8,6 +8,7 @@
 import Foundation
 
 class STApiClient{
+    static let DEFAULT_ERROR_MESSAGE = "unknown"
     let logger = STLogger(STApiClient.self)
 
     lazy var serviceManager = STKit.shared.serviceManager
@@ -70,7 +71,7 @@ class STApiClient{
                 result = .success
             }
         }else{
-            let message = response.errmsg
+            let message = response.errmsg ?? Self.DEFAULT_ERROR_MESSAGE
             result = .failure(message)
         }
         completionHandler(result)
@@ -109,5 +110,6 @@ extension STApiClient{
         let value = text.data(using: .utf8)!.base64EncodedString()
         
         httpClient.setCookie(url: baseUrl, name: Self.COOKIE_CKEY_NAME, value: value)
+        httpClient.setCookie(url: pushUrl, name: Self.COOKIE_CKEY_NAME, value: value)
     }
 }
