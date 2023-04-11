@@ -47,6 +47,7 @@ class STMessagesVController: STEditableViewController2{
         super.viewDidLoad()
         
         navigationItem.title = chat.title
+        tableView.scrollsToBottom(animated: false) // fix navigation bar hiding problem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,11 +61,6 @@ class STMessagesVController: STEditableViewController2{
         loadData(animated: false)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        tableView.scrollsToBottom(animated: false)
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         notificationCenter.unobserveMessagesAppended(self)
@@ -73,8 +69,10 @@ class STMessagesVController: STEditableViewController2{
     
     func loadData(animated: Bool){
         messageSource.reload()
-        tableView.reloadData()
-        tableView.scrollsToBottom(animated: animated)
+        DispatchQueue.main.async { [self] in
+            tableView.reloadData()
+            tableView.scrollsToBottom(animated: animated)
+        }
     }
     
     func receive(_ messages: [STMessage]){
@@ -82,9 +80,7 @@ class STMessagesVController: STEditableViewController2{
             message.xmppId == chat.id
         }
         if contains{
-            DispatchQueue.main.async {
-                self.loadData(animated: true)
-            }
+            loadData(animated: true)
         }else{
         }
     }
