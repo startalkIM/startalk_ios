@@ -11,7 +11,7 @@ class STServicesView: UIView {
     var tableView: UITableView!
     var button: UIButton!
     
-    var delegate: STServicesViewDelegate?{
+    weak var delegate: STServicesViewDelegate?{
         didSet{
             delegateDidSet(delegate)
         }

@@ -18,7 +18,7 @@ class STScanView: STBaseScanView {
     var lightButton: UIButton!
     var lightLabel: UILabel!
     
-    var delegate: STScanViewDelegate?{
+    weak var delegate: STScanViewDelegate?{
         didSet{
             delegateDidSet(delegate)
         }
@@ -221,7 +221,7 @@ class STScanView: STBaseScanView {
 }
 
 @objc
-protocol STScanViewDelegate{
+protocol STScanViewDelegate: AnyObject{
     
     func cancelButtonTapped()
     

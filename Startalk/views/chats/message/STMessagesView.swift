@@ -22,7 +22,7 @@ class STMessagesView: KeyboardView {
     var functionsHideTopConstraint: NSLayoutConstraint!
     var functionsShowTopConstraint: NSLayoutConstraint!
     
-    var delegate: STMessagesViewDelegate? {
+    weak var delegate: STMessagesViewDelegate? {
         didSet{
             delegateDidSet(delegate)
         }

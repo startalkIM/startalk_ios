@@ -21,7 +21,7 @@ class STLoginView: UIView {
     var corporationLabel: UILabel!
     var serviceSwitcher: UIButton!
     
-    var delegate: STLoginViewDelegate? {
+    weak var delegate: STLoginViewDelegate? {
         didSet{
             delegateDidSet(delegate)
         }

@@ -15,7 +15,7 @@ class STServiceEditorView: UIView {
     var locationLabel: UILabel!
     var locationTextField: UITextField!
     
-    var delegate: STServiceEditorViewDelegate?{
+    weak var delegate: STServiceEditorViewDelegate?{
         didSet{
             delegateDidSet(delegate)
         }

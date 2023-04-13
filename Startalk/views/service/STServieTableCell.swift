@@ -19,7 +19,7 @@ class STServieTableCell: UITableViewCell {
     var editButton: UIButton!
     var deleteButton: UIButton!
     
-    var delegate: STServieTableCellDelegate?
+    weak var delegate: STServieTableCellDelegate?
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -263,7 +263,7 @@ extension STServieTableCell{
     }
 }
 
-protocol STServieTableCellDelegate{
+protocol STServieTableCellDelegate: AnyObject{
     
     func checkButtonTapped(sender: STServieTableCell)
     

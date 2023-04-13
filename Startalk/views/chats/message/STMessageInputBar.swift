@@ -22,7 +22,7 @@ class STMessageInputBar: UIView{
     var inputTextTopConstraint: NSLayoutConstraint!
     var inputVoiceTopConstraint: NSLayoutConstraint!
     
-    var delegate: STMessageInputBarDelegate?{
+    weak var delegate: STMessageInputBarDelegate?{
         didSet{
             delegateDidSet(delegate)
         }
