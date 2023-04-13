@@ -17,7 +17,7 @@ struct STApiResponse<T: Codable>: Codable{
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.ret = try container.decode(Bool.self, forKey: STApiResponse<T>.CodingKeys.ret)
         self.errcode = try container.decode(Int.self, forKey: STApiResponse<T>.CodingKeys.errcode)
-        self.errmsg = try? container.decode(String.self, forKey: STApiResponse<T>.CodingKeys.errmsg)
-        self.data = try? container.decodeIfPresent(T.self, forKey: STApiResponse<T>.CodingKeys.data)
+        self.errmsg = try container.decodeIfPresent(String.self, forKey: STApiResponse<T>.CodingKeys.errmsg)
+        self.data = try container.decodeIfPresent(T.self, forKey: STApiResponse<T>.CodingKeys.data)
     }
 }

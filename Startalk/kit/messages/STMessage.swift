@@ -42,12 +42,14 @@ extension STMessage{
         case sent
         case failed
         case read
+        case revoked
         
         static let unspecified = Self.sent
     }
 }
 
 extension STMessage: Codable{
+    static let decoder = JSONDecoder()
     
     enum CodingKeys: CodingKey{
         case message
@@ -64,22 +66,42 @@ extension STMessage: Codable{
     
     enum ContentKeys: CodingKey{
         case id
+        case msgType
         case content
+        case extendInfo
+    }
+    
+    private struct RevokeExtendInfo: Codable{
+        var messageId: String
+        var fromId: String
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         let headerContainer = try container.nestedContainer(keyedBy: HeaderKeys.self, forKey: .message)
-        let from = try headerContainer.decode(String.self, forKey: .from)
         let to = try headerContainer.decode(String.self, forKey: .to)
-        let realFrom = try? headerContainer.decode(String.self, forKey: .realfrom)
+        let realFrom = try headerContainer.decodeIfPresent(String.self, forKey: .realfrom)
         let timeText = try headerContainer.decode(String.self, forKey: .msec_times)
         let time = Int64(timeText)!
 
         let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .body)
         let id = try contentContainer.decode(String.self, forKey: .id)
+        let typeText = try contentContainer.decode(String.self, forKey: .msgType)
         let content = try contentContainer.decode(String.self, forKey: .content)
+        
+        let from: String
+        if Int(typeText) != XCMessageType.revoke{
+            from = try headerContainer.decode(String.self, forKey: .from)
+        }else{
+            let extendInfoText = try contentContainer.decode(String.self, forKey: .extendInfo)
+            let data = extendInfoText.data(using: .utf8)
+            guard let data = data else {
+                throw DecodingError.dataCorruptedError(forKey: .extendInfo, in: contentContainer, debugDescription: "extend info is not utf8 encoding")
+            }
+            let extendInfo = try Self.decoder.decode(RevokeExtendInfo.self, from: data)
+            from = extendInfo.fromId
+        }
 
         let fromJid = XCJid(from)
         guard let fromJid = fromJid else{
