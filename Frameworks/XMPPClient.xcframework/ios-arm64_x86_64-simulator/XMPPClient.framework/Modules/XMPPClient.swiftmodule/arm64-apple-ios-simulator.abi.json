@@ -3327,6 +3327,53 @@
         "children": [
           {
             "kind": "Var",
+            "name": "revoke",
+            "printedName": "revoke",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10XMPPClient13XCMessageTypeO6revokeSivpZ",
+            "mangledName": "$s10XMPPClient13XCMessageTypeO6revokeSivpZ",
+            "moduleName": "XMPPClient",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient13XCMessageTypeO6revokeSivgZ",
+                "mangledName": "$s10XMPPClient13XCMessageTypeO6revokeSivgZ",
+                "moduleName": "XMPPClient",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "text",
             "printedName": "text",
             "children": [
@@ -6778,7 +6825,7 @@
       "kind": "StringLiteral",
       "offset": 797,
       "length": 244,
-      "value": "\"{\n  \"nauth\" : {\n    \"p\" : \"{\\\"token\\\":\\\"8ea06e274f74a0e2a1bf8b36873d9393\\\",\\\"mk\\\":\\\"F599C330B4834DE7A4D6B80AEA251C90\\\"}\",\n    \"u\" : \"testusera\",\n    \"mk\" : \"ECFFD2AF38904FD1A35C7570F981DE95\"\n  }\n}\""
+      "value": "\"{\n  \"nauth\" : {\n    \"p\" : \"{\\\"token\\\":\\\"c5ec3bdca67c380521eb243fa35a488d\\\",\\\"mk\\\":\\\"AECF035846444C75BB6C81EDCFD3CF6A\\\"}\",\n    \"u\" : \"testusera\",\n    \"mk\" : \"AECF035846444C75BB6C81EDCFD3CF6A\"\n  }\n}\""
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCServiceConfiguration.swift",
@@ -9835,91 +9882,98 @@
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 715,
+      "offset": 729,
+      "length": 2,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 754,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 734,
+      "offset": 773,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 753,
+      "offset": 792,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 772,
+      "offset": 811,
       "length": 1,
       "value": "5"
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 715,
+      "offset": 754,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 734,
+      "offset": 773,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 753,
+      "offset": 792,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 772,
+      "offset": 811,
       "length": 1,
       "value": "5"
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 715,
+      "offset": 754,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 734,
+      "offset": 773,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 753,
+      "offset": 792,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 772,
+      "offset": 811,
       "length": 1,
       "value": "5"
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "StringLiteral",
-      "offset": 1270,
+      "offset": 1309,
       "length": 116,
       "value": "\"\\s*\\[\\s*obj\\s+type\\s*=\\s*\"image\"\\s+value\\s*=\\s*\"(.+)\"\\s+width\\s*=\\s*([0-9\\.]+)\\s+height\\s*=\\s*([0-9\\.]+)\\s*\\]\\s*\""
     },

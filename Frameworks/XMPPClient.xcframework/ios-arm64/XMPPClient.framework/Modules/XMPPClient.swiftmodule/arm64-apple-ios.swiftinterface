@@ -70,6 +70,7 @@ public struct XCMessage {
   public init(header: XMPPClient.XCHeader, id: Swift.String, type: XMPPClient.XCMessageType, content: XMPPClient.XCMessageContent, clientType: XMPPClient.XCClientType, timestamp: Swift.Int64)
 }
 public enum XCMessageType : Swift.Int {
+  public static let revoke: Swift.Int
   case text
   case voice
   case image

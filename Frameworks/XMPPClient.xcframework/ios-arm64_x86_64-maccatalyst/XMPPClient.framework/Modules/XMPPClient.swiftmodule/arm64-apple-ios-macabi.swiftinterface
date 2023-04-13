@@ -1,0 +1,149 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
+// swift-module-flags: -target arm64-apple-ios13.1-macabi -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name XMPPClient
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Foundation
+import Network
+import Swift
+import _Concurrency
+import _StringProcessing
+import zlib
+public struct XCServiceConfiguration {
+  public var host: Swift.String
+  public var port: Swift.UInt16
+  public var domain: Swift.String
+  public var username: Swift.String
+  public var password: Swift.String
+  public var resource: Swift.String
+  public init(host: Swift.String, port: Swift.UInt16, domain: Swift.String, username: Swift.String, password: Swift.String, resource: Swift.String)
+}
+public struct XCHeader {
+  public var from: XMPPClient.XCJid
+  public var to: XMPPClient.XCJid
+  public var realFrom: XMPPClient.XCJid?
+  public var realTo: XMPPClient.XCJid?
+  public var isGroup: Swift.Bool
+  public init(from: XMPPClient.XCJid, to: XMPPClient.XCJid, realFrom: XMPPClient.XCJid?, realTo: XMPPClient.XCJid?, isGroup: Swift.Bool)
+  public init(from: XMPPClient.XCJid, to: XMPPClient.XCJid, isGroup: Swift.Bool)
+}
+public struct XCEvent {
+  public var header: XMPPClient.XCHeader
+  public var type: XMPPClient.XCEventType
+}
+public enum XCEventType {
+  case messageSent(Swift.String, Swift.Int64)
+}
+public struct XCJid {
+  public var name: Swift.String
+  public var domain: Swift.String
+  public var resource: Swift.String
+  public init(name: Swift.String, domain: Swift.String, resource: Swift.String)
+  public init?(_ text: Swift.String)
+  public var value: Swift.String {
+    get
+  }
+  public var bare: Swift.String {
+    get
+  }
+  public static let empty: XMPPClient.XCJid
+}
+public enum XCClientType : Swift.Int {
+  case mac
+  case ios
+  case pc
+  case android
+  case linux
+  case web
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct XCMessage {
+  public var header: XMPPClient.XCHeader
+  public var id: Swift.String
+  public var type: XMPPClient.XCMessageType
+  public var content: XMPPClient.XCMessageContent
+  public var clientType: XMPPClient.XCClientType
+  public var timestamp: Swift.Int64
+  public init(header: XMPPClient.XCHeader, id: Swift.String, type: XMPPClient.XCMessageType, content: XMPPClient.XCMessageContent, clientType: XMPPClient.XCClientType, timestamp: Swift.Int64)
+}
+public enum XCMessageType : Swift.Int {
+  public static let revoke: Swift.Int
+  case text
+  case voice
+  case image
+  case file
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol XCMessageContent {
+  var value: Swift.String { get }
+}
+public struct XCTextMessageContent : XMPPClient.XCMessageContent {
+  public var value: Swift.String
+  public init(value: Swift.String)
+}
+public struct XCImageMessageContent : XMPPClient.XCMessageContent {
+  public var source: Swift.String
+  public var width: Swift.Float
+  public var height: Swift.Float
+  public var value: Swift.String {
+    get
+  }
+  public init(source: Swift.String, width: Swift.Float, height: Swift.Float)
+  public init?(value: Swift.String)
+}
+public struct XCFileMessageContent : XMPPClient.XCMessageContent {
+  public var id: Swift.String
+  public var md5: Swift.String
+  public var name: Swift.String
+  public var size: Swift.String
+  public var source: Swift.String
+  public var value: Swift.String {
+    get
+  }
+  public init(id: Swift.String, md5: Swift.String, name: Swift.String, size: Swift.String, source: Swift.String)
+  public init?(value: Swift.String)
+}
+public class XCStream {
+  public var delegate: XMPPClient.XCStreamDelegate?
+  public init(config: XMPPClient.XCServiceConfiguration)
+  public func start()
+  public func stop()
+  @objc deinit
+}
+extension XMPPClient.XCStream {
+  public enum State {
+    case setup
+    case connecting
+    case connectingFaild
+    case authenticating
+    case authenticatingFailed
+    case binding
+    case bindingFailed
+    case established(XMPPClient.XCJid, Swift.String)
+    case disconnected
+  }
+}
+extension XMPPClient.XCStream {
+  public func setPresent()
+  public func fetchToken(completion: @escaping (Swift.String?) -> Swift.Void)
+  public func sendMessage(_ message: XMPPClient.XCMessage)
+  public func sendEvent(_ event: XMPPClient.XCEvent)
+}
+public protocol XCStreamDelegate {
+  func stream(_ stream: XMPPClient.XCStream, stateUpdated state: XMPPClient.XCStream.State)
+  func stream(_ stream: XMPPClient.XCStream, receivedMessage message: XMPPClient.XCMessage)
+  func stream(_ stream: XMPPClient.XCStream, receivedEvent event: XMPPClient.XCEvent)
+}
+extension XMPPClient.XCClientType : Swift.Equatable {}
+extension XMPPClient.XCClientType : Swift.Hashable {}
+extension XMPPClient.XCClientType : Swift.RawRepresentable {}
+extension XMPPClient.XCMessageType : Swift.Equatable {}
+extension XMPPClient.XCMessageType : Swift.Hashable {}
+extension XMPPClient.XCMessageType : Swift.RawRepresentable {}
