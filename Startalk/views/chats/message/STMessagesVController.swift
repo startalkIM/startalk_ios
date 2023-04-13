@@ -58,7 +58,11 @@ class STMessagesVController: STEditableViewController2{
         notificationCenter.observeMessageStateChanged(self) { [self] idState in
             updateMessageState(idState)
         }
-        loadData(animated: false)
+        messageSource.reload()
+        DispatchQueue.main.async { [self] in
+            tableView.reloadData()
+            tableView.scrollsToBottom(animated: false)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -67,20 +71,18 @@ class STMessagesVController: STEditableViewController2{
         notificationCenter.unobserveMessageStateChanged(self)
     }
     
-    func loadData(animated: Bool){
-        messageSource.reload()
-        DispatchQueue.main.async { [self] in
-            tableView.reloadData()
-            tableView.scrollsToBottom(animated: animated)
-        }
-    }
-    
     func receive(_ messages: [STMessage]){
-        let contains = messages.contains { message in
+        let messages = messages.filter { message in
             message.xmppId == chat.id
         }
-        if contains{
-            loadData(animated: true)
+        if messages.count > 0{
+            let count = messageSource.count
+            let indexPaths = messages.indices.map { IndexPath(row: count + $0, section: 0)}
+            messageSource.reload()
+            DispatchQueue.main.async { [self] in
+                tableView.insertRows(at: indexPaths, with: .none)
+                tableView.scrollsToBottom(animated: true)
+            }
         }else{
         }
     }
