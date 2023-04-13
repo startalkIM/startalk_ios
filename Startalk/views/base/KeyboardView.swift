@@ -49,13 +49,15 @@ class KeyboardView: UIView {
         notificationCenter.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    deinit{
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.removeObserver(self)
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func willMove(toSuperview newSuperview: UIView?) {
+        if newSuperview == nil{
+            let notificationCenter = NotificationCenter.default
+            notificationCenter.removeObserver(self)
+        }
     }
     
     @objc
