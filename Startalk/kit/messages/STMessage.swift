@@ -90,10 +90,14 @@ extension STMessage: Codable{
         let typeText = try contentContainer.decode(String.self, forKey: .msgType)
         let content = try contentContainer.decode(String.self, forKey: .content)
         
+        let type = Int(typeText)
+        guard let type = type else{
+            throw DecodingError.dataCorruptedError(forKey: .msgType, in: contentContainer, debugDescription: "message type not integer")
+        }
         let from: String
-        if Int(typeText) != XCMessageType.revoke{
-            from = try headerContainer.decode(String.self, forKey: .from)
-        }else{
+        var messageType: XCMessageType = .text
+        var messageContent: XCMessageContent = XCTextMessageContent(value: content)
+        if type == XCMessageType.revoke{
             let extendInfoText = try contentContainer.decode(String.self, forKey: .extendInfo)
             let data = extendInfoText.data(using: .utf8)
             guard let data = data else {
@@ -101,6 +105,33 @@ extension STMessage: Codable{
             }
             let extendInfo = try Self.decoder.decode(RevokeExtendInfo.self, from: data)
             from = extendInfo.fromId
+        }else{
+            from = try headerContainer.decode(String.self, forKey: .from)
+            let type = XCMessageType(rawValue: type)
+            if let type = type{
+                messageType = type
+                switch messageType{
+                case .text:
+                    let imageContent = XCImageMessageContent(value: content)
+                    if let imageContent = imageContent{
+                        messageContent = imageContent
+                    }else{
+                        messageContent = XCTextMessageContent(value: content)
+                    }
+                case .voice:
+                    break // to be implementd
+                case .image:
+                    break // image type is marked as text, I don't known why
+                case .file:
+                    let fileContent = XCFileMessageContent(value: content)
+                    guard let fileContent = fileContent else {
+                        throw DecodingError.dataCorruptedError(forKey: .content, in: contentContainer, debugDescription: "invalid file content")
+                    }
+                    messageContent = fileContent
+                @unknown default:
+                    break
+                }
+            }
         }
 
         let fromJid = XCJid(from)
@@ -117,8 +148,7 @@ extension STMessage: Codable{
         }
         let header = XCHeader(from: fromJid, to: toJid, realFrom: realFromJid, realTo: nil, isGroup: false)
         
-        let messageContent = XCTextMessageContent(value: content)
-        let messsage = XCMessage(header: header, id: id, type: .text, content: messageContent, clientType: .ios, timestamp: time)
+        let messsage = XCMessage(header: header, id: id, type: messageType, content: messageContent, clientType: .ios, timestamp: time)
 
         var read = true
         if container.contains(.read_flag){
