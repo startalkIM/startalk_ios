@@ -20,8 +20,9 @@ class STMessageManager{
     
     //MARK: synchronize with server
     func synchronizeMessages(){
-        let lastTime = messageStorage.lastMessageTimestamp
-        messageLoader.fetch(since: lastTime){ [self] messages in
+        Task{
+            let lastTime = messageStorage.lastMessageTimestamp
+            let messages = await messageLoader.fetch(since: lastTime)
             addHistoryMessages(messages)
             appStateManager.setLoaded()
         }

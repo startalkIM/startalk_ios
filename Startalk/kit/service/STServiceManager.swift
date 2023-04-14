@@ -57,14 +57,15 @@ class STServiceManager{
     }
     
     func reloadNavigation(service: STService){
-        fetchNavigation(location: service.location) { [self] navigation in
+        Task{
+            let navigation = await fetchNavigation(location: service.location)
             if let navigation = navigation{
                setAndStoreNavigation(navigation)
             }
         }
     }
     
-    func addService(_ service: STService, completion: @escaping (Bool) -> Void){
+    func addService(_ service: STService) async -> Bool{
         var index: Int? = nil
         var maxId = 0
         for i in 0..<services.count{
@@ -76,54 +77,50 @@ class STServiceManager{
             }
         }
         
-        fetchNavigation(location: service.location) { [self] navigation in
-            guard let navigation = navigation else{
-                completion(false)
-                return
-            }
-            setAndStoreNavigation(navigation)
-            
-            if let index = index{
-                services[index].name = service.name
-                services[index].location = service.location
-                serviceIndex = index
-            }else{
-                var service = service
-                service.id = maxId + 1
-                services.insert(service, at: 0)
-                serviceIndex = 0
-            }
-            storeServices(services)
-            storeCurrentIndex(serviceIndex)
-                        
-            delegate?.servicesChanged()
-            completion(true)
+        let navigation = await fetchNavigation(location: service.location)
+        guard let navigation = navigation else{
+            return false
         }
+        setAndStoreNavigation(navigation)
         
+        if let index = index{
+            services[index].name = service.name
+            services[index].location = service.location
+            serviceIndex = index
+        }else{
+            var service = service
+            service.id = maxId + 1
+            services.insert(service, at: 0)
+            serviceIndex = 0
+        }
+        storeServices(services)
+        storeCurrentIndex(serviceIndex)
+                    
+        delegate?.servicesChanged()
+        return true
         
     }
     
-    func updateService(_ service: STService, completion: @escaping (Bool) -> Void){
+    func updateService(_ service: STService) async -> Bool{
         for i in 0..<services.count{
             if services[i].id == service.id{
-                fetchNavigation(location: service.location) { [self] navigation in
-                    guard let navigation = navigation else{
-                        completion(false)
-                        return
-                    }
-                    services[i].name = service.name
-                    services[i].location = service.location
-                    storeServices(services)
-                    
-                    if serviceIndex == i{
-                       setAndStoreNavigation(navigation)
-                    }
-                    delegate?.servicesChanged()
-                    completion(true)
+                let navigation = await fetchNavigation(location: service.location)
+                
+                guard let navigation = navigation else{
+                    return false
                 }
-                break
+                services[i].name = service.name
+                services[i].location = service.location
+                storeServices(services)
+                
+                if serviceIndex == i{
+                   setAndStoreNavigation(navigation)
+                }
+                delegate?.servicesChanged()
+                return true
             }
         }
+        return false
     }
     
     func removeService(at index: Int){
@@ -175,22 +172,15 @@ class STServiceManager{
         }
     }
     
-    private func fetchNavigation(location: String, completion: @escaping (STServiceNavigation?) -> Void){
+    private func fetchNavigation(location: String) async -> STServiceNavigation?{
         let url = URL(string: location)
         guard let url = url else {
-            completion(nil)
-            return
+            return nil
         }
-        httpClient.request(url) { (response: STServiceNavigation?, error: Error?) -> Void in
-            if error != nil{
-                completion(nil)
-                return
-            }
-            guard let response = response else{
-                completion(nil)
-                return
-            }
-            completion(response)
+        do{
+            return try await httpClient.request(url)
+        }catch{
+            return nil
         }
     }
 }

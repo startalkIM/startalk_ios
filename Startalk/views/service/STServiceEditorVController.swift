@@ -84,27 +84,27 @@ class STServiceEditorVController: STEditableViewController {
         service.name = name
         service.location = value
 
-        showLoadingView()
-        let competion: (Bool) -> Void = { [self] success in
-            DispatchQueue.main.async {
-                self.hideLoadingView{
-                    if success{
-                        if self.isFirstController{
-                            self.dismiss(animated: true)
-                        }else{
-                            self.navigationController?.popViewController(animated: true)
-                        }
+        Task{
+            showLoadingView()
+            
+            let success: Bool
+            switch type{
+            case .add:
+                success = await serviceManager.addService(service)
+            case .edit:
+                success = await serviceManager.updateService(service)
+            }
+            hideLoadingView{
+                if success{
+                    if self.isFirstController{
+                        self.dismiss(animated: true)
                     }else{
-                        self.showAlert(title: "reminder".localized, message: "service_invalid_location".localized)
+                        self.navigationController?.popViewController(animated: true)
                     }
+                }else{
+                    self.showAlert(title: "reminder".localized, message: "service_invalid_location".localized)
                 }
             }
-        }
-        switch type{
-        case .add:
-            serviceManager.addService(service, completion: competion)
-        case .edit:
-            serviceManager.updateService(service, completion: competion)
         }
     }
     

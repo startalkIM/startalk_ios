@@ -19,7 +19,7 @@ class STLoginManager{
     lazy var userState = STKit.shared.userState
     lazy var appStateManager = STKit.shared.appStateManager
         
-    func login(username: String, password: String, completionHandler: @escaping (Bool, String) -> Void){
+    func login(username: String, password: String) async -> (Bool, String){
         let domain = serviceManager.navigation.domain
         let encryptedPassword = RSAUtil.encrpyt(password)
         guard let encryptedPassword = encryptedPassword else{
@@ -31,18 +31,17 @@ class STLoginManager{
         let request = STLoginRequest(u: username, h: domain, p: encryptedPassword, mk: deviceUid)
         
         let url = apiClient.buildUrl(path: Self.LOGIN_PATH)
-        apiClient.post(url, entity: request) { [self] (result: STApiResult<STLoginResponse>) -> Void in
-            switch result{
-            case .response(let response):
-        
-                userState.setLoggedIn(username: response.u, token: response.t)
-                completionHandler(true, "")
-                
-            case .failure(let message):
-                completionHandler(false, message)
-            default:
-                break
-            }
+        let result: STApiResult<STLoginResponse> = await apiClient.post(url, entity: request)
+        switch result{
+        case .response(let response):
+    
+            userState.setLoggedIn(username: response.u, token: response.t)
+            return (true, "")
+            
+        case .failure(let message):
+            return(false, message)
+        default:
+            return (true, "") //won't reach here
         }
     }
 }

@@ -96,11 +96,13 @@ class STNotificationManager{
     
     private func trySendToken(){
         if status == .authorized, let token = token, appStateManager.isConnected, !tokenSent{
-            sendToken(token)
+            Task{
+                await sendToken(token)
+            }
         }
     }
     
-    private func sendToken(_ token: String){
+    private func sendToken(_ token: String) async{
         let username = userSate.username
         let domain = serviceManager.domain
         let deviceName = identifiers.deviceName
@@ -110,12 +112,13 @@ class STNotificationManager{
         let params = ["username": username, "domain": domain, "mac_key": token, "platname": deviceName, "pkgname": appId, "os": systemName, "version": appVersion]
         
         let url = apiClient.buildPushUrl(path: Self.SEND_TOKEN_PATH, params: params)
-        apiClient.request(url) { [self] (result: STApiResult<Empty>) -> Void in
-            if case .success = result{
-              setTokenSent(true)
-            }else if case let .failure(reason) = result{
-                print("send token failed: ", reason)
-            }
+        
+        let result: STApiResult<Empty> = await apiClient.request(url)
+        
+        if case .success = result{
+            setTokenSent(true)
+        }else if case let .failure(reason) = result{
+            print("send token failed: ", reason)
         }
     }
     

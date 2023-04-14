@@ -37,49 +37,46 @@ class STApiClient{
         return httpClient.buildUrl(baseUrl: pushUrl, path: path, params: params)
     }
     
-    func request<T: Codable>(_ url: URL, completionHandler: @escaping (STApiResult<T>) -> Void){
-        httpClient.request(url) { [self] response, error in
-            handle(response, error: error, url: url, completionHandler: completionHandler)
+    func request<T: Codable>(_ url: URL) async -> STApiResult<T>{
+        let task = Task<STApiResponse<T>?, Error>{
+            try await httpClient.request(url)
         }
+        return await handle(task, url: url)
     }
     
-    func post<T: Codable>(_ url: URL, entity: Codable, completionHandler: @escaping (STApiResult<T>) -> Void){
-        httpClient.post(url, entity: entity) { [self] response, error in
-            handle(response, error: error, url: url, completionHandler: completionHandler)
+    func post<T: Codable>(_ url: URL, entity: Codable) async -> STApiResult<T>{
+        let task = Task<STApiResponse<T>?, Error>{
+            try await httpClient.post(url, entity: entity)
         }
+        return await handle(task, url: url)
     }
     
-    private func handle<T: Codable>(_ response: STApiResponse<T>?, error: Error?, url: URL,  completionHandler: @escaping (STApiResult<T>) -> Void){
-        if let error = error {
-            logger.error("Http request error", error)
-            fail(error.localizedDescription, completionHandler)
-            return
-        }
-        
-        guard let response = response else{
-            logger.error("Response data is nil of url \(url)")
-            fail("network_request_failed".localized, completionHandler)
-            return
-        }
-       
-        let result: STApiResult<T>
-        if response.ret{
-            let data = response.data
-            if let data = data{
-                result = .response(data)
-            }else{
-                result = .success
+    private func handle<T>(_ task: Task<STApiResponse<T>?, Error>, url: URL) async -> STApiResult<T>{
+        do{
+            let response = try await task.value
+            
+            guard let response = response else{
+                logger.error("Response data is nil of url \(url)")
+                return STApiResult<T>.failure("network_request_failed".localized)
             }
-        }else{
-            let message = response.errmsg ?? Self.DEFAULT_ERROR_MESSAGE
-            result = .failure(message)
+            
+            let result: STApiResult<T>
+            if response.ret{
+                let data = response.data
+                if let data = data{
+                    result = .response(data)
+                }else{
+                    result = .success
+                }
+            }else{
+                let message = response.errmsg ?? Self.DEFAULT_ERROR_MESSAGE
+                result = .failure(message)
+            }
+            return result
+        }catch{
+            logger.error("Http request error of \(url)", error)
+            return STApiResult<T>.failure(error.localizedDescription)
         }
-        completionHandler(result)
-    }
-    
-    private func fail<T>(_ message: String, _ completionHandler: @escaping (STApiResult<T>) -> Void){
-        let result = STApiResult<T>.failure(message)
-        completionHandler(result)
     }
 }
 

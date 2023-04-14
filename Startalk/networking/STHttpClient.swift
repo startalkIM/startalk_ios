@@ -32,14 +32,12 @@ class STHttpClient{
         return urlComponents.url!
     }
     
-    func request<T: Codable>(_ url: URL, completionHandler: @escaping (T?, Error?) -> Void){
-        let dataTask = urlSession.dataTask(with: url) { [self] data, response, error in
-            handle(data: data, error: error, url: url, completionHandler: completionHandler)
-        }
-        dataTask.resume()
+    func request<T: Codable>(_ url: URL) async throws -> T?{
+        let (data, _) = try await urlSession.data(from: url)
+        return try handle(data: data)
     }
     
-    func post<T: Codable>(_ url: URL, entity: Codable, completionHandler: @escaping (T?, Error?) -> Void){
+    func post<T: Codable>(_ url: URL, entity: Codable) async throws -> T?{
         
         let bodyData = try! encoder.encode(entity)
         
@@ -48,30 +46,15 @@ class STHttpClient{
         request.httpBody = bodyData
         request.setValue(Self.CONTENT_TYPE_JSON, forHTTPHeaderField: Self.HEADER_FIELD_CONTENT_TYPE)
         
-        let dataTask = urlSession.dataTask(with: request) { [self] data, _, error in
-            handle(data: data, error: error, url: url, completionHandler: completionHandler)
-        }
-        
-        dataTask.resume()
+        let (data, _) = try await urlSession.data(for: request)
+        return try handle(data: data)
     }
     
-    private func handle<T: Codable>(data: Data?, error: Error?, url: URL,  completionHandler: @escaping (T?, Error?) -> Void){
-        if let error = error {
-            completionHandler(nil, error)
-            return
-        }
-        
+    private func handle<T: Codable>(data: Data?) throws -> T?{
         guard let data = data else{
-            completionHandler(nil, nil)
-            return
+            return nil
         }
-       
-        do{
-            let response = try decoder.decode(T.self, from: data)
-            completionHandler(response, nil)
-        }catch{
-            completionHandler(nil, error)
-        }
+        return try decoder.decode(T.self, from: data)
     }
 }
 

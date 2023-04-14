@@ -20,52 +20,30 @@ class STHistoryMessagesLoader{
     lazy var serviceManager = STKit.shared.serviceManager
     lazy var xmppClient = STKit.shared.xmppClient
     
-    var semaphore: DispatchSemaphore = DispatchSemaphore(value: 1)
-    var isPrivateLoaded: Bool = false
-    var isGroupLoaded: Bool = false
-    var messages: [STMessage] = []
     
-    func fetch(since: Date?, completion: @escaping ([STMessage]) -> Void ){
-        isPrivateLoaded = false
-        isGroupLoaded = false
-        messages = []
+    func fetch(since: Date?) async -> [STMessage]{
+        var messages: [STMessage] = []
         
-        fetch(since: since, path: Self.PRIVATE_PATH) { [self] messages in
-            semaphore.wait()
-            
-            var messages = messages
-            messages.indices.forEach{ messages[$0].isGroup = false}
-            self.messages.append(contentsOf: messages)
-            isPrivateLoaded = true
-            if isGroupLoaded{
-                completion(self.messages)
-            }
-            
-            semaphore.signal()
-        }
+        async let asyncPrivatMessages = fetch(since: since, path: Self.PRIVATE_PATH)
+        async let asyncGroupMessages = fetch(since: since, path: Self.GROUP_PATH)
         
-        fetch(since: since, path: Self.GROUP_PATH) { [self] messages in
-            semaphore.wait()
-            
-            var messages = messages
-            messages.indices.forEach{ i in
-                messages[i].isGroup = true
-                if let realFrom = messages[i].realFrom{
-                    messages[i].from = realFrom
-                }
+        var privatMessages = await asyncPrivatMessages ?? []
+        privatMessages.indices.forEach{ privatMessages[$0].isGroup = false}
+        messages.append(contentsOf: privatMessages)
+        
+        var groupMessages = await asyncGroupMessages ?? []
+        groupMessages.indices.forEach{ i in
+            groupMessages[i].isGroup = true
+            if let realFrom = groupMessages[i].realFrom{
+                groupMessages[i].from = realFrom
             }
-           
-            self.messages.append(contentsOf: messages)
-            isGroupLoaded = true
-            if isPrivateLoaded{
-                completion(self.messages)
-            }
-            
-            semaphore.signal()
         }
+        messages.append(contentsOf: groupMessages)
+        
+        return messages
     }
     
-    private func fetch(since: Date?, path: String, completion: @escaping ([STMessage]) -> Void){
+    private func fetch(since: Date?, path: String) async -> [STMessage]?{
         
         let user = userState.username
         let domain = serviceManager.domain
@@ -80,15 +58,16 @@ class STHistoryMessagesLoader{
         let entity = RequestEntity(user: user, domain: domain, host: domain, time: time, num: num)
         let url = apiClient.buildUrl(path: path)
         
-        apiClient.post(url, entity: entity) { [self](result: STApiResult<[STMessage]>) -> Void in
-            switch result{
-            case .response(let messages):
-                completion(messages)
-            case .failure(let reason):
-                logger.warn("load private history messages failed: \(reason)")
-            default:
-                break
-            }
+        let result: STApiResult<[STMessage]> = await apiClient.post(url, entity: entity)
+        
+        switch result{
+        case .response(let messages):
+            return messages
+        case .failure(let reason):
+            logger.warn("load private history messages failed: \(reason)")
+            return nil
+        default:
+            return nil // won't reach here
         }
     }
 }

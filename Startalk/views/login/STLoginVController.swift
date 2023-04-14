@@ -44,7 +44,7 @@ class STLoginVController: STEditableViewController, STLoginViewDelegate{
         loginButton.isEnabled = usernameValid && passwrodValid
     }
     
-    func login(){
+    func login() {
         guard policyButton.isSelected else{
             showAlert(title: "reminder".localized, message: "login_argree_first".localized)
             return
@@ -56,18 +56,16 @@ class STLoginVController: STEditableViewController, STLoginViewDelegate{
             return
         }
         
-        showLoadingView("login_waiting".localized)
-                
-        loginManager.login(username: username, password: password) { success, message in
-            DispatchQueue.main.async {
-                self.hideLoadingView{
-                    if !success{
-                        self.showAlert(message: "login_unauthenticated".localized)
-                    }
-                }
+        Task{
+            showLoadingView("login_waiting".localized)
 
-            }
+            let (success, _) = await loginManager.login(username: username, password: password)
             
+            self.hideLoadingView{
+                if !success{
+                    self.showAlert(message: "login_unauthenticated".localized)
+                }
+            }
         }
     }
 
