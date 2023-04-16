@@ -37,7 +37,7 @@ extension STMessage{
         static let unspecified = Self.send
     }
     
-    enum State{
+    enum State: Int{
         case sending
         case sent
         case failed

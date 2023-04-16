@@ -59,6 +59,7 @@
 		ABBC9E1029E196810097ADED /* STNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBC9E0F29E196810097ADED /* STNotificationManager.swift */; };
 		ABBC9E1629E80D660097ADED /* XMPPClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBC9E1429E80D580097ADED /* XMPPClient.xcframework */; };
 		ABBC9E1729E80D660097ADED /* XMPPClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ABBC9E1429E80D580097ADED /* XMPPClient.xcframework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ABBC9E1A29E9202A0097ADED /* STDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBC9E1929E9202A0097ADED /* STDatabaseManager.swift */; };
 		ABC79D4629D6E82A0025C155 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4529D6E82A0025C155 /* KeyboardView.swift */; };
 		ABC79D4829D71C1E0025C155 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4729D71C1E0025C155 /* UITableView+.swift */; };
 		ABC79D4A29D97DCA0025C155 /* STMessageInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */; };
@@ -164,6 +165,7 @@
 		ABBC9E0F29E196810097ADED /* STNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNotificationManager.swift; sourceTree = "<group>"; };
 		ABBC9E1129E199030097ADED /* Startalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Startalk.entitlements; sourceTree = "<group>"; };
 		ABBC9E1429E80D580097ADED /* XMPPClient.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = XMPPClient.xcframework; sourceTree = "<group>"; };
+		ABBC9E1929E9202A0097ADED /* STDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STDatabaseManager.swift; sourceTree = "<group>"; };
 		ABC79D4529D6E82A0025C155 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		ABC79D4729D71C1E0025C155 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageInputBar.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				ABFC90E929CDC3E00040BDE5 /* xmpp */,
 				ABBC9E0E29E185850097ADED /* notification */,
 				ABFC90DB29CDC3B10040BDE5 /* localNotification */,
+				ABBC9E1829E920130097ADED /* database */,
 				AB8BBB1C29BC950C00125DAB /* files */,
 			);
 			path = kit;
@@ -397,6 +400,14 @@
 				ABBC9E0F29E196810097ADED /* STNotificationManager.swift */,
 			);
 			path = notification;
+			sourceTree = "<group>";
+		};
+		ABBC9E1829E920130097ADED /* database */ = {
+			isa = PBXGroup;
+			children = (
+				ABBC9E1929E9202A0097ADED /* STDatabaseManager.swift */,
+			);
+			path = database;
 			sourceTree = "<group>";
 		};
 		ABF80B5629B0BA3400EA1861 /* scan */ = {
@@ -595,6 +606,7 @@
 				ABF80B4F29AF3A6000EA1861 /* STQrCodeUtil.swift in Sources */,
 				AB12F9B929A8CC2D00C639B6 /* STServicesView.swift in Sources */,
 				ABFC90DA29CDC3630040BDE5 /* STMessagesVController.swift in Sources */,
+				ABBC9E1A29E9202A0097ADED /* STDatabaseManager.swift in Sources */,
 				7DB6041E296FB79A00A0AAFA /* STMineVController.swift in Sources */,
 				ABBC9E1029E196810097ADED /* STNotificationManager.swift in Sources */,
 				AB12F97B29A34C1000C639B6 /* STLoginView.swift in Sources */,

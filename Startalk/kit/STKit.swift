@@ -17,6 +17,8 @@ class STKit{
     let loginManager: STLoginManager
     let messageManager: STMessageManager
     
+    let databaseManager: STDatabaseManager
+    
     let apiClient: STApiClient
     let xmppClient: STXmppClient
     
@@ -30,6 +32,8 @@ class STKit{
         serviceManager = STServiceManager()
         loginManager = STLoginManager()
         messageManager = STMessageManager()
+        
+        databaseManager = STDatabaseManager()
         
         apiClient = STApiClient()
         xmppClient = STXmppClient()
