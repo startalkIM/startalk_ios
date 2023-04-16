@@ -14,11 +14,11 @@
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		D0EGo2Fuq0uZjt6QrYPw6Gv56QI=
+		x3gXulr7Cz0TYfvQUoZOoHnZK6U=
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		TR+wVYNnIEJ6Q+4vVRKtumlniRY=
+		oQ2If0rbNayXbchlVFhcsp8Jt5s=
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -26,19 +26,19 @@
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		TR+wVYNnIEJ6Q+4vVRKtumlniRY=
+		oQ2If0rbNayXbchlVFhcsp8Jt5s=
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		eKn9rgRmz3QjiMYwYoZ8J/zCpF4=
+		Cw4UydNpgpxM1dtCQ+5mzaaU5Ps=
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		D0EGo2Fuq0uZjt6QrYPw6Gv56QI=
+		x3gXulr7Cz0TYfvQUoZOoHnZK6U=
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		nIHA5cpfVulDLyhppWfOd3PmMzg=
+		IjFoMn8co9O7xejrnA5Wacn8bxQ=
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -46,11 +46,11 @@
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		nIHA5cpfVulDLyhppWfOd3PmMzg=
+		IjFoMn8co9O7xejrnA5Wacn8bxQ=
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		I1zCc1drcjhPRP21q4WiSqbodPM=
+		bpcW7Q/XMHSBP21KFcSHD56E0xM=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -66,14 +66,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			dg7qHSakYYhisjM9Vg9zcHzmyH51vo835rAxgr9K2d8=
+			XsVYZCV77yA/CSEGUAEzzg3NquGBA0mFzGInu1WMkuA=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			al4pT+dnYJ8gtrhOsARCpUogScJPkTyrVkrmpB6bxTE=
+			MGNGuZf8zxOctOulegavco1J+pXUDNwQhZsj9vGoYE4=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -87,28 +87,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			al4pT+dnYJ8gtrhOsARCpUogScJPkTyrVkrmpB6bxTE=
+			MGNGuZf8zxOctOulegavco1J+pXUDNwQhZsj9vGoYE4=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			75oJs4jQ7UAsmMe2KIo1WngeYiw9omvLFQbQtOqPj10=
+			V0LuCG4OphZNvv6Xv6WnUns5qE9uJ2sWNtOyc/f63B4=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			dg7qHSakYYhisjM9Vg9zcHzmyH51vo835rAxgr9K2d8=
+			XsVYZCV77yA/CSEGUAEzzg3NquGBA0mFzGInu1WMkuA=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			s1mrjkpl+dODdp0wcaSlS74rS5JpmORMfodHBo2omKQ=
+			uCeQ6IA6RST5BufAFrScdnVKghrM6QXYDBx89unIS3U=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -122,14 +122,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			s1mrjkpl+dODdp0wcaSlS74rS5JpmORMfodHBo2omKQ=
+			uCeQ6IA6RST5BufAFrScdnVKghrM6QXYDBx89unIS3U=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			VFZulwn3b27JwHsZAUYBM5JOhYcC2+dGbsPj5RQUr9s=
+			Cke801I/VbanflSlToPFNCoE9uTvBUlm+kk6mXKZQKc=
 			</data>
 		</dict>
 	</dict>

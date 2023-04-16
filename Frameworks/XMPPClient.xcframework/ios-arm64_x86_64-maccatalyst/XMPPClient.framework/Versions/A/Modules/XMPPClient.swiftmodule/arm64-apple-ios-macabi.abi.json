@@ -3310,6 +3310,49 @@
               "AccessControl"
             ],
             "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "makeContent",
+            "printedName": "makeContent(_:type:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "XMPPClient.XCMessageContent?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "XCMessageContent",
+                    "printedName": "XMPPClient.XCMessageContent",
+                    "usr": "s:10XMPPClient16XCMessageContentP"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "XCMessageType",
+                "printedName": "XMPPClient.XCMessageType",
+                "usr": "s:10XMPPClient13XCMessageTypeO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10XMPPClient9XCMessageV11makeContent_4typeAA0bD0_pSgSS_AA0B4TypeOtFZ",
+            "mangledName": "$s10XMPPClient9XCMessageV11makeContent_4typeAA0bD0_pSgSS_AA0B4TypeOtFZ",
+            "moduleName": "XMPPClient",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
           }
         ],
         "declKind": "Struct",
@@ -3817,6 +3860,274 @@
         "declKind": "Struct",
         "usr": "s:10XMPPClient20XCTextMessageContentV",
         "mangledName": "$s10XMPPClient20XCTextMessageContentV",
+        "moduleName": "XMPPClient",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "XCMessageContent",
+            "printedName": "XCMessageContent",
+            "usr": "s:10XMPPClient16XCMessageContentP",
+            "mangledName": "$s10XMPPClient16XCMessageContentP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "XCVoiceMessageContent",
+        "printedName": "XCVoiceMessageContent",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "duration",
+            "printedName": "duration",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10XMPPClient21XCVoiceMessageContentV8durationSivp",
+            "mangledName": "$s10XMPPClient21XCVoiceMessageContentV8durationSivp",
+            "moduleName": "XMPPClient",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient21XCVoiceMessageContentV8durationSivg",
+                "mangledName": "$s10XMPPClient21XCVoiceMessageContentV8durationSivg",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient21XCVoiceMessageContentV8durationSivs",
+                "mangledName": "$s10XMPPClient21XCVoiceMessageContentV8durationSivs",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient21XCVoiceMessageContentV8durationSivM",
+                "mangledName": "$s10XMPPClient21XCVoiceMessageContentV8durationSivM",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "source",
+            "printedName": "source",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10XMPPClient21XCVoiceMessageContentV6sourceSSvp",
+            "mangledName": "$s10XMPPClient21XCVoiceMessageContentV6sourceSSvp",
+            "moduleName": "XMPPClient",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient21XCVoiceMessageContentV6sourceSSvg",
+                "mangledName": "$s10XMPPClient21XCVoiceMessageContentV6sourceSSvg",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient21XCVoiceMessageContentV6sourceSSvs",
+                "mangledName": "$s10XMPPClient21XCVoiceMessageContentV6sourceSSvs",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient21XCVoiceMessageContentV6sourceSSvM",
+                "mangledName": "$s10XMPPClient21XCVoiceMessageContentV6sourceSSvM",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "value",
+            "printedName": "value",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10XMPPClient21XCVoiceMessageContentV5valueSSvp",
+            "mangledName": "$s10XMPPClient21XCVoiceMessageContentV5valueSSvp",
+            "moduleName": "XMPPClient",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient21XCVoiceMessageContentV5valueSSvg",
+                "mangledName": "$s10XMPPClient21XCVoiceMessageContentV5valueSSvg",
+                "moduleName": "XMPPClient",
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(value:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "XMPPClient.XCVoiceMessageContent?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "XCVoiceMessageContent",
+                    "printedName": "XMPPClient.XCVoiceMessageContent",
+                    "usr": "s:10XMPPClient21XCVoiceMessageContentV"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:10XMPPClient21XCVoiceMessageContentV5valueACSgSS_tcfc",
+            "mangledName": "$s10XMPPClient21XCVoiceMessageContentV5valueACSgSS_tcfc",
+            "moduleName": "XMPPClient",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:10XMPPClient21XCVoiceMessageContentV",
+        "mangledName": "$s10XMPPClient21XCVoiceMessageContentV",
         "moduleName": "XMPPClient",
         "declAttributes": [
           "AccessControl"
@@ -6796,41 +7107,41 @@
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCServiceConfiguration.swift",
       "kind": "StringLiteral",
       "offset": 708,
-      "length": 15,
-      "value": "\"i.startalk.im\""
+      "length": 25,
+      "value": "\"startalk.soundsecho.com\""
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCServiceConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 731,
+      "offset": 741,
       "length": 4,
       "value": "5202"
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCServiceConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 745,
+      "offset": 755,
       "length": 13,
       "value": "\"startalk.im\""
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCServiceConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 770,
+      "offset": 780,
       "length": 11,
       "value": "\"testusera\""
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCServiceConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 797,
+      "offset": 807,
       "length": 244,
-      "value": "\"{\n  \"nauth\" : {\n    \"p\" : \"{\\\"token\\\":\\\"c5ec3bdca67c380521eb243fa35a488d\\\",\\\"mk\\\":\\\"AECF035846444C75BB6C81EDCFD3CF6A\\\"}\",\n    \"u\" : \"testusera\",\n    \"mk\" : \"AECF035846444C75BB6C81EDCFD3CF6A\"\n  }\n}\""
+      "value": "\"{\n  \"nauth\" : {\n    \"p\" : \"{\\\"token\\\":\\\"30ac746207d3b9cba6b0d628c0bf11f4\\\",\\\"mk\\\":\\\"7B05E40B23244F4CB97A38A8B168542D\\\"}\",\n    \"u\" : \"testusera\",\n    \"mk\" : \"7B05E40B23244F4CB97A38A8B168542D\"\n  }\n}\""
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCServiceConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 1053,
+      "offset": 1063,
       "length": 77,
       "value": "\"V[1]_P[iOS]_D[iPhone12,8]_S[15.0.3]_ID[F279337714B24E62A5D13983F34CA8E3]_PB\""
     },
@@ -9973,7 +10284,7 @@
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCMessage.swift",
       "kind": "StringLiteral",
-      "offset": 1309,
+      "offset": 2660,
       "length": 116,
       "value": "\"\\s*\\[\\s*obj\\s+type\\s*=\\s*\"image\"\\s+value\\s*=\\s*\"(.+)\"\\s+width\\s*=\\s*([0-9\\.]+)\\s+height\\s*=\\s*([0-9\\.]+)\\s*\\]\\s*\""
     },
