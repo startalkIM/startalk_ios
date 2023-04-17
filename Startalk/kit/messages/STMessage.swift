@@ -110,27 +110,11 @@ extension STMessage: Codable{
             let type = XCMessageType(rawValue: type)
             if let type = type{
                 messageType = type
-                switch messageType{
-                case .text:
-                    let imageContent = XCImageMessageContent(value: content)
-                    if let imageContent = imageContent{
-                        messageContent = imageContent
-                    }else{
-                        messageContent = XCTextMessageContent(value: content)
-                    }
-                case .voice:
-                    break // to be implementd
-                case .image:
-                    break // image type is marked as text, I don't known why
-                case .file:
-                    let fileContent = XCFileMessageContent(value: content)
-                    guard let fileContent = fileContent else {
-                        throw DecodingError.dataCorruptedError(forKey: .content, in: contentContainer, debugDescription: "invalid file content")
-                    }
-                    messageContent = fileContent
-                @unknown default:
-                    break
+                let content = XCMessage.makeContent(content, type: type)
+                guard let content = content else {
+                    throw DecodingError.dataCorruptedError(forKey: .content, in: contentContainer, debugDescription: "invalid content")
                 }
+                messageContent = content
             }
         }
 
@@ -228,5 +212,54 @@ extension STMessage{
     }
     var timestamp: Date{
         Date(milliseconds: message.timestamp)
+    }
+}
+
+extension STMessage{
+    init?(_ messageMo: MessageMO){
+        let from = messageMo.from?.jid
+        let to = messageMo.to?.jid
+        let isGroup = messageMo.isGroup
+        
+        guard let from = from, let to = to else{
+            return nil
+        }
+        let header = XCHeader(from: from, to: to, isGroup: isGroup)
+
+        let id = messageMo.id
+        let typeValue = Int(messageMo.type)
+        let type = XCMessageType(rawValue: typeValue)
+        let content = messageMo.content?.messageContent(type)
+        let clientTypeValue = Int(messageMo.clientType)
+        let clientType = XCClientType(rawValue: clientTypeValue)
+        let timestamp = messageMo.timestamp?.milliseconds
+        
+        guard let id = id, let type = type, let content = content, let clientType = clientType, let timestamp = timestamp else{
+            return nil
+        }
+        let message = XCMessage(header: header, id: id, type: type, content: content, clientType: clientType, timestamp: timestamp)
+        
+        let stateValue = Int(messageMo.state)
+        let state = STMessage.State(rawValue: stateValue)
+        guard let state = state else{
+            return nil
+        }
+        
+        self.message = message
+        self.state = state
+    }
+    
+    func fillMessageMo(_ messageMo: MessageMO){
+        messageMo.from = from
+        messageMo.to = to
+        messageMo.isGroup = isGroup
+        
+        messageMo.id = message.id
+        messageMo.type = Int16(message.type.rawValue)
+        messageMo.content = message.content.value
+        messageMo.clientType = Int16(message.clientType.rawValue)
+        messageMo.timestamp = Date(milliseconds: message.timestamp)
+    
+        messageMo.state = Int16(state.rawValue)
     }
 }

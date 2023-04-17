@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A380" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Chat" representedClassName="ChatMO" syncable="YES" codeGenerationType="class">
+        <attribute name="activityId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="draft" optional="YES" attributeType="String"/>
         <attribute name="isGroup" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isMuted" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -12,7 +13,7 @@
         <attribute name="xmppId" attributeType="String"/>
         <relationship name="lastMessage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="chat" inverseEntity="Message"/>
     </entity>
-    <entity name="ChatGroup" representedClassName="ChatGroupMO" syncable="YES" codeGenerationType="class">
+    <entity name="Group" representedClassName="GroupMO" syncable="YES" codeGenerationType="class">
         <attribute name="name" attributeType="String"/>
         <attribute name="photo" optional="YES" attributeType="String"/>
         <attribute name="xmppId" attributeType="String"/>
@@ -39,6 +40,7 @@
         <relationship name="activity" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="UserActivity" inverseName="user" inverseEntity="UserActivity"/>
     </entity>
     <entity name="UserActivity" representedClassName="UserActivityMO" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="lastUpdateTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="activity" inverseEntity="User"/>
     </entity>

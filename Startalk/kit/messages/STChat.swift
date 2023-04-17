@@ -16,43 +16,46 @@ struct STChat{
     
     var id: String
     var isGroup: Bool
-    var title: String
+    var title: String?
     var photo: String
-    var messageId: String?
-    var brief: String
-    var state: STMessage.State
+    var lastMessage: STMessage?
+    var draft: String?
     var unreadCount: Int
     var isSticky: Bool
     var isMuted: Bool
     var timestamp: Date
     
-    static func makeBrief(_ message: STMessage) -> String{
+    var defaultTitle: String{
+        if isGroup{
+            return "Group".localized
+        }else{
+            return id
+        }
+    }
+    
+    var brief: String{
+        guard let message = lastMessage else{
+            return ""
+        }
         let brief: String
         switch message.type{
         case .text:
             brief = message.content.value
         case .voice:
-            brief = "[\(VOICE_TYPE)]"
+            brief = "[\(Self.VOICE_TYPE)]"
         case .image:
-            brief = "[\(IMAGE_TYPE)]"
+            brief = "[\(Self.IMAGE_TYPE)]"
         case .file:
-            brief = "[\(FILE_TYPE)]"
+            brief = "[\(Self.FILE_TYPE)]"
         @unknown default:
             brief = message.content.value
         }
         return brief
     }
     
-    static func makeTitle(_ message: STMessage) -> String{
-        if message.isGroup{
-            return "Group"
-        }else{
-            switch message.direction{
-            case .send:
-                return message.to
-            case .receive:
-                return message.from
-            }
-        }
+    var state: STMessage.State{
+        return lastMessage?.state ?? .unspecified
     }
+    
+   
 }

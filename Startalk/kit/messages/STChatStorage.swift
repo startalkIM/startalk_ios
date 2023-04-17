@@ -17,24 +17,20 @@ class STChatStorage{
             }
             let unread = message.direction == .receive && message.state != .read
             if let index = index{
-                chats[index].messageId = message.id
-                chats[index].brief = STChat.makeBrief(message)
-                chats[index].state = message.state
+                chats[index].lastMessage = message
                 chats[index].unreadCount += unread ? 1 : 0
                 chats[index].timestamp = message.timestamp
             }else{
                 var chat = STChat(
                     id: message.xmppId,
                     isGroup: message.isGroup,
-                    title: STChat.makeTitle(message),
+                    title: nil,
                     photo: "",
-                    brief: STChat.makeBrief(message),
-                    state: message.state,
                     unreadCount: unread ? 1 : 0,
                     isSticky: false,
                     isMuted: false,
                     timestamp: message.timestamp)
-                chat.messageId = message.id
+                chat.lastMessage = message
                 chats.append(chat)
             }
         }
@@ -47,10 +43,10 @@ class STChatStorage{
     
     func updateMessage(withId id: String, state: STMessage.State) -> Bool{
         let index = chats.firstIndex { chat in
-            chat.messageId == id
+            chat.lastMessage?.id == id
         }
         if let index = index{
-            chats[index].state = state
+            chats[index].lastMessage?.state = state
             return true
         }else{
             return false

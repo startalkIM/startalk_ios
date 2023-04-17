@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ChatGroup{
+struct Group{
     var xmppId: String
     var name: String
     var photo: String?
@@ -19,15 +19,15 @@ struct ChatGroup{
     }
 }
 
-extension ChatGroup{
+extension Group{
     
-    init(_ groupMo: ChatGroupMO){
+    init(_ groupMo: GroupMO){
         xmppId = groupMo.xmppId!
         name = groupMo.name!
         photo = groupMo.photo
     }
     
-    func fillGroupMO(_ groupMo: ChatGroupMO){
+    func fillGroupMO(_ groupMo: GroupMO){
         groupMo.xmppId = xmppId
         groupMo.name = name
         groupMo.photo = photo

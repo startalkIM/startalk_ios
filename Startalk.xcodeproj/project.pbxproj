@@ -66,7 +66,7 @@
 		ABC79D5029DAD20A0025C155 /* STMessageStickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4F29DAD20A0025C155 /* STMessageStickersView.swift */; };
 		ABC79D5229DAD2860025C155 /* STMessageInputFunctionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D5129DAD2860025C155 /* STMessageInputFunctionsView.swift */; };
 		ABD1F12D29EBB5EF002CCCB2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F12C29EBB5EF002CCCB2 /* User.swift */; };
-		ABD1F12F29EBB93B002CCCB2 /* ChatGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F12E29EBB93B002CCCB2 /* ChatGroup.swift */; };
+		ABD1F12F29EBB93B002CCCB2 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F12E29EBB93B002CCCB2 /* Group.swift */; };
 		ABD1F13629EC37FC002CCCB2 /* XMPPClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABD1F13429EC37E8002CCCB2 /* XMPPClient.xcframework */; };
 		ABD1F13729EC37FC002CCCB2 /* XMPPClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ABD1F13429EC37E8002CCCB2 /* XMPPClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ABF80B4F29AF3A6000EA1861 /* STQrCodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */; };
@@ -175,7 +175,7 @@
 		ABC79D4F29DAD20A0025C155 /* STMessageStickersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageStickersView.swift; sourceTree = "<group>"; };
 		ABC79D5129DAD2860025C155 /* STMessageInputFunctionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageInputFunctionsView.swift; sourceTree = "<group>"; };
 		ABD1F12C29EBB5EF002CCCB2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		ABD1F12E29EBB93B002CCCB2 /* ChatGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGroup.swift; sourceTree = "<group>"; };
+		ABD1F12E29EBB93B002CCCB2 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		ABD1F13429EC37E8002CCCB2 /* XMPPClient.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = XMPPClient.xcframework; sourceTree = "<group>"; };
 		ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STQrCodeUtil.swift; sourceTree = "<group>"; };
 		ABF80B5029AF6A0E00EA1861 /* STBaseScanVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STBaseScanVController.swift; sourceTree = "<group>"; };
@@ -499,7 +499,7 @@
 		ABFC90DE29CDC3C50040BDE5 /* messages */ = {
 			isa = PBXGroup;
 			children = (
-				ABD1F12E29EBB93B002CCCB2 /* ChatGroup.swift */,
+				ABD1F12E29EBB93B002CCCB2 /* Group.swift */,
 				ABFC90DF29CDC3C50040BDE5 /* STMessage.swift */,
 				AB5A51FC29D1C76C00656FC4 /* STMessageIdState.swift */,
 				ABFC90D329CDC3410040BDE5 /* STChat.swift */,
@@ -630,7 +630,7 @@
 				AB12F9D329AB6C4000C639B6 /* STLogger.swift in Sources */,
 				ABA21320296EA95C00F1D2F7 /* STAppDelegate.swift in Sources */,
 				AB12F9CC29AB682F00C639B6 /* STServiceManager.swift in Sources */,
-				ABD1F12F29EBB93B002CCCB2 /* ChatGroup.swift in Sources */,
+				ABD1F12F29EBB93B002CCCB2 /* Group.swift in Sources */,
 				AB8BBB1E29BC958F00125DAB /* FileCacher.swift in Sources */,
 				AB8BBB0829B85C6F00125DAB /* STUserState.swift in Sources */,
 				AB8BBB1129B8AAFA00125DAB /* STBadgeView.swift in Sources */,

@@ -26,6 +26,15 @@ struct User{
 }
 
 extension User{
+    init(_ userMo: UserMO){
+        username = userMo.username!
+        domain = userMo.domain!
+        name = userMo.name
+        let genderValue = Int(userMo.gender)
+        gender = Gender(rawValue: genderValue)
+        photo = userMo.photo
+        bio = userMo.bio
+    }
     
     func fillUserMO(_ userMo: UserMO) {
         userMo.username = username
@@ -37,16 +46,6 @@ extension User{
         }
         userMo.photo = photo
         userMo.bio = bio
-    }
-    
-    init(_ userMo: UserMO){
-        username = userMo.username!
-        domain = userMo.domain!
-        name = userMo.name
-        let genderValue = Int(userMo.gender)
-        gender = Gender(rawValue: genderValue)
-        photo = userMo.photo
-        bio = userMo.bio
     }
 }
 

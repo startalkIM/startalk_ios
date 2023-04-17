@@ -155,8 +155,8 @@ class STChatTableCell: UITableViewCell {
         profileImageView.load(chat.photo)
         
         
-        titleLabel.text = chat.title
-        
+        titleLabel.text = chat.title ?? chat.defaultTitle
+
         let timestamp = chat.timestamp
         timestampLabel.text = DateUtil.readable(timestamp)
         
