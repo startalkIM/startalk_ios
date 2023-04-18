@@ -74,4 +74,25 @@ class STMessageStorage{
     private func makeFetchConditon(_ xmppId: String) -> NSPredicate{
         NSPredicate(format: "from = %@ or to = %@", xmppId, xmppId)
     }
+    
+    func setMessagesRead(chatId: String, isGroup: Bool){
+        let request = MessageMO.fetchRequest()
+        let chatPredicate: NSPredicate
+        if isGroup{
+            let selfId = userState.jid.bare
+            chatPredicate = NSPredicate(format: "to = %@ and from != %@", chatId, selfId)
+        }else{
+            chatPredicate = NSPredicate(format: "from = %@", chatId)
+        }
+        let state = STMessage.State.sent
+        let statePredicate = NSPredicate(format: "state = %i", Int16(state.rawValue))
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [chatPredicate, statePredicate])
+        
+        let messageMOs = databaseManager.fetch(request)
+        for messageMO in messageMOs {
+            messageMO.state = Int16(STMessage.State.read.rawValue)
+        }
+        
+        databaseManager.save()
+    }
 }

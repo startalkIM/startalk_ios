@@ -80,4 +80,15 @@ class STChatStorage{
         }
         return Array(messageMap.values)
     }
+    
+    func clearUnreadCount(_ chatId: String){
+        let request = ChatMO.fetchRequest()
+        request.predicate = NSPredicate(format: "xmppId = %@", chatId)
+        let chatMOs = databaseManager.fetch(request)
+        if let chatMO = chatMOs.first{
+            chatMO.unreadCount = 0
+        }
+        
+        databaseManager.save()
+    }
 }

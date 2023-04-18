@@ -63,6 +63,8 @@ class STMessagesVController: STEditableViewController2{
             tableView.reloadData()
             tableView.scrollsToBottom(animated: false)
         }
+        
+        messageManager.setMessagesRead(chat)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

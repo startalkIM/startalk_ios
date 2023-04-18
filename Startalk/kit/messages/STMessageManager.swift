@@ -76,7 +76,7 @@ class STMessageManager{
     }
     
     //MARK: send message
-    func sendTextMessage(to chat: STChat, content: String){       
+    func sendTextMessage(to chat: STChat, content: String){
         let to = XCJid(chat.id)
         guard let to = to else{ return }
         
@@ -100,6 +100,14 @@ class STMessageManager{
         notificationCenter.notifyMessagesAppended(messages)
         chatStorage.addMessages(messages)
         notificationCenter.notifyChatListChanged()
+    }
+    
+    
+    
+    //MARK: set messages read
+    func setMessagesRead(_ chat: STChat){
+        messageStorage.setMessagesRead(chatId: chat.id, isGroup: chat.isGroup)
+        chatStorage.clearUnreadCount(chat.id)
     }
 }
 
