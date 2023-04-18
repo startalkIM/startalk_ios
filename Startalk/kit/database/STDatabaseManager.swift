@@ -38,6 +38,16 @@ class STDatabaseManager{
         }
     }
     
+    func count<T>(for request: NSFetchRequest<T>) -> Int where T : NSFetchRequestResult{
+        do{
+            return try context.count(for: request)
+        }catch{
+            let message = "could not count data"
+            loggger.error(message, error)
+            fatalError(message)
+        }
+    }
+    
     func save () {
         if context.hasChanges {
             do {

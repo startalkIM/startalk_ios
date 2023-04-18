@@ -50,6 +50,7 @@ class STAppStateManager{
     private func load(){
         setState(.loading)
 
+        userState.jid = xmppClient.jid
         apiClient.setCookies()
         messageManager.synchronizeMessages()
         notificationManager.appConnected()

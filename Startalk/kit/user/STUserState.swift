@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import XMPPClient
 
 class STUserState{
     static private let LOG_STATE_KEY = "logged_in"
@@ -25,6 +26,8 @@ class STUserState{
     var token: String = ""
     
     var activityId: Int = 0
+    
+    var jid: XCJid = .empty
 
     func initialize() {
         isLoggedIn = pickLogState() ?? false

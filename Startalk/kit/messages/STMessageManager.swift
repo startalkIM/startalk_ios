@@ -21,7 +21,7 @@ class STMessageManager{
     //MARK: synchronize with server
     func synchronizeMessages(){
         Task{
-            let lastTime = messageStorage.lastMessageTimestamp
+            let lastTime = messageStorage.lastMessageTime(user: xmppClient.jid.bare)
             let messages = await messageLoader.fetch(since: lastTime)
             addHistoryMessages(messages)
             appStateManager.setLoaded()
@@ -96,10 +96,7 @@ class STMessageManager{
     
     //MARK: private common functions
     private func appendMessages(_ messages: [STMessage]){
-        let count = messageStorage.addMessages(messages)
-        if count == 0{
-            return
-        }
+        messageStorage.addMessages(messages)
         notificationCenter.notifyMessagesAppended(messages)
         chatStorage.addMessages(messages)
         notificationCenter.notifyChatListChanged()

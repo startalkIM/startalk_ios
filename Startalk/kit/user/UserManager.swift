@@ -12,6 +12,8 @@ class UserManager{
     
     lazy var databaseManager = STKit.shared.databaseManager
         
+    
+    //MARK: user
     func fetchUser(username: String, domain: String) -> User?{
         let userMo = fetchUserMO(username: username, domain: domain)
         return userMo?.user
@@ -44,6 +46,8 @@ class UserManager{
         return userMO
     }
     
+    
+    //MARK: activity
     func fetchOrAddActivity(username: String, domain: String) -> UserActivity{
         let context = databaseManager.context
         let userMO = fetchOrAddUserMO(username: username, domain: domain)
