@@ -29,19 +29,35 @@
         <attribute name="to" attributeType="String"/>
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="chat" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Chat" inverseName="lastMessage" inverseEntity="Chat"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="User" representedClassName="UserMO" syncable="YES" codeGenerationType="class">
         <attribute name="bio" optional="YES" attributeType="String"/>
         <attribute name="domain" attributeType="String"/>
         <attribute name="gender" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="name" attributeType="String" defaultValueString="ddd"/>
+        <attribute name="name" optional="YES" attributeType="String" defaultValueString="ddd"/>
         <attribute name="photo" optional="YES" attributeType="String"/>
         <attribute name="username" attributeType="String"/>
         <relationship name="activity" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="UserActivity" inverseName="user" inverseEntity="UserActivity"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="username"/>
+                <constraint value="domain"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="UserActivity" representedClassName="UserActivityMO" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="lastUpdateTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lastMessageTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="activity" inverseEntity="User"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
 </model>

@@ -15,6 +15,7 @@ class STKit{
     let userState: STUserState
     let serviceManager: STServiceManager
     let loginManager: STLoginManager
+    let userManager: UserManager
     let messageManager: STMessageManager
     
     let databaseManager: STDatabaseManager
@@ -31,6 +32,7 @@ class STKit{
         userState = STUserState()
         serviceManager = STServiceManager()
         loginManager = STLoginManager()
+        userManager = UserManager()
         messageManager = STMessageManager()
         
         databaseManager = STDatabaseManager()

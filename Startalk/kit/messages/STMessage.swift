@@ -7,13 +7,14 @@
 
 import Foundation
 import XMPPClient
+import CoreData
 
 struct STMessage{
     private var message: XCMessage
     var direction: Direction = .unspecified
     var state: State = .unspecified
     
-    init(message: XCMessage, direction: Direction, state: State) {
+    init(message: XCMessage, direction: Direction = .unspecified, state: State) {
         self.message = message
         self.direction = direction
         self.state = state
@@ -216,40 +217,10 @@ extension STMessage{
 }
 
 extension STMessage{
-    init?(_ messageMo: MessageMO){
-        let from = messageMo.from?.jid
-        let to = messageMo.to?.jid
-        let isGroup = messageMo.isGroup
-        
-        guard let from = from, let to = to else{
-            return nil
-        }
-        let header = XCHeader(from: from, to: to, isGroup: isGroup)
-
-        let id = messageMo.id
-        let typeValue = Int(messageMo.type)
-        let type = XCMessageType(rawValue: typeValue)
-        let content = messageMo.content?.messageContent(type)
-        let clientTypeValue = Int(messageMo.clientType)
-        let clientType = XCClientType(rawValue: clientTypeValue)
-        let timestamp = messageMo.timestamp?.milliseconds
-        
-        guard let id = id, let type = type, let content = content, let clientType = clientType, let timestamp = timestamp else{
-            return nil
-        }
-        let message = XCMessage(header: header, id: id, type: type, content: content, clientType: clientType, timestamp: timestamp)
-        
-        let stateValue = Int(messageMo.state)
-        let state = STMessage.State(rawValue: stateValue)
-        guard let state = state else{
-            return nil
-        }
-        
-        self.message = message
-        self.state = state
-    }
     
-    func fillMessageMo(_ messageMo: MessageMO){
+    @discardableResult
+    func makeMessageMo(context: NSManagedObjectContext) -> MessageMO{
+        let messageMo = MessageMO(context: context)
         messageMo.from = from
         messageMo.to = to
         messageMo.isGroup = isGroup
@@ -261,5 +232,39 @@ extension STMessage{
         messageMo.timestamp = Date(milliseconds: message.timestamp)
     
         messageMo.state = Int16(state.rawValue)
+    
+        return messageMo
+    }
+}
+
+extension MessageMO{
+    var message: STMessage?{
+        let state = STMessage.State(rawValue: Int(state))
+        guard let state = state else{
+            return nil
+        }
+        
+        let from = from?.jid
+        let to = to?.jid
+        
+        guard let from = from, let to = to else{
+            return nil
+        }
+        let header = XCHeader(from: from, to: to, isGroup: isGroup)
+
+        let type = XCMessageType(rawValue: Int(type))
+        var content = content?.messageContent(type)
+        if state == .revoked && content == nil{
+            content = XCTextMessageContent(value: "")
+        }
+        let clientType = XCClientType(rawValue: Int(clientType))
+        let timestamp = timestamp?.milliseconds
+        
+        guard let id = id, let type = type, let content = content, let clientType = clientType, let timestamp = timestamp else{
+            return nil
+        }
+        let message = XCMessage(header: header, id: id, type: type, content: content, clientType: clientType, timestamp: timestamp)
+        
+        return STMessage(message: message, state: state)
     }
 }

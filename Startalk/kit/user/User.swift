@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 struct User{
     var username: String
@@ -26,17 +27,10 @@ struct User{
 }
 
 extension User{
-    init(_ userMo: UserMO){
-        username = userMo.username!
-        domain = userMo.domain!
-        name = userMo.name
-        let genderValue = Int(userMo.gender)
-        gender = Gender(rawValue: genderValue)
-        photo = userMo.photo
-        bio = userMo.bio
-    }
     
-    func fillUserMO(_ userMo: UserMO) {
+    @discardableResult
+    func makeUserMO(context: NSManagedObjectContext) -> UserMO {
+        let userMo = UserMO(context: context)
         userMo.username = username
         userMo.domain = domain
         userMo.name = name
@@ -46,6 +40,16 @@ extension User{
         }
         userMo.photo = photo
         userMo.bio = bio
+        return userMo
+    }
+}
+
+extension UserMO{
+    
+    var user: User{
+        let genderValue = Int(gender)
+        let gender = Gender(rawValue: genderValue)
+        return User(username: username!, domain: domain!, name: name, gender: gender, photo: photo, bio: bio)
     }
 }
 

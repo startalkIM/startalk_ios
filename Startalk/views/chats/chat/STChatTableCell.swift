@@ -152,7 +152,9 @@ class STChatTableCell: UITableViewCell {
         }else{
             profileImageView.image = Self.groupPhoto
         }
-        profileImageView.load(chat.photo)
+        if let photo = chat.photo{
+            profileImageView.load(photo)
+        }
         
         
         titleLabel.text = chat.title ?? chat.defaultTitle

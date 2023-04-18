@@ -7,6 +7,7 @@
 
 import Foundation
 import XMPPClient
+import CoreData
 
 struct STChat{
     static let VOICE_TYPE = "voice"
@@ -17,7 +18,7 @@ struct STChat{
     var id: String
     var isGroup: Bool
     var title: String?
-    var photo: String
+    var photo: String?
     var lastMessage: STMessage?
     var draft: String?
     var unreadCount: Int
@@ -56,6 +57,37 @@ struct STChat{
     var state: STMessage.State{
         return lastMessage?.state ?? .unspecified
     }
+}
+
+extension STChat{
     
-   
+    @discardableResult
+    func MakeChatMO(context: NSManagedObjectContext) -> ChatMO{
+        let chatMo = ChatMO(context: context)
+        chatMo.xmppId = id
+        chatMo.isGroup = isGroup
+        chatMo.title = title
+        chatMo.photo = photo
+        chatMo.draft = draft
+        chatMo.unreadCount = Int32(unreadCount)
+        chatMo.isSticky = isSticky
+        chatMo.isMuted = isMuted
+        chatMo.timestamp = timestamp
+        
+        if let lastMessage = lastMessage{
+            chatMo.lastMessage = lastMessage.makeMessageMo(context: context)
+        }
+        return chatMo
+    }
+}
+
+extension ChatMO{
+    var chat: STChat{
+        var message: STMessage? = nil
+        if let lastMessageMo = lastMessage{
+            message = lastMessageMo.message
+        }
+        
+        return STChat(id: xmppId!, isGroup: isGroup, title: title, photo: photo, lastMessage: message, draft: draft, unreadCount: Int(unreadCount), isSticky: isSticky, isMuted: isMuted, timestamp: timestamp!)
+    }
 }

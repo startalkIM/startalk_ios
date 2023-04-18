@@ -11,7 +11,7 @@ class STDatabaseManager{
     static let STORAGE_NAME = "Startalk"
     let loggger = STLogger(STDatabaseManager.self)
     
-    lazy var persistentContainer: NSPersistentContainer = {
+    lazy var container: NSPersistentContainer = {
         
         let container = NSPersistentContainer(name: Self.STORAGE_NAME)
         container.loadPersistentStores(completionHandler: { [self] (storeDescription, error) in
@@ -21,11 +21,23 @@ class STDatabaseManager{
             }
         })
         
+        let context = container.viewContext
+        context.mergePolicy = NSMergePolicy.overwrite
         return container
     }()
     
-    lazy var context = persistentContainer.viewContext
+    lazy var context = container.viewContext
 
+    func fetch<T>(_ request: NSFetchRequest<T>) -> [T] where T : NSFetchRequestResult{
+        do{
+            return try context.fetch(request)
+        }catch{
+            let message = "could not fetch data"
+            loggger.error(message, error)
+            fatalError(message)
+        }
+    }
+    
     func save () {
         if context.hasChanges {
             do {

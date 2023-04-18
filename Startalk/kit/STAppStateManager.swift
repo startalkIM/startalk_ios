@@ -21,6 +21,9 @@ class STAppStateManager{
     func initialize(){
         notificationCenter.observeAppWillBecomeActive(self, handler: appWillBecomeActive)
         notificationCenter.observeAppDidEnterBackground(self, handler: appDidEnterBackground)
+        
+        userState.initialize()
+        
         appWillBecomeActive()
     }
     

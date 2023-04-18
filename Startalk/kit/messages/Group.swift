@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 struct Group{
     var xmppId: String
@@ -21,15 +22,18 @@ struct Group{
 
 extension Group{
     
-    init(_ groupMo: GroupMO){
-        xmppId = groupMo.xmppId!
-        name = groupMo.name!
-        photo = groupMo.photo
-    }
-    
-    func fillGroupMO(_ groupMo: GroupMO){
+    @discardableResult
+    func makeGroupMO(context: NSManagedObjectContext) -> GroupMO{
+        let groupMo = GroupMO(context: context)
         groupMo.xmppId = xmppId
         groupMo.name = name
         groupMo.photo = photo
+        return groupMo
+    }
+}
+
+extension GroupMO{
+    var group: Group{
+        Group(xmppId: xmppId!, name: name!, photo: photo)
     }
 }

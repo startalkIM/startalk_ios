@@ -12,18 +12,28 @@ class STUserState{
     static private let USERNAME_KEY = "username"
     static private let USER_TOKEN_KEY = "user_token"
     
+    let logger = STLogger(STUserState.self)
+    
     lazy var appStateManager = STKit.shared.appStateManager
+    lazy var serviceManager = STKit.shared.serviceManager
+    lazy var userManager = STKit.shared.userManager
 
     let defaults = UserDefaults.standard
     
     var isLoggedIn: Bool = false
     var username: String = ""
     var token: String = ""
+    
+    var activityId: Int = 0
 
-    init() {
+    func initialize() {
         isLoggedIn = pickLogState() ?? false
         username = pickUsername() ?? ""
         token = pickToken() ?? ""
+        
+        if isLoggedIn{
+            pickActivityId()
+        }
     }
     
     func setLoggedIn(username: String, token: String){
@@ -35,6 +45,8 @@ class STUserState{
         
         self.token = token
         storeToken(token)
+        
+        pickActivityId()
         
         appStateManager.setLoggedIn()
     }
@@ -77,4 +89,14 @@ extension STUserState{
     func storeToken(_ value: String?){
         defaults.set(value, forKey: Self.USER_TOKEN_KEY)
     }
+}
+
+
+extension STUserState{
+    func pickActivityId() {
+        let domain = serviceManager.domain
+        let activity = userManager.fetchOrAddActivity(username: username, domain: domain)
+        activityId = activity.id
+    }
+    
 }
