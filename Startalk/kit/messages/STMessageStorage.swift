@@ -18,27 +18,28 @@ class STMessageStorage{
         request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
         request.fetchLimit = 1
         let messages = databaseManager.fetch(request)
-        //return messages.first?.timestamp
-        return nil
+        return messages.first?.timestamp
     }
     
     func addMessages(_ messages: [STMessage]){
         let context = databaseManager.context
         for message in messages {
-            let mo = message.makeMessageMo(context: context)
-            print(mo.from!, mo.to!)
+            message.makeMessageMo(context: context)
         }
         databaseManager.save()
     }
     
-    func updateMessage(withId id: String, state: STMessage.State){
+    func updateMessage(withId id: String, state: STMessage.State) -> Bool{
+        var isLast = false
         let request = MessageMO.fetchRequest()
         request.predicate = NSPredicate(format: "id = %@", id)
         let messages = databaseManager.fetch(request)
         if let message = messages.first{
             message.state = Int16(state.rawValue)
+            isLast = (message.chat != nil)
         }
         databaseManager.save()
+        return isLast
     }
     
     func messagesCount(chatId: String) -> Int{
@@ -59,7 +60,7 @@ class STMessageStorage{
         for messageMO in messageMOs {
             let message = messageMO.message
             if var message = message{
-                if message.from == userState.jid.bare{
+                if userState.isSelf(message.from){
                     message.direction = .send
                 }else{
                     message.direction = .receive

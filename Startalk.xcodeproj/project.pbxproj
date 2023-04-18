@@ -71,6 +71,7 @@
 		ABD1F13729EC37FC002CCCB2 /* XMPPClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ABD1F13429EC37E8002CCCB2 /* XMPPClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ABD1F14329ED3F19002CCCB2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14229ED3F19002CCCB2 /* UserManager.swift */; };
 		ABD1F14629ED404B002CCCB2 /* UserActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14529ED404B002CCCB2 /* UserActivity.swift */; };
+		ABD1F14929EEB127002CCCB2 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14829EEB127002CCCB2 /* Array+.swift */; };
 		ABF80B4F29AF3A6000EA1861 /* STQrCodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */; };
 		ABF80B5129AF6A0E00EA1861 /* STBaseScanVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5029AF6A0E00EA1861 /* STBaseScanVController.swift */; };
 		ABF80B5529B0B13B00EA1861 /* STScanLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5429B0B13B00EA1861 /* STScanLineView.swift */; };
@@ -181,6 +182,7 @@
 		ABD1F13429EC37E8002CCCB2 /* XMPPClient.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = XMPPClient.xcframework; sourceTree = "<group>"; };
 		ABD1F14229ED3F19002CCCB2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		ABD1F14529ED404B002CCCB2 /* UserActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivity.swift; sourceTree = "<group>"; };
+		ABD1F14829EEB127002CCCB2 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STQrCodeUtil.swift; sourceTree = "<group>"; };
 		ABF80B5029AF6A0E00EA1861 /* STBaseScanVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STBaseScanVController.swift; sourceTree = "<group>"; };
 		ABF80B5429B0B13B00EA1861 /* STScanLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STScanLineView.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				AB12F97D29A392E100C639B6 /* UIColor+.swift */,
+				ABD1F14829EEB127002CCCB2 /* Array+.swift */,
 				AB12F9AB29A4C62400C639B6 /* String+.swift */,
 				AB12F9EF29AC8E2F00C639B6 /* UIViewController+.swift */,
 				AB8BBB1629BB00C000125DAB /* UIImageView+.swift */,
@@ -623,6 +626,7 @@
 				ABFC90D729CDC3410040BDE5 /* STChatTableCell.swift in Sources */,
 				ABFC90D629CDC3410040BDE5 /* STChat.swift in Sources */,
 				ABC79D5029DAD20A0025C155 /* STMessageStickersView.swift in Sources */,
+				ABD1F14929EEB127002CCCB2 /* Array+.swift in Sources */,
 				ABF80B4F29AF3A6000EA1861 /* STQrCodeUtil.swift in Sources */,
 				AB12F9B929A8CC2D00C639B6 /* STServicesView.swift in Sources */,
 				ABFC90DA29CDC3630040BDE5 /* STMessagesVController.swift in Sources */,

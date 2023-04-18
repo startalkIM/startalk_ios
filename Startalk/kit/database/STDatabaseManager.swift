@@ -22,7 +22,7 @@ class STDatabaseManager{
         })
         
         let context = container.viewContext
-        context.mergePolicy = NSMergePolicy.overwrite
+        context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         return container
     }()
     

@@ -8,64 +8,76 @@
 import Foundation
 
 class STChatStorage{
-    var chats: [STChat] = []
+    
+    lazy var databaseManager = STKit.shared.databaseManager
     
     func addMessages(_ messages: [STMessage]){
-        for message in messages{
-            let index = chats.firstIndex { chat in
-                chat.id == message.xmppId
-            }
-            let unread = message.direction == .receive && message.state != .read
-            if let index = index{
-                chats[index].lastMessage = message
-                chats[index].unreadCount += unread ? 1 : 0
-                chats[index].timestamp = message.timestamp
+        let context = databaseManager.context
+        
+        let messages = reduce(messages)
+        let chatIds = messages.map { $0.xmppId }
+        
+        let request = ChatMO.fetchRequest()
+        request.predicate = NSPredicate(format: "xmppId in %@", chatIds)
+        let chatMOs = databaseManager.fetch(request)
+        let chatMap = chatMOs.dict { $0.xmppId! }
+        
+        for message in messages {
+            let chatId = message.xmppId
+            let isUnread = message.direction == .receive && message.state == .sent
+            let unreadValue: Int32 = isUnread ? 1 : 0
+            let messageMO = message.makeMessageMo(context: context)
+            
+            let chatMO = chatMap[chatId]
+            if let chatMO = chatMO{
+                chatMO.lastMessage = messageMO
+                chatMO.unreadCount += unreadValue
+                chatMO.timestamp = message.timestamp
             }else{
-                var chat = STChat(
-                    id: message.xmppId,
-                    isGroup: message.isGroup,
-                    title: nil,
-                    photo: "",
-                    unreadCount: unread ? 1 : 0,
-                    isSticky: false,
-                    isMuted: false,
-                    timestamp: message.timestamp)
-                chat.lastMessage = message
-                chats.append(chat)
+                let chatMO = ChatMO(context: context)
+                chatMO.xmppId = chatId
+                chatMO.isGroup = message.isGroup
+                chatMO.lastMessage = messageMO
+                chatMO.unreadCount = unreadValue
+                chatMO.isSticky = false
+                chatMO.isMuted = false
+                chatMO.timestamp = message.timestamp
             }
         }
         
-        chats.sort { chat1, chat2 in
-            chat1.timestamp > chat2.timestamp
-        }
-        
-    }
-    
-    func updateMessage(withId id: String, state: STMessage.State) -> Bool{
-        let index = chats.firstIndex { chat in
-            chat.lastMessage?.id == id
-        }
-        if let index = index{
-            chats[index].lastMessage?.state = state
-            return true
-        }else{
-            return false
-        }
+        databaseManager.save()
     }
     
     func count() -> Int{
-        chats.count
+        let request = ChatMO.fetchRequest()
+        return databaseManager.count(for: request)
     }
     
     func chats(offset: Int = 0, count: Int = 10) -> [STChat] {
-        let upper = offset + count
-        let slice = chats[offset..<upper]
-        return Array(slice)
+        let request = ChatMO.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+        request.fetchOffset = offset
+        request.fetchLimit = count
+        let chatMOs = databaseManager.fetch(request)
+        return chatMOs.map { $0.chat }
     }
     
     func chat(withId id: String) -> STChat?{
-        chats.first { chat in
-            chat.id == id
+        let request = ChatMO.fetchRequest()
+        request.predicate = NSPredicate(format: "xmppId = %@", id)
+        let chatMOs = databaseManager.fetch(request)
+        return chatMOs.first?.chat
+    }
+    
+    private func reduce(_ messages: [STMessage]) -> [STMessage]{
+        var messageMap: [String: STMessage] = [: ]
+        for message in messages {
+            let chatId = message.xmppId
+            let value = messageMap[chatId]
+            if value == nil || message.timestamp > value!.timestamp{
+                messageMap[chatId] = message
+            }
         }
+        return Array(messageMap.values)
     }
 }

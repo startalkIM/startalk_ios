@@ -76,12 +76,15 @@ class STMessagesVController: STEditableViewController2{
             message.xmppId == chat.id
         }
         if messages.count > 0{
-            let count = messageSource.count
-            let indexPaths = messages.indices.map { IndexPath(row: count + $0, section: 0)}
+            let curentCount = messageSource.count
             messageSource.reload()
-            DispatchQueue.main.async { [self] in
-                tableView.insertRows(at: indexPaths, with: .none)
-                tableView.scrollsToBottom(animated: true)
+            let count = messageSource.count
+            if count > curentCount{
+                let indexPaths = (curentCount..<count).map{ IndexPath(row: $0, section: 0)}
+                DispatchQueue.main.async { [self] in
+                    tableView.insertRows(at: indexPaths, with: .none)
+                    tableView.scrollsToBottom(animated: true)
+                }
             }
         }else{
         }
@@ -138,7 +141,7 @@ extension STMessagesVController: STMessagesViewDelegate{
         if text == Self.RETURN_KEY{
             let inputText = textView.text
             if let inputText = StringUtil.validContent(inputText){
-                messageManager.sendTextMessage(to: chat.id, content: inputText)
+                messageManager.sendTextMessage(to: chat, content: inputText)
             }
             textView.text = ""
             return false
