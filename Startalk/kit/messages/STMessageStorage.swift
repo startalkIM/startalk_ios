@@ -8,7 +8,7 @@
 import Foundation
 
 class STMessageStorage{
-    lazy var databaseManager = STKit.shared.databaseManager2
+    lazy var databaseManager = STKit.shared.databaseManager
     lazy var userState = STKit.shared.userState
     let logger = STLogger(STMessageStorage.self)
         

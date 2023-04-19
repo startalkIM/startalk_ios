@@ -13,7 +13,7 @@ class STHistoryMessagesLoader{
     static let PRIVATE_PATH = "/gethistory.qunar"
     static let GROUP_PATH = "/getmuchistory.qunar"
     static let DEFAULT_COUNT = 1000
-    static let DEFAULT_INTERVAL: TimeInterval = 60 * 60 * 24 * 7
+    static let DEFAULT_INTERVAL: TimeInterval = 60 * 60 * 24 * 30
     
     lazy var apiClient = STKit.shared.apiClient
     lazy var userState = STKit.shared.userState

@@ -8,10 +8,10 @@
 import UIKit
 
 class STChatsVController: UITableViewController {
-    let messageManager = STKit.shared.messageManager
-    let notificationCenter = STKit.shared.notificationCenter
+    lazy var messageManager = STKit.shared.messageManager
+    lazy var  notificationCenter = STKit.shared.notificationCenter
     
-    lazy var messagesSource = messageManager.makeChatDataSource()
+    lazy var chatSource = messageManager.makeChatDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class STChatsVController: UITableViewController {
     }
     
     func reloadData(){
-        messagesSource.reload()
+        chatSource.reload()
         DispatchQueue.main.async { [self] in
             tableView.reloadData()
         }
@@ -48,13 +48,13 @@ class STChatsVController: UITableViewController {
 extension STChatsVController{
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messagesSource.count
+        return chatSource.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: STChatTableCell.IDENTIFIER, for: indexPath)
         if let cell = cell as? STChatTableCell{
-            let chat = messagesSource.chat(at: indexPath.row)
+            let chat = chatSource.chat(at: indexPath.row)
             cell.setChat(chat)
         }
         return cell
@@ -65,7 +65,7 @@ extension STChatsVController{
 extension STChatsVController{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let chat = messagesSource.chat(at: indexPath.row)
+        let chat = chatSource.chat(at: indexPath.row)
         let messageControllr = STMessagesVController(chat)
         
         navigationController?.pushViewController(messageControllr, animated: true)

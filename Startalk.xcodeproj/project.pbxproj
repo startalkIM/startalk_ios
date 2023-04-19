@@ -13,6 +13,9 @@
 		7DB6041E296FB79A00A0AAFA /* STMineVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB6041D296FB79A00A0AAFA /* STMineVController.swift */; };
 		AB0110C62A06282B00445D9B /* ResourceLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0110C52A06282B00445D9B /* ResourceLoader.swift */; };
 		AB0110C82A08B1BD00445D9B /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0110C72A08B1BD00445D9B /* FilesManager.swift */; };
+		AB0110CA2A08DF8400445D9B /* GroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0110C92A08DF8400445D9B /* GroupManager.swift */; };
+		AB0973B62A09093400B412D3 /* UserProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0973B52A09093400B412D3 /* UserProfiles.swift */; };
+		AB0973B82A09108400B412D3 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0973B72A09108400B412D3 /* Int+.swift */; };
 		AB12F97B29A34C1000C639B6 /* STLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F97A29A34C1000C639B6 /* STLoginView.swift */; };
 		AB12F97E29A392E100C639B6 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F97D29A392E100C639B6 /* UIColor+.swift */; };
 		AB12F98029A396E900C639B6 /* STLoginVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F97F29A396E900C639B6 /* STLoginVController.swift */; };
@@ -56,13 +59,11 @@
 		ABA21320296EA95C00F1D2F7 /* STAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2131F296EA95C00F1D2F7 /* STAppDelegate.swift */; };
 		ABA21324296EA95C00F1D2F7 /* STMainVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA21323296EA95C00F1D2F7 /* STMainVController.swift */; };
 		ABA21327296EA95C00F1D2F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA21325296EA95C00F1D2F7 /* Main.storyboard */; };
-		ABA2132A296EA95C00F1D2F7 /* Startalk.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ABA21328296EA95C00F1D2F7 /* Startalk.xcdatamodeld */; };
 		ABA2132C296EA95D00F1D2F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABA2132B296EA95D00F1D2F7 /* Assets.xcassets */; };
 		ABA2132F296EA95D00F1D2F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA2132D296EA95D00F1D2F7 /* LaunchScreen.storyboard */; };
 		ABBB9AA429FA4675008F17A8 /* XMPPClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBB9AA229FA4672008F17A8 /* XMPPClient.xcframework */; };
 		ABBB9AA529FA4675008F17A8 /* XMPPClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ABBB9AA229FA4672008F17A8 /* XMPPClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ABBC9E1029E196810097ADED /* STNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBC9E0F29E196810097ADED /* STNotificationManager.swift */; };
-		ABBC9E1A29E9202A0097ADED /* STDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBC9E1929E9202A0097ADED /* STDatabaseManager.swift */; };
 		ABC79D4629D6E82A0025C155 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4529D6E82A0025C155 /* KeyboardView.swift */; };
 		ABC79D4829D71C1E0025C155 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4729D71C1E0025C155 /* UITableView+.swift */; };
 		ABC79D4A29D97DCA0025C155 /* STMessageInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */; };
@@ -73,7 +74,6 @@
 		ABD1F12D29EBB5EF002CCCB2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F12C29EBB5EF002CCCB2 /* User.swift */; };
 		ABD1F12F29EBB93B002CCCB2 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F12E29EBB93B002CCCB2 /* Group.swift */; };
 		ABD1F14329ED3F19002CCCB2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14229ED3F19002CCCB2 /* UserManager.swift */; };
-		ABD1F14629ED404B002CCCB2 /* UserActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14529ED404B002CCCB2 /* UserActivity.swift */; };
 		ABD1F14929EEB127002CCCB2 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14829EEB127002CCCB2 /* Array+.swift */; };
 		ABD1F14F29F2632B002CCCB2 /* SQLiteConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14E29F2632B002CCCB2 /* SQLiteConnection.swift */; };
 		ABF80B4F29AF3A6000EA1861 /* STQrCodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */; };
@@ -125,6 +125,9 @@
 		7DB6041D296FB79A00A0AAFA /* STMineVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMineVController.swift; sourceTree = "<group>"; };
 		AB0110C52A06282B00445D9B /* ResourceLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoader.swift; sourceTree = "<group>"; };
 		AB0110C72A08B1BD00445D9B /* FilesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesManager.swift; sourceTree = "<group>"; };
+		AB0110C92A08DF8400445D9B /* GroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManager.swift; sourceTree = "<group>"; };
+		AB0973B52A09093400B412D3 /* UserProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfiles.swift; sourceTree = "<group>"; };
+		AB0973B72A09108400B412D3 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		AB12F97A29A34C1000C639B6 /* STLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STLoginView.swift; sourceTree = "<group>"; };
 		AB12F97D29A392E100C639B6 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		AB12F97F29A396E900C639B6 /* STLoginVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STLoginVController.swift; sourceTree = "<group>"; };
@@ -170,14 +173,12 @@
 		ABA2131F296EA95C00F1D2F7 /* STAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STAppDelegate.swift; sourceTree = "<group>"; };
 		ABA21323296EA95C00F1D2F7 /* STMainVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMainVController.swift; sourceTree = "<group>"; };
 		ABA21326296EA95C00F1D2F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		ABA21329296EA95C00F1D2F7 /* Startalk.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Startalk.xcdatamodel; sourceTree = "<group>"; };
 		ABA2132B296EA95D00F1D2F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABA2132E296EA95D00F1D2F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ABA21330296EA95D00F1D2F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ABBB9AA229FA4672008F17A8 /* XMPPClient.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = XMPPClient.xcframework; sourceTree = "<group>"; };
 		ABBC9E0F29E196810097ADED /* STNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNotificationManager.swift; sourceTree = "<group>"; };
 		ABBC9E1129E199030097ADED /* Startalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Startalk.entitlements; sourceTree = "<group>"; };
-		ABBC9E1929E9202A0097ADED /* STDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STDatabaseManager.swift; sourceTree = "<group>"; };
 		ABC79D4529D6E82A0025C155 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		ABC79D4729D71C1E0025C155 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageInputBar.swift; sourceTree = "<group>"; };
@@ -188,7 +189,6 @@
 		ABD1F12C29EBB5EF002CCCB2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		ABD1F12E29EBB93B002CCCB2 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		ABD1F14229ED3F19002CCCB2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		ABD1F14529ED404B002CCCB2 /* UserActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivity.swift; sourceTree = "<group>"; };
 		ABD1F14829EEB127002CCCB2 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		ABD1F14E29F2632B002CCCB2 /* SQLiteConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteConnection.swift; sourceTree = "<group>"; };
 		ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STQrCodeUtil.swift; sourceTree = "<group>"; };
@@ -278,6 +278,7 @@
 				AB5A51EC29CF0E4300656FC4 /* Date+.swift */,
 				ABC79D4729D71C1E0025C155 /* UITableView+.swift */,
 				ABC79D4D29DA8DA50025C155 /* NSLayoutDimension+.swift */,
+				AB0973B72A09108400B412D3 /* Int+.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -418,7 +419,6 @@
 				ABA2132B296EA95D00F1D2F7 /* Assets.xcassets */,
 				ABA2132D296EA95D00F1D2F7 /* LaunchScreen.storyboard */,
 				ABA21330296EA95D00F1D2F7 /* Info.plist */,
-				ABA21328296EA95C00F1D2F7 /* Startalk.xcdatamodeld */,
 			);
 			path = Startalk;
 			sourceTree = "<group>";
@@ -434,7 +434,6 @@
 		ABBC9E1829E920130097ADED /* database */ = {
 			isa = PBXGroup;
 			children = (
-				ABBC9E1929E9202A0097ADED /* STDatabaseManager.swift */,
 				ABD1F14E29F2632B002CCCB2 /* SQLiteConnection.swift */,
 				AB6E892F29F74E47001CAB21 /* DatabaseManager.swift */,
 			);
@@ -445,7 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				ABD1F12C29EBB5EF002CCCB2 /* User.swift */,
-				ABD1F14529ED404B002CCCB2 /* UserActivity.swift */,
+				AB0973B52A09093400B412D3 /* UserProfiles.swift */,
 				AB8BBB0729B85C6F00125DAB /* STUserState.swift */,
 				ABD1F14229ED3F19002CCCB2 /* UserManager.swift */,
 			);
@@ -529,6 +528,7 @@
 			isa = PBXGroup;
 			children = (
 				ABD1F12E29EBB93B002CCCB2 /* Group.swift */,
+				AB0110C92A08DF8400445D9B /* GroupManager.swift */,
 				ABFC90DF29CDC3C50040BDE5 /* STMessage.swift */,
 				AB5A51FC29D1C76C00656FC4 /* STMessageIdState.swift */,
 				ABFC90D329CDC3410040BDE5 /* STChat.swift */,
@@ -651,8 +651,8 @@
 				ABD1F14929EEB127002CCCB2 /* Array+.swift in Sources */,
 				ABF80B4F29AF3A6000EA1861 /* STQrCodeUtil.swift in Sources */,
 				AB12F9B929A8CC2D00C639B6 /* STServicesView.swift in Sources */,
+				AB0973B62A09093400B412D3 /* UserProfiles.swift in Sources */,
 				ABFC90DA29CDC3630040BDE5 /* STMessagesVController.swift in Sources */,
-				ABBC9E1A29E9202A0097ADED /* STDatabaseManager.swift in Sources */,
 				7DB6041E296FB79A00A0AAFA /* STMineVController.swift in Sources */,
 				ABBC9E1029E196810097ADED /* STNotificationManager.swift in Sources */,
 				AB12F97B29A34C1000C639B6 /* STLoginView.swift in Sources */,
@@ -661,7 +661,6 @@
 				ABF80B5F29B1E05F00EA1861 /* STScanVController.swift in Sources */,
 				AB12F9D329AB6C4000C639B6 /* STLogger.swift in Sources */,
 				ABA21320296EA95C00F1D2F7 /* STAppDelegate.swift in Sources */,
-				ABD1F14629ED404B002CCCB2 /* UserActivity.swift in Sources */,
 				AB12F9CC29AB682F00C639B6 /* STServiceManager.swift in Sources */,
 				ABD1F12F29EBB93B002CCCB2 /* Group.swift in Sources */,
 				AB8BBB1E29BC958F00125DAB /* FileLoader.swift in Sources */,
@@ -680,7 +679,6 @@
 				ABFC90E329CDC3C50040BDE5 /* STMessage.swift in Sources */,
 				7DB6041A296FB75F00A0AAFA /* STContactVController.swift in Sources */,
 				AB12F9F229AE531A00C639B6 /* STSwitchController.swift in Sources */,
-				ABA2132A296EA95C00F1D2F7 /* Startalk.xcdatamodeld in Sources */,
 				AB12F9BD29AA169100C639B6 /* STServiceEditorView.swift in Sources */,
 				ABF80B5829B0BAA600EA1861 /* STBaseScanView.swift in Sources */,
 				ABF80B5129AF6A0E00EA1861 /* STBaseScanVController.swift in Sources */,
@@ -694,6 +692,7 @@
 				ABC79D4A29D97DCA0025C155 /* STMessageInputBar.swift in Sources */,
 				ABD1F14F29F2632B002CCCB2 /* SQLiteConnection.swift in Sources */,
 				ABF80B5529B0B13B00EA1861 /* STScanLineView.swift in Sources */,
+				AB0973B82A09108400B412D3 /* Int+.swift in Sources */,
 				ABD1F14329ED3F19002CCCB2 /* UserManager.swift in Sources */,
 				ABF80B6229B4C50800EA1861 /* STService.swift in Sources */,
 				AB12F9EC29AC79DD00C639B6 /* STApiResult.swift in Sources */,
@@ -707,6 +706,7 @@
 				AB5A51F129D1586A00656FC4 /* STChatStorage.swift in Sources */,
 				ABF80B7129B74E3100EA1861 /* URLUtil.swift in Sources */,
 				ABC79D4C29D98C2E0025C155 /* STMessageInputState.swift in Sources */,
+				AB0110CA2A08DF8400445D9B /* GroupManager.swift in Sources */,
 				AB12F9CA29AB682300C639B6 /* STLoginManager.swift in Sources */,
 				AB0110C82A08B1BD00445D9B /* FilesManager.swift in Sources */,
 				ABD1F12D29EBB5EF002CCCB2 /* User.swift in Sources */,
@@ -953,19 +953,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		ABA21328296EA95C00F1D2F7 /* Startalk.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				ABA21329296EA95C00F1D2F7 /* Startalk.xcdatamodel */,
-			);
-			currentVersion = ABA21329296EA95C00F1D2F7 /* Startalk.xcdatamodel */;
-			path = Startalk.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = ABA21314296EA95C00F1D2F7 /* Project object */;
 }

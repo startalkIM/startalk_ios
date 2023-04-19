@@ -146,16 +146,13 @@ class STChatTableCell: UITableViewCell {
         if chat.isSticky{
             contentView.backgroundColor = .systemGray6
         }
-        
-        if !chat.isGroup{
-            profileImageView.image = Self.singlePhoto
+        let defaultImage: UIImage?
+        if chat.isGroup{
+            defaultImage = Self.groupPhoto
         }else{
-            profileImageView.image = Self.groupPhoto
+            defaultImage = Self.singlePhoto
         }
-        if let photo = chat.photo{
-            profileImageView.load(photo)
-        }
-        
+        profileImageView.setSource(chat.photo, placeholder: defaultImage)
         
         titleLabel.text = chat.title ?? chat.defaultTitle
 

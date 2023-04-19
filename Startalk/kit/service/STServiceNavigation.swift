@@ -13,13 +13,16 @@ struct STServiceNavigation{
     var port: Int
     var apiUrl: String
     var pushUrl: String
+    var fileUrl: String
     
-    init(domain: String, host: String, port: Int, apiUrl: String, pushUrl: String) {
+    init(domain: String, host: String, port: Int, apiUrl: String, pushUrl: String, fileUrl: String) {
         self.domain = domain
         self.host = host
         self.port = port
         self.apiUrl = apiUrl
         self.pushUrl = pushUrl
+        self.fileUrl = fileUrl
+        
     }
         
     static let `default` = STServiceNavigation(
@@ -27,7 +30,8 @@ struct STServiceNavigation{
         host: "qtalk.app",
         port: 5202,
         apiUrl: "https://uk.startalk.im/newapi",
-        pushUrl: "https://uk.startalk.im/package"
+        pushUrl: "https://uk.startalk.im/package",
+        fileUrl: "https://uk.startalk.im"
     )
 }
 
@@ -43,6 +47,7 @@ extension STServiceNavigation: Codable{
         case protobufPort
         case httpurl
         case javaurl
+        case fileurl
     }
     
     init(from decoder: Decoder) throws {
@@ -54,6 +59,7 @@ extension STServiceNavigation: Codable{
             self.port = try container.decode(Int.self, forKey: .protobufPort)
             self.apiUrl = try container.decode(String.self, forKey: .httpurl)
             self.pushUrl = try container.decode(String.self, forKey: .javaurl)
+            self.fileUrl = try container.decode(String.self, forKey: .fileurl)
         }else{
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.domain = try container.decode(String.self, forKey: .domain)
@@ -61,6 +67,7 @@ extension STServiceNavigation: Codable{
             self.port = try container.decode(Int.self, forKey: .port)
             self.apiUrl = try container.decode(String.self, forKey: .apiUrl)
             self.pushUrl = try container.decode(String.self, forKey: .pushUrl)
+            self.fileUrl = try container.decode(String.self, forKey: .fileUrl)
         }
         
     }

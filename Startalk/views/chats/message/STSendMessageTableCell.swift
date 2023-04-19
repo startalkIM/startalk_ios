@@ -78,8 +78,8 @@ class STSendMessageTableCell: UITableViewCell {
         ])
     }
 
-    func setMessage(_ message: STMessage){
-        profileImageView.image = Self.singlePhoto
+    func setMessage(_ message: STMessage, user: User?){
+        profileImageView.setSource(user?.photo, placeholder: Self.singlePhoto)
         contentLabel.text = message.content.value
     }
 

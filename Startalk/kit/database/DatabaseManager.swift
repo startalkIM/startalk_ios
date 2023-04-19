@@ -46,6 +46,7 @@ extension DatabaseManager{
             try createGroupTable()
             try createMessageTable()
             try createChatTable()
+            try createUserProfiles()
         }catch{
             let message = "create user tables failed"
             logger.info(message, error)
@@ -88,7 +89,7 @@ extension DatabaseManager{
         let sql = """
             create table if not exists "group"(
                 id integer primary key,
-                xmpp_id text,
+                xmpp_id text unique not null,
                 name text,
                 photo text
             );
@@ -137,6 +138,17 @@ extension DatabaseManager{
             
             create index if not exists chat_xmpp_id on chat(xmpp_id);
             create index if not exists chat_timestamp_index on chat(timestamp);
+            """
+        try userConnection.createTable(sql: sql)
+    }
+    
+    private func createUserProfiles() throws{
+        let sql = """
+            create table if not exists user_profiles(
+                id integer primary key,
+                user_id integer not null unique references user(id),
+                users_version integer not null default 0
+            )
             """
         try userConnection.createTable(sql: sql)
     }

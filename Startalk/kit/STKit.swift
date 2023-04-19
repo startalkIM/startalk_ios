@@ -16,10 +16,10 @@ class STKit{
     let serviceManager: STServiceManager
     let loginManager: STLoginManager
     let userManager: UserManager
+    let groupManager: GroupManager
     let messageManager: STMessageManager
     
-    let databaseManager: STDatabaseManager
-    let databaseManager2: DatabaseManager
+    let databaseManager: DatabaseManager
     let filesManager: FilesManager
     
     let apiClient: STApiClient
@@ -35,10 +35,10 @@ class STKit{
         serviceManager = STServiceManager()
         loginManager = STLoginManager()
         userManager = UserManager()
+        groupManager = GroupManager()
         messageManager = STMessageManager()
         
-        databaseManager = STDatabaseManager()
-        databaseManager2 = DatabaseManager()
+        databaseManager = DatabaseManager()
         filesManager = FilesManager()
         
         apiClient = STApiClient()

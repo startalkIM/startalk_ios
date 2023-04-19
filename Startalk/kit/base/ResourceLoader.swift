@@ -8,9 +8,9 @@
 import Foundation
 class ResourceLoader{
     static let shared = ResourceLoader()
-    let logger = STLogger(ResourceLoader.self)
+    private let logger = STLogger(ResourceLoader.self)
     
-    lazy var connection = STKit.shared.databaseManager2.getShareConnection()
+    lazy var connection = STKit.shared.databaseManager.getShareConnection()
     
     let queue = DispatchQueue(label: "resource_loading")
     var handlesHolder: [String: [Handle]] = [: ]
@@ -49,20 +49,22 @@ class ResourceLoader{
     }
     
     private func addHandle(url: String, object: AnyObject, process: @escaping (String?) -> Void){
-        let handles = handlesHolder[url]
-        if var handles = handles{
-            let index = handles.firstIndex { $0.object === object }
-            if let index = index{
-                handles[index].process = process
-            }else{
-                let handle = Handle(object: object, process: process)
-                handles.append(handle)
+        let keys = handlesHolder.keys
+        for key in keys{
+            let handles = handlesHolder[key]
+            if var handles = handles{
+                let index = handles.firstIndex { $0.object === object }
+                if let index = index{
+                    handles.remove(at: index)
+                }
             }
-            handlesHolder[url] = handles
-        }else{
-            let handle = Handle(object: object, process: process)
-            handlesHolder[url] = [handle]
+            handlesHolder[key] = handles
         }
+        
+        var handles = handlesHolder[url] ?? []
+        let handle = Handle(object: object, process: process)
+        handles.append(handle)
+        handlesHolder[url] = handles
     }
     
     private func doLoad(loadingId: Int, url: String, load: @escaping (String, @escaping (Result) -> Void) -> Void, process: @escaping (String?) -> Void){

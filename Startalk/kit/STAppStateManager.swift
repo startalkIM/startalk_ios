@@ -11,9 +11,10 @@ class STAppStateManager{
     lazy var userState = STKit.shared.userState
     lazy var apiClient = STKit.shared.apiClient
     lazy var xmppClient = STKit.shared.xmppClient
+    lazy var userManager = STKit.shared.userManager
+    lazy var groupManager = STKit.shared.groupManager
     lazy var messageManager = STKit.shared.messageManager
     lazy var databaseManager = STKit.shared.databaseManager
-    lazy var databaseManager2 = STKit.shared.databaseManager2
     lazy var notificationManager = STKit.shared.notificationManager
     lazy var notificationCenter = STKit.shared.notificationCenter
     
@@ -51,7 +52,6 @@ class STAppStateManager{
     
     func appDidEnterBackground(){
         disconnect(to: .inactive)
-        databaseManager.save()
     }
     
     func setLoggedOut(){
@@ -62,7 +62,7 @@ class STAppStateManager{
 extension STAppStateManager{
     
     private func postLogin(){
-        databaseManager2.initialize()
+        databaseManager.initialize()
     }
     
     private func connect(){
@@ -79,6 +79,8 @@ extension STAppStateManager{
         apiClient.setCookies()
         notificationManager.appConnected()
 
+        userManager.updateUsers()
+        groupManager.loadGroups()
         messageManager.synchronizeMessages()
     }
     

@@ -9,32 +9,14 @@ import UIKit
 
 extension UIImageView{
     
-    func load(_ location: String){
-        guard let url = URL(string: location) else{
-            return
-        }
-//        let cacher = FileCacher.shared
-//        if let data = cacher.get(url){
-//            DispatchQueue.main.async {
-//                self.image = UIImage(data: data)
-//            }
-//            return
-//        }
-        
-        let urlSession = URLSession.shared
-        
-        let task = urlSession.dataTask(with: url) { data, _, error in
-            if let _ = error{
-                return
-            }
-            guard let data = data else{
-                return
-            }
-            //cacher.set(url, data: data)
-            DispatchQueue.main.async {
-                self.image = UIImage(data: data)
+    func setSource(_ source: String?, placeholder: UIImage? = nil){
+        image = placeholder
+        guard let source = source else{ return }
+        let loader = STKit.shared.filesManager.loader
+        loader.load(url: source, object: self) { [self] data in
+            if let data = data{
+                image = UIImage(data: data)
             }
         }
-        task.resume()
     }
 }

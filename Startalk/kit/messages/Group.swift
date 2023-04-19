@@ -19,21 +19,3 @@ struct Group{
         self.photo = photo
     }
 }
-
-extension Group{
-    
-    @discardableResult
-    func makeGroupMO(context: NSManagedObjectContext) -> GroupMO{
-        let groupMo = GroupMO(context: context)
-        groupMo.xmppId = xmppId
-        groupMo.name = name
-        groupMo.photo = photo
-        return groupMo
-    }
-}
-
-extension GroupMO{
-    var group: Group{
-        Group(xmppId: xmppId!, name: name!, photo: photo)
-    }
-}

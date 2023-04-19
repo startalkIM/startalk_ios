@@ -6,11 +6,14 @@
 //
 
 import Foundation
+import XMPPClient
 
 class STChatStorage{
     let logger = STLogger(STChatStorage.self)
     
-    lazy var databaseManager = STKit.shared.databaseManager2
+    lazy var databaseManager = STKit.shared.databaseManager
+    lazy var groupManager = STKit.shared.groupManager
+    lazy var userManager = STKit.shared.userManager
     
     func addMessages(_ messages: [STMessage]){
         let connection = databaseManager.getUserConnection()
@@ -31,16 +34,34 @@ class STChatStorage{
                         """
                     try connection.update(sql: updateSql, values: unreadValue, message.id, message.timestamp.milliseconds, message.chatId)
                 }else{
+                    let (title, photo) = fetchChatDetail(messages: message)
                     let insertSql = """
-                        insert into chat(xmpp_id, is_group, last_message_id, unread, timestamp)
-                        values(?, ?, (select id from message where message_id = ?), ?, ?)
+                        insert into chat(xmpp_id, is_group, title, photo, last_message_id, unread, timestamp)
+                        values(?, ?, ?, ?, (select id from message where message_id = ?), ?, ?)
                         """
-                    try connection.insert(sql: insertSql, values: message.chatId, message.isGroup, message.id, unreadValue, message.timestamp.milliseconds)
+
+                    try connection.insert(sql: insertSql, values: message.chatId, message.isGroup, title, photo, message.id, unreadValue, message.timestamp.milliseconds)
                 }
             }
         }catch{
             logger.warn("add messages to chat failed", error)
         }
+    }
+    
+    private func fetchChatDetail(messages: STMessage) -> (String?, String?){
+        var title: String?
+        var photo: String?
+        if messages.isGroup{
+            let group = groupManager.fetchGroup(xmppId: messages.chatId)
+            title = group?.name
+            photo = group?.photo
+        }else{
+            let jid = XCJid(messages.chatId)!
+            let user = userManager.fetchUser(jid: jid)
+            title = user?.name
+            photo = user?.photo
+        }
+        return (title, photo)
     }
     
     func count() -> Int{

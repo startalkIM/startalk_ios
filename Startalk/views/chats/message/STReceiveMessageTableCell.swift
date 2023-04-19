@@ -89,9 +89,9 @@ class STReceiveMessageTableCell: UITableViewCell {
         ])
     }
 
-    func setMessage(_ message: STMessage){
-        profileImageView.image = Self.singlePhoto
-        nameLabel.text = message.from.bare
+    func setMessage(_ message: STMessage, user: User?){
+        profileImageView.setSource(user?.photo, placeholder: Self.singlePhoto)
+        nameLabel.text = user?.name ?? message.from.bare
         nameLabel.isHidden = !message.isGroup
         contentLabel.text = message.content.value
     }

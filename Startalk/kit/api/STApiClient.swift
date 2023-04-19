@@ -96,6 +96,7 @@ extension STApiClient{
     
     func setCKeyCookie(){
         let username = userState.username
+        let domain = serviceManager.domain
         let xmppToken = xmppClient.token
         let time: Int64 = Int64(Date().timeIntervalSince1970 * 1000)
         
@@ -103,7 +104,7 @@ extension STApiClient{
         var code = StringUtil.md5(data: rawCode.data(using: .utf8)!)
         code = code.uppercased()
         
-        let text = "u=\(username)&k=\(code)&t=\(time)"
+        let text = "u=\(username)&k=\(code)&t=\(time)&d=\(domain)"
         let value = text.data(using: .utf8)!.base64EncodedString()
         
         httpClient.setCookie(url: baseUrl, name: Self.COOKIE_CKEY_NAME, value: value)

@@ -13,6 +13,7 @@ class STMessagesVController: STEditableViewController2{
     
     var messageManager = STKit.shared.messageManager
     var notificationCenter = STKit.shared.notificationCenter
+    let userManager = STKit.shared.userManager
 
     let chat: STChat
     let messageSource: STMessageDataSource
@@ -124,17 +125,17 @@ extension STMessagesVController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messageSource.message(at: indexPath.row)
+        let user = userManager.fetchUser(jid: message.from)
         if message.direction == .receive{
             let cell = tableView.dequeueReusableCell(withIdentifier: STReceiveMessageTableCell.IDENTIFIER, for: indexPath) as! STReceiveMessageTableCell
-            cell.setMessage(message)
+            cell.setMessage(message, user: user)
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: STSendMessageTableCell.IDENTIFIER, for: indexPath) as! STSendMessageTableCell
-            cell.setMessage(message)
+            cell.setMessage(message, user: user)
             return cell
 
         }
-        
     }
 }
 
