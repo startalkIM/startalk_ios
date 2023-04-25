@@ -34,12 +34,8 @@ class STMessageManager{
         if messages.isEmpty{ return }
         
         var messages = messages
-        for i in 0..<messages.count{
-            if userState.isSelf(messages[i].from){
-                messages[i].direction = .send
-            }else{
-                messages[i].direction = .receive
-            }
+        for i in messages.indices{
+            messages[i].supplement(with: userState.jid)
         }
         
         appendMessages(messages)
@@ -50,29 +46,19 @@ class STMessageManager{
     
     func receivedMessage(_ message: XCMessage){
         var message = STMessage.receive(message)
-        if message.isGroup{
-            let realFrom = message.realFrom
-            let from = message.from
-            
-            message.to = from
-            if let realFrom = realFrom{
-                message.from = realFrom
-            }
-        }
-        if userState.isSelf(message.from){
-            message.direction = .send
-        }
+        message.supplement(with: userState.jid)
         appendMessages([message])
     }
     
     func receviedMessageSentEvent(_ messsageId: String, timestamp: Int64){
-        let isLast = messageStorage.updateMessage(withId: messsageId, state: .sent)
+        //let isLast = messageStorage.updateMessage(withId: messsageId, state: .sent)
+        messageStorage.updateMessage(withId: messsageId, state: .sent)
         let idState = STMessageIdState(id: messsageId, state: .sent)
         notificationCenter.notifyMessageStateChanged(idState)
         
-        if isLast{
-            notificationCenter.notifyChatListChanged()
-        }
+//        if isLast{
+//            notificationCenter.notifyChatListChanged()
+//        }
     }
     
     //MARK: send message

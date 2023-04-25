@@ -27,17 +27,10 @@ class STHistoryMessagesLoader{
         async let asyncPrivatMessages = fetch(since: since, path: Self.PRIVATE_PATH)
         async let asyncGroupMessages = fetch(since: since, path: Self.GROUP_PATH)
         
-        var privatMessages = await asyncPrivatMessages ?? []
-        privatMessages.indices.forEach{ privatMessages[$0].isGroup = false}
+        let privatMessages = await asyncPrivatMessages ?? []
         messages.append(contentsOf: privatMessages)
         
-        var groupMessages = await asyncGroupMessages ?? []
-        groupMessages.indices.forEach{ i in
-            groupMessages[i].isGroup = true
-            if let realFrom = groupMessages[i].realFrom{
-                groupMessages[i].from = realFrom
-            }
-        }
+        let groupMessages = await asyncGroupMessages ?? []
         messages.append(contentsOf: groupMessages)
         
         return messages

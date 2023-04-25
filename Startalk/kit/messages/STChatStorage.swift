@@ -15,7 +15,7 @@ class STChatStorage{
         let context = databaseManager.context
         
         let messages = reduce(messages)
-        let chatIds = messages.map { $0.xmppId }
+        let chatIds = messages.map { $0.chatId }
         
         let request = ChatMO.fetchRequest()
         request.predicate = NSPredicate(format: "xmppId in %@", chatIds)
@@ -23,7 +23,7 @@ class STChatStorage{
         let chatMap = chatMOs.dict { $0.xmppId! }
         
         for message in messages {
-            let chatId = message.xmppId
+            let chatId = message.chatId
             let isUnread = message.direction == .receive && message.state == .sent
             let unreadValue: Int32 = isUnread ? 1 : 0
             let messageMO = message.makeMessageMo(context: context)
@@ -72,7 +72,7 @@ class STChatStorage{
     private func reduce(_ messages: [STMessage]) -> [STMessage]{
         var messageMap: [String: STMessage] = [: ]
         for message in messages {
-            let chatId = message.xmppId
+            let chatId = message.chatId
             let value = messageMap[chatId]
             if value == nil || message.timestamp > value!.timestamp{
                 messageMap[chatId] = message

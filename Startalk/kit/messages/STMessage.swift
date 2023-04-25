@@ -10,12 +10,28 @@ import XMPPClient
 import CoreData
 
 struct STMessage{
-    private var message: XCMessage
-    var direction: Direction = .unspecified
+    var id: String
+    var chatId: String
+    var from: XCJid
+    var to: XCJid
+    var isGroup: Bool
+    var type: XCMessageType
+    var content: XCMessageContent
+    var clientType: XCClientType
     var state: State = .unspecified
+    var timestamp: Date
+    var direction: Direction = .unspecified
     
     init(message: XCMessage, direction: Direction = .unspecified, state: State) {
-        self.message = message
+        self.id = message.id
+        self.chatId = ""
+        self.from = message.header.from
+        self.to = message.header.to
+        self.isGroup = message.header.isGroup
+        self.type = message.type
+        self.content = message.content
+        self.clientType = message.clientType
+        self.timestamp = Date(milliseconds: message.timestamp)
         self.direction = direction
         self.state = state
     }
@@ -50,6 +66,7 @@ extension STMessage{
 }
 
 extension STMessage: Codable{
+    static let GROUP_CHAT_TYPE = "groupchat"
     static let decoder = JSONDecoder()
     
     enum CodingKeys: CodingKey{
@@ -62,6 +79,8 @@ extension STMessage: Codable{
         case from
         case to
         case realfrom
+        case type
+        case client_type
         case msec_times
     }
     
@@ -83,6 +102,7 @@ extension STMessage: Codable{
         let headerContainer = try container.nestedContainer(keyedBy: HeaderKeys.self, forKey: .message)
         let to = try headerContainer.decode(String.self, forKey: .to)
         let realFrom = try headerContainer.decodeIfPresent(String.self, forKey: .realfrom)
+        let chatType = try headerContainer.decode(String.self, forKey: .type)
         let timeText = try headerContainer.decode(String.self, forKey: .msec_times)
         let time = Int64(timeText)!
 
@@ -119,8 +139,10 @@ extension STMessage: Codable{
             }
         }
 
+        let readFlag = try container.decodeIfPresent(Int.self, forKey: .read_flag)
+        
         let fromJid = XCJid(from)
-        guard let fromJid = fromJid else{
+        guard var fromJid = fromJid else{
             throw DecodingError.dataCorruptedError(forKey: .from, in: headerContainer, debugDescription: "could not parse from")
         }
         let toJid = XCJid(to)
@@ -131,21 +153,19 @@ extension STMessage: Codable{
         if let realFrom = realFrom{
             realFromJid = XCJid(realFrom)
         }
-        let header = XCHeader(from: fromJid, to: toJid, realFrom: realFromJid, realTo: nil, isGroup: false)
         
-        let messsage = XCMessage(header: header, id: id, type: messageType, content: messageContent, clientType: .ios, timestamp: time)
-
-        var read = true
-        if container.contains(.read_flag){
-            let readInt = try container.decode(Int.self, forKey: .read_flag)
-            read = (readInt == 1)
-        }
-
-        self.message = messsage
+        fromJid = realFromJid ?? fromJid
         
-        if read{
-            self.state = .read
-        }
+        self.id = id
+        self.chatId = ""
+        self.from = fromJid
+        self.to = toJid
+        self.isGroup = (chatType == Self.GROUP_CHAT_TYPE)
+        self.type = messageType
+        self.content = messageContent
+        self.clientType = .ios
+        self.timestamp = Date(milliseconds: time)
+        self.state = (readFlag == 1) ? .read : .sent
     }
     
     func encode(to encoder: Encoder) throws{
@@ -153,86 +173,78 @@ extension STMessage: Codable{
     }
 }
 
-
 extension STMessage{
-    
-    var id: String{
-        message.id
-    }
-    var from: String{
-        get{
-            message.header.from.bare
-        }
-        set{
-            if let jid = XCJid(newValue){
-                message.header.from = jid
-            }
-        }
-    }
-    var to: String{
-        get{
-            message.header.to.bare
-        }
-        set{
-            if let jid = XCJid(newValue){
-                message.header.to = jid
-            }
-        }
-    }
-    var realFrom: String?{
-        message.header.realFrom?.bare
-    }
-    var isGroup: Bool{
-        get{
-            message.header.isGroup
-        }
-        set{
-            message.header.isGroup = newValue
-        }
-    }
-    var xmppId: String{
-        let xmppId: XCJid
-        let header = message.header
-        if header.isGroup{
-            xmppId = header.to
+    mutating func supplement(with selfJid: XCJid){
+        if from.bare == selfJid.bare{
+            direction = .send
         }else{
-            switch direction{
-            case .receive:
-                xmppId = header.from
-            case .send:
-                xmppId = header.to
+            direction = .receive
+        }
+        
+        if isGroup{
+            chatId = to.bare
+        }else{
+            if direction == .send{
+                chatId = to.bare
+            }else{
+                chatId = from.bare
             }
         }
-        return xmppId.bare
-    }
-    var type: XCMessageType{
-        message.type
-    }
-    var content: XCMessageContent{
-        message.content
-    }
-    var timestamp: Date{
-        Date(milliseconds: message.timestamp)
     }
 }
 
 extension STMessage{
     
+    init?(_ resultSet: SQLiteResultSet) throws {
+        let id = try resultSet.getString("message_id")
+        let chatId = try resultSet.getString("chat_id")
+        let from = try resultSet.getString("sender")
+        let fromJid = from?.jid
+        let to = try resultSet.getString("receiver")
+        let toJid = to?.jid
+        let groupValue = try resultSet.getInt32("is_group")
+        let typeValue = try resultSet.getInt32("type")
+        let type = XCMessageType(rawValue: Int(typeValue))
+        let contentValue = try resultSet.getString("content") ?? ""
+        var content: XCMessageContent = XCTextMessageContent(value: contentValue)
+        if let type = type{
+            content = XCMessage.makeContent(contentValue, type: type) ?? content
+        }
+        let clientTypeValue = try resultSet.getInt32("client_type")
+        let clientType = XCClientType(rawValue: Int(clientTypeValue))
+        let stateValue = try resultSet.getInt32("state")
+        let state = State(rawValue: Int(stateValue))
+        let milliseconds = try resultSet.getInt64("timestamp")
+        guard let id = id, let chatId = chatId, let fromJid = fromJid, let toJid = toJid, let type = type, let clientType = clientType, let state = state else{
+            return nil
+        }
+        self.id = id
+        self.chatId = chatId
+        self.from = fromJid
+        self.to = toJid
+        self.isGroup = (groupValue == 1)
+        self.type = type
+        self.content = content
+        self.clientType = clientType
+        self.state = state
+        self.timestamp = Date(milliseconds: milliseconds)
+    }
+    
     @discardableResult
     func makeMessageMo(context: NSManagedObjectContext) -> MessageMO{
         let messageMo = MessageMO(context: context)
-        messageMo.from = from
-        messageMo.to = to
+        messageMo.from = from.bare
+        messageMo.to = to.bare
         messageMo.isGroup = isGroup
         
-        messageMo.id = message.id
-        messageMo.type = Int16(message.type.rawValue)
-        messageMo.content = message.content.value
-        messageMo.clientType = Int16(message.clientType.rawValue)
-        messageMo.timestamp = Date(milliseconds: message.timestamp)
-    
+        messageMo.id = id
+        messageMo.type = Int16(type.rawValue)
+        messageMo.content = content.value
+        messageMo.clientType = Int16(clientType.rawValue)
+        messageMo.timestamp = timestamp
+        
         messageMo.state = Int16(state.rawValue)
-    
+        
         return messageMo
     }
 }

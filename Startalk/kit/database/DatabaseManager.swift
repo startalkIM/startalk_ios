@@ -12,7 +12,7 @@ class DatabaseManager{
     lazy var serviceManager = STKit.shared.serviceManager
     let logger = STLogger(DatabaseManager.self)
     
-    var sqliteDatabase: SQLiteDatabase!
+    private var sqliteDatabase: SQLiteDatabase!
     
     func initialize(){
         let path = makeDatabasePath()
@@ -50,7 +50,9 @@ class DatabaseManager{
         
     }
     
-    
+}
+
+extension DatabaseManager{
     private func createUserTable() throws{
         let userTableSql = """
             create table if not exists user(
@@ -96,6 +98,7 @@ class DatabaseManager{
                 timestamp integer not null
             );
             
+            create index message_message_id_index on message(message_id);
             create index message_timestamp_index on message(timestamp);
             """
         try sqliteDatabase.createTable(sql: sql)
@@ -121,5 +124,25 @@ class DatabaseManager{
             create index chat_timestamp_index on chat(timestamp);
             """
         try sqliteDatabase.createTable(sql: sql)
+    }
+}
+
+extension DatabaseManager{
+    func insert(sql: String, values: SQLiteBindable?...) throws{
+        try sqliteDatabase.insert(sql: sql, values: values)
+    }
+    
+    @discardableResult
+    func batchInsert(sql: String, values: [[SQLiteBindable?]]) throws -> Int{
+        return try sqliteDatabase.batchInsert(sql: sql, values: values)
+    }
+    
+    @discardableResult
+    func update(sql: String, values: SQLiteBindable?...) throws -> Int{
+        return try sqliteDatabase.update(sql: sql, values: values)
+    }
+    
+    func query(sql: String, values: SQLiteBindable?...) throws -> SQLiteResultSet{
+        return try sqliteDatabase.query(sql: sql, values: values)
     }
 }

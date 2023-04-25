@@ -5,6 +5,7 @@
 //  Created by lei on 2023/4/21.
 //
 
+import Foundation
 import SQLite3
 
 class SQLiteDatabase{
@@ -52,11 +53,13 @@ class SQLiteDatabase{
     private func bind(statement: OpaquePointer?, values: [SQLiteBindable?]) throws {
         for i in values.indices{
             let value = values[i]
+            
+            let index = i + 1
             let status: Int32
             if let value = value{
-                status = value.bind(statement: statement, index: Int32(i))
+                status = value.bind(statement: statement, index: Int32(index))
             }else{
-                status = sqlite3_bind_null(statement, Int32(i))
+                status = sqlite3_bind_null(statement, Int32(index))
             }
             if status != SQLITE_OK{
                 throw SQLiteError.Bind(message: errorMessage)
@@ -75,7 +78,7 @@ class SQLiteDatabase{
         }
     }
     
-    func insert(sql: String, values: SQLiteBindable?...) throws{
+    func insert(sql: String, values: [SQLiteBindable?]) throws{
         let statement = try prepareStatement(sql: sql)
         defer{
             sqlite3_finalize(statement)
@@ -95,16 +98,16 @@ class SQLiteDatabase{
         var count = 0
         for rowValues in values{
             try bind(statement: statement, values: rowValues)
-            var status = sqlite3_step(statement)
+            let status = sqlite3_step(statement)
             if status == SQLITE_DONE{
                 count = count + 1
             }
-            status = sqlite3_reset(statement)
+            sqlite3_reset(statement)
         }
         return count
     }
     
-    func update(sql: String, values: SQLiteBindable?...) throws -> Int{
+    func update(sql: String, values: [SQLiteBindable?]) throws -> Int{
         let statement = try prepareStatement(sql: sql)
         defer{
             sqlite3_finalize(statement)
@@ -117,7 +120,7 @@ class SQLiteDatabase{
         return changes
     }
     
-    func query(sql: String, values: SQLiteBindable?...) throws -> SQLiteResultSet{
+    func query(sql: String, values: [SQLiteBindable?]) throws -> SQLiteResultSet{
         let statement = try prepareStatement(sql: sql)
         try bind(statement: statement, values: values)
         return SQLiteResultSet(statement: statement)
@@ -129,7 +132,6 @@ enum SQLiteError: Error {
     case Prepare(message: String)
     case Bind(message: String)
     case Step(message: String)
-    case Reset(message: String)
     case Query(message: String)
 }
 
@@ -161,7 +163,8 @@ extension Double: SQLiteBindable{
 extension String: SQLiteBindable{
     
     func bind(statement: OpaquePointer?, index: Int32) -> Int32 {
-        return sqlite3_bind_text(statement, index, self, -1, nil)
+        let value = (self as NSString).utf8String
+        return sqlite3_bind_text(statement, index, value, -1, nil)
     }
     
 }
@@ -188,6 +191,7 @@ class SQLiteResultSet{
         sqlite3_finalize(statement)
     }
     
+    @discardableResult
     func next() -> Bool{
         let status = sqlite3_step(statement)
         return status == SQLITE_ROW

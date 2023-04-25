@@ -103,9 +103,3 @@ extension STUserState{
     }
     
 }
-
-extension STUserState{
-    func isSelf(_ from: String) -> Bool{
-        from == jid.bare
-    }
-}

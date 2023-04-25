@@ -75,7 +75,7 @@ class STMessagesVController: STEditableViewController2{
     
     func receive(_ messages: [STMessage]){
         let messages = messages.filter { message in
-            message.xmppId == chat.id
+            message.chatId == chat.id
         }
         if messages.count > 0{
             let curentCount = messageSource.count
