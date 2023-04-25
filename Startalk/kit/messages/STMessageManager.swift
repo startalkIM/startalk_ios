@@ -72,7 +72,9 @@ class STMessageManager{
         let timestamp = Date().milliseconds
         let message = XCMessage(header: header, id: id, type: .text, content: content, clientType: xmppClient.clientType, timestamp: timestamp)
         
-        appendMessages([.send(message)])
+        var stMessage: STMessage = .send(message)
+        stMessage.supplement(with: userState.jid)
+        appendMessages([stMessage])
 
         xmppClient.sendMessage(message)
         
