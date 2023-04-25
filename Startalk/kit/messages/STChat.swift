@@ -60,34 +60,26 @@ struct STChat{
 }
 
 extension STChat{
-    
-    @discardableResult
-    func MakeChatMO(context: NSManagedObjectContext) -> ChatMO{
-        let chatMo = ChatMO(context: context)
-        chatMo.xmppId = id
-        chatMo.isGroup = isGroup
-        chatMo.title = title
-        chatMo.photo = photo
-        chatMo.draft = draft
-        chatMo.unreadCount = Int32(unreadCount)
-        chatMo.isSticky = isSticky
-        chatMo.isMuted = isMuted
-        chatMo.timestamp = timestamp
-        
-        if let lastMessage = lastMessage{
-            chatMo.lastMessage = lastMessage.makeMessageMo(context: context)
+    init?(_ resultSet: SQLiteResultSet) throws {
+        let id = try resultSet.getString("xmpp_id")
+        guard let id = id else {
+            return nil
         }
-        return chatMo
-    }
-}
-
-extension ChatMO{
-    var chat: STChat{
-        var message: STMessage? = nil
-        if let lastMessageMo = lastMessage{
-            message = lastMessageMo.message
-        }
+        self.id = id
+        let groupValue = try resultSet.getInt32("is_group")
+        self.isGroup = (groupValue == 1)
+        self.title = try resultSet.getString("title")
+        self.photo = try resultSet.getString("photo")
+        self.draft = try resultSet.getString("draft")
         
-        return STChat(id: xmppId!, isGroup: isGroup, title: title, photo: photo, lastMessage: message, draft: draft, unreadCount: Int(unreadCount), isSticky: isSticky, isMuted: isMuted, timestamp: timestamp!)
+        let unreadCount = try resultSet.getInt32("unread")
+        self.unreadCount = Int(unreadCount)
+        let stickyValue = try resultSet.getInt32("is_sticky")
+        self.isSticky = (stickyValue == 1)
+        let mutedValue = try resultSet.getInt32("is_muted")
+        self.isMuted = (mutedValue == 1)
+        let milliseconds = try resultSet.getInt64("timestamp")
+        self.timestamp = Date(milliseconds: milliseconds)
+        
     }
 }

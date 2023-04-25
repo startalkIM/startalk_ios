@@ -8,87 +8,122 @@
 import Foundation
 
 class STChatStorage{
+    let logger = STLogger(STChatStorage.self)
     
-    lazy var databaseManager = STKit.shared.databaseManager
+    lazy var databaseManager = STKit.shared.databaseManager2
     
     func addMessages(_ messages: [STMessage]){
-        let context = databaseManager.context
-        
-        let messages = reduce(messages)
-        let chatIds = messages.map { $0.chatId }
-        
-        let request = ChatMO.fetchRequest()
-        request.predicate = NSPredicate(format: "xmppId in %@", chatIds)
-        let chatMOs = databaseManager.fetch(request)
-        let chatMap = chatMOs.dict { $0.xmppId! }
-        
-        for message in messages {
-            let chatId = message.chatId
-            let isUnread = message.direction == .receive && message.state == .sent
-            let unreadValue: Int32 = isUnread ? 1 : 0
-            let messageMO = message.makeMessageMo(context: context)
-            
-            let chatMO = chatMap[chatId]
-            if let chatMO = chatMO{
-                chatMO.lastMessage = messageMO
-                chatMO.unreadCount += unreadValue
-                chatMO.timestamp = message.timestamp
-            }else{
-                let chatMO = ChatMO(context: context)
-                chatMO.xmppId = chatId
-                chatMO.isGroup = message.isGroup
-                chatMO.lastMessage = messageMO
-                chatMO.unreadCount = unreadValue
-                chatMO.isSticky = false
-                chatMO.isMuted = false
-                chatMO.timestamp = message.timestamp
+        let entries = reduce(messages)
+        do{
+            for entry in entries {
+                let (message, unreadCount) = entry
+                let unreadValue = Int32(unreadCount)
+                
+                let querySql = "select * from chat where xmpp_id = ?"
+                let resultSet = try databaseManager.query(sql: querySql, values: message.chatId)
+                if resultSet.next(){
+                    let updateSql = """
+                        update chat set unread = unread + ?,
+                        last_message_id = (select id from message where message_id = ?),
+                        timestamp = ?
+                        where xmpp_id = ?
+                        """
+                    try databaseManager.update(sql: updateSql, values: unreadValue, message.id, message.timestamp.milliseconds, message.chatId)
+                }else{
+                    let insertSql = """
+                        insert into chat(xmpp_id, last_message_id, unread, timestamp)
+                        values(?, (select id from message where message_id = ?), ?, ?)
+                        """
+                    try databaseManager.insert(sql: insertSql, values: message.chatId, message.id, unreadValue, message.timestamp.milliseconds)
+                }
             }
+        }catch{
+            logger.warn("add messages to chat failed", error)
         }
-        
-        databaseManager.save()
     }
     
     func count() -> Int{
-        let request = ChatMO.fetchRequest()
-        return databaseManager.count(for: request)
+        let sql = "select count(1) from chat"
+        var count = 0
+        do{
+            let resultSet = try databaseManager.query(sql: sql)
+            resultSet.next()
+            let value = try resultSet.getInt32(0)
+            count = Int(value)
+        }catch{
+            logger.warn("query chat count failed", error)
+        }
+        return count
     }
     
     func chats(offset: Int = 0, count: Int = 10) -> [STChat] {
-        let request = ChatMO.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
-        request.fetchOffset = offset
-        request.fetchLimit = count
-        let chatMOs = databaseManager.fetch(request)
-        return chatMOs.map { $0.chat }
+        let sql = "select * from chat order by timestamp desc limit ? offset ?"
+        var chats: [STChat] = []
+        do{
+            let limit = Int32(count)
+            let offset = Int32(offset)
+            let resultSet = try databaseManager.query(sql: sql, values: limit, offset)
+            while resultSet.next(){
+                let chat = try STChat(resultSet)
+                let messageId = try resultSet.getInt32("last_message_id")
+                if var chat = chat{
+                    let messageSql = "select * from message where id = ?"
+                    //TODO: refactor this
+                    let messageResultSet = try databaseManager.query(sql: messageSql, values: messageId)
+                    if messageResultSet.next(){
+                        chat.lastMessage = try STMessage(messageResultSet)
+                    }
+                    chats.append(chat)
+                }
+            }
+        }catch{
+            logger.warn("query chats failed", error)
+        }
+        return chats
     }
     
     func chat(withId id: String) -> STChat?{
-        let request = ChatMO.fetchRequest()
-        request.predicate = NSPredicate(format: "xmppId = %@", id)
-        let chatMOs = databaseManager.fetch(request)
-        return chatMOs.first?.chat
+        let sql = "select * from chat where xmpp_id = ?"
+        var chat: STChat?
+        do{
+            let resultSet = try databaseManager.query(sql: sql, values: id)
+            if resultSet.next(){
+                chat = try STChat(resultSet)
+            }
+        }catch{
+            logger.warn("query chat failed", error)
+        }
+        return chat
     }
     
-    private func reduce(_ messages: [STMessage]) -> [STMessage]{
-        var messageMap: [String: STMessage] = [: ]
+    private func reduce(_ messages: [STMessage]) -> [(STMessage, Int)]{
+        var messageMap: [String: (STMessage, Int)] = [: ]
         for message in messages {
             let chatId = message.chatId
             let value = messageMap[chatId]
-            if value == nil || message.timestamp > value!.timestamp{
-                messageMap[chatId] = message
+            if value == nil{
+                messageMap[chatId] = (message, 0)
             }
+            
+            if message.timestamp > messageMap[chatId]!.0.timestamp{
+                messageMap[chatId]!.0 = message
+            }
+            
+            if message.direction == .receive && message.state == .sent{
+                messageMap[chatId]!.1 += 1
+            }
+            
+            
         }
         return Array(messageMap.values)
     }
     
     func clearUnreadCount(_ chatId: String){
-        let request = ChatMO.fetchRequest()
-        request.predicate = NSPredicate(format: "xmppId = %@", chatId)
-        let chatMOs = databaseManager.fetch(request)
-        if let chatMO = chatMOs.first{
-            chatMO.unreadCount = 0
+        let sql = "update chat set unread = 0 where xmpp_id = ?"
+        do{
+            try databaseManager.update(sql: sql, values: chatId)
+        }catch{
+            logger.warn("clear unread count failed", error)
         }
-        
-        databaseManager.save()
     }
 }

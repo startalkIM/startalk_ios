@@ -98,8 +98,8 @@ extension DatabaseManager{
                 timestamp integer not null
             );
             
-            create index message_message_id_index on message(message_id);
-            create index message_timestamp_index on message(timestamp);
+            create index if not exists message_message_id_index on message(message_id);
+            create index if not exists message_timestamp_index on message(timestamp);
             """
         try sqliteDatabase.createTable(sql: sql)
         
@@ -115,13 +115,14 @@ extension DatabaseManager{
                 photo text,
                 last_message_id integer references message(id),
                 draft text,
-                unread count,
+                unread integer,
                 is_sticky integer,
                 is_muted integer,
                 timestamp integer
             );
             
-            create index chat_timestamp_index on chat(timestamp);
+            create index if not exists chat_xmpp_id on chat(xmpp_id);
+            create index if not exists chat_timestamp_index on chat(timestamp);
             """
         try sqliteDatabase.createTable(sql: sql)
     }

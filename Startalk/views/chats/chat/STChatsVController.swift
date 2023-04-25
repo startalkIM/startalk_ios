@@ -19,9 +19,7 @@ class STChatsVController: UITableViewController {
                 
         tableView.separatorInset = UIEdgeInsets(top: 0, left: STChatTableCell.SEPARATOR_INSET, bottom: 0, right: 0)
         tableView.register(STChatTableCell.self, forCellReuseIdentifier: STChatTableCell.IDENTIFIER)
-        tableView.rowHeight = STChatTableCell.CELL_HEIGHT
-        
-        tableView.tableHeaderView = UIView()
+        tableView.rowHeight = STChatTableCell.CELL_HEIGHT        
     }
     
     override func viewWillAppear(_ animated: Bool) {
