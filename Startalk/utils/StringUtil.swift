@@ -44,6 +44,11 @@ class StringUtil{
         return digest.map {String(format: "%02hhx", $0)}.joined()
     }
     
+    static func sha256(data: Data) -> String{
+        let digest = SHA256.hash(data: data)
+        return digest.map {String(format: "%02hhx", $0)}.joined()
+    }
+    
     static func hex(data: Data) -> String{
         return data.map {String(format: "%02hhx", $0)}.joined()
     }

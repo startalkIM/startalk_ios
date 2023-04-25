@@ -43,6 +43,7 @@
 		AB5A51FF29D1CE6300656FC4 /* STMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51FE29D1CE6300656FC4 /* STMessagesView.swift */; };
 		AB5A520129D1D7D800656FC4 /* STReceiveMessageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A520029D1D7D800656FC4 /* STReceiveMessageTableCell.swift */; };
 		AB5A520329D1E78A00656FC4 /* STSendMessageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A520229D1E78A00656FC4 /* STSendMessageTableCell.swift */; };
+		AB6E893029F74E47001CAB21 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E892F29F74E47001CAB21 /* DatabaseManager.swift */; };
 		AB8BBB0829B85C6F00125DAB /* STUserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB0729B85C6F00125DAB /* STUserState.swift */; };
 		AB8BBB1129B8AAFA00125DAB /* STBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1029B8AAFA00125DAB /* STBadgeView.swift */; };
 		AB8BBB1529B9F3B100125DAB /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1429B9F3B100125DAB /* DateUtil.swift */; };
@@ -153,6 +154,7 @@
 		AB5A51FE29D1CE6300656FC4 /* STMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessagesView.swift; sourceTree = "<group>"; };
 		AB5A520029D1D7D800656FC4 /* STReceiveMessageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STReceiveMessageTableCell.swift; sourceTree = "<group>"; };
 		AB5A520229D1E78A00656FC4 /* STSendMessageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STSendMessageTableCell.swift; sourceTree = "<group>"; };
+		AB6E892F29F74E47001CAB21 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		AB8BBB0729B85C6F00125DAB /* STUserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STUserState.swift; sourceTree = "<group>"; };
 		AB8BBB1029B8AAFA00125DAB /* STBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STBadgeView.swift; sourceTree = "<group>"; };
 		AB8BBB1429B9F3B100125DAB /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 			children = (
 				ABBC9E1929E9202A0097ADED /* STDatabaseManager.swift */,
 				ABD1F14E29F2632B002CCCB2 /* SQLiteDatabase.swift */,
+				AB6E892F29F74E47001CAB21 /* DatabaseManager.swift */,
 			);
 			path = database;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				ABF80B6829B5DB3D00EA1861 /* StringUtil.swift in Sources */,
 				AB12F9F029AC8E2F00C639B6 /* UIViewController+.swift in Sources */,
 				AB5A520129D1D7D800656FC4 /* STReceiveMessageTableCell.swift in Sources */,
+				AB6E893029F74E47001CAB21 /* DatabaseManager.swift in Sources */,
 				7DB60416296F141500A0AAFA /* STContentVController.swift in Sources */,
 				ABC79D4829D71C1E0025C155 /* UITableView+.swift in Sources */,
 				ABFC90D729CDC3410040BDE5 /* STChatTableCell.swift in Sources */,

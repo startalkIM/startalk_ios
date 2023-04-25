@@ -19,6 +19,7 @@ class STKit{
     let messageManager: STMessageManager
     
     let databaseManager: STDatabaseManager
+    let databaseManager2: DatabaseManager
     
     let apiClient: STApiClient
     let xmppClient: STXmppClient
@@ -36,6 +37,7 @@ class STKit{
         messageManager = STMessageManager()
         
         databaseManager = STDatabaseManager()
+        databaseManager2 = DatabaseManager()
         
         apiClient = STApiClient()
         xmppClient = STXmppClient()

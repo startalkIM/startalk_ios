@@ -13,6 +13,7 @@ class STAppStateManager{
     lazy var xmppClient = STKit.shared.xmppClient
     lazy var messageManager = STKit.shared.messageManager
     lazy var databaseManager = STKit.shared.databaseManager
+    lazy var databaseManager2 = STKit.shared.databaseManager2
     lazy var notificationManager = STKit.shared.notificationManager
     lazy var notificationCenter = STKit.shared.notificationCenter
     
@@ -23,6 +24,7 @@ class STAppStateManager{
         notificationCenter.observeAppDidEnterBackground(self, handler: appDidEnterBackground)
         
         userState.initialize()
+        databaseManager2.initialize()
         
         appWillBecomeActive()
     }
