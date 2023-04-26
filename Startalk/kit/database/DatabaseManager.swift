@@ -15,8 +15,8 @@ class DatabaseManager{
     private var sqliteDatabase: SQLiteDatabase!
     
     func initialize(){
-        let path = makeDatabasePath()
         do{
+            let path = try makeDatabasePath()
             sqliteDatabase = try SQLiteDatabase(path: path)
         }catch{
             let message = "could not init sqlite database"
@@ -36,7 +36,7 @@ class DatabaseManager{
         }
     }
     
-    private func makeDatabasePath() -> String{
+    private func makeDatabasePath() throws -> String{
         let username = userState.username
         let domain = serviceManager.domain
         let fullName = "\(username)@\(domain)"
@@ -44,7 +44,7 @@ class DatabaseManager{
         let name = StringUtil.sha256(data: data)
     
         let fileName = "\(name).sqlite"
-        let direcoty = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+        let direcoty = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         let url = direcoty.appendingPathComponent(fileName)
         return url.path
         
