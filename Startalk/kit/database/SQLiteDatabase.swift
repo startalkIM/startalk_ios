@@ -169,6 +169,13 @@ extension String: SQLiteBindable{
     
 }
 
+extension Bool: SQLiteBindable{
+    func bind(statement: OpaquePointer?, index: Int32) -> Int32 {
+        let value: Int32 = self ? 1 : 0
+        return value.bind(statement: statement, index: index)
+    }
+}
+
 
 class SQLiteResultSet{
     var statement: OpaquePointer?
@@ -222,6 +229,11 @@ class SQLiteResultSet{
         }
     }
     
+    func getBool(_ column: Int) throws -> Bool{
+        let value = try getInt32(column)
+        return value == 1
+    }
+    
     func getInt32(_ name: String) throws -> Int32{
         let index = try getColumnIndex(name)
         return sqlite3_column_int(statement, Int32(index))
@@ -245,6 +257,11 @@ class SQLiteResultSet{
         }else{
             return nil
         }
+    }
+    
+    func getBool(_ name: String) throws -> Bool{
+        let value = try getInt32(name)
+        return value == 1
     }
     
     private func checkColumnIndex(_ value: Int) throws{

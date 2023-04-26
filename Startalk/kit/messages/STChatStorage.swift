@@ -31,10 +31,10 @@ class STChatStorage{
                     try databaseManager.update(sql: updateSql, values: unreadValue, message.id, message.timestamp.milliseconds, message.chatId)
                 }else{
                     let insertSql = """
-                        insert into chat(xmpp_id, last_message_id, unread, timestamp)
-                        values(?, (select id from message where message_id = ?), ?, ?)
+                        insert into chat(xmpp_id, is_group, last_message_id, unread, timestamp)
+                        values(?, ?, (select id from message where message_id = ?), ?, ?)
                         """
-                    try databaseManager.insert(sql: insertSql, values: message.chatId, message.id, unreadValue, message.timestamp.milliseconds)
+                    try databaseManager.insert(sql: insertSql, values: message.chatId, message.isGroup, message.id, unreadValue, message.timestamp.milliseconds)
                 }
             }
         }catch{
