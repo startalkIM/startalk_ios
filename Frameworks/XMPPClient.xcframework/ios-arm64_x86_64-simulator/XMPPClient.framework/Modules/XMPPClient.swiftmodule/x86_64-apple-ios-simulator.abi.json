@@ -1387,6 +1387,91 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "isCarbonCopied",
+            "printedName": "isCarbonCopied",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10XMPPClient8XCHeaderV14isCarbonCopiedSbvp",
+            "mangledName": "$s10XMPPClient8XCHeaderV14isCarbonCopiedSbvp",
+            "moduleName": "XMPPClient",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient8XCHeaderV14isCarbonCopiedSbvg",
+                "mangledName": "$s10XMPPClient8XCHeaderV14isCarbonCopiedSbvg",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient8XCHeaderV14isCarbonCopiedSbvs",
+                "mangledName": "$s10XMPPClient8XCHeaderV14isCarbonCopiedSbvs",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10XMPPClient8XCHeaderV14isCarbonCopiedSbvM",
+                "mangledName": "$s10XMPPClient8XCHeaderV14isCarbonCopiedSbvM",
+                "moduleName": "XMPPClient",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
             "kind": "Constructor",
             "name": "init",
             "printedName": "init(from:to:realFrom:realTo:isGroup:)",
@@ -1421,6 +1506,7 @@
                     "usr": "s:10XMPPClient5XCJidV"
                   }
                 ],
+                "hasDefaultArg": true,
                 "usr": "s:Sq"
               },
               {
@@ -1435,6 +1521,7 @@
                     "usr": "s:10XMPPClient5XCJidV"
                   }
                 ],
+                "hasDefaultArg": true,
                 "usr": "s:Sq"
               },
               {
@@ -1447,45 +1534,6 @@
             "declKind": "Constructor",
             "usr": "s:10XMPPClient8XCHeaderV4from2to8realFrom0E2To7isGroupAcA5XCJidV_A2JSgAKSbtcfc",
             "mangledName": "$s10XMPPClient8XCHeaderV4from2to8realFrom0E2To7isGroupAcA5XCJidV_A2JSgAKSbtcfc",
-            "moduleName": "XMPPClient",
-            "declAttributes": [
-              "AccessControl"
-            ],
-            "init_kind": "Designated"
-          },
-          {
-            "kind": "Constructor",
-            "name": "init",
-            "printedName": "init(from:to:isGroup:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "XCHeader",
-                "printedName": "XMPPClient.XCHeader",
-                "usr": "s:10XMPPClient8XCHeaderV"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "XCJid",
-                "printedName": "XMPPClient.XCJid",
-                "usr": "s:10XMPPClient5XCJidV"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "XCJid",
-                "printedName": "XMPPClient.XCJid",
-                "usr": "s:10XMPPClient5XCJidV"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Bool",
-                "printedName": "Swift.Bool",
-                "usr": "s:Sb"
-              }
-            ],
-            "declKind": "Constructor",
-            "usr": "s:10XMPPClient8XCHeaderV4from2to7isGroupAcA5XCJidV_AHSbtcfc",
-            "mangledName": "$s10XMPPClient8XCHeaderV4from2to7isGroupAcA5XCJidV_AHSbtcfc",
             "moduleName": "XMPPClient",
             "declAttributes": [
               "AccessControl"
@@ -7136,7 +7184,7 @@
       "kind": "StringLiteral",
       "offset": 807,
       "length": 244,
-      "value": "\"{\n  \"nauth\" : {\n    \"p\" : \"{\\\"token\\\":\\\"30ac746207d3b9cba6b0d628c0bf11f4\\\",\\\"mk\\\":\\\"7B05E40B23244F4CB97A38A8B168542D\\\"}\",\n    \"u\" : \"testusera\",\n    \"mk\" : \"7B05E40B23244F4CB97A38A8B168542D\"\n  }\n}\""
+      "value": "\"{\n  \"nauth\" : {\n    \"p\" : \"{\\\"token\\\":\\\"ca4d3362de509818359d653a3a8892a8\\\",\\\"mk\\\":\\\"F05EB68B5B894BD48428A27CD69C27EE\\\"}\",\n    \"u\" : \"testusera\",\n    \"mk\" : \"F05EB68B5B894BD48428A27CD69C27EE\"\n  }\n}\""
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCServiceConfiguration.swift",

@@ -57,6 +57,8 @@
 		ABA2132A296EA95C00F1D2F7 /* Startalk.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ABA21328296EA95C00F1D2F7 /* Startalk.xcdatamodeld */; };
 		ABA2132C296EA95D00F1D2F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABA2132B296EA95D00F1D2F7 /* Assets.xcassets */; };
 		ABA2132F296EA95D00F1D2F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA2132D296EA95D00F1D2F7 /* LaunchScreen.storyboard */; };
+		ABBB9AA429FA4675008F17A8 /* XMPPClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBB9AA229FA4672008F17A8 /* XMPPClient.xcframework */; };
+		ABBB9AA529FA4675008F17A8 /* XMPPClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ABBB9AA229FA4672008F17A8 /* XMPPClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ABBC9E1029E196810097ADED /* STNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBC9E0F29E196810097ADED /* STNotificationManager.swift */; };
 		ABBC9E1A29E9202A0097ADED /* STDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBC9E1929E9202A0097ADED /* STDatabaseManager.swift */; };
 		ABC79D4629D6E82A0025C155 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D4529D6E82A0025C155 /* KeyboardView.swift */; };
@@ -68,8 +70,6 @@
 		ABC79D5229DAD2860025C155 /* STMessageInputFunctionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC79D5129DAD2860025C155 /* STMessageInputFunctionsView.swift */; };
 		ABD1F12D29EBB5EF002CCCB2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F12C29EBB5EF002CCCB2 /* User.swift */; };
 		ABD1F12F29EBB93B002CCCB2 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F12E29EBB93B002CCCB2 /* Group.swift */; };
-		ABD1F13629EC37FC002CCCB2 /* XMPPClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABD1F13429EC37E8002CCCB2 /* XMPPClient.xcframework */; };
-		ABD1F13729EC37FC002CCCB2 /* XMPPClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ABD1F13429EC37E8002CCCB2 /* XMPPClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ABD1F14329ED3F19002CCCB2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14229ED3F19002CCCB2 /* UserManager.swift */; };
 		ABD1F14629ED404B002CCCB2 /* UserActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14529ED404B002CCCB2 /* UserActivity.swift */; };
 		ABD1F14929EEB127002CCCB2 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14829EEB127002CCCB2 /* Array+.swift */; };
@@ -109,7 +109,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				ABD1F13729EC37FC002CCCB2 /* XMPPClient.xcframework in Embed Frameworks */,
+				ABBB9AA529FA4675008F17A8 /* XMPPClient.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -170,6 +170,7 @@
 		ABA2132B296EA95D00F1D2F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABA2132E296EA95D00F1D2F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ABA21330296EA95D00F1D2F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABBB9AA229FA4672008F17A8 /* XMPPClient.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = XMPPClient.xcframework; sourceTree = "<group>"; };
 		ABBC9E0F29E196810097ADED /* STNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNotificationManager.swift; sourceTree = "<group>"; };
 		ABBC9E1129E199030097ADED /* Startalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Startalk.entitlements; sourceTree = "<group>"; };
 		ABBC9E1929E9202A0097ADED /* STDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STDatabaseManager.swift; sourceTree = "<group>"; };
@@ -182,7 +183,6 @@
 		ABC79D5129DAD2860025C155 /* STMessageInputFunctionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageInputFunctionsView.swift; sourceTree = "<group>"; };
 		ABD1F12C29EBB5EF002CCCB2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		ABD1F12E29EBB93B002CCCB2 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		ABD1F13429EC37E8002CCCB2 /* XMPPClient.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = XMPPClient.xcframework; sourceTree = "<group>"; };
 		ABD1F14229ED3F19002CCCB2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		ABD1F14529ED404B002CCCB2 /* UserActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivity.swift; sourceTree = "<group>"; };
 		ABD1F14829EEB127002CCCB2 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
@@ -220,7 +220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABD1F13629EC37FC002CCCB2 /* XMPPClient.xcframework in Frameworks */,
+				ABBB9AA429FA4675008F17A8 /* XMPPClient.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,7 +539,7 @@
 		ABFC90EC29CDC4E50040BDE5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ABD1F13429EC37E8002CCCB2 /* XMPPClient.xcframework */,
+				ABBB9AA229FA4672008F17A8 /* XMPPClient.xcframework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";

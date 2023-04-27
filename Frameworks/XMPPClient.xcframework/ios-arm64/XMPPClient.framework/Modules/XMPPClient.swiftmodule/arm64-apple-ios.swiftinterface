@@ -23,8 +23,8 @@ public struct XCHeader {
   public var realFrom: XMPPClient.XCJid?
   public var realTo: XMPPClient.XCJid?
   public var isGroup: Swift.Bool
-  public init(from: XMPPClient.XCJid, to: XMPPClient.XCJid, realFrom: XMPPClient.XCJid?, realTo: XMPPClient.XCJid?, isGroup: Swift.Bool)
-  public init(from: XMPPClient.XCJid, to: XMPPClient.XCJid, isGroup: Swift.Bool)
+  public var isCarbonCopied: Swift.Bool
+  public init(from: XMPPClient.XCJid, to: XMPPClient.XCJid, realFrom: XMPPClient.XCJid? = nil, realTo: XMPPClient.XCJid? = nil, isGroup: Swift.Bool)
 }
 public struct XCEvent {
   public var header: XMPPClient.XCHeader
