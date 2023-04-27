@@ -33,6 +33,10 @@ class STHistoryMessagesLoader{
         let groupMessages = await asyncGroupMessages ?? []
         messages.append(contentsOf: groupMessages)
         
+        for i in messages.indices{
+            messages[i].resetDirection(with: userState.jid)
+        }
+        
         return messages
     }
     

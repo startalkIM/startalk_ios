@@ -33,11 +33,6 @@ class STMessageManager{
     private func addHistoryMessages(_ messages: [STMessage]){
         if messages.isEmpty{ return }
         
-        var messages = messages
-        for i in messages.indices{
-            messages[i].supplement(with: userState.jid)
-        }
-        
         appendMessages(messages)
     }
     
@@ -45,8 +40,19 @@ class STMessageManager{
     //MARK: receive message from xmpp client
     
     func receivedMessage(_ message: XCMessage){
+        let header = message.header
         var message = STMessage.receive(message)
-        message.supplement(with: userState.jid)
+        if header.isGroup{
+            message.to = header.from
+            message.from = header.realFrom!
+            message.resetDirection(with: userState.jid)
+        }else{
+            if header.isCarbonCopied{
+                message.from = header.to
+                message.to = header.from
+                message.direction = .send
+            }
+        }
         appendMessages([message])
     }
     
@@ -72,8 +78,7 @@ class STMessageManager{
         let timestamp = Date().milliseconds
         let message = XCMessage(header: header, id: id, type: .text, content: content, clientType: xmppClient.clientType, timestamp: timestamp)
         
-        var stMessage: STMessage = .send(message)
-        stMessage.supplement(with: userState.jid)
+        let stMessage: STMessage = .send(message)
         appendMessages([stMessage])
 
         xmppClient.sendMessage(message)

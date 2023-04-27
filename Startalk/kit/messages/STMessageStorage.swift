@@ -92,7 +92,7 @@ class STMessageStorage{
             while resultSet.next(){
                 let message = try STMessage(resultSet)
                 if var message = message{
-                    message.supplement(with: userState.jid)
+                    message.resetDirection(with: userState.jid)
                     messages.append(message)
                 }
             }

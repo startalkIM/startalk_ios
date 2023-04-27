@@ -11,7 +11,6 @@ import CoreData
 
 struct STMessage{
     var id: String
-    var chatId: String
     var from: XCJid
     var to: XCJid
     var isGroup: Bool
@@ -24,7 +23,6 @@ struct STMessage{
     
     init(message: XCMessage, direction: Direction = .unspecified, state: State) {
         self.id = message.id
-        self.chatId = ""
         self.from = message.header.from
         self.to = message.header.to
         self.isGroup = message.header.isGroup
@@ -157,7 +155,6 @@ extension STMessage: Codable{
         fromJid = realFromJid ?? fromJid
         
         self.id = id
-        self.chatId = ""
         self.from = fromJid
         self.to = toJid
         self.isGroup = (chatType == Self.GROUP_CHAT_TYPE)
@@ -174,20 +171,22 @@ extension STMessage: Codable{
 }
 
 extension STMessage{
-    mutating func supplement(with selfJid: XCJid){
+    mutating func resetDirection(with selfJid: XCJid){
         if from.bare == selfJid.bare{
             direction = .send
         }else{
             direction = .receive
         }
-        
+    }
+    
+    var chatId: String{
         if isGroup{
-            chatId = to.bare
+            return to.bare
         }else{
             if direction == .send{
-                chatId = to.bare
+                return to.bare
             }else{
-                chatId = from.bare
+                return from.bare
             }
         }
     }
@@ -197,7 +196,6 @@ extension STMessage{
     
     init?(_ resultSet: SQLiteResultSet) throws {
         let id = try resultSet.getString("message_id")
-        let chatId = try resultSet.getString("chat_id")
         let from = try resultSet.getString("sender")
         let fromJid = from?.jid
         let to = try resultSet.getString("receiver")
@@ -215,11 +213,10 @@ extension STMessage{
         let stateValue = try resultSet.getInt32("state")
         let state = State(rawValue: Int(stateValue))
         let milliseconds = try resultSet.getInt64("timestamp")
-        guard let id = id, let chatId = chatId, let fromJid = fromJid, let toJid = toJid, let type = type, let clientType = clientType, let state = state else{
+        guard let id = id, let fromJid = fromJid, let toJid = toJid, let type = type, let clientType = clientType, let state = state else{
             return nil
         }
         self.id = id
-        self.chatId = chatId
         self.from = fromJid
         self.to = toJid
         self.isGroup = (groupValue == 1)
