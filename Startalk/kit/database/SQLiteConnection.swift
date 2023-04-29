@@ -8,17 +8,25 @@
 import Foundation
 import SQLite3
 
-class SQLiteDatabase{
+class SQLiteConnection{
     private var dbPointer: OpaquePointer!
 
     init(path: String) throws {
-        let status = sqlite3_open_v2(path, &dbPointer, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_FULLMUTEX, nil)
+        let flags = SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_FULLMUTEX
+        let status = sqlite3_open_v2(path, &dbPointer, flags, nil)
         if status != SQLITE_OK{
             let errorMessage = errorMessage
             if dbPointer != nil{
                 sqlite3_close(dbPointer)
             }
-            throw SQLiteError.OpenDatabase(message: errorMessage)
+            throw SQLiteError.Open(message: errorMessage)
+        }
+    }
+    
+    func close() throws{
+        let status = sqlite3_close(dbPointer)
+        if status != SQLITE_OK{
+            throw SQLiteError.Close(message: errorMessage)
         }
     }
     
@@ -78,7 +86,7 @@ class SQLiteDatabase{
         }
     }
     
-    func insert(sql: String, values: [SQLiteBindable?]) throws{
+    func insert(sql: String, values: SQLiteBindable?...) throws{
         let statement = try prepareStatement(sql: sql)
         defer{
             sqlite3_finalize(statement)
@@ -90,6 +98,7 @@ class SQLiteDatabase{
         }
     }
     
+    @discardableResult
     func batchInsert(sql: String, values: [[SQLiteBindable?]]) throws -> Int{
         let statement = try prepareStatement(sql: sql)
         defer{
@@ -107,7 +116,8 @@ class SQLiteDatabase{
         return count
     }
     
-    func update(sql: String, values: [SQLiteBindable?]) throws -> Int{
+    @discardableResult
+    func update(sql: String, values: SQLiteBindable?...) throws -> Int{
         let statement = try prepareStatement(sql: sql)
         defer{
             sqlite3_finalize(statement)
@@ -120,7 +130,7 @@ class SQLiteDatabase{
         return changes
     }
     
-    func query(sql: String, values: [SQLiteBindable?]) throws -> SQLiteResultSet{
+    func query(sql: String, values: SQLiteBindable?...) throws -> SQLiteResultSet{
         let statement = try prepareStatement(sql: sql)
         try bind(statement: statement, values: values)
         return SQLiteResultSet(statement: statement)
@@ -128,7 +138,8 @@ class SQLiteDatabase{
 }
 
 enum SQLiteError: Error {
-    case OpenDatabase(message: String)
+    case Open(message: String)
+    case Close(message: String)
     case Prepare(message: String)
     case Bind(message: String)
     case Step(message: String)

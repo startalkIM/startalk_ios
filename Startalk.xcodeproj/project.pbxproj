@@ -73,7 +73,7 @@
 		ABD1F14329ED3F19002CCCB2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14229ED3F19002CCCB2 /* UserManager.swift */; };
 		ABD1F14629ED404B002CCCB2 /* UserActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14529ED404B002CCCB2 /* UserActivity.swift */; };
 		ABD1F14929EEB127002CCCB2 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14829EEB127002CCCB2 /* Array+.swift */; };
-		ABD1F14F29F2632B002CCCB2 /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14E29F2632B002CCCB2 /* SQLiteDatabase.swift */; };
+		ABD1F14F29F2632B002CCCB2 /* SQLiteConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1F14E29F2632B002CCCB2 /* SQLiteConnection.swift */; };
 		ABF80B4F29AF3A6000EA1861 /* STQrCodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */; };
 		ABF80B5129AF6A0E00EA1861 /* STBaseScanVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5029AF6A0E00EA1861 /* STBaseScanVController.swift */; };
 		ABF80B5529B0B13B00EA1861 /* STScanLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B5429B0B13B00EA1861 /* STScanLineView.swift */; };
@@ -186,7 +186,7 @@
 		ABD1F14229ED3F19002CCCB2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		ABD1F14529ED404B002CCCB2 /* UserActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivity.swift; sourceTree = "<group>"; };
 		ABD1F14829EEB127002CCCB2 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
-		ABD1F14E29F2632B002CCCB2 /* SQLiteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
+		ABD1F14E29F2632B002CCCB2 /* SQLiteConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteConnection.swift; sourceTree = "<group>"; };
 		ABF80B4E29AF3A6000EA1861 /* STQrCodeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STQrCodeUtil.swift; sourceTree = "<group>"; };
 		ABF80B5029AF6A0E00EA1861 /* STBaseScanVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STBaseScanVController.swift; sourceTree = "<group>"; };
 		ABF80B5429B0B13B00EA1861 /* STScanLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STScanLineView.swift; sourceTree = "<group>"; };
@@ -421,7 +421,7 @@
 			isa = PBXGroup;
 			children = (
 				ABBC9E1929E9202A0097ADED /* STDatabaseManager.swift */,
-				ABD1F14E29F2632B002CCCB2 /* SQLiteDatabase.swift */,
+				ABD1F14E29F2632B002CCCB2 /* SQLiteConnection.swift */,
 				AB6E892F29F74E47001CAB21 /* DatabaseManager.swift */,
 			);
 			path = database;
@@ -677,7 +677,7 @@
 				AB12F9E529AC425500C639B6 /* STIdentifiers.swift in Sources */,
 				7DB6041C296FB78500A0AAFA /* STDiscoverVController.swift in Sources */,
 				ABC79D4A29D97DCA0025C155 /* STMessageInputBar.swift in Sources */,
-				ABD1F14F29F2632B002CCCB2 /* SQLiteDatabase.swift in Sources */,
+				ABD1F14F29F2632B002CCCB2 /* SQLiteConnection.swift in Sources */,
 				ABF80B5529B0B13B00EA1861 /* STScanLineView.swift in Sources */,
 				ABD1F14329ED3F19002CCCB2 /* UserManager.swift in Sources */,
 				ABF80B6229B4C50800EA1861 /* STService.swift in Sources */,

@@ -12,14 +12,15 @@ class DatabaseManager{
     lazy var serviceManager = STKit.shared.serviceManager
     let logger = STLogger(DatabaseManager.self)
     
-    private var sqliteDatabase: SQLiteDatabase!
+    private var connection: SQLiteConnection!
     
     func initialize(){
+        
         do{
             let path = try makeDatabasePath()
-            sqliteDatabase = try SQLiteDatabase(path: path)
+            connection = try SQLiteConnection(path: path)
         }catch{
-            let message = "could not init sqlite database"
+            let message = "could not open sqlite database"
             logger.info(message, error)
             fatalError(message)
         }
@@ -50,6 +51,9 @@ class DatabaseManager{
         
     }
     
+    func getConnection() -> SQLiteConnection{
+        connection
+    }
 }
 
 extension DatabaseManager{
@@ -66,7 +70,7 @@ extension DatabaseManager{
                 unique(username, domain)
             );
             """
-        try sqliteDatabase.createTable(sql: userTableSql)
+        try connection.createTable(sql: userTableSql)
     }
     
     
@@ -79,7 +83,7 @@ extension DatabaseManager{
                 photo text
             );
             """
-        try sqliteDatabase.createTable(sql: sql)
+        try connection.createTable(sql: sql)
     }
     
     private func createMessageTable() throws{
@@ -101,7 +105,7 @@ extension DatabaseManager{
             create index if not exists message_message_id_index on message(message_id);
             create index if not exists message_timestamp_index on message(timestamp);
             """
-        try sqliteDatabase.createTable(sql: sql)
+        try connection.createTable(sql: sql)
         
     }
     
@@ -124,26 +128,6 @@ extension DatabaseManager{
             create index if not exists chat_xmpp_id on chat(xmpp_id);
             create index if not exists chat_timestamp_index on chat(timestamp);
             """
-        try sqliteDatabase.createTable(sql: sql)
-    }
-}
-
-extension DatabaseManager{
-    func insert(sql: String, values: SQLiteBindable?...) throws{
-        try sqliteDatabase.insert(sql: sql, values: values)
-    }
-    
-    @discardableResult
-    func batchInsert(sql: String, values: [[SQLiteBindable?]]) throws -> Int{
-        return try sqliteDatabase.batchInsert(sql: sql, values: values)
-    }
-    
-    @discardableResult
-    func update(sql: String, values: SQLiteBindable?...) throws -> Int{
-        return try sqliteDatabase.update(sql: sql, values: values)
-    }
-    
-    func query(sql: String, values: SQLiteBindable?...) throws -> SQLiteResultSet{
-        return try sqliteDatabase.query(sql: sql, values: values)
+        try connection.createTable(sql: sql)
     }
 }

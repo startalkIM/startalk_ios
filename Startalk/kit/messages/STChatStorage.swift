@@ -13,6 +13,7 @@ class STChatStorage{
     lazy var databaseManager = STKit.shared.databaseManager2
     
     func addMessages(_ messages: [STMessage]){
+        let connection = databaseManager.getConnection()
         let entries = reduce(messages)
         do{
             for entry in entries {
@@ -20,7 +21,7 @@ class STChatStorage{
                 let unreadValue = Int32(unreadCount)
                 
                 let querySql = "select * from chat where xmpp_id = ?"
-                let resultSet = try databaseManager.query(sql: querySql, values: message.chatId)
+                let resultSet = try connection.query(sql: querySql, values: message.chatId)
                 if resultSet.next(){
                     let updateSql = """
                         update chat set unread = unread + ?,
@@ -28,13 +29,13 @@ class STChatStorage{
                         timestamp = ?
                         where xmpp_id = ?
                         """
-                    try databaseManager.update(sql: updateSql, values: unreadValue, message.id, message.timestamp.milliseconds, message.chatId)
+                    try connection.update(sql: updateSql, values: unreadValue, message.id, message.timestamp.milliseconds, message.chatId)
                 }else{
                     let insertSql = """
                         insert into chat(xmpp_id, is_group, last_message_id, unread, timestamp)
                         values(?, ?, (select id from message where message_id = ?), ?, ?)
                         """
-                    try databaseManager.insert(sql: insertSql, values: message.chatId, message.isGroup, message.id, unreadValue, message.timestamp.milliseconds)
+                    try connection.insert(sql: insertSql, values: message.chatId, message.isGroup, message.id, unreadValue, message.timestamp.milliseconds)
                 }
             }
         }catch{
@@ -44,9 +45,10 @@ class STChatStorage{
     
     func count() -> Int{
         let sql = "select count(1) from chat"
+        let connection = databaseManager.getConnection()
         var count = 0
         do{
-            let resultSet = try databaseManager.query(sql: sql)
+            let resultSet = try connection.query(sql: sql)
             resultSet.next()
             let value = try resultSet.getInt32(0)
             count = Int(value)
@@ -58,18 +60,19 @@ class STChatStorage{
     
     func chats(offset: Int = 0, count: Int = 10) -> [STChat] {
         let sql = "select * from chat order by timestamp desc limit ? offset ?"
+        let connection = databaseManager.getConnection()
         var chats: [STChat] = []
         do{
             let limit = Int32(count)
             let offset = Int32(offset)
-            let resultSet = try databaseManager.query(sql: sql, values: limit, offset)
+            let resultSet = try connection.query(sql: sql, values: limit, offset)
             while resultSet.next(){
                 let chat = try STChat(resultSet)
                 let messageId = try resultSet.getInt32("last_message_id")
                 if var chat = chat{
                     let messageSql = "select * from message where id = ?"
                     //TODO: refactor this
-                    let messageResultSet = try databaseManager.query(sql: messageSql, values: messageId)
+                    let messageResultSet = try connection.query(sql: messageSql, values: messageId)
                     if messageResultSet.next(){
                         chat.lastMessage = try STMessage(messageResultSet)
                     }
@@ -84,9 +87,10 @@ class STChatStorage{
     
     func chat(withId id: String) -> STChat?{
         let sql = "select * from chat where xmpp_id = ?"
+        let connection = databaseManager.getConnection()
         var chat: STChat?
         do{
-            let resultSet = try databaseManager.query(sql: sql, values: id)
+            let resultSet = try connection.query(sql: sql, values: id)
             if resultSet.next(){
                 chat = try STChat(resultSet)
             }
@@ -120,8 +124,9 @@ class STChatStorage{
     
     func clearUnreadCount(_ chatId: String){
         let sql = "update chat set unread = 0 where xmpp_id = ?"
+        let connection = databaseManager.getConnection()
         do{
-            try databaseManager.update(sql: sql, values: chatId)
+            try connection.update(sql: sql, values: chatId)
         }catch{
             logger.warn("clear unread count failed", error)
         }
