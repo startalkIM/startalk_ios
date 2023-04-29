@@ -12,7 +12,7 @@ class SQLiteDatabase{
     private var dbPointer: OpaquePointer!
 
     init(path: String) throws {
-        let status = sqlite3_open(path, &dbPointer)
+        let status = sqlite3_open_v2(path, &dbPointer, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_FULLMUTEX, nil)
         if status != SQLITE_OK{
             let errorMessage = errorMessage
             if dbPointer != nil{

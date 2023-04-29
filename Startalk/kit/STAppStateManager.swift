@@ -17,24 +17,36 @@ class STAppStateManager{
     lazy var notificationManager = STKit.shared.notificationManager
     lazy var notificationCenter = STKit.shared.notificationCenter
     
-    var state: STAppState = .connecting
+    var state: STAppState = .login
     
     func initialize(){
         notificationCenter.observeAppWillBecomeActive(self, handler: appWillBecomeActive)
         notificationCenter.observeAppDidEnterBackground(self, handler: appDidEnterBackground)
         
         userState.initialize()
-        databaseManager2.initialize()
         
-        appWillBecomeActive()
+        if userState.isLoggedIn{
+            setLoggedIn()
+        }
     }
     
-    private func appWillBecomeActive(){
-        if userState.isLoggedIn{
+    func setLoggedIn(){
+        postLogin()
+        connect()
+    }
+    
+    func appWillBecomeActive(){
+        if state == .inactive{
             connect()
-        }else{
-            setState(.login)
         }
+    }
+    
+    func setConnected(){
+        load()
+    }
+    
+    func setLoaded(){
+        run()
     }
     
     func appDidEnterBackground(){
@@ -42,20 +54,32 @@ class STAppStateManager{
         databaseManager.save()
     }
     
+    func setLoggedOut(){
+        disconnect(to: .login)
+    }
+}
+
+extension STAppStateManager{
+    
+    private func postLogin(){
+        databaseManager2.initialize()
+    }
+    
     private func connect(){
         setState(.connecting)
         
-        xmppClient.connnect()
         notificationManager.setup()
+        xmppClient.connnect()
     }
     
     private func load(){
         setState(.loading)
 
-        userState.jid = xmppClient.jid
+        userState.setJid()
         apiClient.setCookies()
-        messageManager.synchronizeMessages()
         notificationManager.appConnected()
+
+        messageManager.synchronizeMessages()
     }
     
     private func run(){
@@ -69,29 +93,12 @@ class STAppStateManager{
         xmppClient.disconnect()
     }
     
-    func setState(_ state: STAppState){
+    private func setState(_ state: STAppState){
         self.state = state
         notificationCenter.notifyAppStateChanged(state)
     }
 }
 
-extension STAppStateManager{
-    func setLoggedIn(){
-        connect()
-    }
-    
-    func setConnected(){
-        load()
-    }
-    
-    func setLoaded(){
-        run()
-    }
-    
-    func setLoggedOut(){
-        disconnect(to: .login)
-    }
-}
 
 extension STAppStateManager{
     var isConnected: Bool {
@@ -100,9 +107,9 @@ extension STAppStateManager{
 }
 
 enum STAppState{
-    case inactive
     case login
     case connecting
     case loading
     case running
+    case inactive
 }

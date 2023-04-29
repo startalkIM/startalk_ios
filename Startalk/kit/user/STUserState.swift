@@ -18,6 +18,7 @@ class STUserState{
     lazy var appStateManager = STKit.shared.appStateManager
     lazy var serviceManager = STKit.shared.serviceManager
     lazy var userManager = STKit.shared.userManager
+    lazy var xmppClient = STKit.shared.xmppClient
 
     let defaults = UserDefaults.standard
     
@@ -52,6 +53,10 @@ class STUserState{
         pickActivityId()
         
         appStateManager.setLoggedIn()
+    }
+    
+    func setJid(){
+        jid = xmppClient.jid
     }
     
     func setLoggedOut(){
