@@ -12,15 +12,31 @@ class DatabaseManager{
     lazy var serviceManager = STKit.shared.serviceManager
     let logger = STLogger(DatabaseManager.self)
     
-    private var connection: SQLiteConnection!
+    private var userConnection: SQLiteConnection!
+    private var shareConnection: SQLiteConnection!
     
+
     func initialize(){
-        
+        initializeUserConnection()
+        initializeShareConnection()
+    }
+    
+    func getUserConnection() -> SQLiteConnection{
+        userConnection
+    }
+    
+    func getShareConnection() -> SQLiteConnection{
+        shareConnection
+    }
+}
+
+extension DatabaseManager{
+    func initializeUserConnection(){
         do{
-            let path = try makeDatabasePath()
-            connection = try SQLiteConnection(path: path)
+            let path = try makeUserDatabasePath()
+            userConnection = try SQLiteConnection(path: path)
         }catch{
-            let message = "could not open sqlite database"
+            let message = "could not open user sqlite database"
             logger.info(message, error)
             fatalError(message)
         }
@@ -31,13 +47,13 @@ class DatabaseManager{
             try createMessageTable()
             try createChatTable()
         }catch{
-            let message = "create tables failed"
+            let message = "create user tables failed"
             logger.info(message, error)
             fatalError(message)
         }
     }
     
-    private func makeDatabasePath() throws -> String{
+    private func makeUserDatabasePath() throws -> String{
         let username = userState.username
         let domain = serviceManager.domain
         let fullName = "\(username)@\(domain)"
@@ -51,12 +67,6 @@ class DatabaseManager{
         
     }
     
-    func getConnection() -> SQLiteConnection{
-        connection
-    }
-}
-
-extension DatabaseManager{
     private func createUserTable() throws{
         let userTableSql = """
             create table if not exists user(
@@ -70,7 +80,7 @@ extension DatabaseManager{
                 unique(username, domain)
             );
             """
-        try connection.createTable(sql: userTableSql)
+        try userConnection.createTable(sql: userTableSql)
     }
     
     
@@ -83,7 +93,7 @@ extension DatabaseManager{
                 photo text
             );
             """
-        try connection.createTable(sql: sql)
+        try userConnection.createTable(sql: sql)
     }
     
     private func createMessageTable() throws{
@@ -105,7 +115,7 @@ extension DatabaseManager{
             create index if not exists message_message_id_index on message(message_id);
             create index if not exists message_timestamp_index on message(timestamp);
             """
-        try connection.createTable(sql: sql)
+        try userConnection.createTable(sql: sql)
         
     }
     
@@ -128,6 +138,75 @@ extension DatabaseManager{
             create index if not exists chat_xmpp_id on chat(xmpp_id);
             create index if not exists chat_timestamp_index on chat(timestamp);
             """
-        try connection.createTable(sql: sql)
+        try userConnection.createTable(sql: sql)
+    }
+}
+
+extension DatabaseManager{
+    func initializeShareConnection(){
+        do{
+            let path = try makeShareDatabasePath()
+            shareConnection = try SQLiteConnection(path: path)
+        }catch{
+            let message = "could not open share sqlite database"
+            logger.info(message, error)
+            fatalError(message)
+        }
+        
+        do{
+            try createTemporaryFileTable()
+            try createFileLoadingTable()
+        }catch{
+            let message = "create share tables failed"
+            logger.info(message, error)
+            fatalError(message)
+        }
+    }
+    
+    func makeShareDatabasePath() throws -> String{
+        let fileName = "share.sqlite"
+        let direcoty = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        let url = direcoty.appendingPathComponent(fileName)
+        return url.path
+    }
+    
+    func createFileTable() throws{
+        let sql = """
+            create talbe file(
+                id integer primary key,
+                name text not null,
+                extension text,
+                size integer,
+                digest text unique,
+                "references" integer,
+                description text
+            );
+            """
+        try shareConnection.createTable(sql: sql)
+    }
+    
+    func createTemporaryFileTable() throws{
+        let sql = """
+            create table temporary_file(
+                id integer primary key,
+                name text not null,
+                size integer,
+                digest text unique
+            );
+            """
+        try shareConnection.createTable(sql: sql)
+    }
+    
+    func createFileLoadingTable() throws{
+        let sql = """
+            create table file_loading(
+                id integer primary key,
+                url text unique,
+                file_id integer references temporary_file(id),
+                status integer,
+                update_time integer
+            )
+            """
+        try shareConnection.createTable(sql: sql)
     }
 }

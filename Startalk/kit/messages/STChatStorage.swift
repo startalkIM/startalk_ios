@@ -13,7 +13,7 @@ class STChatStorage{
     lazy var databaseManager = STKit.shared.databaseManager2
     
     func addMessages(_ messages: [STMessage]){
-        let connection = databaseManager.getConnection()
+        let connection = databaseManager.getUserConnection()
         let entries = reduce(messages)
         do{
             for entry in entries {
@@ -45,7 +45,7 @@ class STChatStorage{
     
     func count() -> Int{
         let sql = "select count(1) from chat"
-        let connection = databaseManager.getConnection()
+        let connection = databaseManager.getUserConnection()
         var count = 0
         do{
             let resultSet = try connection.query(sql: sql)
@@ -60,7 +60,7 @@ class STChatStorage{
     
     func chats(offset: Int = 0, count: Int = 10) -> [STChat] {
         let sql = "select * from chat order by timestamp desc limit ? offset ?"
-        let connection = databaseManager.getConnection()
+        let connection = databaseManager.getUserConnection()
         var chats: [STChat] = []
         do{
             let limit = Int32(count)
@@ -87,7 +87,7 @@ class STChatStorage{
     
     func chat(withId id: String) -> STChat?{
         let sql = "select * from chat where xmpp_id = ?"
-        let connection = databaseManager.getConnection()
+        let connection = databaseManager.getUserConnection()
         var chat: STChat?
         do{
             let resultSet = try connection.query(sql: sql, values: id)
@@ -124,7 +124,7 @@ class STChatStorage{
     
     func clearUnreadCount(_ chatId: String){
         let sql = "update chat set unread = 0 where xmpp_id = ?"
-        let connection = databaseManager.getConnection()
+        let connection = databaseManager.getUserConnection()
         do{
             try connection.update(sql: sql, values: chatId)
         }catch{

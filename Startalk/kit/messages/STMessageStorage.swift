@@ -14,7 +14,7 @@ class STMessageStorage{
         
     func lastMessageTime(user: String) -> Date?{
         let sql = "select max(timestamp) from message"
-        let connection = databaseManager.getConnection()
+        let connection = databaseManager.getUserConnection()
         var date: Date?
         do{
             let resultSet = try connection.query(sql: sql)
@@ -35,7 +35,7 @@ class STMessageStorage{
         (message_id, chat_id, sender, receiver, is_group, type, content, client_type, state, timestamp)
         values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """
-        let connection = databaseManager.getConnection()
+        let connection = databaseManager.getUserConnection()
         var values: [[SQLiteBindable?]] = []
         for message in messages {
             let messageValues: [SQLiteBindable?] = [
@@ -62,7 +62,7 @@ class STMessageStorage{
     
     func updateMessage(withId id: String, state: STMessage.State){
         let sql = "update message set state = ? where message_id = ?"
-        let connection = databaseManager.getConnection()
+        let connection = databaseManager.getUserConnection()
         do{
             let stateValue = Int32(state.rawValue)
             try connection.update(sql: sql, values: stateValue, id)
@@ -73,7 +73,7 @@ class STMessageStorage{
     
     func messagesCount(chatId: String) -> Int{
         let sql = "select count(1) from message where chat_id = ?"
-        let connection = databaseManager.getConnection()
+        let connection = databaseManager.getUserConnection()
         var count = 0
         do{
             let resultSet = try connection.query(sql: sql, values: chatId)
@@ -88,7 +88,7 @@ class STMessageStorage{
     
     func messages(chatId: String, offset: Int = 0, count: Int = 10) -> [STMessage]{
         let sql = "select * from message where chat_id = ? order by timestamp asc limit ? offset ?"
-        let connection = databaseManager.getConnection()
+        let connection = databaseManager.getUserConnection()
         var messages: [STMessage] = []
         do{
             let offset = Int32(offset)
@@ -109,7 +109,7 @@ class STMessageStorage{
     
     func setMessagesRead(chatId: String, isGroup: Bool){
         let sql = "update message set state = ? where chat_id = ? and state = ?"
-        let connection = databaseManager.getConnection()
+        let connection = databaseManager.getUserConnection()
         do{
             let readValue = Int32(STMessage.State.read.rawValue)
             let sentValue = Int32(STMessage.State.sent.rawValue)
