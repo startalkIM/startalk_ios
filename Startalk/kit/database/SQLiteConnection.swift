@@ -86,7 +86,8 @@ class SQLiteConnection{
         }
     }
     
-    func insert(sql: String, values: SQLiteBindable?...) throws{
+    @discardableResult
+    func insert(sql: String, values: SQLiteBindable?...) throws -> Int64{
         let statement = try prepareStatement(sql: sql)
         defer{
             sqlite3_finalize(statement)
@@ -96,6 +97,7 @@ class SQLiteConnection{
         if status != SQLITE_DONE{
             throw SQLiteError.Step(message: errorMessage)
         }
+        return sqlite3_last_insert_rowid(dbPointer)
     }
     
     @discardableResult

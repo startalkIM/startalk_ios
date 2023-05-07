@@ -52,4 +52,18 @@ class URLUtil{
         }
         return port
     }
+    
+    static func normalize(_ value: String) -> String{
+        let components = URLComponents(string: value)
+        guard var components = components else{
+            return value
+        }
+        var queryItems = components.queryItems
+        queryItems?.sort(by: { item1, item2 in
+            item1.name < item2.name
+        })
+        components.queryItems = queryItems
+        components.fragment = nil
+        return components.string ?? ""
+    }
 }

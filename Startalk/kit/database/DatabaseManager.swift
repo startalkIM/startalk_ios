@@ -154,8 +154,7 @@ extension DatabaseManager{
         }
         
         do{
-            try createTemporaryFileTable()
-            try createFileLoadingTable()
+            try createResourceLoadingTable()
         }catch{
             let message = "create share tables failed"
             logger.info(message, error)
@@ -185,25 +184,13 @@ extension DatabaseManager{
         try shareConnection.createTable(sql: sql)
     }
     
-    func createTemporaryFileTable() throws{
+    func createResourceLoadingTable() throws{
         let sql = """
-            create table temporary_file(
+            create table resource_loading(
                 id integer primary key,
-                name text not null,
-                size integer,
-                digest text unique
-            );
-            """
-        try shareConnection.createTable(sql: sql)
-    }
-    
-    func createFileLoadingTable() throws{
-        let sql = """
-            create table file_loading(
-                id integer primary key,
-                url text unique,
-                file_id integer references temporary_file(id),
-                status integer,
+                url text unique not null,
+                status integer not null,
+                identifier text,
                 update_time integer
             )
             """

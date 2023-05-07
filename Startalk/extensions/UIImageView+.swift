@@ -13,13 +13,13 @@ extension UIImageView{
         guard let url = URL(string: location) else{
             return
         }
-        let cacher = FileCacher.shared
-        if let data = cacher.get(url){
-            DispatchQueue.main.async {
-                self.image = UIImage(data: data)
-            }
-            return
-        }
+//        let cacher = FileCacher.shared
+//        if let data = cacher.get(url){
+//            DispatchQueue.main.async {
+//                self.image = UIImage(data: data)
+//            }
+//            return
+//        }
         
         let urlSession = URLSession.shared
         
@@ -30,7 +30,7 @@ extension UIImageView{
             guard let data = data else{
                 return
             }
-            cacher.set(url, data: data)
+            //cacher.set(url, data: data)
             DispatchQueue.main.async {
                 self.image = UIImage(data: data)
             }
