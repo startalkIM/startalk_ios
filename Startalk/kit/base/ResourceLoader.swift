@@ -14,7 +14,7 @@ class ResourceLoader{
     let queue = DispatchQueue(label: "resource_loading")
     var handlesHolder: [String: [Handle]] = [: ]
     
-    func load<T>(_ url: String, object: AnyObject, load: @escaping (String, (T) -> Void) -> Void, comletion: @escaping (T) -> Result, process: @escaping (String?) -> Void){
+    func load(_ url: String, object: AnyObject, load: @escaping (String, @escaping (Result) -> Void) -> Void, process: @escaping (String?) -> Void){
         let url = URLUtil.normalize(url)
         queue.async{ [self] in
             do{
@@ -29,17 +29,16 @@ class ResourceLoader{
                     case .failed:
                         try updateLoading(id: loading.id, status: .loading, identifier: nil)
                         addHandle(url: url, object: object, process: process)
-                        doLoad(loadingId: loading.id, url: url, load: load, comletion: comletion, process: process)
+                        doLoad(loadingId: loading.id, url: url, load: load, process: process)
                     }
                 }else{
                     let loadingId = try addLoading(url: url)
                     addHandle(url: url, object: object, process: process)
-                    doLoad(loadingId: loadingId, url: url, load: load, comletion: comletion, process: process)
+                    doLoad(loadingId: loadingId, url: url, load: load, process: process)
                 }
             }catch{
                 logger.warn("load failed", error)
-            }
-            
+            }            
         }
         
         
@@ -62,12 +61,11 @@ class ResourceLoader{
         }
     }
     
-    private func doLoad<T>(loadingId: Int, url: String, load: @escaping (String, (T) -> Void) -> Void, comletion: @escaping (T) -> Result, process: @escaping (String?) -> Void){
+    private func doLoad(loadingId: Int, url: String, load: @escaping (String, @escaping (Result) -> Void) -> Void, process: @escaping (String?) -> Void){
         
-        load(url){ data in
+        load(url){ [self] result in
             queue.async { [self] in
                 do{
-                    let result = comletion(data)
                     switch result{
                     case .success(let identifier):
                         try updateLoading(id: loadingId, status: .loaded, identifier: identifier)

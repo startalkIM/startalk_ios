@@ -171,7 +171,7 @@ extension DatabaseManager{
     
     func createFileTable() throws{
         let sql = """
-            create talbe file(
+            create talbe if not exists file(
                 id integer primary key,
                 name text not null,
                 extension text,
@@ -186,7 +186,7 @@ extension DatabaseManager{
     
     func createResourceLoadingTable() throws{
         let sql = """
-            create table resource_loading(
+            create table if not exists resource_loading(
                 id integer primary key,
                 url text unique not null,
                 status integer not null,
