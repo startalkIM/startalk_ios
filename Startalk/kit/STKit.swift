@@ -20,6 +20,7 @@ class STKit{
     
     let databaseManager: STDatabaseManager
     let databaseManager2: DatabaseManager
+    let filesManager: FilesManager
     
     let apiClient: STApiClient
     let xmppClient: STXmppClient
@@ -38,6 +39,7 @@ class STKit{
         
         databaseManager = STDatabaseManager()
         databaseManager2 = DatabaseManager()
+        filesManager = FilesManager()
         
         apiClient = STApiClient()
         xmppClient = STXmppClient()

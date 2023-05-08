@@ -12,6 +12,7 @@
 		7DB6041C296FB78500A0AAFA /* STDiscoverVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB6041B296FB78500A0AAFA /* STDiscoverVController.swift */; };
 		7DB6041E296FB79A00A0AAFA /* STMineVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB6041D296FB79A00A0AAFA /* STMineVController.swift */; };
 		AB0110C62A06282B00445D9B /* ResourceLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0110C52A06282B00445D9B /* ResourceLoader.swift */; };
+		AB0110C82A08B1BD00445D9B /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0110C72A08B1BD00445D9B /* FilesManager.swift */; };
 		AB12F97B29A34C1000C639B6 /* STLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F97A29A34C1000C639B6 /* STLoginView.swift */; };
 		AB12F97E29A392E100C639B6 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F97D29A392E100C639B6 /* UIColor+.swift */; };
 		AB12F98029A396E900C639B6 /* STLoginVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F97F29A396E900C639B6 /* STLoginVController.swift */; };
@@ -123,6 +124,7 @@
 		7DB6041B296FB78500A0AAFA /* STDiscoverVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STDiscoverVController.swift; sourceTree = "<group>"; };
 		7DB6041D296FB79A00A0AAFA /* STMineVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMineVController.swift; sourceTree = "<group>"; };
 		AB0110C52A06282B00445D9B /* ResourceLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoader.swift; sourceTree = "<group>"; };
+		AB0110C72A08B1BD00445D9B /* FilesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesManager.swift; sourceTree = "<group>"; };
 		AB12F97A29A34C1000C639B6 /* STLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STLoginView.swift; sourceTree = "<group>"; };
 		AB12F97D29A392E100C639B6 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		AB12F97F29A396E900C639B6 /* STLoginVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STLoginVController.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 		AB8BBB1C29BC950C00125DAB /* files */ = {
 			isa = PBXGroup;
 			children = (
+				AB0110C72A08B1BD00445D9B /* FilesManager.swift */,
 				AB8BBB1D29BC958F00125DAB /* FileLoader.swift */,
 				AB8BBB1F29BC95CB00125DAB /* FileStorage.swift */,
 			);
@@ -705,6 +708,7 @@
 				ABF80B7129B74E3100EA1861 /* URLUtil.swift in Sources */,
 				ABC79D4C29D98C2E0025C155 /* STMessageInputState.swift in Sources */,
 				AB12F9CA29AB682300C639B6 /* STLoginManager.swift in Sources */,
+				AB0110C82A08B1BD00445D9B /* FilesManager.swift in Sources */,
 				ABD1F12D29EBB5EF002CCCB2 /* User.swift in Sources */,
 				ABFC90E429CDC3C50040BDE5 /* STMessageManager.swift in Sources */,
 				AB12F9AC29A4C62400C639B6 /* String+.swift in Sources */,

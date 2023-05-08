@@ -7,6 +7,7 @@
 
 import Foundation
 class ResourceLoader{
+    static let shared = ResourceLoader()
     let logger = STLogger(ResourceLoader.self)
     
     lazy var connection = STKit.shared.databaseManager2.getShareConnection()
@@ -38,7 +39,7 @@ class ResourceLoader{
                 }
             }catch{
                 logger.warn("load failed", error)
-            }            
+            }
         }
         
         
