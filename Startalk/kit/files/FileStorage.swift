@@ -16,9 +16,10 @@ class FileStorage{
     let persistentDirectory: URL
     
     init(){
+        let fileManager = FileManager.default
         do{
-            temporaryDirectory = try Self.makePath(directory: Self.TEMPORARY_DIRECTORY)
-            persistentDirectory = try Self.makePath(directory: Self.PERSISTENT_DIRECTORY)
+            temporaryDirectory = try fileManager.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            persistentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         }catch{
             let message = "could not make temporary dirctory"
             logger.error(message, error)
@@ -54,15 +55,5 @@ class FileStorage{
     private func pick(_ name: String, from directory: URL) throws -> Data{
         let url = directory.appendingPathComponent(name)
         return try Data(contentsOf: url)
-    }
-    
-    private static func makePath(directory: String) throws -> URL{
-        let fileManager = FileManager.default
-        let userDirectory = try fileManager.url(for: .userDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        let directory = userDirectory.appendingPathComponent(directory)
-        if !fileManager.fileExists(atPath: directory.path){
-            try fileManager.createDirectory(at: directory, withIntermediateDirectories: false)
-        }
-        return directory
     }
 }

@@ -20,7 +20,10 @@ class ResourceLoader{
         queue.async{ [self] in
             do{
                 let loading = try pickLoading(url)
-                if let loading = loading{
+                if var loading = loading{
+                    if loading.timeout{
+                        loading.status = .failed
+                    }
                     switch loading.status{
                     case .loading:
                        addHandle(url: url, object: object, process: process)
@@ -136,11 +139,17 @@ class ResourceLoader{
     }
     
     struct Loading{
+        static let TIMEOUT: TimeInterval = 30
+
         var id: Int
         var url: String
         var status: Status
         var identifier: String?
         var updateTime: Date
+        
+        var timeout: Bool{
+            status == .loading && abs(updateTime.timeIntervalSinceNow) > Self.TIMEOUT
+        }
     }
     
     enum Result{
