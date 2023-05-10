@@ -13,30 +13,35 @@ class GroupManager{
     
     lazy var userState = STKit.shared.userState
     lazy var apiClient = STKit.shared.apiClient
+    lazy var userManager = STKit.shared.userManager
     lazy var connection = STKit.shared.databaseManager.getUserConnection()
     
     func loadGroups(){
-        let entity = GroupRequest(lastupdtime: 0, userid: userState.username)
+        let profiles = userManager.fetchProfiles()
+        let groupsUpdateTime = profiles?.groupsUpdateTime ?? 0
+        let entity = GroupRequest(lastupdtime: groupsUpdateTime, userid: userState.username)
         let url = apiClient.buildUrl(path: Self.GROUP_PATH)
+        let now = Date()
         Task{
-            var groups: [Group] = []
             let result: STApiResult<[GroupRaw]> = await apiClient.post(url, entity: entity)
             switch result{
             case .response(let gs):
-                groups = gs.map{ g in
+                let groups = gs.map{ g in
                     Group(xmppId: g.MN, name: g.SN, photo: g.MP)
                 }
+                storeGroups(groups)
+                userManager.updateGroupUpdateTime(time: now.milliseconds)
             case .success:
                 break
             case .failure(_):
                 logger.warn("request group failes")
             }
-            storeGroups(groups)
         }
     }
     
+    
     struct GroupRequest: Codable{
-        var lastupdtime: Int
+        var lastupdtime: Int64
         var userid: String
     }
     

@@ -62,10 +62,10 @@ class UserManager{
         }
     }
     
-    func fetchProfiles(userId: Int) -> UserProfiles?{
+    func fetchProfiles() -> UserProfiles?{
         var profiles: UserProfiles?
         
-        let userId = Int32(userId)
+        let userId = Int32(userState.userId)
         let sql = "select * from user_profiles where user_id = ?"
         do{
             let resultSet =  try connection.query(sql: sql, values: userId)
@@ -73,7 +73,8 @@ class UserManager{
                 let id = try resultSet.getInt32("id")
                 let userId = try resultSet.getInt32("user_id")
                 let usersVersion = try resultSet.getInt32("users_version")
-                profiles = UserProfiles(id: Int(id), userId: Int(userId), usersVersion: Int(usersVersion))
+                let groupsUpdateTime = try resultSet.getInt64("groups_update_time")
+                profiles = UserProfiles(id: Int(id), userId: Int(userId), usersVersion: Int(usersVersion), groupsUpdateTime: groupsUpdateTime)
             }
         }catch{
             logger.warn("fetch user profiles failed", error)
@@ -123,6 +124,15 @@ class UserManager{
             logger.warn("store user detail failed", error)
         }
     }
+    
+    func updateGroupUpdateTime(time: Int64){
+        let sql = "update user_profiles set groups_update_time = ? where user_id = ?"
+        do{
+            try connection.update(sql: sql, values: time, userState.userId.int32)
+        }catch{
+            logger.warn("update group update time failed", error)
+        }
+    }
 }
 
 extension UserManager{
@@ -130,11 +140,8 @@ extension UserManager{
     static let DETAIL_PATH = "/domain/get_vcard_info.qunar"
     
     func updateUsers(){
-        let username = userState.username
         let domain = serviceManager.domain
-        let user = fetchUser(username: username, domain: domain)
-        guard let user = user else { return }
-        let profiles = fetchProfiles(userId: user.id)
+        let profiles = fetchProfiles()
         
         let version = profiles?.usersVersion ?? 0
         let entity = ["version": version]

@@ -11,4 +11,5 @@ struct UserProfiles{
     var id: Int
     var userId: Int
     var usersVersion: Int
+    var groupsUpdateTime: Int64
 }
