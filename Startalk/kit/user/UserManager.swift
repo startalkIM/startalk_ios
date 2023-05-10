@@ -82,9 +82,13 @@ class UserManager{
     }
     
     func updateUsers(users: [User]){
-        let sql = "insert or replace into user(username, domain, name, gender) values(?, ?, ?, ?)"
+        let sql = """
+            insert into user(username, domain, name, gender) values(?, ?, ?, ?)
+            on conflict(username, domain) do update set name = ?, gender = ?
+            """
         let values = users.map { user in
-            [user.username, user.domain, user.name, user.gender?.rawValue.int32] as [SQLiteBindable?]
+            let gender = user.gender?.rawValue.int32
+            return [user.username, user.domain, user.name, gender, user.name, gender]as [SQLiteBindable?]
         }
         do{
             try connection.batchInsert(sql: sql, values: values)

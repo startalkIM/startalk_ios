@@ -48,9 +48,12 @@ class GroupManager{
     
 
     func storeGroups(_ groups: [Group]){
-    let sql = #"insert or replace into "group"(xmpp_id, name, photo) values(?, ?, ?)"#
+    let sql = """
+            insert into "group"(xmpp_id, name, photo) values(?, ?, ?)
+            on conflict(xmpp_id) do update set name = ?, photo = ?
+            """
         let values = groups.map { group in
-            [group.xmppId, group.name, group.photo]
+            [group.xmppId, group.name, group.photo, group.name, group.photo]
         }
         do{
             try connection.batchInsert(sql: sql, values: values)

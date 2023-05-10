@@ -47,7 +47,6 @@ class STHttpClient{
         request.setValue(Self.CONTENT_TYPE_JSON, forHTTPHeaderField: Self.HEADER_FIELD_CONTENT_TYPE)
         
         let (data, _) = try await urlSession.data(for: request)
-        print(url, String(data: data, encoding: .utf8))
         return try handle(data: data)
     }
     

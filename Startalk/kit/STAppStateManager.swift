@@ -25,10 +25,6 @@ class STAppStateManager{
         notificationCenter.observeAppDidEnterBackground(self, handler: appDidEnterBackground)
         
         userState.initialize()
-        
-        if userState.isLoggedIn{
-            setLoggedIn()
-        }
     }
     
     func setLoggedIn(){

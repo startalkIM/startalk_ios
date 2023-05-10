@@ -147,7 +147,8 @@ extension DatabaseManager{
             create table if not exists user_profiles(
                 id integer primary key,
                 user_id integer not null unique references user(id),
-                users_version integer not null default 0
+                users_version integer not null default 0,
+                groups_update_time integer
             )
             """
         try userConnection.createTable(sql: sql)

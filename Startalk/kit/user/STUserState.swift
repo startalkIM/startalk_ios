@@ -25,6 +25,7 @@ class STUserState{
     var isLoggedIn: Bool = false
     var username: String = ""
     var token: String = ""
+    var userId: Int = 0
     
     var jid: XCJid = .empty
 
@@ -32,6 +33,10 @@ class STUserState{
         isLoggedIn = pickLogState() ?? false
         username = pickUsername() ?? ""
         token = pickToken() ?? ""
+        
+        if isLoggedIn{
+            setLoggedIn()
+        }
     }
     
     func setLoggedIn(username: String, token: String){
@@ -43,10 +48,14 @@ class STUserState{
         
         self.token = token
         storeToken(token)
-            
+     
+        setLoggedIn()
+    }
+    
+    private func setLoggedIn(){
         appStateManager.setLoggedIn()
         
-        addData()
+        initializeProfiles()
     }
     
     func setJid(){
@@ -94,13 +103,11 @@ extension STUserState{
 }
 
 extension STUserState{
-    func addData(){
+    
+    func initializeProfiles(){
         userManager.tryAddUser(username: username, domain: serviceManager.domain)
-        let user = userManager.fetchUser(username: username, domain: serviceManager.domain)
-        guard let user = user else{
-            logger.warn("user not extis")
-            return
-        }
+        let user = userManager.fetchUser(username: username, domain: serviceManager.domain)!
         userManager.tryAddProfiles(userId: user.id)
+        userId = user.id
     }
 }
