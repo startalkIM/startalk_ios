@@ -81,19 +81,37 @@ class UserManager{
         return profiles
     }
     
-    func updateUsers(users: [User]){
-        let sql = """
+    func updateUsers(updated: [User], deleted: [User], version: Int){
+        let updateSql = """
             insert into user(username, domain, name, gender) values(?, ?, ?, ?)
             on conflict(username, domain) do update set name = ?, gender = ?
             """
-        let values = users.map { user in
+        let updateValues = updated.map { user in
             let gender = user.gender?.rawValue.int32
             return [user.username, user.domain, user.name, gender, user.name, gender]as [SQLiteBindable?]
         }
         do{
-            try connection.batchInsert(sql: sql, values: values)
+            try connection.batchUpdate(sql: updateSql, values: updateValues)
         }catch{
             logger.warn("update users failed", error)
+        }
+        
+        
+        let deleteSql = "delete from user where username = ? and domain = ?"
+        let deleteValues = deleted.map { user in
+            [user.username, user.domain]
+        }
+        do{
+            try connection.batchUpdate(sql: deleteSql, values: deleteValues)
+        }catch{
+            logger.warn("delete users failed", error)
+        }
+        
+        let updateVersionSql = "update user_profiles set users_version = ? where user_id = ?"
+        do{
+            try connection.update(sql: updateVersionSql, values: version.int32, userState.userId.int32)
+        }catch{
+            logger.warn("update users version failed", error)
         }
     }
     
@@ -124,9 +142,10 @@ extension UserManager{
         Task{
             let result: STApiResult<UpdatedUsers> = await apiClient.post(url, entity: entity)
             if case .response(let updatedUsers) = result {
-                let users =  updatedUsers.update.map{$0.user(domain: domain)}
-                updateUsers(users: users)
-                
+                let updated =  updatedUsers.update.map{$0.user(domain: domain)}
+                let deleted = updatedUsers.delete.map{$0.user(domain: domain)}
+                let version = updatedUsers.version
+                updateUsers(updated: updated, deleted: deleted, version: version)
             }
         }
     }

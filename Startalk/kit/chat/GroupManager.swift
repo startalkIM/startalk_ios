@@ -56,7 +56,7 @@ class GroupManager{
             [group.xmppId, group.name, group.photo, group.name, group.photo]
         }
         do{
-            try connection.batchInsert(sql: sql, values: values)
+            try connection.batchUpdate(sql: sql, values: values)
         }catch{
             logger.warn("store groups failed", error)
         }

@@ -101,7 +101,7 @@ class SQLiteConnection{
     }
     
     @discardableResult
-    func batchInsert(sql: String, values: [[SQLiteBindable?]]) throws -> Int{
+    func batchUpdate(sql: String, values: [[SQLiteBindable?]]) throws -> Int{
         let statement = try prepareStatement(sql: sql)
         defer{
             sqlite3_finalize(statement)

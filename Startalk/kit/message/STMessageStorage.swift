@@ -53,7 +53,7 @@ class STMessageStorage{
             values.append(messageValues)
         }
         do{
-            return try connection.batchInsert(sql: sql, values: values)
+            return try connection.batchUpdate(sql: sql, values: values)
         }catch{
             logger.error("insert messages failed", error)
             return 0
