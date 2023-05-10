@@ -280,6 +280,18 @@
 			path = mine;
 			sourceTree = "<group>";
 		};
+		AB0973BC2A0B3C9F00B412D3 /* chat */ = {
+			isa = PBXGroup;
+			children = (
+				ABD1F12E29EBB93B002CCCB2 /* Group.swift */,
+				AB0110C92A08DF8400445D9B /* GroupManager.swift */,
+				ABFC90D329CDC3410040BDE5 /* STChat.swift */,
+				AB5A51F029D1586A00656FC4 /* STChatStorage.swift */,
+				AB5A51F229D17E1900656FC4 /* STChatDataSource.swift */,
+			);
+			path = chat;
+			sourceTree = "<group>";
+		};
 		AB12F97929A34B8500C639B6 /* login */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,7 +353,8 @@
 				AB12F9E429AC425500C639B6 /* STIdentifiers.swift */,
 				AB12F9E129AC3D3A00C639B6 /* login */,
 				ABD1F12B29EBB5DD002CCCB2 /* user */,
-				ABFC90DE29CDC3C50040BDE5 /* messages */,
+				ABFC90DE29CDC3C50040BDE5 /* message */,
+				AB0973BC2A0B3C9F00B412D3 /* chat */,
 				ABF80B6029B4A01100EA1861 /* service */,
 				ABF80B6F29B71F3C00EA1861 /* api */,
 				ABFC90E929CDC3E00040BDE5 /* xmpp */,
@@ -548,22 +561,17 @@
 			path = localNotification;
 			sourceTree = "<group>";
 		};
-		ABFC90DE29CDC3C50040BDE5 /* messages */ = {
+		ABFC90DE29CDC3C50040BDE5 /* message */ = {
 			isa = PBXGroup;
 			children = (
-				ABD1F12E29EBB93B002CCCB2 /* Group.swift */,
-				AB0110C92A08DF8400445D9B /* GroupManager.swift */,
 				ABFC90DF29CDC3C50040BDE5 /* STMessage.swift */,
 				AB5A51FC29D1C76C00656FC4 /* STMessageIdState.swift */,
-				ABFC90D329CDC3410040BDE5 /* STChat.swift */,
 				ABFC90E029CDC3C50040BDE5 /* STMessageManager.swift */,
 				ABFC90E129CDC3C50040BDE5 /* STHistoryMessagesLoader.swift */,
 				ABFC90E229CDC3C50040BDE5 /* STMessageStorage.swift */,
-				AB5A51F029D1586A00656FC4 /* STChatStorage.swift */,
-				AB5A51F229D17E1900656FC4 /* STChatDataSource.swift */,
 				AB5A51F429D17E2800656FC4 /* STMessageDataSource.swift */,
 			);
-			path = messages;
+			path = message;
 			sourceTree = "<group>";
 		};
 		ABFC90E929CDC3E00040BDE5 /* xmpp */ = {
