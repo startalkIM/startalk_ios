@@ -239,9 +239,9 @@
 				AB12F97929A34B8500C639B6 /* login */,
 				AB12F9AD29A63A2600C639B6 /* service */,
 				AB8BBB0D29B8740300125DAB /* chats */,
-				7DB60419296FB75F00A0AAFA /* STContactVController.swift */,
-				7DB6041B296FB78500A0AAFA /* STDiscoverVController.swift */,
-				7DB6041D296FB79A00A0AAFA /* STMineVController.swift */,
+				AB0973B92A0B3B6900B412D3 /* contact */,
+				AB0973BA2A0B3BA000B412D3 /* discover */,
+				AB0973BB2A0B3BB100B412D3 /* mine */,
 				AB12F9BE29AA27F600C639B6 /* components */,
 				ABF80B5A29B1DFFD00EA1861 /* base */,
 			);
@@ -254,6 +254,30 @@
 				AB0110C52A06282B00445D9B /* ResourceLoader.swift */,
 			);
 			path = base;
+			sourceTree = "<group>";
+		};
+		AB0973B92A0B3B6900B412D3 /* contact */ = {
+			isa = PBXGroup;
+			children = (
+				7DB60419296FB75F00A0AAFA /* STContactVController.swift */,
+			);
+			path = contact;
+			sourceTree = "<group>";
+		};
+		AB0973BA2A0B3BA000B412D3 /* discover */ = {
+			isa = PBXGroup;
+			children = (
+				7DB6041B296FB78500A0AAFA /* STDiscoverVController.swift */,
+			);
+			path = discover;
+			sourceTree = "<group>";
+		};
+		AB0973BB2A0B3BB100B412D3 /* mine */ = {
+			isa = PBXGroup;
+			children = (
+				7DB6041D296FB79A00A0AAFA /* STMineVController.swift */,
+			);
+			path = mine;
 			sourceTree = "<group>";
 		};
 		AB12F97929A34B8500C639B6 /* login */ = {
