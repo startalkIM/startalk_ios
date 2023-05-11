@@ -148,8 +148,8 @@ extension UserManager{
         let entity = ["version": version]
         let url = apiClient.buildUrl(path: Self.UPDATE_USERS_PATH)
         Task{
-            let result: STApiResult<UpdatedUsers> = await apiClient.post(url, entity: entity)
-            if case .response(let updatedUsers) = result {
+            let result: ApiFetchResult<UpdatedUsers> = await apiClient.fetch(url, entity: entity)
+            if case .success(let updatedUsers) = result {
                 let updated =  updatedUsers.update.map{$0.user(domain: domain)}
                 let deleted = updatedUsers.delete.map{$0.user(domain: domain)}
                 let version = updatedUsers.version
@@ -165,18 +165,16 @@ extension UserManager{
             UserDetailRequest.UserInfo(user: username, version: Self.DETAIL_DEFAULT_VERSION)
         }
         let entity = [UserDetailRequest(domain: domain, users: userInfos)]
-        let result: STApiResult<[UserDetailResponse]> = await apiClient.post(url, entity: entity)
+        let result: ApiFetchResult<[UserDetailResponse]> = await apiClient.fetch(url, entity: entity)
         
         var details: [User] = []
         switch result{
-        case .response(let array):
+        case .success(let array):
             if let responseDetails = array.first?.users{
                 details = responseDetails.map{ responseDetail in
                     responseDetail.user
                 }
             }
-        case .success:
-            break //won't reach here
         case .failure(let reason):
             logger.info("fetch user detail failed: \(reason)")
         }

@@ -32,12 +32,12 @@ class STHttpClient{
         return urlComponents.url!
     }
     
-    func request<T: Codable>(_ url: URL) async throws -> T?{
+    func request<T: Codable>(_ url: URL) async throws -> T{
         let (data, _) = try await urlSession.data(from: url)
-        return try handle(data: data)
+        return try decoder.decode(T.self, from: data)
     }
     
-    func post<T: Codable>(_ url: URL, entity: Codable) async throws -> T?{
+    func post<T: Codable>(_ url: URL, entity: Codable) async throws -> T{
         
         let bodyData = try! encoder.encode(entity)
         
@@ -47,13 +47,6 @@ class STHttpClient{
         request.setValue(Self.CONTENT_TYPE_JSON, forHTTPHeaderField: Self.HEADER_FIELD_CONTENT_TYPE)
         
         let (data, _) = try await urlSession.data(for: request)
-        return try handle(data: data)
-    }
-    
-    private func handle<T: Codable>(data: Data?) throws -> T?{
-        guard let data = data else{
-            return nil
-        }
         return try decoder.decode(T.self, from: data)
     }
 }

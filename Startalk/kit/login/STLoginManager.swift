@@ -31,17 +31,15 @@ class STLoginManager{
         let request = STLoginRequest(u: username, h: domain, p: encryptedPassword, mk: deviceUid)
         
         let url = apiClient.buildUrl(path: Self.LOGIN_PATH)
-        let result: STApiResult<STLoginResponse> = await apiClient.post(url, entity: request)
+        let result: ApiFetchResult<STLoginResponse> = await apiClient.fetch(url, entity: request)
         switch result{
-        case .response(let response):
+        case .success(let response):
     
             userState.setLoggedIn(username: response.u, token: response.t)
             return (true, "")
             
         case .failure(let message):
             return(false, message)
-        default:
-            return (true, "") //won't reach here
         }
     }
 }

@@ -113,7 +113,7 @@ class STNotificationManager{
         
         let url = apiClient.buildPushUrl(path: Self.SEND_TOKEN_PATH, params: params)
         
-        let result: STApiResult<Empty> = await apiClient.request(url)
+        let result: ApiRequestResult = await apiClient.request(url)
         
         if case .success = result{
             setTokenSent(true)

@@ -36,7 +36,7 @@
 		AB12F9D829AB847600C639B6 /* rsa_public_key.pem in Resources */ = {isa = PBXBuildFile; fileRef = AB12F9D729AB847600C639B6 /* rsa_public_key.pem */; };
 		AB12F9E529AC425500C639B6 /* STIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9E429AC425500C639B6 /* STIdentifiers.swift */; };
 		AB12F9E729AC4BEC00C639B6 /* STApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9E629AC4BEC00C639B6 /* STApiResponse.swift */; };
-		AB12F9EC29AC79DD00C639B6 /* STApiResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9EB29AC79DD00C639B6 /* STApiResult.swift */; };
+		AB12F9EC29AC79DD00C639B6 /* ApiFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9EB29AC79DD00C639B6 /* ApiFetchResult.swift */; };
 		AB12F9EE29AC8D6700C639B6 /* STLoaingVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9ED29AC8D6700C639B6 /* STLoaingVController.swift */; };
 		AB12F9F029AC8E2F00C639B6 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9EF29AC8E2F00C639B6 /* UIViewController+.swift */; };
 		AB12F9F229AE531A00C639B6 /* STSwitchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9F129AE531A00C639B6 /* STSwitchController.swift */; };
@@ -149,7 +149,7 @@
 		AB12F9D729AB847600C639B6 /* rsa_public_key.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rsa_public_key.pem; sourceTree = "<group>"; };
 		AB12F9E429AC425500C639B6 /* STIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STIdentifiers.swift; sourceTree = "<group>"; };
 		AB12F9E629AC4BEC00C639B6 /* STApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STApiResponse.swift; sourceTree = "<group>"; };
-		AB12F9EB29AC79DD00C639B6 /* STApiResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STApiResult.swift; sourceTree = "<group>"; };
+		AB12F9EB29AC79DD00C639B6 /* ApiFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiFetchResult.swift; sourceTree = "<group>"; };
 		AB12F9ED29AC8D6700C639B6 /* STLoaingVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STLoaingVController.swift; sourceTree = "<group>"; };
 		AB12F9EF29AC8E2F00C639B6 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		AB12F9F129AE531A00C639B6 /* STSwitchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STSwitchController.swift; sourceTree = "<group>"; };
@@ -523,7 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				AB12F9E629AC4BEC00C639B6 /* STApiResponse.swift */,
-				AB12F9EB29AC79DD00C639B6 /* STApiResult.swift */,
+				AB12F9EB29AC79DD00C639B6 /* ApiFetchResult.swift */,
 				ABF80B6D29B6332F00EA1861 /* STApiClient.swift */,
 			);
 			path = api;
@@ -727,7 +727,7 @@
 				AB0973B82A09108400B412D3 /* Int+.swift in Sources */,
 				ABD1F14329ED3F19002CCCB2 /* UserManager.swift in Sources */,
 				ABF80B6229B4C50800EA1861 /* STService.swift in Sources */,
-				AB12F9EC29AC79DD00C639B6 /* STApiResult.swift in Sources */,
+				AB12F9EC29AC79DD00C639B6 /* ApiFetchResult.swift in Sources */,
 				AB8BBB1529B9F3B100125DAB /* DateUtil.swift in Sources */,
 				AB12F9D129AB6ADB00C639B6 /* STHttpClient.swift in Sources */,
 				AB5A51F529D17E2800656FC4 /* STMessageDataSource.swift in Sources */,

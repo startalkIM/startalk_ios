@@ -23,16 +23,14 @@ class GroupManager{
         let url = apiClient.buildUrl(path: Self.GROUP_PATH)
         let now = Date()
         Task{
-            let result: STApiResult<[GroupRaw]> = await apiClient.post(url, entity: entity)
+            let result: ApiFetchResult<[GroupRaw]> = await apiClient.fetch(url, entity: entity)
             switch result{
-            case .response(let gs):
+            case .success(let gs):
                 let groups = gs.map{ g in
                     Group(xmppId: g.MN, name: g.SN, photo: g.MP)
                 }
                 storeGroups(groups)
                 userManager.updateGroupUpdateTime(time: now.milliseconds)
-            case .success:
-                break
             case .failure(_):
                 logger.warn("request group failes")
             }

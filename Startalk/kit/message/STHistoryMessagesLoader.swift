@@ -55,16 +55,14 @@ class STHistoryMessagesLoader{
         let entity = RequestEntity(user: user, domain: domain, host: domain, time: time, num: num)
         let url = apiClient.buildUrl(path: path)
         
-        let result: STApiResult<[STMessage]> = await apiClient.post(url, entity: entity)
+        let result: ApiFetchResult<[STMessage]> = await apiClient.fetch(url, entity: entity)
         
         switch result{
-        case .response(let messages):
+        case .success(let messages):
             return messages
         case .failure(let reason):
             logger.warn("load private history messages failed: \(reason)")
             return nil
-        default:
-            return nil // won't reach here
         }
     }
 }

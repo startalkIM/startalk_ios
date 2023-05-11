@@ -37,46 +37,74 @@ class STApiClient{
         return httpClient.buildUrl(baseUrl: pushUrl, path: path, params: params)
     }
     
-    func request<T: Codable>(_ url: URL) async -> STApiResult<T>{
-        let task = Task<STApiResponse<T>?, Error>{
+    func request(_ url: URL) async -> ApiRequestResult{
+        let response: Response<Empty> = await handle(url: url) {
             try await httpClient.request(url)
         }
-        return await handle(task, url: url)
+        return makeRequestResult(response: response)
     }
     
-    func post<T: Codable>(_ url: URL, entity: Codable) async -> STApiResult<T>{
-        let task = Task<STApiResponse<T>?, Error>{
+    func request(_ url: URL, entity: Codable) async -> ApiRequestResult{
+        let response: Response<Empty> = await handle(url: url) {
             try await httpClient.post(url, entity: entity)
         }
-        return await handle(task, url: url)
+        return makeRequestResult(response: response)
     }
     
-    private func handle<T>(_ task: Task<STApiResponse<T>?, Error>, url: URL) async -> STApiResult<T>{
+    func fetch<T: Codable>(_ url: URL) async -> ApiFetchResult<T>{
+        let response: Response<T> = await handle(url: url) {
+            try await httpClient.request(url)
+        }
+        return makeFetchResult(response: response, url: url)
+    }
+    
+    func fetch<T: Codable>(_ url: URL, entity: Codable) async -> ApiFetchResult<T>{
+        let response: Response<T> = await handle(url: url) {
+            try await httpClient.post(url, entity: entity)
+        }
+        return makeFetchResult(response: response, url: url)
+    }
+    
+    private func handle<T>(url: URL, fetch: () async throws -> STApiResponse<T>) async -> Response<T>{
         do{
-            let response = try await task.value
+            let response = try await fetch()
             
-            guard let response = response else{
-                logger.error("Response data is nil of url \(url)")
-                return STApiResult<T>.failure("network_request_failed".localized)
-            }
-            
-            let result: STApiResult<T>
-            if response.ret{
-                let data = response.data
-                if let data = data{
-                    result = .response(data)
-                }else{
-                    result = .success
-                }
-            }else{
-                let message = response.errmsg ?? Self.DEFAULT_ERROR_MESSAGE
-                result = .failure(message)
-            }
-            return result
+            let success = response.ret
+            let data = response.data
+            let message = response.errmsg ?? Self.DEFAULT_ERROR_MESSAGE
+            return Response(success: success, data: data, message: message)
         }catch{
             logger.error("Http request error of \(url)", error)
-            return STApiResult<T>.failure(error.localizedDescription)
+            return Response(success: false, data: nil, message: error.localizedDescription)
         }
+    }
+    
+    private func makeRequestResult(response: Response<Empty>) -> ApiRequestResult{
+        if response.success{
+            return .success
+        }else{
+            return .failure(response.message)
+        }
+    }
+    
+    private func makeFetchResult<T>(response: Response<T>, url: URL) -> ApiFetchResult<T>{
+        if response.success{
+            if let data = response.data{
+                return .success(data)
+            }else{
+                let message = "response data is emtpy or nil"
+                logger.warn("\(url): \(message)")
+                return .failure(message)
+            }
+        }else{
+            return .failure(response.message)
+        }
+    }
+    
+    private struct Response<T>{
+        var success: Bool
+        var data: T?
+        var message: String
     }
 }
 

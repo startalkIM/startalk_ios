@@ -7,9 +7,13 @@
 
 import Foundation
 
-enum STApiResult<T>{
+enum ApiFetchResult<T>{
+    case success(T)
+    case failure(String)
+}
+
+enum ApiRequestResult{
     case success
-    case response(T)
     case failure(String)
 }
 
