@@ -138,6 +138,7 @@ class UserManager{
 extension UserManager{
     static let UPDATE_USERS_PATH = "/update/getUpdateUsers.qunar"
     static let DETAIL_PATH = "/domain/get_vcard_info.qunar"
+    static let DETAIL_DEFAULT_VERSION = 0
     
     func updateUsers(){
         let domain = serviceManager.domain
@@ -157,23 +158,29 @@ extension UserManager{
         }
     }
     
-    func fetchUserDetail(_ username: String, domain: String, completion: @escaping (User?) -> Void){
+    func fetchUserDetails(_ usernames: [String], domain: String) async -> [User]{
         let url = apiClient.buildUrl(path: Self.DETAIL_PATH)
-        let entity = [UserDetailRequest(domain: domain, users: [UserDetailRequest.UserInfo(user: username, version: 0)])]
-        Task{
-            var user: User?
-            let result: STApiResult<[UserDetailResponse]> = await apiClient.post(url, entity: entity)
-            switch result{
-            case .response(let array):
-                user = array.first?.users.first?.makeUser(username: username, domain: domain)
-            case .success:
-                break //won't reach here
-            case .failure(let reason):
-                logger.info("fetch user detail failed: \(reason)")
-            }
-            completion(user)
+        
+        let userInfos = usernames.map { username in
+            UserDetailRequest.UserInfo(user: username, version: Self.DETAIL_DEFAULT_VERSION)
         }
-       
+        let entity = [UserDetailRequest(domain: domain, users: userInfos)]
+        let result: STApiResult<[UserDetailResponse]> = await apiClient.post(url, entity: entity)
+        
+        var details: [User] = []
+        switch result{
+        case .response(let array):
+            if let responseDetails = array.first?.users{
+                details = responseDetails.map{ responseDetail in
+                    responseDetail.user
+                }
+            }
+        case .success:
+            break //won't reach here
+        case .failure(let reason):
+            logger.info("fetch user detail failed: \(reason)")
+        }
+        return details
     }
     
     struct UpdatedUser: Codable{
@@ -204,14 +211,16 @@ extension UserManager{
     
     struct UserDetailResponse: Codable{
         struct UseDetail: Codable{
+            var username: String
+            var domain: String
             var nickname: String
             var gender: String
             var imageurl: String
+            var email: String
             var mood: String
-            var v: String
             
-            func makeUser(username: String, domain: String) -> User{
-                return User(username: username, domain: domain, name: nickname, photo: imageurl, bio: mood)
+            var user: User{
+                User(username: username, domain: domain, name: nickname, photo: imageurl, bio: mood)
             }
         }
         var domain: String
