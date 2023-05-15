@@ -8,6 +8,7 @@
 import Foundation
 
 class STMessageDataSource{
+    static let DAFAULT_COUNT = 10
     let storage: STMessageStorage
     let chatId: String
     
@@ -23,10 +24,19 @@ class STMessageDataSource{
     
     func reload(){
         count = storage.messagesCount(chatId: chatId)
-        messages = storage.messages(chatId: chatId, offset: 0, count: count)
+        let batchCount = min(count, Self.DAFAULT_COUNT)
+        let offset = count - batchCount
+        messages = storage.messages(chatId: chatId, offset: offset, count: batchCount)
     }
     
     func message(at index: Int) -> STMessage{
+        let unloadedCount = count - messages.count
+        if index < unloadedCount{
+            let loadCount = unloadedCount - index
+            let moreMessages = storage.messages(chatId: chatId, offset: index, count: loadCount)
+            messages.insert(contentsOf: moreMessages, at: 0)
+        }
+        let index = index - (count - messages.count)
         return messages[index]
     }
 }
