@@ -2207,6 +2207,7 @@
                 "kind": "TypeNominal",
                 "name": "String",
                 "printedName": "Swift.String",
+                "hasDefaultArg": true,
                 "usr": "s:SS"
               }
             ],
@@ -9625,21 +9626,28 @@
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCJid.swift",
       "kind": "StringLiteral",
-      "offset": 1079,
+      "offset": 394,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCJid.swift",
       "kind": "StringLiteral",
-      "offset": 1091,
+      "offset": 1084,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCJid.swift",
       "kind": "StringLiteral",
-      "offset": 1105,
+      "offset": 1096,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/lei\/work\/xmpp_client\/XMPPClient\/model\/XCJid.swift",
+      "kind": "StringLiteral",
+      "offset": 1110,
       "length": 2,
       "value": "\"\""
     },

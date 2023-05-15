@@ -37,7 +37,7 @@ public struct XCJid {
   public var name: Swift.String
   public var domain: Swift.String
   public var resource: Swift.String
-  public init(name: Swift.String, domain: Swift.String, resource: Swift.String)
+  public init(name: Swift.String, domain: Swift.String, resource: Swift.String = "")
   public init?(_ text: Swift.String)
   public var value: Swift.String {
     get

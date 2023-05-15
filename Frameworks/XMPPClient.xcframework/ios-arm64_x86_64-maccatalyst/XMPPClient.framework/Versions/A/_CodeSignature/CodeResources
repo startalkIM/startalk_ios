@@ -22,14 +22,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			e856Lpj67Rg6rLJ+Xuy3aBbfhhWfQUTwEZh2VduuRzA=
+			JoDTyH39OuMTQcQxxlqI0hUH77jKBJB3RKuTSSm5OpI=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios-macabi.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1X23T4zlt2FeRgzoEaC/n/GWz6no0SXh7/lSAfiFgWE=
+			nYNH5PlJsrrpgBObXMHieIVPRW4HBM/ZXQLfZ4w2p30=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios-macabi.swiftdoc</key>
@@ -43,28 +43,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1X23T4zlt2FeRgzoEaC/n/GWz6no0SXh7/lSAfiFgWE=
+			nYNH5PlJsrrpgBObXMHieIVPRW4HBM/ZXQLfZ4w2p30=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios-macabi.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Dy+8OhUGjfszgdQX+QHukowXNwjExnJuVtDkeE6P6Jg=
+			lf+HEYzEMb3Kf7wzzVvdaAzZKarE7BlaHRAJ1g79XE4=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/x86_64-apple-ios-macabi.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			e856Lpj67Rg6rLJ+Xuy3aBbfhhWfQUTwEZh2VduuRzA=
+			JoDTyH39OuMTQcQxxlqI0hUH77jKBJB3RKuTSSm5OpI=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/x86_64-apple-ios-macabi.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			V6woeM41ey0VebLEb5XJp6YLQhwLgM1RrIeP7vDfc6U=
+			xFGen+untbEX50ocg4bKLwp3jsjSzZ07Uo+1uHJ1QTQ=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/x86_64-apple-ios-macabi.swiftdoc</key>
@@ -78,14 +78,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			V6woeM41ey0VebLEb5XJp6YLQhwLgM1RrIeP7vDfc6U=
+			xFGen+untbEX50ocg4bKLwp3jsjSzZ07Uo+1uHJ1QTQ=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/x86_64-apple-ios-macabi.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			x+ALO89ukGG9nCE1zljAvt4AwvSE1lNSH8gcLoEPB/A=
+			cVaiSpo92vOzHm919P69O92rhYWx27HWMEKC0qRaP34=
 			</data>
 		</dict>
 		<key>Resources/Info.plist</key>

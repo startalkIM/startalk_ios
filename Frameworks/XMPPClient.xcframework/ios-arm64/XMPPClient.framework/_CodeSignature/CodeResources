@@ -14,11 +14,11 @@
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		ObePTdPtjTy8D06290NuCzQzo+Y=
+		Jokv2snInaSlxAJuqrWpgbzW/QI=
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		wTfrUgiZO2CpSf23uRfNSIMrUS4=
+		2fmOMWs2zHVkswNh19n0qg69+r4=
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
@@ -26,11 +26,11 @@
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		wTfrUgiZO2CpSf23uRfNSIMrUS4=
+		2fmOMWs2zHVkswNh19n0qg69+r4=
 		</data>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		R3GrzESvwluPHcNxzql4ogQPM9w=
+		ExHL9qeKER4QP1x+8oOT7sZ7cho=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -46,14 +46,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			e856Lpj67Rg6rLJ+Xuy3aBbfhhWfQUTwEZh2VduuRzA=
+			JoDTyH39OuMTQcQxxlqI0hUH77jKBJB3RKuTSSm5OpI=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9yMUnq37/mZXn8GozK/4QrxYpOXyEUHq8TqcyvAClx8=
+			DXcQ8e7WLnvvrIofM158N4xCNxIYEOzDAKucsDX2gQU=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios.swiftdoc</key>
@@ -67,14 +67,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			9yMUnq37/mZXn8GozK/4QrxYpOXyEUHq8TqcyvAClx8=
+			DXcQ8e7WLnvvrIofM158N4xCNxIYEOzDAKucsDX2gQU=
 			</data>
 		</dict>
 		<key>Modules/XMPPClient.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			CrvI9VdP0MBkU2VqwW7ori/CRsQqfkiFNABUil/eA6o=
+			L1/6MklIoJZ0EsLZzB1em6j5cy1Ppz4Qb1/BSUSEeps=
 			</data>
 		</dict>
 	</dict>
