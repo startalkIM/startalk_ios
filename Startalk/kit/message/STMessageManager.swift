@@ -13,11 +13,11 @@ class STMessageManager{
     lazy var notificationCenter = STKit.shared.notificationCenter
     lazy var userState = STKit.shared.userState
     lazy var xmppClient = STKit.shared.xmppClient
+    lazy var chatManager = STKit.shared.chatManager
     
     var messageLoader = STHistoryMessagesLoader()
 
     var messageStorage = STMessageStorage()
-    var chatStorage = STChatStorage()
     
     //MARK: synchronize with server
     func synchronizeMessages(){
@@ -91,7 +91,7 @@ class STMessageManager{
     private func appendMessages(_ messages: [STMessage]){
         messageStorage.addMessages(messages)
         notificationCenter.notifyMessagesAppended(messages)
-        chatStorage.addMessages(messages)
+        chatManager.addMessages(messages)
         notificationCenter.notifyChatListChanged()
     }
     
@@ -100,15 +100,11 @@ class STMessageManager{
     //MARK: set messages read
     func setMessagesRead(_ chat: STChat){
         messageStorage.setMessagesRead(chatId: chat.id, isGroup: chat.isGroup)
-        chatStorage.clearUnreadCount(chat.id)
+        chatManager.clearUnreadCount(chat.id)
     }
 }
 
 extension STMessageManager{
-    
-    func makeChatDataSource() -> STChatDataSource{
-        return STChatDataSource(storage: chatStorage)
-    }
     
     func makeMessageDataSource(chatId: String) -> STMessageDataSource{
         return STMessageDataSource(storage: messageStorage, chatId: chatId)

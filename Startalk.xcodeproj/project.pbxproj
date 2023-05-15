@@ -42,6 +42,7 @@
 		AB12F9F229AE531A00C639B6 /* STSwitchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9F129AE531A00C639B6 /* STSwitchController.swift */; };
 		AB4516C52A11C1D000781152 /* XMPPClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB4516C32A11C1C800781152 /* XMPPClient.xcframework */; };
 		AB4516C62A11C1D000781152 /* XMPPClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB4516C32A11C1C800781152 /* XMPPClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB4516C22A10CC7A00781152 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516C12A10CC7A00781152 /* ChatManager.swift */; };
 		AB5A51ED29CF0E4300656FC4 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51EC29CF0E4300656FC4 /* Date+.swift */; };
 		AB5A51F129D1586A00656FC4 /* STChatStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51F029D1586A00656FC4 /* STChatStorage.swift */; };
 		AB5A51F329D17E1900656FC4 /* STChatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51F229D17E1900656FC4 /* STChatDataSource.swift */; };
@@ -154,6 +155,7 @@
 		AB12F9EF29AC8E2F00C639B6 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		AB12F9F129AE531A00C639B6 /* STSwitchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STSwitchController.swift; sourceTree = "<group>"; };
 		AB4516C32A11C1C800781152 /* XMPPClient.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = XMPPClient.xcframework; sourceTree = "<group>"; };
+		AB4516C12A10CC7A00781152 /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
 		AB5A51EC29CF0E4300656FC4 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		AB5A51F029D1586A00656FC4 /* STChatStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STChatStorage.swift; sourceTree = "<group>"; };
 		AB5A51F229D17E1900656FC4 /* STChatDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STChatDataSource.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				ABD1F12E29EBB93B002CCCB2 /* Group.swift */,
 				AB0110C92A08DF8400445D9B /* GroupManager.swift */,
 				ABFC90D329CDC3410040BDE5 /* STChat.swift */,
+				AB4516C12A10CC7A00781152 /* ChatManager.swift */,
 				AB5A51F029D1586A00656FC4 /* STChatStorage.swift */,
 				AB5A51F229D17E1900656FC4 /* STChatDataSource.swift */,
 			);
@@ -676,6 +679,7 @@
 				AB6E893029F74E47001CAB21 /* DatabaseManager.swift in Sources */,
 				7DB60416296F141500A0AAFA /* STContentVController.swift in Sources */,
 				ABC79D4829D71C1E0025C155 /* UITableView+.swift in Sources */,
+				AB4516C22A10CC7A00781152 /* ChatManager.swift in Sources */,
 				ABFC90D729CDC3410040BDE5 /* STChatTableCell.swift in Sources */,
 				ABFC90D629CDC3410040BDE5 /* STChat.swift in Sources */,
 				ABC79D5029DAD20A0025C155 /* STMessageStickersView.swift in Sources */,

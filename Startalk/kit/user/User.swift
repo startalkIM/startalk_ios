@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CoreData
+import XMPPClient
 
 struct User{
     var id: Int
@@ -26,10 +26,30 @@ struct User{
         self.photo = photo
         self.bio = bio
     }
+    
+    var xmppId: XCJid{
+        XCJid(name: username, domain: domain)
+    }
+    
 }
 
 enum Gender: Int{
     case female = 0
     case male = 1
     case other = 2
+}
+
+extension User{
+    
+    init?(resultSet: SQLiteResultSet) throws{
+        let idValue = try resultSet.getInt32("id")
+        id = Int(idValue)
+        username = try resultSet.getString("username")!
+        domain = try resultSet.getString("domain")!
+        name = try resultSet.getString("name")
+        let genderValue = try resultSet.getInt32("gender")
+        gender = Gender(rawValue: Int(genderValue))
+        photo = try resultSet.getString("photo")
+        bio = try resultSet.getString("bio")
+    }
 }

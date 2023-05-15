@@ -18,6 +18,7 @@ class STKit{
     let userManager: UserManager
     let groupManager: GroupManager
     let messageManager: STMessageManager
+    let chatManager: ChatManager
     
     let databaseManager: DatabaseManager
     let filesManager: FilesManager
@@ -37,6 +38,7 @@ class STKit{
         userManager = UserManager()
         groupManager = GroupManager()
         messageManager = STMessageManager()
+        chatManager = ChatManager()
         
         databaseManager = DatabaseManager()
         filesManager = FilesManager()

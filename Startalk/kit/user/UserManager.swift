@@ -14,6 +14,7 @@ class UserManager{
     lazy var userState = STKit.shared.userState
     lazy var serviceManager = STKit.shared.serviceManager
     lazy var apiClient = STKit.shared.apiClient
+    lazy var chatManager = STKit.shared.chatManager
     lazy var connection = STKit.shared.databaseManager.getUserConnection()
     
     func fetchUser(jid: XCJid) -> User?{
@@ -26,16 +27,7 @@ class UserManager{
         do{
             let resultSet = try connection.query(sql: sql, values: username, domain)
             if resultSet.next(){
-                let id = try resultSet.getInt32("id")
-                let username = try resultSet.getString("username")!
-                let domain = try resultSet.getString("domain")!
-                let name = try resultSet.getString("name")
-                let genderValue = try resultSet.getInt32("gender")
-                let photo = try resultSet.getString("photo")
-                let bio = try resultSet.getString("bio")
-                
-                let gender = Gender(rawValue: Int(genderValue))
-                user = User(id: Int(id), username: username, domain: domain, name: name, gender: gender, photo: photo, bio: bio)
+                user = try User(resultSet: resultSet)
             }
         }catch{
             logger.warn("fetch user failed", error)
@@ -43,10 +35,29 @@ class UserManager{
         return user
     }
     
+    func fetchUsers(xmppIds: [String]) -> [User]{
+        let xmppIdsPhrase = xmppIds.map { "'\($0)'" }.joined(separator: ", ")
+        let sql = "select * from user where xmpp_id in(\(xmppIdsPhrase))"
+        var users: [User] = []
+        do {
+            let resultSet = try connection.query(sql: sql)
+            while resultSet.next(){
+                let user = try User(resultSet: resultSet)
+                if let user = user{
+                    users.append(user)
+                }
+            }
+        } catch {
+            logger.warn("fetch users failed", error)
+        }
+        return users
+    }
+    
     func tryAddUser(username: String, domain: String){
-        let sql = "insert or ignore into user(username, domain) values(?, ?)"
+        let sql = "insert or ignore into user(username, domain, xmpp_id) values(?, ?, ?)"
+        let xmppId = XCJid(name: username, domain: domain).bare
         do{
-            try connection.insert(sql: sql, values: username, domain)
+            try connection.insert(sql: sql, values: username, domain, xmppId)
         }catch{
             logger.warn("add user failed", error)
         }
@@ -84,12 +95,12 @@ class UserManager{
     
     func updateUsers(updated: [User], deleted: [User], version: Int){
         let updateSql = """
-            insert into user(username, domain, name, gender) values(?, ?, ?, ?)
+            insert into user(username, domain, xmpp_id, name, gender) values(?, ?, ?, ?, ?)
             on conflict(username, domain) do update set name = ?, gender = ?
             """
         let updateValues = updated.map { user in
             let gender = user.gender?.rawValue.int32
-            return [user.username, user.domain, user.name, gender, user.name, gender]as [SQLiteBindable?]
+            return [user.username, user.domain, user.xmppId.bare, user.name, gender, user.name, gender]as [SQLiteBindable?]
         }
         do{
             try connection.batchUpdate(sql: updateSql, values: updateValues)
@@ -154,6 +165,8 @@ extension UserManager{
                 let deleted = updatedUsers.delete.map{$0.user(domain: domain)}
                 let version = updatedUsers.version
                 updateUsers(updated: updated, deleted: deleted, version: version)
+                
+                chatManager.usersUpdated(users: updated)
             }
         }
     }

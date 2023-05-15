@@ -26,6 +26,19 @@ struct STChat{
     var isMuted: Bool
     var timestamp: Date
     
+    init(id: String, isGroup: Bool, title: String? = nil, photo: String? = nil, lastMessage: STMessage? = nil, draft: String? = nil, unreadCount: Int, isSticky: Bool, isMuted: Bool, timestamp: Date) {
+        self.id = id
+        self.isGroup = isGroup
+        self.title = title
+        self.photo = photo
+        self.lastMessage = lastMessage
+        self.draft = draft
+        self.unreadCount = unreadCount
+        self.isSticky = isSticky
+        self.isMuted = isMuted
+        self.timestamp = timestamp
+    }
+    
     var defaultTitle: String{
         if isGroup{
             return "Group".localized

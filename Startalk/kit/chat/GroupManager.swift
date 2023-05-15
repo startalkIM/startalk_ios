@@ -14,6 +14,7 @@ class GroupManager{
     lazy var userState = STKit.shared.userState
     lazy var apiClient = STKit.shared.apiClient
     lazy var userManager = STKit.shared.userManager
+    lazy var chatManager = STKit.shared.chatManager
     lazy var connection = STKit.shared.databaseManager.getUserConnection()
     
     func loadGroups(){
@@ -31,6 +32,8 @@ class GroupManager{
                 }
                 storeGroups(groups)
                 userManager.updateGroupUpdateTime(time: now.milliseconds)
+                
+                chatManager.groupsUpdated(groups: groups)
             case .failure(_):
                 logger.warn("request group failes")
             }
@@ -71,13 +74,28 @@ class GroupManager{
         do{
            let resultSet = try connection.query(sql: sql, values: xmppId)
             if resultSet.next(){
-                let name = try resultSet.getString("name") ?? "Group"
-                let photo = try resultSet.getString("photo")
-                group = Group(xmppId: xmppId, name: name, photo: photo)
+              group = try Group(resultSet: resultSet)
             }
         }catch{
             logger.warn("fetch group faild", error)
         }
         return group
     }
+    
+    func fetchGroups(xmppIds: [String]) -> [Group]{
+        let xmppIddPhrase = xmppIds.map{ "'\($0)'"}.joined(separator: ", ")
+        let sql = #"select * from "group" where xmpp_id in (\#(xmppIddPhrase))"#
+        var groups: [Group] = []
+        do{
+            let resultSet = try connection.query(sql: sql)
+            while resultSet.next(){
+                let group = try Group(resultSet: resultSet)
+                groups.append(group)
+            }
+        }catch{
+            logger.warn("fetch groups failed", error)
+        }
+        return groups
+    }
+    
 }

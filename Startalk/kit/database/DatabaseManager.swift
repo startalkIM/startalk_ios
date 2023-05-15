@@ -74,6 +74,7 @@ extension DatabaseManager{
                 id integer primary key,
                 username text not null,
                 domain text not null,
+                xmpp_id text not null unique,
                 name text,
                 gender integer,
                 photo text,

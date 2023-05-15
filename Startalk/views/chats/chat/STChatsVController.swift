@@ -8,10 +8,10 @@
 import UIKit
 
 class STChatsVController: UITableViewController {
-    lazy var messageManager = STKit.shared.messageManager
-    lazy var  notificationCenter = STKit.shared.notificationCenter
+    lazy var chatManager = STKit.shared.chatManager
+    lazy var notificationCenter = STKit.shared.notificationCenter
     
-    lazy var chatSource = messageManager.makeChatDataSource()
+    lazy var chatSource = chatManager.makeChatDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()

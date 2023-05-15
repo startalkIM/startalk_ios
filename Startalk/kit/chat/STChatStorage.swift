@@ -11,62 +11,68 @@ import XMPPClient
 class STChatStorage{
     let logger = STLogger(STChatStorage.self)
     
-    lazy var databaseManager = STKit.shared.databaseManager
-    lazy var groupManager = STKit.shared.groupManager
-    lazy var userManager = STKit.shared.userManager
+    lazy var connection = STKit.shared.databaseManager.getUserConnection()
     
-    func addMessages(_ messages: [STMessage]){
-        let connection = databaseManager.getUserConnection()
-        let entries = reduce(messages)
+    func fetchChats(ids: [String]) -> [STChat]{
+        let idsPhrase = ids.map { "'\($0)'"}.joined(separator: ", ")
+        let sql = "select * from chat where xmpp_id in (\(idsPhrase))"
+        var chats: [STChat] = []
         do{
-            for entry in entries {
-                let (message, unreadCount) = entry
-                let unreadValue = Int32(unreadCount)
-                
-                let querySql = "select * from chat where xmpp_id = ?"
-                let resultSet = try connection.query(sql: querySql, values: message.chatId)
-                if resultSet.next(){
-                    let updateSql = """
-                        update chat set unread = unread + ?,
-                        last_message_id = (select id from message where message_id = ?),
-                        timestamp = ?
-                        where xmpp_id = ?
-                        """
-                    try connection.update(sql: updateSql, values: unreadValue, message.id, message.timestamp.milliseconds, message.chatId)
-                }else{
-                    let (title, photo) = fetchChatDetail(messages: message)
-                    let insertSql = """
-                        insert into chat(xmpp_id, is_group, title, photo, last_message_id, unread, timestamp)
-                        values(?, ?, ?, ?, (select id from message where message_id = ?), ?, ?)
-                        """
-
-                    try connection.insert(sql: insertSql, values: message.chatId, message.isGroup, title, photo, message.id, unreadValue, message.timestamp.milliseconds)
-                }
+            let resultSet = try connection.query(sql: sql)
+            while resultSet.next(){
+                let chat = try STChat(resultSet)!
+                chats.append(chat)
             }
         }catch{
-            logger.warn("add messages to chat failed", error)
+            logger.warn("query chats failed", error)
+        }
+        return chats
+    }
+    
+    func addChats(_ chats: [STChat]){
+        let sql = """
+            insert into chat(xmpp_id, is_group, title, photo, last_message_id, unread, timestamp)
+            values(?, ?, ?, ?, (select id from message where message_id = ?), ?, ?)
+            """
+        let values = chats.map { chat in
+            [chat.id, chat.isGroup, chat.title, chat.photo, chat.lastMessage?.id, Int32(chat.unreadCount), chat.timestamp.milliseconds] as [SQLiteBindable?]
+        }
+        do {
+            try connection.batchUpdate(sql: sql, values: values)
+        } catch{
+            logger.warn("insert chat failed", error)
         }
     }
     
-    private func fetchChatDetail(messages: STMessage) -> (String?, String?){
-        var title: String?
-        var photo: String?
-        if messages.isGroup{
-            let group = groupManager.fetchGroup(xmppId: messages.chatId)
-            title = group?.name
-            photo = group?.photo
-        }else{
-            let jid = XCJid(messages.chatId)!
-            let user = userManager.fetchUser(jid: jid)
-            title = user?.name
-            photo = user?.photo
+    func updateChats(_ chats: [STChat]){
+        let sql = """
+            update chat set unread = ?, last_message_id = (select id from message where message_id = ?),
+            timestamp = ? where xmpp_id = ?
+            """
+        let values = chats.map { chat in
+            [Int32(chat.unreadCount), chat.lastMessage?.id, chat.timestamp.milliseconds, chat.id] as [SQLiteBindable?]
         }
-        return (title, photo)
+        do {
+            try connection.batchUpdate(sql: sql, values: values)
+        } catch {
+            logger.warn("update chat failed")
+        }
     }
     
+    func updateChats(details: [(String, String?, String?)]){
+        let sql = "update chat set title = ?, photo = ? where xmpp_id = ?"
+        let values = details.map { (id, title, photo) in
+            [title, photo, id]
+        }
+        do {
+            try connection.batchUpdate(sql: sql, values: values)
+        } catch {
+            logger.warn("update chat photos failed")
+        }
+    }
+        
     func count() -> Int{
         let sql = "select count(1) from chat"
-        let connection = databaseManager.getUserConnection()
         var count = 0
         do{
             let resultSet = try connection.query(sql: sql)
@@ -81,7 +87,6 @@ class STChatStorage{
     
     func chats(offset: Int = 0, count: Int = 10) -> [STChat] {
         let sql = "select * from chat order by timestamp desc limit ? offset ?"
-        let connection = databaseManager.getUserConnection()
         var chats: [STChat] = []
         do{
             let limit = Int32(count)
@@ -108,7 +113,6 @@ class STChatStorage{
     
     func chat(withId id: String) -> STChat?{
         let sql = "select * from chat where xmpp_id = ?"
-        let connection = databaseManager.getUserConnection()
         var chat: STChat?
         do{
             let resultSet = try connection.query(sql: sql, values: id)
@@ -121,31 +125,10 @@ class STChatStorage{
         return chat
     }
     
-    private func reduce(_ messages: [STMessage]) -> [(STMessage, Int)]{
-        var messageMap: [String: (STMessage, Int)] = [: ]
-        for message in messages {
-            let chatId = message.chatId
-            let value = messageMap[chatId]
-            if value == nil{
-                messageMap[chatId] = (message, 0)
-            }
-            
-            if message.timestamp > messageMap[chatId]!.0.timestamp{
-                messageMap[chatId]!.0 = message
-            }
-            
-            if message.direction == .receive && message.state == .sent{
-                messageMap[chatId]!.1 += 1
-            }
-            
-            
-        }
-        return Array(messageMap.values)
-    }
+   
     
     func clearUnreadCount(_ chatId: String){
         let sql = "update chat set unread = 0 where xmpp_id = ?"
-        let connection = databaseManager.getUserConnection()
         do{
             try connection.update(sql: sql, values: chatId)
         }catch{
