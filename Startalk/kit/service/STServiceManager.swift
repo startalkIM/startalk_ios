@@ -255,4 +255,16 @@ extension STServiceManager{
     var pushUrl: String{
         navigation.pushUrl
     }
+    
+    var fileUrl: String{
+        navigation.fileUrl
+    }
+    
+    func attachFilePrefixIfAbsent(_ url: String) -> String{
+        var url = url
+        if !url.starts(with: "http"){
+            url = navigation.fileUrl + url
+        }
+        return url
+    }
 }

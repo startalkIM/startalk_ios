@@ -9,6 +9,7 @@ import Foundation
 
 class STMessageDataSource{
     static let DAFAULT_COUNT = 10
+        
     let storage: STMessageStorage
     let chatId: String
     
