@@ -40,17 +40,23 @@
 		AB12F9EE29AC8D6700C639B6 /* STLoaingVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9ED29AC8D6700C639B6 /* STLoaingVController.swift */; };
 		AB12F9F029AC8E2F00C639B6 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9EF29AC8E2F00C639B6 /* UIViewController+.swift */; };
 		AB12F9F229AE531A00C639B6 /* STSwitchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12F9F129AE531A00C639B6 /* STSwitchController.swift */; };
+		AB4516C22A10CC7A00781152 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516C12A10CC7A00781152 /* ChatManager.swift */; };
 		AB4516C52A11C1D000781152 /* XMPPClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB4516C32A11C1C800781152 /* XMPPClient.xcframework */; };
 		AB4516C62A11C1D000781152 /* XMPPClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB4516C32A11C1C800781152 /* XMPPClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AB4516C22A10CC7A00781152 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516C12A10CC7A00781152 /* ChatManager.swift */; };
+		AB4516C82A121F4700781152 /* BaseMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516C72A121F4700781152 /* BaseMessageCell.swift */; };
+		AB4516CD2A1230F600781152 /* MessageCellImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516CC2A1230F600781152 /* MessageCellImageContent.swift */; };
+		AB4516D22A13225E00781152 /* MessageCellTextContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516D12A13225E00781152 /* MessageCellTextContent.swift */; };
+		AB4516DE2A132E1800781152 /* MessgeCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516DD2A132E1800781152 /* MessgeCellLayout.swift */; };
+		AB4516E02A13302300781152 /* PrivateReceiveMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516DF2A13302300781152 /* PrivateReceiveMessageCellLayout.swift */; };
+		AB4516E22A13303D00781152 /* GroupReceiveMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516E12A13303D00781152 /* GroupReceiveMessageCellLayout.swift */; };
+		AB4516E42A13305300781152 /* SendMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516E32A13305300781152 /* SendMessageCellLayout.swift */; };
+		AB4516EC2A135A1900781152 /* TextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516EB2A135A1900781152 /* TextMessageCell.swift */; };
 		AB5A51ED29CF0E4300656FC4 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51EC29CF0E4300656FC4 /* Date+.swift */; };
 		AB5A51F129D1586A00656FC4 /* STChatStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51F029D1586A00656FC4 /* STChatStorage.swift */; };
 		AB5A51F329D17E1900656FC4 /* STChatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51F229D17E1900656FC4 /* STChatDataSource.swift */; };
 		AB5A51F529D17E2800656FC4 /* STMessageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51F429D17E2800656FC4 /* STMessageDataSource.swift */; };
 		AB5A51FD29D1C76C00656FC4 /* STMessageIdState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51FC29D1C76C00656FC4 /* STMessageIdState.swift */; };
 		AB5A51FF29D1CE6300656FC4 /* STMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51FE29D1CE6300656FC4 /* STMessagesView.swift */; };
-		AB5A520129D1D7D800656FC4 /* STReceiveMessageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A520029D1D7D800656FC4 /* STReceiveMessageTableCell.swift */; };
-		AB5A520329D1E78A00656FC4 /* STSendMessageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A520229D1E78A00656FC4 /* STSendMessageTableCell.swift */; };
 		AB6E893029F74E47001CAB21 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E892F29F74E47001CAB21 /* DatabaseManager.swift */; };
 		AB8BBB0829B85C6F00125DAB /* STUserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB0729B85C6F00125DAB /* STUserState.swift */; };
 		AB8BBB1129B8AAFA00125DAB /* STBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1029B8AAFA00125DAB /* STBadgeView.swift */; };
@@ -154,16 +160,22 @@
 		AB12F9ED29AC8D6700C639B6 /* STLoaingVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STLoaingVController.swift; sourceTree = "<group>"; };
 		AB12F9EF29AC8E2F00C639B6 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		AB12F9F129AE531A00C639B6 /* STSwitchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STSwitchController.swift; sourceTree = "<group>"; };
-		AB4516C32A11C1C800781152 /* XMPPClient.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = XMPPClient.xcframework; sourceTree = "<group>"; };
 		AB4516C12A10CC7A00781152 /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
+		AB4516C32A11C1C800781152 /* XMPPClient.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = XMPPClient.xcframework; sourceTree = "<group>"; };
+		AB4516C72A121F4700781152 /* BaseMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMessageCell.swift; sourceTree = "<group>"; };
+		AB4516CC2A1230F600781152 /* MessageCellImageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellImageContent.swift; sourceTree = "<group>"; };
+		AB4516D12A13225E00781152 /* MessageCellTextContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellTextContent.swift; sourceTree = "<group>"; };
+		AB4516DD2A132E1800781152 /* MessgeCellLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessgeCellLayout.swift; sourceTree = "<group>"; };
+		AB4516DF2A13302300781152 /* PrivateReceiveMessageCellLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateReceiveMessageCellLayout.swift; sourceTree = "<group>"; };
+		AB4516E12A13303D00781152 /* GroupReceiveMessageCellLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupReceiveMessageCellLayout.swift; sourceTree = "<group>"; };
+		AB4516E32A13305300781152 /* SendMessageCellLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageCellLayout.swift; sourceTree = "<group>"; };
+		AB4516EB2A135A1900781152 /* TextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMessageCell.swift; sourceTree = "<group>"; };
 		AB5A51EC29CF0E4300656FC4 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		AB5A51F029D1586A00656FC4 /* STChatStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STChatStorage.swift; sourceTree = "<group>"; };
 		AB5A51F229D17E1900656FC4 /* STChatDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STChatDataSource.swift; sourceTree = "<group>"; };
 		AB5A51F429D17E2800656FC4 /* STMessageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageDataSource.swift; sourceTree = "<group>"; };
 		AB5A51FC29D1C76C00656FC4 /* STMessageIdState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessageIdState.swift; sourceTree = "<group>"; };
 		AB5A51FE29D1CE6300656FC4 /* STMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STMessagesView.swift; sourceTree = "<group>"; };
-		AB5A520029D1D7D800656FC4 /* STReceiveMessageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STReceiveMessageTableCell.swift; sourceTree = "<group>"; };
-		AB5A520229D1E78A00656FC4 /* STSendMessageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STSendMessageTableCell.swift; sourceTree = "<group>"; };
 		AB6E892F29F74E47001CAB21 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		AB8BBB0729B85C6F00125DAB /* STUserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STUserState.swift; sourceTree = "<group>"; };
 		AB8BBB1029B8AAFA00125DAB /* STBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STBadgeView.swift; sourceTree = "<group>"; };
@@ -407,6 +419,21 @@
 			path = login;
 			sourceTree = "<group>";
 		};
+		AB4516C92A12258400781152 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				AB4516DD2A132E1800781152 /* MessgeCellLayout.swift */,
+				AB4516DF2A13302300781152 /* PrivateReceiveMessageCellLayout.swift */,
+				AB4516E12A13303D00781152 /* GroupReceiveMessageCellLayout.swift */,
+				AB4516E32A13305300781152 /* SendMessageCellLayout.swift */,
+				AB4516C72A121F4700781152 /* BaseMessageCell.swift */,
+				AB4516D12A13225E00781152 /* MessageCellTextContent.swift */,
+				AB4516EB2A135A1900781152 /* TextMessageCell.swift */,
+				AB4516CC2A1230F600781152 /* MessageCellImageContent.swift */,
+			);
+			path = cells;
+			sourceTree = "<group>";
+		};
 		AB8BBB0D29B8740300125DAB /* chats */ = {
 			isa = PBXGroup;
 			children = (
@@ -544,11 +571,10 @@
 		ABFC90D829CDC3630040BDE5 /* message */ = {
 			isa = PBXGroup;
 			children = (
+				AB4516C92A12258400781152 /* cells */,
 				ABFC90D929CDC3630040BDE5 /* STMessagesVController.swift */,
 				ABC79D4B29D98C2E0025C155 /* STMessageInputState.swift */,
 				AB5A51FE29D1CE6300656FC4 /* STMessagesView.swift */,
-				AB5A520029D1D7D800656FC4 /* STReceiveMessageTableCell.swift */,
-				AB5A520229D1E78A00656FC4 /* STSendMessageTableCell.swift */,
 				ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */,
 				ABC79D4F29DAD20A0025C155 /* STMessageStickersView.swift */,
 				ABC79D5129DAD2860025C155 /* STMessageInputFunctionsView.swift */,
@@ -675,13 +701,14 @@
 				AB12F9B329A85F5C00C639B6 /* STServieTableCell.swift in Sources */,
 				ABF80B6829B5DB3D00EA1861 /* StringUtil.swift in Sources */,
 				AB12F9F029AC8E2F00C639B6 /* UIViewController+.swift in Sources */,
-				AB5A520129D1D7D800656FC4 /* STReceiveMessageTableCell.swift in Sources */,
 				AB6E893029F74E47001CAB21 /* DatabaseManager.swift in Sources */,
 				7DB60416296F141500A0AAFA /* STContentVController.swift in Sources */,
 				ABC79D4829D71C1E0025C155 /* UITableView+.swift in Sources */,
 				AB4516C22A10CC7A00781152 /* ChatManager.swift in Sources */,
 				ABFC90D729CDC3410040BDE5 /* STChatTableCell.swift in Sources */,
 				ABFC90D629CDC3410040BDE5 /* STChat.swift in Sources */,
+				AB4516E42A13305300781152 /* SendMessageCellLayout.swift in Sources */,
+				AB4516EC2A135A1900781152 /* TextMessageCell.swift in Sources */,
 				ABC79D5029DAD20A0025C155 /* STMessageStickersView.swift in Sources */,
 				AB0110C62A06282B00445D9B /* ResourceLoader.swift in Sources */,
 				ABD1F14929EEB127002CCCB2 /* Array+.swift in Sources */,
@@ -704,12 +731,14 @@
 				AB8BBB1129B8AAFA00125DAB /* STBadgeView.swift in Sources */,
 				ABF80B6E29B6332F00EA1861 /* STApiClient.swift in Sources */,
 				ABF80B6C29B5E6C400EA1861 /* STServiceQrCodeView.swift in Sources */,
+				AB4516CD2A1230F600781152 /* MessageCellImageContent.swift in Sources */,
 				AB12F98029A396E900C639B6 /* STLoginVController.swift in Sources */,
 				ABF80B6A29B5E6AC00EA1861 /* STServiceQrCodeVController.swift in Sources */,
 				AB12F9B729A8A7A500C639B6 /* STServicesVController.swift in Sources */,
 				ABFC90E829CDC3D70040BDE5 /* STAppStateManager.swift in Sources */,
 				AB12F9EE29AC8D6700C639B6 /* STLoaingVController.swift in Sources */,
 				AB12F9D529AB7E1400C639B6 /* RSAUtil.swift in Sources */,
+				AB4516E22A13303D00781152 /* GroupReceiveMessageCellLayout.swift in Sources */,
 				ABC79D4E29DA8DA50025C155 /* NSLayoutDimension+.swift in Sources */,
 				AB12F9C229AA345300C639B6 /* STServiceEditorVController.swift in Sources */,
 				ABFC90E329CDC3C50040BDE5 /* STMessage.swift in Sources */,
@@ -732,10 +761,12 @@
 				ABD1F14329ED3F19002CCCB2 /* UserManager.swift in Sources */,
 				ABF80B6229B4C50800EA1861 /* STService.swift in Sources */,
 				AB12F9EC29AC79DD00C639B6 /* ApiFetchResult.swift in Sources */,
+				AB4516C82A121F4700781152 /* BaseMessageCell.swift in Sources */,
 				AB8BBB1529B9F3B100125DAB /* DateUtil.swift in Sources */,
 				AB12F9D129AB6ADB00C639B6 /* STHttpClient.swift in Sources */,
 				AB5A51F529D17E2800656FC4 /* STMessageDataSource.swift in Sources */,
 				AB5A51F329D17E1900656FC4 /* STChatDataSource.swift in Sources */,
+				AB4516DE2A132E1800781152 /* MessgeCellLayout.swift in Sources */,
 				ABFC90EB29CDC3E00040BDE5 /* STXmppClient.swift in Sources */,
 				AB12F9C829AB67DD00C639B6 /* STKit.swift in Sources */,
 				ABC79D4629D6E82A0025C155 /* KeyboardView.swift in Sources */,
@@ -750,12 +781,13 @@
 				AB12F9AC29A4C62400C639B6 /* String+.swift in Sources */,
 				AB5A51FF29D1CE6300656FC4 /* STMessagesView.swift in Sources */,
 				AB12F9E729AC4BEC00C639B6 /* STApiResponse.swift in Sources */,
+				AB4516D22A13225E00781152 /* MessageCellTextContent.swift in Sources */,
+				AB4516E02A13302300781152 /* PrivateReceiveMessageCellLayout.swift in Sources */,
 				ABF80B6429B584F400EA1861 /* STServiceNavigation.swift in Sources */,
 				AB12F9C029AA28BA00C639B6 /* ComponentFactory.swift in Sources */,
 				ABF80B5D29B1E04D00EA1861 /* STScanView.swift in Sources */,
 				ABF80B6629B5BA4800EA1861 /* STEditableViewController.swift in Sources */,
 				AB8BBB1B29BC594200125DAB /* UINavigationItem+.swift in Sources */,
-				AB5A520329D1E78A00656FC4 /* STSendMessageTableCell.swift in Sources */,
 				AB12F97E29A392E100C639B6 /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

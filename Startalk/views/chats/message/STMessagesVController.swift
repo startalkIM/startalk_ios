@@ -126,16 +126,20 @@ extension STMessagesVController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messageSource.message(at: indexPath.row)
         let user = userManager.fetchUser(jid: message.from)
+        let cell: BaseMessageCell
         if message.direction == .receive{
-            let cell = tableView.dequeueReusableCell(withIdentifier: STReceiveMessageTableCell.IDENTIFIER, for: indexPath) as! STReceiveMessageTableCell
-            cell.setMessage(message, user: user)
-            return cell
+            if chat.isGroup{
+                cell = tableView.dequeueReusableCell(withIdentifier: GroupReceiveTextMessageCell.IDENTIFIER, for: indexPath) as! GroupReceiveTextMessageCell
+            }else{
+                cell = tableView.dequeueReusableCell(withIdentifier: PrivateReceiveTextMessageCell.IDENTIFIER, for: indexPath) as! PrivateReceiveTextMessageCell
+            }
+            
         }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: STSendMessageTableCell.IDENTIFIER, for: indexPath) as! STSendMessageTableCell
+            cell = tableView.dequeueReusableCell(withIdentifier: SendTextMessageCell.IDENTIFIER, for: indexPath) as! SendTextMessageCell
             cell.setMessage(message, user: user)
-            return cell
-
         }
+        cell.setMessage(message, user: user)
+        return cell
     }
 }
 

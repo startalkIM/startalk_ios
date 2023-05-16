@@ -45,8 +45,10 @@ class STMessagesView: KeyboardView {
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         
-        tableView.register(STReceiveMessageTableCell.self, forCellReuseIdentifier: STReceiveMessageTableCell.IDENTIFIER)
-        tableView.register(STSendMessageTableCell.self, forCellReuseIdentifier: STSendMessageTableCell.IDENTIFIER)
+        tableView.register(PrivateReceiveTextMessageCell.self, forCellReuseIdentifier: PrivateReceiveTextMessageCell.IDENTIFIER)
+        tableView.register(GroupReceiveTextMessageCell.self, forCellReuseIdentifier: GroupReceiveTextMessageCell.IDENTIFIER)
+        tableView.register(SendTextMessageCell.self, forCellReuseIdentifier: SendTextMessageCell.IDENTIFIER)
+
 
         tableView.allowsSelection = false
         addSubview(tableView)

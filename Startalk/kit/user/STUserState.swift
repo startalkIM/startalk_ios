@@ -33,6 +33,7 @@ class STUserState{
         isLoggedIn = pickLogState() ?? false
         username = pickUsername() ?? ""
         token = pickToken() ?? ""
+        jid = XCJid(name: username, domain: serviceManager.domain)
         
         if isLoggedIn{
             setLoggedIn()
