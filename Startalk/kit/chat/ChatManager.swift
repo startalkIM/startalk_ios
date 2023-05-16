@@ -97,7 +97,7 @@ class ChatManager{
                     chat.lastMessage = message
                 }
             }else{
-                chat = STChat(id: chatId, isGroup: message.isGroup, unreadCount: 0, isSticky: false, isMuted: false, timestamp: message.timestamp)
+                chat = STChat(id: chatId, isGroup: message.isGroup, lastMessage: message, unreadCount: 0, isSticky: false, isMuted: false, timestamp: message.timestamp)
             }
             
             if message.direction == .receive && message.state == .sent{
