@@ -93,6 +93,21 @@ extension STChat{
         self.isMuted = (mutedValue == 1)
         let milliseconds = try resultSet.getInt64("timestamp")
         self.timestamp = Date(milliseconds: milliseconds)
+     
+        if resultSet.contains("m_id") && resultSet.contains("m_type") && resultSet.contains("m_content"){
+            let messageId = try resultSet.getString("m_id")
+            let messageType = try resultSet.getInt32("m_type")
+            let messageContent = try resultSet.getString("m_content")
+            if
+                let messageId = messageId,
+                let type = XCMessageType(rawValue: Int(messageType)),
+                let messageContent = messageContent,
+                let content = XCMessage.makeContent(messageContent, type: type){
+                
+                lastMessage = STMessage(id: messageId, from: .empty, to: .empty, isGroup: isGroup, type: type, content: content, clientType: .ios, state: .sent, timestamp: Date(), direction: .unspecified)
+                
+            }
+        }
         
     }
 }

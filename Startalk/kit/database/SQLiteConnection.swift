@@ -277,6 +277,10 @@ class SQLiteResultSet{
         return value == 1
     }
     
+    func contains(_ column: String) -> Bool{
+        return nameIndexDict[column] != nil
+    }
+    
     private func checkColumnIndex(_ value: Int) throws{
         if value < 0 || value >= columnCount{
             throw SQLiteError.Query(message: "Invalid column index")

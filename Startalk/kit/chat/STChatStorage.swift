@@ -86,7 +86,11 @@ class STChatStorage{
     }
     
     func chats(offset: Int = 0, count: Int = 10) -> [STChat] {
-        let sql = "select * from chat order by timestamp desc limit ? offset ?"
+        let sql = """
+            select c.*, m.message_id m_id, m.type m_type, m.content m_content
+            from chat c left join message m on c.last_message_id = m.id
+            order by timestamp desc limit ? offset ?
+            """
         var chats: [STChat] = []
         do{
             let limit = Int32(count)
@@ -94,14 +98,7 @@ class STChatStorage{
             let resultSet = try connection.query(sql: sql, values: limit, offset)
             while resultSet.next(){
                 let chat = try STChat(resultSet)
-                let messageId = try resultSet.getInt32("last_message_id")
-                if var chat = chat{
-                    let messageSql = "select * from message where id = ?"
-                    //TODO: refactor this
-                    let messageResultSet = try connection.query(sql: messageSql, values: messageId)
-                    if messageResultSet.next(){
-                        chat.lastMessage = try STMessage(messageResultSet)
-                    }
+                if let chat = chat{
                     chats.append(chat)
                 }
             }
@@ -112,7 +109,11 @@ class STChatStorage{
     }
     
     func chat(withId id: String) -> STChat?{
-        let sql = "select * from chat where xmpp_id = ?"
+        let sql = """
+            select c.*, m.message_id m_id, m.type m_type, m.content m_content
+            from chat c left join message m on c.last_message_id = m.id
+            where xmpp_id = ?
+            """
         var chat: STChat?
         do{
             let resultSet = try connection.query(sql: sql, values: id)

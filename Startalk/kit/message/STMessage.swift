@@ -21,6 +21,19 @@ struct STMessage{
     var timestamp: Date
     var direction: Direction = .unspecified
     
+    init(id: String, from: XCJid, to: XCJid, isGroup: Bool, type: XCMessageType, content: XCMessageContent, clientType: XCClientType, state: State, timestamp: Date, direction: Direction) {
+        self.id = id
+        self.from = from
+        self.to = to
+        self.isGroup = isGroup
+        self.type = type
+        self.content = content
+        self.clientType = clientType
+        self.state = state
+        self.timestamp = timestamp
+        self.direction = direction
+    }
+    
     init(message: XCMessage, direction: Direction = .unspecified, state: State) {
         self.id = message.id
         self.from = message.header.from
