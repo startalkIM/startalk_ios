@@ -129,14 +129,31 @@ extension STMessagesVController: UITableViewDataSource{
         let cell: BaseMessageCell
         if message.direction == .receive{
             if chat.isGroup{
-                cell = tableView.dequeueReusableCell(withIdentifier: GroupReceiveTextMessageCell.IDENTIFIER, for: indexPath) as! GroupReceiveTextMessageCell
+                if message.content is XCImageMessageContent{
+                    let imageCell = tableView.dequeueReusableCell(withIdentifier: GroupReceiveImageMessageCell.IDENTIFIER, for: indexPath) as! GroupReceiveImageMessageCell
+                    imageCell.delegate = self
+                    cell = imageCell
+                }else{
+                    cell = tableView.dequeueReusableCell(withIdentifier: GroupReceiveTextMessageCell.IDENTIFIER, for: indexPath) as! GroupReceiveTextMessageCell
+                }
             }else{
-                cell = tableView.dequeueReusableCell(withIdentifier: PrivateReceiveTextMessageCell.IDENTIFIER, for: indexPath) as! PrivateReceiveTextMessageCell
+                if message.content is XCImageMessageContent{
+                    let imageCell = tableView.dequeueReusableCell(withIdentifier: PrivateReceiveImageMessageCell.IDENTIFIER, for: indexPath) as! PrivateReceiveImageMessageCell
+                    imageCell.delegate = self
+                    cell = imageCell
+                }else{
+                    cell = tableView.dequeueReusableCell(withIdentifier: PrivateReceiveTextMessageCell.IDENTIFIER, for: indexPath) as! PrivateReceiveTextMessageCell
+                }
             }
             
         }else{
-            cell = tableView.dequeueReusableCell(withIdentifier: SendTextMessageCell.IDENTIFIER, for: indexPath) as! SendTextMessageCell
-            cell.setMessage(message, user: user)
+            if message.content is XCImageMessageContent{
+                let imageCell = tableView.dequeueReusableCell(withIdentifier: SendImageMessageCell.IDENTIFIER, for: indexPath) as! SendImageMessageCell
+                imageCell.delegate = self
+                cell = imageCell
+            }else{
+                cell = tableView.dequeueReusableCell(withIdentifier: SendTextMessageCell.IDENTIFIER, for: indexPath) as! SendTextMessageCell
+            }
         }
         cell.setMessage(message, user: user)
         return cell
@@ -144,6 +161,11 @@ extension STMessagesVController: UITableViewDataSource{
 }
 
 extension STMessagesVController: STMessagesViewDelegate{
+    
+    func imageTapped(_ image: UIImage) {
+        showImage(image)
+    }
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == Self.RETURN_KEY{
             let inputText = textView.text

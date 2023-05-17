@@ -49,6 +49,9 @@ class STMessagesView: KeyboardView {
         tableView.register(GroupReceiveTextMessageCell.self, forCellReuseIdentifier: GroupReceiveTextMessageCell.IDENTIFIER)
         tableView.register(SendTextMessageCell.self, forCellReuseIdentifier: SendTextMessageCell.IDENTIFIER)
 
+        tableView.register(PrivateReceiveImageMessageCell.self, forCellReuseIdentifier: PrivateReceiveImageMessageCell.IDENTIFIER)
+        tableView.register(GroupReceiveImageMessageCell.self, forCellReuseIdentifier: GroupReceiveImageMessageCell.IDENTIFIER)
+        tableView.register(SendImageMessageCell.self, forCellReuseIdentifier: SendImageMessageCell.IDENTIFIER)
 
         tableView.allowsSelection = false
         addSubview(tableView)
@@ -188,6 +191,6 @@ extension STMessagesView{
 }
 
 
-protocol STMessagesViewDelegate: STMessageInputBarDelegate, UITableViewDelegate{
+protocol STMessagesViewDelegate: MessageCellImageContentDelegate, STMessageInputBarDelegate, UITableViewDelegate{
     
 }

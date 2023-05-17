@@ -54,3 +54,16 @@ extension UIViewController{
         present(navigationController, animated: true, completion: completion)
     }
 }
+
+extension UIViewController{
+    
+    func showImage(_ image: UIImage){
+        
+        let previewController = ImagePreviewController()
+        previewController.modalTransitionStyle = .crossDissolve
+        previewController.modalPresentationStyle = .overFullScreen
+        previewController.image = image
+        
+        present(previewController, animated: true)
+    }
+}

@@ -51,6 +51,7 @@
 		AB4516E22A13303D00781152 /* GroupReceiveMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516E12A13303D00781152 /* GroupReceiveMessageCellLayout.swift */; };
 		AB4516E42A13305300781152 /* SendMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516E32A13305300781152 /* SendMessageCellLayout.swift */; };
 		AB4516EC2A135A1900781152 /* TextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516EB2A135A1900781152 /* TextMessageCell.swift */; };
+		AB4516EE2A13787500781152 /* ImageMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516ED2A13787500781152 /* ImageMessageCell.swift */; };
 		AB5A51ED29CF0E4300656FC4 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51EC29CF0E4300656FC4 /* Date+.swift */; };
 		AB5A51F129D1586A00656FC4 /* STChatStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51F029D1586A00656FC4 /* STChatStorage.swift */; };
 		AB5A51F329D17E1900656FC4 /* STChatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51F229D17E1900656FC4 /* STChatDataSource.swift */; };
@@ -97,6 +98,7 @@
 		ABF80B6C29B5E6C400EA1861 /* STServiceQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6B29B5E6C400EA1861 /* STServiceQrCodeView.swift */; };
 		ABF80B6E29B6332F00EA1861 /* STApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6D29B6332F00EA1861 /* STApiClient.swift */; };
 		ABF80B7129B74E3100EA1861 /* URLUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B7029B74E3100EA1861 /* URLUtil.swift */; };
+		ABFB94542A146BEF000EF5D5 /* ImagePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFB94532A146BEF000EF5D5 /* ImagePreviewController.swift */; };
 		ABFC90D029CDC2E10040BDE5 /* TimeInterval+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFC90CF29CDC2E10040BDE5 /* TimeInterval+.swift */; };
 		ABFC90D529CDC3410040BDE5 /* STChatsVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFC90D229CDC3410040BDE5 /* STChatsVController.swift */; };
 		ABFC90D629CDC3410040BDE5 /* STChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFC90D329CDC3410040BDE5 /* STChat.swift */; };
@@ -170,6 +172,7 @@
 		AB4516E12A13303D00781152 /* GroupReceiveMessageCellLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupReceiveMessageCellLayout.swift; sourceTree = "<group>"; };
 		AB4516E32A13305300781152 /* SendMessageCellLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageCellLayout.swift; sourceTree = "<group>"; };
 		AB4516EB2A135A1900781152 /* TextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMessageCell.swift; sourceTree = "<group>"; };
+		AB4516ED2A13787500781152 /* ImageMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMessageCell.swift; sourceTree = "<group>"; };
 		AB5A51EC29CF0E4300656FC4 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		AB5A51F029D1586A00656FC4 /* STChatStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STChatStorage.swift; sourceTree = "<group>"; };
 		AB5A51F229D17E1900656FC4 /* STChatDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STChatDataSource.swift; sourceTree = "<group>"; };
@@ -219,6 +222,7 @@
 		ABF80B6B29B5E6C400EA1861 /* STServiceQrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STServiceQrCodeView.swift; sourceTree = "<group>"; };
 		ABF80B6D29B6332F00EA1861 /* STApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STApiClient.swift; sourceTree = "<group>"; };
 		ABF80B7029B74E3100EA1861 /* URLUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLUtil.swift; sourceTree = "<group>"; };
+		ABFB94532A146BEF000EF5D5 /* ImagePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewController.swift; sourceTree = "<group>"; };
 		ABFC90CF29CDC2E10040BDE5 /* TimeInterval+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+.swift"; sourceTree = "<group>"; };
 		ABFC90D229CDC3410040BDE5 /* STChatsVController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STChatsVController.swift; sourceTree = "<group>"; };
 		ABFC90D329CDC3410040BDE5 /* STChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STChat.swift; sourceTree = "<group>"; };
@@ -356,6 +360,7 @@
 				AB12F9ED29AC8D6700C639B6 /* STLoaingVController.swift */,
 				ABF80B5E29B1E05F00EA1861 /* STScanVController.swift */,
 				ABF80B5C29B1E04D00EA1861 /* STScanView.swift */,
+				ABFB94532A146BEF000EF5D5 /* ImagePreviewController.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -430,6 +435,7 @@
 				AB4516D12A13225E00781152 /* MessageCellTextContent.swift */,
 				AB4516EB2A135A1900781152 /* TextMessageCell.swift */,
 				AB4516CC2A1230F600781152 /* MessageCellImageContent.swift */,
+				AB4516ED2A13787500781152 /* ImageMessageCell.swift */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -719,6 +725,7 @@
 				7DB6041E296FB79A00A0AAFA /* STMineVController.swift in Sources */,
 				ABBC9E1029E196810097ADED /* STNotificationManager.swift in Sources */,
 				AB12F97B29A34C1000C639B6 /* STLoginView.swift in Sources */,
+				AB4516EE2A13787500781152 /* ImageMessageCell.swift in Sources */,
 				AB5A51ED29CF0E4300656FC4 /* Date+.swift in Sources */,
 				AB5A51FD29D1C76C00656FC4 /* STMessageIdState.swift in Sources */,
 				ABF80B5F29B1E05F00EA1861 /* STScanVController.swift in Sources */,
@@ -751,6 +758,7 @@
 				ABC79D5229DAD2860025C155 /* STMessageInputFunctionsView.swift in Sources */,
 				ABFC90D529CDC3410040BDE5 /* STChatsVController.swift in Sources */,
 				ABFC90DD29CDC3B10040BDE5 /* STNotificationCenter.swift in Sources */,
+				ABFB94542A146BEF000EF5D5 /* ImagePreviewController.swift in Sources */,
 				ABFC90E629CDC3C50040BDE5 /* STMessageStorage.swift in Sources */,
 				AB12F9E529AC425500C639B6 /* STIdentifiers.swift in Sources */,
 				7DB6041C296FB78500A0AAFA /* STDiscoverVController.swift in Sources */,
