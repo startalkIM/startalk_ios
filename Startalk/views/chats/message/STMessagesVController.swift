@@ -250,8 +250,7 @@ extension STMessagesVController: InputFunctionViewDelegate, UIImagePickerControl
             if let name = name{
                 let type = FilesManager.PNG_TYPE
                 let size = image.size
-                let localFile = fileStorage.getPersistentPath(name: name)
-                let messageId = messageManager.prepareImageMessage(to: chat, size: size, file: localFile)
+                let messageId = messageManager.prepareImageMessage(to: chat, size: size, file: name)
                 
                 fileUploaderClient.uploadImage(data: data, name: name, type: type){ [self] result in
                     if case .success(let source) = result{
