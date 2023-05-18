@@ -8,8 +8,6 @@
 import Foundation
 
 class FileStorage{
-    static let TEMPORARY_DIRECTORY = "temporary"
-    static let PERSISTENT_DIRECTORY = "persistent"
     let logger = STLogger(FileStorage.self)
         
     let temporaryDirectory: URL
