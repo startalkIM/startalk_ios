@@ -61,15 +61,7 @@ extension STScanVController: STScanViewDelegate{
     }
     
     func imageButtonTapped() {
-        let supported = UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
-        guard supported else{ return }
-        
-        let pickerControlelr = UIImagePickerController()
-        pickerControlelr.modalPresentationStyle = .fullScreen
-        pickerControlelr.sourceType = .photoLibrary
-        pickerControlelr.mediaTypes = [Self.IMAGE_TYPE]
-        pickerControlelr.delegate = self
-        self.present(pickerControlelr, animated: true)
+        showImagePicker(delegate: self)
     }
     
     func turnLightOn() {

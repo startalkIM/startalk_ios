@@ -99,6 +99,9 @@
 		ABF80B6E29B6332F00EA1861 /* STApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B6D29B6332F00EA1861 /* STApiClient.swift */; };
 		ABF80B7129B74E3100EA1861 /* URLUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF80B7029B74E3100EA1861 /* URLUtil.swift */; };
 		ABFB94542A146BEF000EF5D5 /* ImagePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFB94532A146BEF000EF5D5 /* ImagePreviewController.swift */; };
+		ABFB94562A15C908000EF5D5 /* InputFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFB94552A15C908000EF5D5 /* InputFunctionView.swift */; };
+		ABFB94592A161309000EF5D5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = ABFB94582A161309000EF5D5 /* Alamofire */; };
+		ABFB945B2A16138B000EF5D5 /* FileUploadClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFB945A2A16138B000EF5D5 /* FileUploadClient.swift */; };
 		ABFC90D029CDC2E10040BDE5 /* TimeInterval+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFC90CF29CDC2E10040BDE5 /* TimeInterval+.swift */; };
 		ABFC90D529CDC3410040BDE5 /* STChatsVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFC90D229CDC3410040BDE5 /* STChatsVController.swift */; };
 		ABFC90D629CDC3410040BDE5 /* STChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFC90D329CDC3410040BDE5 /* STChat.swift */; };
@@ -223,6 +226,8 @@
 		ABF80B6D29B6332F00EA1861 /* STApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STApiClient.swift; sourceTree = "<group>"; };
 		ABF80B7029B74E3100EA1861 /* URLUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLUtil.swift; sourceTree = "<group>"; };
 		ABFB94532A146BEF000EF5D5 /* ImagePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewController.swift; sourceTree = "<group>"; };
+		ABFB94552A15C908000EF5D5 /* InputFunctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFunctionView.swift; sourceTree = "<group>"; };
+		ABFB945A2A16138B000EF5D5 /* FileUploadClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploadClient.swift; sourceTree = "<group>"; };
 		ABFC90CF29CDC2E10040BDE5 /* TimeInterval+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+.swift"; sourceTree = "<group>"; };
 		ABFC90D229CDC3410040BDE5 /* STChatsVController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STChatsVController.swift; sourceTree = "<group>"; };
 		ABFC90D329CDC3410040BDE5 /* STChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STChat.swift; sourceTree = "<group>"; };
@@ -243,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB4516C52A11C1D000781152 /* XMPPClient.xcframework in Frameworks */,
+				ABFB94592A161309000EF5D5 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +458,7 @@
 		AB8BBB1C29BC950C00125DAB /* files */ = {
 			isa = PBXGroup;
 			children = (
+				ABFB945A2A16138B000EF5D5 /* FileUploadClient.swift */,
 				AB0110C72A08B1BD00445D9B /* FilesManager.swift */,
 				AB8BBB1D29BC958F00125DAB /* FileLoader.swift */,
 				AB8BBB1F29BC95CB00125DAB /* FileStorage.swift */,
@@ -584,6 +591,7 @@
 				ABC79D4929D97DCA0025C155 /* STMessageInputBar.swift */,
 				ABC79D4F29DAD20A0025C155 /* STMessageStickersView.swift */,
 				ABC79D5129DAD2860025C155 /* STMessageInputFunctionsView.swift */,
+				ABFB94552A15C908000EF5D5 /* InputFunctionView.swift */,
 			);
 			path = message;
 			sourceTree = "<group>";
@@ -642,6 +650,9 @@
 			dependencies = (
 			);
 			name = Startalk;
+			packageProductDependencies = (
+				ABFB94582A161309000EF5D5 /* Alamofire */,
+			);
 			productName = Startalk;
 			productReference = ABA2131C296EA95C00F1D2F7 /* Startalk.app */;
 			productType = "com.apple.product-type.application";
@@ -671,6 +682,9 @@
 				"zh-Hans",
 			);
 			mainGroup = ABA21313296EA95C00F1D2F7;
+			packageReferences = (
+				ABFB94572A161309000EF5D5 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = ABA2131D296EA95C00F1D2F7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -796,7 +810,9 @@
 				ABF80B5D29B1E04D00EA1861 /* STScanView.swift in Sources */,
 				ABF80B6629B5BA4800EA1861 /* STEditableViewController.swift in Sources */,
 				AB8BBB1B29BC594200125DAB /* UINavigationItem+.swift in Sources */,
+				ABFB945B2A16138B000EF5D5 /* FileUploadClient.swift in Sources */,
 				AB12F97E29A392E100C639B6 /* UIColor+.swift in Sources */,
+				ABFB94562A15C908000EF5D5 /* InputFunctionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1029,6 +1045,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ABFB94572A161309000EF5D5 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ABFB94582A161309000EF5D5 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ABFB94572A161309000EF5D5 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ABA21314296EA95C00F1D2F7 /* Project object */;
 }

@@ -25,6 +25,7 @@ class STKit{
     
     let apiClient: STApiClient
     let xmppClient: STXmppClient
+    let fileUploadClient: FileUploadClient
     
     let notificationManager: STNotificationManager
     let notificationCenter: STNotificationCenter
@@ -45,6 +46,7 @@ class STKit{
         
         apiClient = STApiClient()
         xmppClient = STXmppClient()
+        fileUploadClient = FileUploadClient()
         
         notificationManager = STNotificationManager()
         notificationCenter = STNotificationCenter()

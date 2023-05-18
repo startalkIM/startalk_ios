@@ -110,6 +110,7 @@ extension DatabaseManager{
                 type integer,
                 content text,
                 client_type integer,
+                local_file text,
                 state integer not null,
                 timestamp integer not null
             );

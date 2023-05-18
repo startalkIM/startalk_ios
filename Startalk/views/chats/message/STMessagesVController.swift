@@ -11,9 +11,13 @@ import XMPPClient
 class STMessagesVController: STEditableViewController2{
     static let RETURN_KEY = "\n"
     
-    var messageManager = STKit.shared.messageManager
-    var notificationCenter = STKit.shared.notificationCenter
+    let logger = STLogger(STMessagesVController.self)
+    
+    let messageManager = STKit.shared.messageManager
+    let notificationCenter = STKit.shared.notificationCenter
     let userManager = STKit.shared.userManager
+    let fileUploaderClient = STKit.shared.fileUploadClient
+    let fileStorage = STKit.shared.filesManager.storage
 
     let chat: STChat
     let messageSource: STMessageDataSource
@@ -224,6 +228,46 @@ extension STMessagesVController: STMessagesViewDelegate{
     
     func inputVoiceButtonTouchUpOutside() {
         
+    }
+    
+   
+}
+
+extension STMessagesVController: InputFunctionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    func sendImage() {
+        showImagePicker(delegate: self)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
+        if let image = info[.originalImage] as? UIImage, let data = image.pngData(){
+            var name: String?
+            do {
+                name = try fileStorage.storePersistent(data)
+            }catch{
+                logger.warn("store image failed", error)
+            }
+            if let name = name{
+                let type = FilesManager.PNG_TYPE
+                let size = image.size
+                let localFile = fileStorage.getPersistentPath(name: name)
+                let messageId = messageManager.prepareImageMessage(to: chat, size: size, file: localFile)
+                
+                fileUploaderClient.uploadImage(data: data, name: name, type: type){ [self] result in
+                    if case .success(let source) = result{
+                        messageManager.sendImageMessage(id: messageId, source: source)
+                    }else{
+                        logger.warn("upload image failed")
+                    }
+                }
+            }
+        }
+        dismiss(animated: true)
+
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
+        dismiss(animated: true)
     }
     
 }

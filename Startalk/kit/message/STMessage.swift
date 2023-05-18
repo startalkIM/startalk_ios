@@ -17,11 +17,12 @@ struct STMessage{
     var type: XCMessageType
     var content: XCMessageContent
     var clientType: XCClientType
+    var localFile: String?
     var state: State = .unspecified
     var timestamp: Date
     var direction: Direction = .unspecified
     
-    init(id: String, from: XCJid, to: XCJid, isGroup: Bool, type: XCMessageType, content: XCMessageContent, clientType: XCClientType, state: State, timestamp: Date, direction: Direction) {
+    init(id: String, from: XCJid, to: XCJid, isGroup: Bool, type: XCMessageType, content: XCMessageContent, clientType: XCClientType, localFile: String? = nil, state: State, timestamp: Date, direction: Direction) {
         self.id = id
         self.from = from
         self.to = to
@@ -29,12 +30,13 @@ struct STMessage{
         self.type = type
         self.content = content
         self.clientType = clientType
+        self.localFile = localFile
         self.state = state
         self.timestamp = timestamp
         self.direction = direction
     }
     
-    init(message: XCMessage, direction: Direction = .unspecified, state: State) {
+    init(message: XCMessage, localFile: String? = nil, direction: Direction = .unspecified, state: State) {
         self.id = message.id
         self.from = message.header.from
         self.to = message.header.to
@@ -42,6 +44,7 @@ struct STMessage{
         self.type = message.type
         self.content = message.content
         self.clientType = message.clientType
+        self.localFile = localFile
         self.timestamp = Date(milliseconds: message.timestamp)
         self.direction = direction
         self.state = state
@@ -51,8 +54,8 @@ struct STMessage{
         STMessage(message: message, direction: .receive, state: .sent)
     }
     
-    static func send(_ message: XCMessage) -> STMessage{
-        STMessage(message: message, direction: .send, state: .sending)
+    static func send(_ message: XCMessage, localFile: String? = nil) -> STMessage{
+        STMessage(message: message, localFile: localFile, direction: .send, state: .sending)
     }
 }
 
@@ -223,6 +226,7 @@ extension STMessage{
         }
         let clientTypeValue = try resultSet.getInt32("client_type")
         let clientType = XCClientType(rawValue: Int(clientTypeValue))
+        let localFile = try resultSet.getString("local_file")
         let stateValue = try resultSet.getInt32("state")
         let state = State(rawValue: Int(stateValue))
         let milliseconds = try resultSet.getInt64("timestamp")
@@ -236,7 +240,15 @@ extension STMessage{
         self.type = type
         self.content = content
         self.clientType = clientType
+        self.localFile = localFile
         self.state = state
         self.timestamp = Date(milliseconds: milliseconds)
+    }
+}
+
+extension STMessage{
+    var xcMessage: XCMessage{
+        let header = XCHeader(from: from, to: to, isGroup: isGroup)
+        return XCMessage(header: header, id: id, type: type, content: content, clientType: clientType, timestamp: timestamp.milliseconds)
     }
 }

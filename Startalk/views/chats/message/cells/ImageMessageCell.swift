@@ -28,7 +28,9 @@ class ImageMessageCell: BaseMessageCell{
         guard let content = message.content as? XCImageMessageContent else{
             return
         }
-        imageContentView.setContent(content)
+      
+        let localFile = message.localFile
+        imageContentView.setContent(content, localFile: localFile)
     }
 }
 

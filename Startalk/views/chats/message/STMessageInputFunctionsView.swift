@@ -9,12 +9,17 @@ import UIKit
 
 class STMessageInputFunctionsView: UIView {
     
-    var label: UILabel!
+    var imageFunctionView: InputFunctionView!
+    
+    weak var delegate: InputFunctionViewDelegate?{
+        didSet{
+            imageFunctionView.delegate = delegate
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .orange
         addElements()
         layoutElements()
     }
@@ -24,19 +29,21 @@ class STMessageInputFunctionsView: UIView {
     }
     
     func addElements(){
-        label = UILabel()
-        label.text = "Functions"
-        addSubview(label)
+        imageFunctionView = InputFunctionView()
+        imageFunctionView.setLabel("Images")
+        addSubview(imageFunctionView)
         
     }
     
     func layoutElements(){
         heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7).isActive = true
         
-        label.translatesAutoresizingMaskIntoConstraints = false
+        imageFunctionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: centerYAnchor),
+            imageFunctionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
+            imageFunctionView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            imageFunctionView.widthAnchor.constraint(equalToConstant: 70),
+            imageFunctionView.heightAnchor.constraint(equalToConstant: 90),
         ])
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UniformTypeIdentifiers
 
 extension UIViewController{
     
@@ -56,6 +57,13 @@ extension UIViewController{
 }
 
 extension UIViewController{
+    private static let IMAGE_TYPE = {
+        if #available(iOS 14.0, *) {
+            return UTType.image.identifier
+        } else {
+            return "public.image"
+        }
+    }()
     
     func showImage(_ image: UIImage){
         
@@ -65,5 +73,17 @@ extension UIViewController{
         previewController.image = image
         
         present(previewController, animated: true)
+    }
+    
+    func showImagePicker(delegate: UIImagePickerControllerDelegate & UINavigationControllerDelegate){
+        let supported = UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
+        guard supported else{ return }
+        
+        let pickerControlelr = UIImagePickerController()
+        pickerControlelr.modalPresentationStyle = .fullScreen
+        pickerControlelr.sourceType = .photoLibrary
+        pickerControlelr.mediaTypes = [Self.IMAGE_TYPE]
+        pickerControlelr.delegate = delegate
+        self.present(pickerControlelr, animated: true)
     }
 }

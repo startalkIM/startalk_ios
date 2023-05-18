@@ -63,7 +63,12 @@ class MessageCellImageContent: UIView {
         heightConstraint.isActive = true
     }
     
-    func setContent(_ content: XCImageMessageContent){
+    func setContent(_ content: XCImageMessageContent, localFile: String?){
+        if let localFile  = localFile{
+            imageView.image = UIImage(contentsOfFile: localFile)
+            return
+        }
+        
         indicatorView.startAnimating()
         let source = content.source
         let loader = STKit.shared.filesManager.loader

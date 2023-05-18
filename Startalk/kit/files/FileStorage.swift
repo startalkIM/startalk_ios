@@ -43,6 +43,11 @@ class FileStorage{
         return try pick(name, from: persistentDirectory)
     }
     
+    func getPersistentPath(name: String) -> String{
+        let url = persistentDirectory.appendingPathComponent(name)
+        return url.path
+    }
+    
     private func store(_ data: Data, to directory: URL) throws -> String{
         let digest = StringUtil.md5(data: data)
         let url = directory.appendingPathComponent(digest)

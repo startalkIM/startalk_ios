@@ -128,6 +128,7 @@ class STMessagesView: KeyboardView {
     func delegateDidSet(_ delegate: STMessagesViewDelegate?){
         tableView.delegate = delegate
         inputBar.delegate = delegate
+        functionsView.delegate = delegate
     }
 }
 
@@ -191,6 +192,6 @@ extension STMessagesView{
 }
 
 
-protocol STMessagesViewDelegate: MessageCellImageContentDelegate, STMessageInputBarDelegate, UITableViewDelegate{
+protocol STMessagesViewDelegate: MessageCellImageContentDelegate, STMessageInputBarDelegate, InputFunctionViewDelegate, UITableViewDelegate{
     
 }
