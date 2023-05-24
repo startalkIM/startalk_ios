@@ -13,6 +13,9 @@ class STMainVController: STSwitchController{
     let appStateManager = STKit.shared.appStateManager
     let notificationCenter = STKit.shared.notificationCenter
     
+    var loginVController: STLoginVController?
+    var contentController: UINavigationController?
+    
     override func viewDidLoad() {
         let state = appStateManager.state
         setController(state: state)
@@ -27,13 +30,21 @@ class STMainVController: STSwitchController{
     }
     
     func setController(state: STAppState){
-        let controller: UIViewController
         if state == .login{
-            controller = STLoginVController()
+            if loginVController == nil{
+                let controller = STLoginVController()
+                show(controller)
+                loginVController = controller
+                contentController = nil
+            }
         }else{
-            let tabController = STContentVController()
-            controller = UINavigationController(rootViewController: tabController)
+            if contentController == nil{
+                let tabController = STContentVController()
+                let controller = UINavigationController(rootViewController: tabController)
+                show(controller)
+                contentController = controller
+                loginVController = nil
+            }
         }
-        show(controller)
     }
 }
