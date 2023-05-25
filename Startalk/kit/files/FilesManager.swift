@@ -10,6 +10,6 @@ import Foundation
 class FilesManager{
     static let PNG_TYPE = "png"
     
-    let loader = FileLoader()
+    let loader = ResourceLoader()
     let storage = FileStorage()
 }

@@ -72,7 +72,7 @@ class MessageCellImageContent: UIView {
         indicatorView.startAnimating()
         let source = content.source
         let loader = STKit.shared.filesManager.loader
-        loader.load(url: source, object: self) { data in
+        loader.load(source, object: self) { data in
             DispatchQueue.main.async { [self] in
                 indicatorView.stopAnimating()
                 if let data = data{

@@ -205,7 +205,7 @@ extension DatabaseManager{
                 id integer primary key,
                 url text unique not null,
                 status integer not null,
-                identifier text,
+                name text,
                 update_time integer
             )
             """

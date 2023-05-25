@@ -64,7 +64,6 @@
 		AB8BBB1529B9F3B100125DAB /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1429B9F3B100125DAB /* DateUtil.swift */; };
 		AB8BBB1729BB00C000125DAB /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1629BB00C000125DAB /* UIImageView+.swift */; };
 		AB8BBB1B29BC594200125DAB /* UINavigationItem+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1A29BC594200125DAB /* UINavigationItem+.swift */; };
-		AB8BBB1E29BC958F00125DAB /* FileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1D29BC958F00125DAB /* FileLoader.swift */; };
 		AB8BBB2029BC95CB00125DAB /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BBB1F29BC95CB00125DAB /* FileStorage.swift */; };
 		ABA21320296EA95C00F1D2F7 /* STAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2131F296EA95C00F1D2F7 /* STAppDelegate.swift */; };
 		ABA21324296EA95C00F1D2F7 /* STMainVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA21323296EA95C00F1D2F7 /* STMainVController.swift */; };
@@ -188,7 +187,6 @@
 		AB8BBB1429B9F3B100125DAB /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		AB8BBB1629BB00C000125DAB /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		AB8BBB1A29BC594200125DAB /* UINavigationItem+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+.swift"; sourceTree = "<group>"; };
-		AB8BBB1D29BC958F00125DAB /* FileLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoader.swift; sourceTree = "<group>"; };
 		AB8BBB1F29BC95CB00125DAB /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
 		ABA2131C296EA95C00F1D2F7 /* Startalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Startalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABA2131F296EA95C00F1D2F7 /* STAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STAppDelegate.swift; sourceTree = "<group>"; };
@@ -270,14 +268,6 @@
 				ABF80B5A29B1DFFD00EA1861 /* base */,
 			);
 			path = views;
-			sourceTree = "<group>";
-		};
-		AB0110C12A06274400445D9B /* base */ = {
-			isa = PBXGroup;
-			children = (
-				AB0110C52A06282B00445D9B /* ResourceLoader.swift */,
-			);
-			path = base;
 			sourceTree = "<group>";
 		};
 		AB0973B92A0B3B6900B412D3 /* contact */ = {
@@ -388,7 +378,6 @@
 				ABFC90DB29CDC3B10040BDE5 /* localNotification */,
 				ABBC9E1829E920130097ADED /* database */,
 				AB8BBB1C29BC950C00125DAB /* files */,
-				AB0110C12A06274400445D9B /* base */,
 			);
 			path = kit;
 			sourceTree = "<group>";
@@ -460,7 +449,7 @@
 			children = (
 				ABFB945A2A16138B000EF5D5 /* FileUploadClient.swift */,
 				AB0110C72A08B1BD00445D9B /* FilesManager.swift */,
-				AB8BBB1D29BC958F00125DAB /* FileLoader.swift */,
+				AB0110C52A06282B00445D9B /* ResourceLoader.swift */,
 				AB8BBB1F29BC95CB00125DAB /* FileStorage.swift */,
 			);
 			path = files;
@@ -747,7 +736,6 @@
 				ABA21320296EA95C00F1D2F7 /* STAppDelegate.swift in Sources */,
 				AB12F9CC29AB682F00C639B6 /* STServiceManager.swift in Sources */,
 				ABD1F12F29EBB93B002CCCB2 /* Group.swift in Sources */,
-				AB8BBB1E29BC958F00125DAB /* FileLoader.swift in Sources */,
 				AB8BBB0829B85C6F00125DAB /* STUserState.swift in Sources */,
 				AB8BBB1129B8AAFA00125DAB /* STBadgeView.swift in Sources */,
 				ABF80B6E29B6332F00EA1861 /* STApiClient.swift in Sources */,
