@@ -13,10 +13,15 @@ extension UIImageView{
         image = placeholder
         guard let source = source else{ return }
         let loader = STKit.shared.filesManager.loader
-        loader.load(source, object: self) { [self] data in
-            if let data = data{
-                DispatchQueue.main.async { [self] in
-                    image = UIImage(data: data)
+        let path = loader.path(of: source)
+        if let path = path{
+            image = UIImage(contentsOfFile: path)
+        }else{
+            loader.load(source, object: self) { [self] data in
+                if let data = data{
+                    DispatchQueue.main.async { [self] in
+                        image = UIImage(data: data)
+                    }
                 }
             }
         }

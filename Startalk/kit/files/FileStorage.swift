@@ -25,20 +25,25 @@ class FileStorage{
         }
     }
     
-    func storeTemporary(_ data: Data) throws -> String{
-        try store(data, to: temporaryDirectory)
+    func storeTemporary(_ data: Data, type: String? = nil) throws -> String{
+        try store(data, type: type, to: temporaryDirectory)
     }
     
     func pickTemporary(_ name: String) throws -> Data{
         return try pick(name, from: temporaryDirectory)
     }
     
-    func storePersistent(_ data: Data) throws -> String{
-        try store(data, to: persistentDirectory)
+    func storePersistent(_ data: Data, type: String? = nil) throws -> String{
+        try store(data, type: type, to: persistentDirectory)
     }
     
     func pickPersistent(_ name: String) throws -> Data{
         return try pick(name, from: persistentDirectory)
+    }
+    
+    func getTemporaryPath(name: String) -> String{
+        let url = temporaryDirectory.appendingPathComponent(name)
+        return url.path
     }
     
     func getPersistentPath(name: String) -> String{
@@ -46,13 +51,19 @@ class FileStorage{
         return url.path
     }
     
-    private func store(_ data: Data, to directory: URL) throws -> String{
+    private func store(_ data: Data, type: String?, to directory: URL) throws -> String{
         let digest = StringUtil.md5(data: data)
-        let url = directory.appendingPathComponent(digest)
+        let filename: String
+        if let type = type{
+            filename = "\(digest).\(type)"
+        }else{
+            filename = digest
+        }
+        let url = directory.appendingPathComponent(filename)
         if !FileManager.default.fileExists(atPath: url.path){
             try data.write(to: url)
         }
-        return digest
+        return filename
     }
     
     private func pick(_ name: String, from directory: URL) throws -> Data{

@@ -47,8 +47,6 @@ class ResourceLoader{
                 logger.warn("load failed", error)
             }
         }
-        
-        
     }
     
     private func addHandle(url: String, object: AnyObject, complete: @escaping (Data?) -> Void){
@@ -79,7 +77,8 @@ class ResourceLoader{
             }
             do{
                 let (data, _) = try await urlSession.data(from: url)
-                let name = try storage.storeTemporary(data)
+                let type = url.pathExtension
+                let name = try storage.storeTemporary(data, type: type)
                 try updateLoading(id: loadingId, status: .loaded, name: name)
                 complete(url: source, data: data)
             }catch{
@@ -163,5 +162,24 @@ class ResourceLoader{
     struct Handle{
         var object: AnyObject
         var complete: (Data?) -> ()
+    }
+}
+
+extension ResourceLoader{
+    
+    func path(of url: String) -> String?{
+        let url = URLUtil.normalize(url)
+        do {
+            let loading: Loading! = try pickLoading(url)
+            if loading.status == .loaded, let filename = loading.name{
+                return storage.getTemporaryPath(name: filename)
+            }else{
+                return nil
+            }
+        } catch {
+            logger.warn("pick loading failed", error)
+            return nil
+        }
+        
     }
 }
