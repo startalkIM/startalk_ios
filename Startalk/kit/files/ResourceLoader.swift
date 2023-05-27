@@ -170,8 +170,8 @@ extension ResourceLoader{
     func path(of url: String) -> String?{
         let url = URLUtil.normalize(url)
         do {
-            let loading: Loading! = try pickLoading(url)
-            if loading.status == .loaded, let filename = loading.name{
+            let loading = try pickLoading(url)
+            if let loading = loading, loading.status == .loaded, let filename = loading.name{
                 return storage.getTemporaryPath(name: filename)
             }else{
                 return nil

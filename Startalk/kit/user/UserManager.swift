@@ -127,10 +127,13 @@ class UserManager{
         }
     }
     
-    func storeUserDetail(user: User){
-        let sql = "update user set name = ?, photo = ?, bio = ? where usernmae = ? and domain = ?"
+    func storeUserDetails(details: [User]){
+        let sql = "update user set name = ?, photo = ?, bio = ? where username = ? and domain = ?"
+        let values = details.map { user in
+            [user.name, user.photo, user.bio, user.username, user.domain]
+        }
         do{
-            try connection.update(sql: sql, values: user.name, user.photo, user.bio, user.username, user.domain)
+            try connection.batchUpdate(sql: sql, values: values)
         }catch{
             logger.warn("store user detail failed", error)
         }
@@ -167,6 +170,9 @@ extension UserManager{
                 updateUsers(updated: updated, deleted: deleted, version: version)
                 
                 chatManager.usersUpdated(users: updated)
+                
+                let usernames = updated.map { $0.username }
+                await updateUserDetails(usernames, domain: domain)
             }
         }
     }
@@ -192,6 +198,11 @@ extension UserManager{
             logger.info("fetch user detail failed: \(reason)")
         }
         return details
+    }
+    
+    func updateUserDetails(_ usernames: [String], domain: String) async{
+        let userDetails = await fetchUserDetails(usernames, domain: domain)
+        storeUserDetails(details: userDetails)
     }
     
     struct UpdatedUser: Codable{
