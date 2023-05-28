@@ -7,13 +7,19 @@
 
 import Foundation
 import XMPPClient
+import UIKit
 
 class STMessageManager{
+    let logger = STLogger(STMessageManager.self)
+    
     lazy var appStateManager = STKit.shared.appStateManager
     lazy var notificationCenter = STKit.shared.notificationCenter
     lazy var userState = STKit.shared.userState
     lazy var xmppClient = STKit.shared.xmppClient
     lazy var chatManager = STKit.shared.chatManager
+    lazy var fileStorage = STKit.shared.filesManager.storage
+    lazy var fileUploaderClient = STKit.shared.fileUploadClient
+
     
     var messageLoader = STHistoryMessagesLoader()
 
@@ -63,50 +69,56 @@ class STMessageManager{
     }
     
     //MARK: send message
-    func sendTextMessage(to chat: STChat, content: String){
-        let to = XCJid(chat.id)
-        guard let to = to else{ return }
-        
-        let header = XCHeader(from: userState.jid, to: to, isGroup: chat.isGroup)
-        let id = StringUtil.makeUUID()
-        let content = XCTextMessageContent(value: content)
-        let timestamp = Date().milliseconds
-        let message = XCMessage(header: header, id: id, type: .text, content: content, clientType: xmppClient.clientType, timestamp: timestamp)
-        
-        let stMessage: STMessage = .send(message)
-        appendMessages([stMessage])
-
-        xmppClient.sendMessage(message)
-        
+    func sendTextMessage(to chat: STChat, text: String){
+        let content = XCTextMessageContent(value: text)
+        let message = perpareMessage(to: chat, content: content, type: .text)
+        sendMessage(message)
     }
     
+    func sendImageMessage(to chat: STChat, image: UIImage){
+        if let data = image.pngData(){
+            var name: String?
+            do {
+                name = try fileStorage.storePersistent(data, type: FilesManager.PNG_TYPE)
+            }catch{
+                logger.warn("store image failed", error)
+            }
+            guard let name = name else{ return }
+            let type = FilesManager.PNG_TYPE
+            let size = image.size
+            
+            var content = XCImageMessageContent(source: " ", width: Float(size.width), height: Float(size.height))
+            var message = perpareMessage(to: chat, content: content, type: .text, localFile: name)
+            
+            fileUploaderClient.uploadImage(data: data, name: name, type: type){ [self] result in
+                if case .success(let source) = result{
+                    content.source = source
+                    storage.updateMessageContent(id: message.id, content: content.value)
+                    message.content = content
+                    sendMessage(message)
+                }else{
+                    logger.warn("upload image failed")
+                }
+            }
+        }
+    }
     
-    func prepareImageMessage(to chat: STChat, size: CGSize, file: String) -> String{
+    func perpareMessage(to chat: STChat, content: XCMessageContent, type: XCMessageType, localFile: String? = nil) -> STMessage{
         let to = XCJid(chat.id)!
         
         let header = XCHeader(from: userState.jid, to: to, isGroup: chat.isGroup)
         let id = StringUtil.makeUUID()
-        let content = XCImageMessageContent(source: " ", width: Float(size.width), height: Float(size.height))
         let timestamp = Date().milliseconds
-        let message = XCMessage(header: header, id: id, type: .text, content: content, clientType: xmppClient.clientType, timestamp: timestamp)
+        let xcMessage = XCMessage(header: header, id: id, type: type, content: content, clientType: xmppClient.clientType, timestamp: timestamp)
         
-        let stMessage: STMessage = .send(message, localFile: file)
-        appendMessages([stMessage])
-        return stMessage.id
+        let message: STMessage = .send(xcMessage, localFile: localFile)
+        appendMessages([message])
+        return message
     }
     
-    func sendImageMessage(id: String, source: String){
-        let message = storage.fetchMessage(id: id)
-        guard var message = message, var content = message.content as? XCImageMessageContent else{
-            return
-        }
-        content.source = source
-        storage.updateMessageContent(id: id, content: content.value)
-
-        message.content = content
+    func sendMessage(_ message: STMessage){
         xmppClient.sendMessage(message.xcMessage)
     }
-    
     
     //MARK: private common functions
     private func appendMessages(_ messages: [STMessage]){

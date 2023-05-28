@@ -168,7 +168,7 @@ extension STMessagesVController: STMessagesViewDelegate{
         if text == Self.RETURN_KEY{
             let inputText = textView.text
             if let inputText = StringUtil.validContent(inputText){
-                messageManager.sendTextMessage(to: chat, content: inputText)
+                messageManager.sendTextMessage(to: chat, text: inputText)
             }
             textView.text = ""
             return false
@@ -234,26 +234,8 @@ extension STMessagesVController: InputFunctionViewDelegate, UIImagePickerControl
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-        if let image = info[.originalImage] as? UIImage, let data = image.pngData(){
-            var name: String?
-            do {
-                name = try fileStorage.storePersistent(data, type: FilesManager.PNG_TYPE)
-            }catch{
-                logger.warn("store image failed", error)
-            }
-            if let name = name{
-                let type = FilesManager.PNG_TYPE
-                let size = image.size
-                let messageId = messageManager.prepareImageMessage(to: chat, size: size, file: name)
-                
-                fileUploaderClient.uploadImage(data: data, name: name, type: type){ [self] result in
-                    if case .success(let source) = result{
-                        messageManager.sendImageMessage(id: messageId, source: source)
-                    }else{
-                        logger.warn("upload image failed")
-                    }
-                }
-            }
+        if let image = info[.originalImage] as? UIImage{
+            messageManager.sendImageMessage(to: chat, image: image)
         }
         dismiss(animated: true)
 

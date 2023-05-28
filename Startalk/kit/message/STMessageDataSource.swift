@@ -33,30 +33,22 @@ class STMessageDataSource{
         let batchCount = min(count, Self.DAFAULT_COUNT)
         let offset = count - batchCount
         messages = storage.messages(chatId: chatId, offset: offset, count: batchCount)
-        messages = complementFilePaths(messages)
+        for i in messages.indices{
+            complement(message: &messages[i])
+        }
     }
     
     func message(at index: Int) -> STMessage{
         if index < unloadedCount{
             let loadCount = unloadedCount - index
             var moreMessages = storage.messages(chatId: chatId, offset: index, count: loadCount)
-            moreMessages = complementFilePaths(moreMessages)
+            for i in moreMessages.indices{
+                complement(message: &moreMessages[i])
+            }
             messages.insert(contentsOf: moreMessages, at: 0)
         }
         let index = index - unloadedCount
         return messages[index]
-    }
-    
-    func complementFilePaths(_ messages: [STMessage]) -> [STMessage]{
-        var messages = messages
-        for i in messages.indices{
-            let fileName = messages[i].localFile
-            if let fileName = fileName{
-                let filePath = fileStorage.getPersistentPath(name: fileName)
-                messages[i].localFile = filePath
-            }
-        }
-        return messages
     }
     
     func index(of messageId: String) -> Int?{
@@ -74,9 +66,18 @@ class STMessageDataSource{
             let index = index - unloadedCount
             let messageId = messages[index].id
             let message = storage.fetchMessage(id: messageId)
-            if let message = message{
+            if var message = message{
+                complement(message: &message)
                 messages[index] = message
             }
+        }
+    }
+    
+    private func complement(message: inout STMessage){
+        let fileName = message.localFile
+        if let fileName = fileName{
+            let filePath = fileStorage.getPersistentPath(name: fileName)
+            message.localFile = filePath
         }
     }
 }
