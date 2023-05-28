@@ -84,7 +84,7 @@ class STMessageStorage{
     }
     
     func messages(chatId: String, offset: Int = 0, count: Int = 10) -> [STMessage]{
-        let sql = "select * from message where chat_id = ? order by timestamp asc limit ? offset ?"
+        let sql = "select * from message where chat_id = ? order by timestamp asc, id asc limit ? offset ?"
         var messages: [STMessage] = []
         do{
             let offset = Int32(offset)

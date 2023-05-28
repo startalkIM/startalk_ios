@@ -9,5 +9,5 @@ import UIKit
 
 protocol MessgeCellLayout{
     
-    func layout(photoImageView: UIView, nameLabel: UIView, contentsView: UIView, contentView: UIView)
+    func layout(photoImageView: UIView, nameLabel: UIView, contentsView: UIView, contentView: UIView, stateView: MessageStateView)
 }

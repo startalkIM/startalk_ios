@@ -24,6 +24,10 @@ class STMessageDataSource{
         reload()
     }
     
+    var unloadedCount: Int{
+        count - messages.count
+    }
+    
     func reload(){
         count = storage.messagesCount(chatId: chatId)
         let batchCount = min(count, Self.DAFAULT_COUNT)
@@ -33,14 +37,13 @@ class STMessageDataSource{
     }
     
     func message(at index: Int) -> STMessage{
-        let unloadedCount = count - messages.count
         if index < unloadedCount{
             let loadCount = unloadedCount - index
             var moreMessages = storage.messages(chatId: chatId, offset: index, count: loadCount)
             moreMessages = complementFilePaths(moreMessages)
             messages.insert(contentsOf: moreMessages, at: 0)
         }
-        let index = index - (count - messages.count)
+        let index = index - unloadedCount
         return messages[index]
     }
     
@@ -54,5 +57,26 @@ class STMessageDataSource{
             }
         }
         return messages
+    }
+    
+    func index(of messageId: String) -> Int?{
+        var index = messages.firstIndex { message in
+            message.id == messageId
+        }
+        if let i = index{
+            index = i + unloadedCount
+        }
+        return index
+    }
+    
+    func reload(at index: Int){
+        if unloadedCount <= index && index < count{
+            let index = index - unloadedCount
+            let messageId = messages[index].id
+            let message = storage.fetchMessage(id: messageId)
+            if let message = message{
+                messages[index] = message
+            }
+        }
     }
 }

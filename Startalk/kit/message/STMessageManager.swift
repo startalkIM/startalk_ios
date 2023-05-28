@@ -57,14 +57,9 @@ class STMessageManager{
     }
     
     func receviedMessageSentEvent(_ messsageId: String, timestamp: Int64){
-        //let isLast = messageStorage.updateMessage(withId: messsageId, state: .sent)
         storage.updateMessage(withId: messsageId, state: .sent)
         let idState = STMessageIdState(id: messsageId, state: .sent)
         notificationCenter.notifyMessageStateChanged(idState)
-        
-//        if isLast{
-//            notificationCenter.notifyChatListChanged()
-//        }
     }
     
     //MARK: send message

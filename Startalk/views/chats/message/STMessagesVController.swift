@@ -98,17 +98,11 @@ class STMessagesVController: STEditableViewController2{
     }
     
     func updateMessageState(_ idState: STMessageIdState){
-        DispatchQueue.main.async { [self] in
-            if let indexPaths = tableView.indexPathsForVisibleRows{
-                var updateIndexPaths: [IndexPath] = []
-                for indexPath in indexPaths {
-                    let index = indexPath.row
-                    let message = messageSource.message(at: index)
-                    if message.id == idState.id{
-                        updateIndexPaths.append(indexPath)
-                    }
-                }
-                tableView.reloadRows(at: updateIndexPaths, with: .fade)
+        if let index = messageSource.index(of: idState.id){
+            messageSource.reload(at: index)
+            let indexPath = IndexPath(row: index, section: 0)
+            DispatchQueue.main.async { [self] in
+                tableView.reloadRows(at: [indexPath], with: .none)
             }
         }
     }

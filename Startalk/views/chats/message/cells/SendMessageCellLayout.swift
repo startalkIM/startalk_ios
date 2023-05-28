@@ -9,7 +9,7 @@ import UIKit
 
 class SendMessageCellLayout: MessgeCellLayout{
     
-    func layout(photoImageView: UIView, nameLabel: UIView, contentsView: UIView, contentView: UIView) {
+    func layout(photoImageView: UIView, nameLabel: UIView, contentsView: UIView, contentView: UIView, stateView: MessageStateView) {
         
         photoImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -27,6 +27,14 @@ class SendMessageCellLayout: MessgeCellLayout{
             contentsView.trailingAnchor.constraint(equalTo: photoImageView.leadingAnchor, constant: -10),
             contentsView.topAnchor.constraint(equalTo: photoImageView.topAnchor),
             contentsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+        ])
+        
+        stateView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stateView.trailingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: -10),
+            stateView.centerYAnchor.constraint(equalTo: contentsView.centerYAnchor),
+            stateView.widthAnchor.constraint(equalToConstant: 15),
+            stateView.heightAnchor.constraint(equalToConstant: 15)
         ])
     }
     

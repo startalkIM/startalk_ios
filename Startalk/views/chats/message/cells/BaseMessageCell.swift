@@ -15,6 +15,7 @@ class BaseMessageCell: UITableViewCell {
     var photoImageView: UIImageView!
     var nameLabel: UILabel!
     var contentsView: UIView!
+    var stateView: MessageStateView!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -49,16 +50,20 @@ class BaseMessageCell: UITableViewCell {
         
         contentsView = makeContentsView()
         contentView.addSubview(contentsView)
+        
+        stateView = MessageStateView()
+        contentView.addSubview(stateView)
     }
     
     func layoutElements() {
         if let layout = makeLayout(){
-            layout.layout(photoImageView: photoImageView, nameLabel: nameLabel, contentsView: contentsView, contentView: contentView)
+            layout.layout(photoImageView: photoImageView, nameLabel: nameLabel, contentsView: contentsView, contentView: contentView, stateView: stateView)
         }
     }
     
     func setMessage(_ message: STMessage, user: User?){
         photoImageView.setSource(user?.photo, placeholder: Self.singlePhoto)
         nameLabel.text = user?.name ?? message.from.bare
+        stateView.setState(message.state)
     }
 }

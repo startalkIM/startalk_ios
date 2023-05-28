@@ -9,7 +9,7 @@ import UIKit
 
 class PrivateReceiveMessageCellLayout: MessgeCellLayout{
     
-    func layout(photoImageView: UIView, nameLabel: UIView, contentsView: UIView, contentView: UIView) {
+    func layout(photoImageView: UIView, nameLabel: UIView, contentsView: UIView, contentView: UIView, stateView: MessageStateView) {
         
         photoImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -28,6 +28,8 @@ class PrivateReceiveMessageCellLayout: MessgeCellLayout{
             contentsView.topAnchor.constraint(equalTo: photoImageView.topAnchor),
             contentsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
+        
+        stateView.isHidden = true
     }
     
     
