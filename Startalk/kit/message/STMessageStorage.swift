@@ -93,7 +93,7 @@ class STMessageStorage{
             while resultSet.next(){
                 let message = try STMessage(resultSet)
                 if var message = message{
-                    message.resetDirection(with: userState.jid)
+                    complement(message: &message)
                     messages.append(message)
                 }
             }
@@ -103,12 +103,12 @@ class STMessageStorage{
         return messages
     }
     
-    func setMessagesRead(chatId: String, isGroup: Bool){
-        let sql = "update message set state = ? where chat_id = ? and state = ?"
+    func setMessagesRead(chatId: String, selfJid: String){
+        let sql = "update message set state = ? where chat_id = ? and state = ? and sender != ?"
         do{
             let readValue = Int32(STMessage.State.read.rawValue)
             let sentValue = Int32(STMessage.State.sent.rawValue)
-            try connection.update(sql: sql, values: readValue, chatId, sentValue)
+            try connection.update(sql: sql, values: readValue, chatId, sentValue, selfJid)
         }catch{
             logger.warn("set messages read failed", error)
         }
@@ -119,7 +119,11 @@ class STMessageStorage{
         do {
             let resultSet = try connection.query(sql: sql, values: id)
             if resultSet.next(){
-                return try STMessage(resultSet)
+                let message = try STMessage(resultSet)
+                if var message = message{
+                    complement(message: &message)
+                    return message
+                }
             }
         } catch {
             logger.warn("fetch message faield", error)
@@ -134,5 +138,9 @@ class STMessageStorage{
         } catch {
             logger.warn("update message content failed", error)
         }
+    }
+    
+    private func complement(message: inout STMessage){
+        message.resetDirection(with: userState.jid)
     }
 }

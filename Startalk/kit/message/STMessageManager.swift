@@ -120,7 +120,7 @@ class STMessageManager{
     
     //MARK: set messages read
     func setMessagesRead(_ chat: STChat){
-        storage.setMessagesRead(chatId: chat.id, isGroup: chat.isGroup)
+        storage.setMessagesRead(chatId: chat.id, selfJid: userState.jid.bare)
         chatManager.clearUnreadCount(chat.id)
     }
 }

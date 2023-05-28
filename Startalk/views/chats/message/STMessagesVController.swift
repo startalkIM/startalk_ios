@@ -237,7 +237,7 @@ extension STMessagesVController: InputFunctionViewDelegate, UIImagePickerControl
         if let image = info[.originalImage] as? UIImage, let data = image.pngData(){
             var name: String?
             do {
-                name = try fileStorage.storePersistent(data)
+                name = try fileStorage.storePersistent(data, type: FilesManager.PNG_TYPE)
             }catch{
                 logger.warn("store image failed", error)
             }
