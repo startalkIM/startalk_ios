@@ -47,7 +47,9 @@ class STAppStateManager{
     }
     
     func appDidEnterBackground(){
-        disconnect(to: .inactive)
+        if state == .connecting || state == .loading || state == .running{
+            disconnect(to: .inactive)
+        }
     }
     
     func setLoggedOut(){
