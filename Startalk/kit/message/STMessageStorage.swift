@@ -31,8 +31,8 @@ class STMessageStorage{
     func addMessages(_ messages: [STMessage]) -> Int{
         let sql = """
         insert into message
-        (message_id, chat_id, sender, receiver, is_group, type, content, client_type, local_file, state, timestamp)
-        values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        (message_id, chat_id, sender, receiver, is_group, type, content, client_type, local_file, state, timestamp, show_timestamp)
+        values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """
         var values: [[SQLiteBindable?]] = []
         for message in messages {
@@ -47,7 +47,8 @@ class STMessageStorage{
                 Int32(message.clientType.rawValue),
                 message.localFile,
                 Int32(message.state.rawValue),
-                message.timestamp.milliseconds
+                message.timestamp.milliseconds,
+                message.showTimestamp
             ]
             values.append(messageValues)
         }

@@ -11,6 +11,7 @@ import UIKit
 
 class STMessageManager{
     static let MESSAGE_TIMEOUT: TimeInterval = 10
+    static let SHOW_TIMESTAMP_INTERVAL: TimeInterval = 60
     let logger = STLogger(STMessageManager.self)
     
     lazy var appStateManager = STKit.shared.appStateManager
@@ -25,7 +26,7 @@ class STMessageManager{
     var messageLoader = STHistoryMessagesLoader()
 
     var storage = STMessageStorage()
-    
+        
     //MARK: synchronize with server
     func synchronizeMessages(){
         storage.updateMessagesAsFailed()
@@ -145,13 +146,32 @@ class STMessageManager{
     
     //MARK: private common functions
     private func appendMessages(_ messages: [STMessage]){
+        let messages = complementShowTimestamp(messages)
         storage.addMessages(messages)
         notificationCenter.notifyMessagesAppended(messages)
         chatManager.addMessages(messages)
         notificationCenter.notifyChatListChanged()
     }
     
-    
+    private func complementShowTimestamp(_ messages: [STMessage]) -> [STMessage]{
+        var messages = messages
+        let ids = Array(Set(messages.map { $0.chatId}))
+        let chats = chatManager.fetchChats(ids: ids)
+        var dict: [String: Date] = [:]
+        chats.forEach { dict[$0.id] = $0.timestamp}
+        
+        for i in messages.indices{
+            var message = messages[i]
+            let chatId = message.chatId
+            let lastTimestamp = dict[chatId] ?? Date(milliseconds: 0)
+            if message.timestamp.timeIntervalSince(lastTimestamp) > Self.SHOW_TIMESTAMP_INTERVAL {
+                message.showTimestamp = true
+                messages[i] = message
+            }
+            dict[chatId] = message.timestamp
+        }
+        return messages
+    }
     
     //MARK: set messages read
     func setMessagesRead(_ chat: STChat){

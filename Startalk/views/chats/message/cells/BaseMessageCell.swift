@@ -197,7 +197,7 @@ class BaseMessageCell: UITableViewCell {
     }
     
     func setMessage(_ message: STMessage, user: User?){
-        timestampLabel.text = DateUtil.readable(message.timestamp)
+        timestampLabel.text = DateUtil.readable(message.timestamp, withTime: true)
         photoImageView.setSource(user?.photo, placeholder: Self.singlePhoto)
         nameLabel.text = user?.name ?? message.from.bare
         stateView.setMessage(message)

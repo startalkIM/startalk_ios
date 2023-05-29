@@ -112,6 +112,10 @@ class ChatManager{
     func clearUnreadCount(_ id: String){
         storage.clearUnreadCount(id)
     }
+    
+    func fetchChats(ids: [String]) -> [STChat]{
+        return storage.fetchChats(ids: ids)
+    }
 }
 
 extension ChatManager{
