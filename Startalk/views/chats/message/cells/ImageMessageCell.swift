@@ -12,9 +12,9 @@ class ImageMessageCell: BaseMessageCell{
     
     var imageContentView: MessageCellImageContent!
     
-    var delegate: MessageCellImageContentDelegate?{
+    override var delegate: BaseMessageCellDelegate?{
         didSet{
-            imageContentView.delegate = delegate
+            imageContentView.delegate = delegate as? ImageMessageCellDelegate
         }
     }
     
@@ -57,4 +57,8 @@ class SendImageMessageCell: ImageMessageCell{
     override func makeLayout() -> MessgeCellLayout? {
         SendMessageCellLayout()
     }
+}
+
+protocol ImageMessageCellDelegate: BaseMessageCellDelegate, MessageCellImageContentDelegate{
+    
 }

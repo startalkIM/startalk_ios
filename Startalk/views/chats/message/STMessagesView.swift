@@ -192,6 +192,6 @@ extension STMessagesView{
 }
 
 
-protocol STMessagesViewDelegate: MessageCellImageContentDelegate, STMessageInputBarDelegate, InputFunctionViewDelegate, UITableViewDelegate{
+protocol STMessagesViewDelegate: ImageMessageCellDelegate, STMessageInputBarDelegate, InputFunctionViewDelegate, UITableViewDelegate{
     
 }

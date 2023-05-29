@@ -17,6 +17,13 @@ class BaseMessageCell: UITableViewCell {
     var contentsView: UIView!
     var stateView: MessageStateView!
     
+    
+    var delegate: BaseMessageCellDelegate?{
+        didSet{
+            stateView.delegate = delegate
+        }
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -64,6 +71,11 @@ class BaseMessageCell: UITableViewCell {
     func setMessage(_ message: STMessage, user: User?){
         photoImageView.setSource(user?.photo, placeholder: Self.singlePhoto)
         nameLabel.text = user?.name ?? message.from.bare
-        stateView.setState(message.state)
+        stateView.setMessage(message)
     }
+}
+
+@objc
+protocol BaseMessageCellDelegate: MessageStateViewDelegate{
+    
 }

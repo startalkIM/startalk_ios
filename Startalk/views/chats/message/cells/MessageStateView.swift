@@ -10,7 +10,10 @@ import UIKit
 class MessageStateView: UIView {
     
     var sendingIndicator: UIActivityIndicatorView!
-    var failedView: UIImageView!
+    var failedView: UIButton!
+    var messageId: String!
+    
+    weak var delegate: MessageStateViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,9 +30,11 @@ class MessageStateView: UIView {
         addSubview(sendingIndicator)
         sendingIndicator.isHidden = true
         
-        failedView = UIImageView()
-        failedView.image = UIImage(named: "chat/failed")
+        failedView = UIButton(type: .system)
+        let image = UIImage(named: "chat/failed")
+        failedView.setImage(image, for: .normal)
         failedView.tintColor = .systemRed
+        failedView.addTarget(self, action: #selector(resend), for: .touchUpInside)
         addSubview(failedView)
         failedView.isHidden = true
     }
@@ -52,7 +57,9 @@ class MessageStateView: UIView {
         ])
     }
     
-    func setState(_ state: STMessage.State){
+    func setMessage(_ message: STMessage){
+        messageId = message.id
+        let state = message.state
         switch state{
         case .sending:
             sendingIndicator.isHidden = false
@@ -66,4 +73,14 @@ class MessageStateView: UIView {
             failedView.isHidden = true
         }
     }
+    
+    @objc
+    func resend(){
+        delegate?.resend(id: messageId)
+    }
+}
+
+@objc
+protocol MessageStateViewDelegate: AnyObject{
+    func resend(id: String)
 }

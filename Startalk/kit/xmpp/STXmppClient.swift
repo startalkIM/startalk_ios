@@ -117,8 +117,8 @@ extension STXmppClient: XCStreamDelegate{
     
     func stream(_ stream: XMPPClient.XCStream, receivedEvent event: XCEvent) {
         switch event.type{
-        case .messageSent(let messageId,let timestamp):
-            messageManager.receviedMessageSentEvent(messageId, timestamp: timestamp)
+        case .messageSent(let messageId, _):
+            messageManager.receviedMessageStateEvent(messageId, state: .sent)
         @unknown default:
             break
         }

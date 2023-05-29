@@ -63,6 +63,9 @@ class STMessagesVController: STEditableViewController2{
         notificationCenter.observeMessageStateChanged(self) { [self] idState in
             updateMessageState(idState)
         }
+        notificationCenter.observeMessageResend(self) { [self] id in
+            messageResent(id: id)
+        }
         messageSource.reload()
         DispatchQueue.main.async { [self] in
             tableView.reloadData()
@@ -76,6 +79,7 @@ class STMessagesVController: STEditableViewController2{
         super.viewWillDisappear(animated)
         notificationCenter.unobserveMessagesAppended(self)
         notificationCenter.unobserveMessageStateChanged(self)
+        notificationCenter.unobserveMessageResend(self)
     }
     
     func receive(_ messages: [STMessage]){
@@ -107,6 +111,13 @@ class STMessagesVController: STEditableViewController2{
         }
     }
     
+    func messageResent(id: String){
+        messageSource.reload()
+        DispatchQueue.main.async { [self] in
+            tableView.reloadData()
+        }
+    }
+    
     override func endEditing() {
         let state = messagesView.inputState
         if state != .idle && state != .voice{
@@ -129,7 +140,6 @@ extension STMessagesVController: UITableViewDataSource{
             if chat.isGroup{
                 if message.content is XCImageMessageContent{
                     let imageCell = tableView.dequeueReusableCell(withIdentifier: GroupReceiveImageMessageCell.IDENTIFIER, for: indexPath) as! GroupReceiveImageMessageCell
-                    imageCell.delegate = self
                     cell = imageCell
                 }else{
                     cell = tableView.dequeueReusableCell(withIdentifier: GroupReceiveTextMessageCell.IDENTIFIER, for: indexPath) as! GroupReceiveTextMessageCell
@@ -137,7 +147,6 @@ extension STMessagesVController: UITableViewDataSource{
             }else{
                 if message.content is XCImageMessageContent{
                     let imageCell = tableView.dequeueReusableCell(withIdentifier: PrivateReceiveImageMessageCell.IDENTIFIER, for: indexPath) as! PrivateReceiveImageMessageCell
-                    imageCell.delegate = self
                     cell = imageCell
                 }else{
                     cell = tableView.dequeueReusableCell(withIdentifier: PrivateReceiveTextMessageCell.IDENTIFIER, for: indexPath) as! PrivateReceiveTextMessageCell
@@ -147,12 +156,12 @@ extension STMessagesVController: UITableViewDataSource{
         }else{
             if message.content is XCImageMessageContent{
                 let imageCell = tableView.dequeueReusableCell(withIdentifier: SendImageMessageCell.IDENTIFIER, for: indexPath) as! SendImageMessageCell
-                imageCell.delegate = self
                 cell = imageCell
             }else{
                 cell = tableView.dequeueReusableCell(withIdentifier: SendTextMessageCell.IDENTIFIER, for: indexPath) as! SendTextMessageCell
             }
         }
+        cell.delegate = self
         cell.setMessage(message, user: user)
         return cell
     }
@@ -251,5 +260,12 @@ extension STMessagesVController: UIScrollViewDelegate{
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         endEditing()
+    }
+}
+
+
+extension STMessagesVController: BaseMessageCellDelegate{
+    func resend(id: String) {
+        messageManager.resend(id: id)
     }
 }

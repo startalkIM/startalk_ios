@@ -127,7 +127,23 @@ extension STNotificationCenter{
         center.post(name: .STMessageStateChanged, object: idState)
     }
     
+    //MARK: message resend
+
+    func observeMessageResend(_ observer: AnyObject, handler: @escaping (String) -> Void){
+        addObserver(observer, name: .STMessageResend) { notification in
+            if let id = notification.object as? String{
+                handler(id)
+            }
+        }
+    }
     
+    func unobserveMessageResend(_ observer: AnyObject){
+        removeObserver(observer, name: .STMessageResend)
+    }
+    
+    func notifyMessageResend(_ id: String){
+        center.post(name: .STMessageResend, object: id)
+    }
     
     
     //MARK: chat list changed
@@ -152,6 +168,8 @@ extension Notification.Name{
     static let STMessageAppended = Notification.Name("startalk_message_appended")
     
     static let STMessageStateChanged = Notification.Name("startalk_message_state_changed")
+    
+    static let STMessageResend = Notification.Name("startalk_message_resend")
     
     static let STChatListChanged = Notification.Name("startalk_chat_list_changed")
 

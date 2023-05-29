@@ -10,6 +10,7 @@ import XMPPClient
 import UIKit
 
 class STMessageManager{
+    static let MESSAGE_TIMEOUT: TimeInterval = 10
     let logger = STLogger(STMessageManager.self)
     
     lazy var appStateManager = STKit.shared.appStateManager
@@ -27,6 +28,7 @@ class STMessageManager{
     
     //MARK: synchronize with server
     func synchronizeMessages(){
+        storage.updateMessagesAsFailed()
         Task{
             let user = userState.jid.bare
             let lastTime = storage.lastMessageTime(user: user)
@@ -60,12 +62,6 @@ class STMessageManager{
             }
         }
         appendMessages([message])
-    }
-    
-    func receviedMessageSentEvent(_ messsageId: String, timestamp: Int64){
-        storage.updateMessage(withId: messsageId, state: .sent)
-        let idState = STMessageIdState(id: messsageId, state: .sent)
-        notificationCenter.notifyMessageStateChanged(idState)
     }
     
     //MARK: send message
@@ -118,6 +114,33 @@ class STMessageManager{
     
     func sendMessage(_ message: STMessage){
         xmppClient.sendMessage(message.xcMessage)
+        DispatchQueue.global().asyncAfter(deadline: .now() + Self.MESSAGE_TIMEOUT){ [self] in
+            markMessageSendingFailed(message.id)
+        }
+    }
+    
+    
+    func resend(id: String){
+        let message = storage.fetchMessage(id: id)
+        guard let message = message else { return }
+        storage.updateMessageAsSending(id: message.id)
+        sendMessage(message)
+        notificationCenter.notifyMessageResend(id)
+    }
+    
+    //MARK: message state change
+    func receviedMessageStateEvent(_ messsageId: String, state: STMessage.State){
+        storage.updateMessage(withId: messsageId, state: state)
+        let idState = STMessageIdState(id: messsageId, state: state)
+        notificationCenter.notifyMessageStateChanged(idState)
+    }
+    
+    func markMessageSendingFailed(_ messsageId: String){
+        let success = storage.tryUpdateMessageAsFailed(id: messsageId)
+        if success{
+            let idState = STMessageIdState(id: messsageId, state: .failed)
+            notificationCenter.notifyMessageStateChanged(idState)
+        }
     }
     
     //MARK: private common functions

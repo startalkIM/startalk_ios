@@ -69,6 +69,41 @@ class STMessageStorage{
         }
     }
     
+    func tryUpdateMessageAsFailed(id: String) -> Bool{
+        let sql = "update message set state = ? where message_id = ? and state = ?"
+        do {
+            let failedValue = Int32(STMessage.State.failed.rawValue)
+            let sendingValue = Int32(STMessage.State.sending.rawValue)
+            let count = try connection.update(sql: sql, values: failedValue, id, sendingValue)
+            return count == 1
+        } catch {
+            logger.warn("update message state failed", error)
+            return false
+        }
+    }
+    
+    func updateMessagesAsFailed(){
+        let sql = "update message set state = ? where state = ?"
+        do {
+            let failedValue = Int32(STMessage.State.failed.rawValue)
+            let sendingValue = Int32(STMessage.State.sending.rawValue)
+            try connection.update(sql: sql, values: failedValue, sendingValue)
+        } catch {
+            logger.warn("update messages' state failed", error)
+        }
+    }
+    
+    func updateMessageAsSending(id: String){
+        let sql = "update message set state = ?, timestamp = ? where message_id = ?"
+        do {
+            let sendingValue = Int32(STMessage.State.sending.rawValue)
+            let timestamp = Date().milliseconds
+            try connection.update(sql: sql, values: sendingValue, timestamp, id)
+        } catch {
+            logger.warn("update message state failed", error)
+        }
+    }
+    
     func messagesCount(chatId: String) -> Int{
         let sql = "select count(1) from message where chat_id = ?"
         var count = 0
