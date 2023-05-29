@@ -28,6 +28,9 @@ class UserManager{
             let resultSet = try connection.query(sql: sql, values: username, domain)
             if resultSet.next(){
                 user = try User(resultSet: resultSet)
+                if let photo = user?.photo{
+                    user?.photo = serviceManager.attachFilePrefixIfAbsent(photo)
+                }
             }
         }catch{
             logger.warn("fetch user failed", error)
