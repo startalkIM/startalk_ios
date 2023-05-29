@@ -104,7 +104,7 @@ extension STChat{
                 let messageContent = messageContent,
                 let content = XCMessage.makeContent(messageContent, type: type){
                 
-                lastMessage = STMessage(id: messageId, from: .empty, to: .empty, isGroup: isGroup, type: type, content: content, clientType: .ios, state: .sent, timestamp: Date(), direction: .unspecified)
+                lastMessage = STMessage(id: messageId, from: .empty, to: .empty, isGroup: isGroup, type: type, content: content, clientType: .ios, state: .sent, timestamp: Date(), showTimestamp: false, direction: .unspecified)
                 
             }
         }

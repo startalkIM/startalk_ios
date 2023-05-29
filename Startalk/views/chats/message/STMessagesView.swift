@@ -45,13 +45,15 @@ class STMessagesView: KeyboardView {
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         
-        tableView.register(PrivateReceiveTextMessageCell.self, forCellReuseIdentifier: PrivateReceiveTextMessageCell.IDENTIFIER)
-        tableView.register(GroupReceiveTextMessageCell.self, forCellReuseIdentifier: GroupReceiveTextMessageCell.IDENTIFIER)
-        tableView.register(SendTextMessageCell.self, forCellReuseIdentifier: SendTextMessageCell.IDENTIFIER)
-
-        tableView.register(PrivateReceiveImageMessageCell.self, forCellReuseIdentifier: PrivateReceiveImageMessageCell.IDENTIFIER)
-        tableView.register(GroupReceiveImageMessageCell.self, forCellReuseIdentifier: GroupReceiveImageMessageCell.IDENTIFIER)
-        tableView.register(SendImageMessageCell.self, forCellReuseIdentifier: SendImageMessageCell.IDENTIFIER)
+        let textCellIdentifiers = TextMessageCell.identifiers
+        for identifier in textCellIdentifiers {
+            tableView.register(TextMessageCell.self, forCellReuseIdentifier: identifier)
+        }
+        
+        let imageCellIdentifiers = ImageMessageCell.identifiers
+        for identifier in imageCellIdentifiers {
+            tableView.register(ImageMessageCell.self, forCellReuseIdentifier: identifier)
+        }
 
         tableView.allowsSelection = false
         addSubview(tableView)

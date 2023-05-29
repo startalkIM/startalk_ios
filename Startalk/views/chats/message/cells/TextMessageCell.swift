@@ -9,12 +9,22 @@ import UIKit
 import XMPPClient
 
 class TextMessageCell: BaseMessageCell{
+    static let IDENTIFIER = "text"
     
     var textContentView: MessageCellTextContent!
     
     override func makeContentsView() -> UIView {
         textContentView = MessageCellTextContent()
         return textContentView
+    }
+    
+    override func addElements() {
+        super.addElements()
+        if layoutType == .send{
+            textContentView.backgroundColor = .make(0xC5EAEE)
+        }else{
+            textContentView.backgroundColor = .white
+        }
     }
     
     override func setMessage(_ message: STMessage, user: User?){
@@ -25,45 +35,28 @@ class TextMessageCell: BaseMessageCell{
         textContentView.setContent(content)
     }
     
-}
-
-
-class PrivateReceiveTextMessageCell: TextMessageCell{
-    static let IDENTIFIER = "private_receive_text_message_cell"
     
-    override func addElements() {
-        super.addElements()
-        textContentView.backgroundColor = .white
+    override class var identifiers: [String]{
+        var identifiers = super.identifiers
+        for i in identifiers.indices{
+            identifiers[i] = "\(Self.IDENTIFIER)_\(identifiers[i])"
+        }
+        return identifiers
     }
     
-    override func makeLayout() -> MessgeCellLayout? {
-        PrivateReceiveMessageCellLayout()
-    }
-}
-
-class GroupReceiveTextMessageCell: TextMessageCell{
-    static let IDENTIFIER = "group_receive_text_message_cell"
-    
-    override func addElements() {
-        super.addElements()
-        textContentView.backgroundColor = .white
+    override class func makeIdentifier(message: STMessage) -> String{
+        let identifier = super.makeIdentifier(message: message)
+        return "\(Self.IDENTIFIER)_\(identifier)"
     }
     
-    override func makeLayout() -> MessgeCellLayout? {
-        GroupReceiveMessageCellLayout()
-    }
-}
-
-class SendTextMessageCell: TextMessageCell{
-    static let IDENTIFIER = "send_text_message_cell"
-
-    override func addElements() {
-        super.addElements()
-        textContentView.backgroundColor = .make(0xC5EAEE)
-    }
-    
-    override func makeLayout() -> MessgeCellLayout? {
-        SendMessageCellLayout()
+    override class func parseIdentifier(_ identifier: String) -> (Bool, BaseMessageCell.LayoutType)? {
+        let prefix = Self.IDENTIFIER + "_"
+        if identifier.starts(with: prefix){
+            let identifier = identifier.dropFirst(prefix.count)
+            return super.parseIdentifier(String(identifier))
+        }else{
+            return nil
+        }
     }
 }
 

@@ -9,6 +9,7 @@ import UIKit
 import XMPPClient
 
 class ImageMessageCell: BaseMessageCell{
+    static let IDENTIFIER = "image"
     
     var imageContentView: MessageCellImageContent!
     
@@ -32,30 +33,28 @@ class ImageMessageCell: BaseMessageCell{
         let localFile = message.localFile
         imageContentView.setContent(content, localFile: localFile)
     }
-}
-
-
-class PrivateReceiveImageMessageCell: ImageMessageCell{
-    static let IDENTIFIER = "private_receive_image_message_cell"
     
-    override func makeLayout() -> MessgeCellLayout? {
-        PrivateReceiveMessageCellLayout()
+    override class var identifiers: [String]{
+        var identifiers = super.identifiers
+        for i in identifiers.indices{
+            identifiers[i] = "\(Self.IDENTIFIER)_\(identifiers[i])"
+        }
+        return identifiers
     }
-}
-
-class GroupReceiveImageMessageCell: ImageMessageCell{
-    static let IDENTIFIER = "group_receive_image_message_cell"
     
-    override func makeLayout() -> MessgeCellLayout? {
-        GroupReceiveMessageCellLayout()
+    override class func makeIdentifier(message: STMessage) -> String{
+        let identifier = super.makeIdentifier(message: message)
+        return "\(Self.IDENTIFIER)_\(identifier)"
     }
-}
-
-class SendImageMessageCell: ImageMessageCell{
-    static let IDENTIFIER = "send_image_message_cell"
-
-    override func makeLayout() -> MessgeCellLayout? {
-        SendMessageCellLayout()
+    
+    override class func parseIdentifier(_ identifier: String) -> (Bool, BaseMessageCell.LayoutType)? {
+        let prefix = Self.IDENTIFIER + "_"
+        if identifier.starts(with: prefix){
+            let identifier = identifier.dropFirst(prefix.count)
+            return super.parseIdentifier(String(identifier))
+        }else{
+            return nil
+        }
     }
 }
 

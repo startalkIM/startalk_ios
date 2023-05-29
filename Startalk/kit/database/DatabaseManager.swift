@@ -112,7 +112,8 @@ extension DatabaseManager{
                 client_type integer,
                 local_file text,
                 state integer not null,
-                timestamp integer not null
+                timestamp integer not null,
+                show_timestamp integer
             );
             
             create index if not exists message_message_id_index on message(message_id);

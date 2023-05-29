@@ -47,10 +47,6 @@
 		AB4516C82A121F4700781152 /* BaseMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516C72A121F4700781152 /* BaseMessageCell.swift */; };
 		AB4516CD2A1230F600781152 /* MessageCellImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516CC2A1230F600781152 /* MessageCellImageContent.swift */; };
 		AB4516D22A13225E00781152 /* MessageCellTextContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516D12A13225E00781152 /* MessageCellTextContent.swift */; };
-		AB4516DE2A132E1800781152 /* MessgeCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516DD2A132E1800781152 /* MessgeCellLayout.swift */; };
-		AB4516E02A13302300781152 /* PrivateReceiveMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516DF2A13302300781152 /* PrivateReceiveMessageCellLayout.swift */; };
-		AB4516E22A13303D00781152 /* GroupReceiveMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516E12A13303D00781152 /* GroupReceiveMessageCellLayout.swift */; };
-		AB4516E42A13305300781152 /* SendMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516E32A13305300781152 /* SendMessageCellLayout.swift */; };
 		AB4516EC2A135A1900781152 /* TextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516EB2A135A1900781152 /* TextMessageCell.swift */; };
 		AB4516EE2A13787500781152 /* ImageMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4516ED2A13787500781152 /* ImageMessageCell.swift */; };
 		AB5A51ED29CF0E4300656FC4 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A51EC29CF0E4300656FC4 /* Date+.swift */; };
@@ -171,10 +167,6 @@
 		AB4516C72A121F4700781152 /* BaseMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMessageCell.swift; sourceTree = "<group>"; };
 		AB4516CC2A1230F600781152 /* MessageCellImageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellImageContent.swift; sourceTree = "<group>"; };
 		AB4516D12A13225E00781152 /* MessageCellTextContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellTextContent.swift; sourceTree = "<group>"; };
-		AB4516DD2A132E1800781152 /* MessgeCellLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessgeCellLayout.swift; sourceTree = "<group>"; };
-		AB4516DF2A13302300781152 /* PrivateReceiveMessageCellLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateReceiveMessageCellLayout.swift; sourceTree = "<group>"; };
-		AB4516E12A13303D00781152 /* GroupReceiveMessageCellLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupReceiveMessageCellLayout.swift; sourceTree = "<group>"; };
-		AB4516E32A13305300781152 /* SendMessageCellLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageCellLayout.swift; sourceTree = "<group>"; };
 		AB4516EB2A135A1900781152 /* TextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMessageCell.swift; sourceTree = "<group>"; };
 		AB4516ED2A13787500781152 /* ImageMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMessageCell.swift; sourceTree = "<group>"; };
 		AB5A51EC29CF0E4300656FC4 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
@@ -425,10 +417,6 @@
 			isa = PBXGroup;
 			children = (
 				AB24851C2A21E91F00B35419 /* MessageStateView.swift */,
-				AB4516DD2A132E1800781152 /* MessgeCellLayout.swift */,
-				AB4516DF2A13302300781152 /* PrivateReceiveMessageCellLayout.swift */,
-				AB4516E12A13303D00781152 /* GroupReceiveMessageCellLayout.swift */,
-				AB4516E32A13305300781152 /* SendMessageCellLayout.swift */,
 				AB4516C72A121F4700781152 /* BaseMessageCell.swift */,
 				AB4516D12A13225E00781152 /* MessageCellTextContent.swift */,
 				AB4516EB2A135A1900781152 /* TextMessageCell.swift */,
@@ -719,7 +707,6 @@
 				AB4516C22A10CC7A00781152 /* ChatManager.swift in Sources */,
 				ABFC90D729CDC3410040BDE5 /* STChatTableCell.swift in Sources */,
 				ABFC90D629CDC3410040BDE5 /* STChat.swift in Sources */,
-				AB4516E42A13305300781152 /* SendMessageCellLayout.swift in Sources */,
 				AB4516EC2A135A1900781152 /* TextMessageCell.swift in Sources */,
 				ABC79D5029DAD20A0025C155 /* STMessageStickersView.swift in Sources */,
 				AB0110C62A06282B00445D9B /* ResourceLoader.swift in Sources */,
@@ -750,7 +737,6 @@
 				ABFC90E829CDC3D70040BDE5 /* STAppStateManager.swift in Sources */,
 				AB12F9EE29AC8D6700C639B6 /* STLoaingVController.swift in Sources */,
 				AB12F9D529AB7E1400C639B6 /* RSAUtil.swift in Sources */,
-				AB4516E22A13303D00781152 /* GroupReceiveMessageCellLayout.swift in Sources */,
 				ABC79D4E29DA8DA50025C155 /* NSLayoutDimension+.swift in Sources */,
 				AB12F9C229AA345300C639B6 /* STServiceEditorVController.swift in Sources */,
 				AB24851D2A21E91F00B35419 /* MessageStateView.swift in Sources */,
@@ -780,7 +766,6 @@
 				AB12F9D129AB6ADB00C639B6 /* STHttpClient.swift in Sources */,
 				AB5A51F529D17E2800656FC4 /* STMessageDataSource.swift in Sources */,
 				AB5A51F329D17E1900656FC4 /* STChatDataSource.swift in Sources */,
-				AB4516DE2A132E1800781152 /* MessgeCellLayout.swift in Sources */,
 				ABFC90EB29CDC3E00040BDE5 /* STXmppClient.swift in Sources */,
 				AB12F9C829AB67DD00C639B6 /* STKit.swift in Sources */,
 				ABC79D4629D6E82A0025C155 /* KeyboardView.swift in Sources */,
@@ -796,7 +781,6 @@
 				AB5A51FF29D1CE6300656FC4 /* STMessagesView.swift in Sources */,
 				AB12F9E729AC4BEC00C639B6 /* STApiResponse.swift in Sources */,
 				AB4516D22A13225E00781152 /* MessageCellTextContent.swift in Sources */,
-				AB4516E02A13302300781152 /* PrivateReceiveMessageCellLayout.swift in Sources */,
 				ABF80B6429B584F400EA1861 /* STServiceNavigation.swift in Sources */,
 				AB12F9C029AA28BA00C639B6 /* ComponentFactory.swift in Sources */,
 				ABF80B5D29B1E04D00EA1861 /* STScanView.swift in Sources */,

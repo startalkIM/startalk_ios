@@ -136,30 +136,13 @@ extension STMessagesVController: UITableViewDataSource{
         let message = messageSource.message(at: indexPath.row)
         let user = userManager.fetchUser(jid: message.from)
         let cell: BaseMessageCell
-        if message.direction == .receive{
-            if chat.isGroup{
-                if message.content is XCImageMessageContent{
-                    let imageCell = tableView.dequeueReusableCell(withIdentifier: GroupReceiveImageMessageCell.IDENTIFIER, for: indexPath) as! GroupReceiveImageMessageCell
-                    cell = imageCell
-                }else{
-                    cell = tableView.dequeueReusableCell(withIdentifier: GroupReceiveTextMessageCell.IDENTIFIER, for: indexPath) as! GroupReceiveTextMessageCell
-                }
-            }else{
-                if message.content is XCImageMessageContent{
-                    let imageCell = tableView.dequeueReusableCell(withIdentifier: PrivateReceiveImageMessageCell.IDENTIFIER, for: indexPath) as! PrivateReceiveImageMessageCell
-                    cell = imageCell
-                }else{
-                    cell = tableView.dequeueReusableCell(withIdentifier: PrivateReceiveTextMessageCell.IDENTIFIER, for: indexPath) as! PrivateReceiveTextMessageCell
-                }
-            }
-            
+        
+        if message.content is XCImageMessageContent{
+            let identifier = ImageMessageCell.makeIdentifier(message: message)
+            cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ImageMessageCell
         }else{
-            if message.content is XCImageMessageContent{
-                let imageCell = tableView.dequeueReusableCell(withIdentifier: SendImageMessageCell.IDENTIFIER, for: indexPath) as! SendImageMessageCell
-                cell = imageCell
-            }else{
-                cell = tableView.dequeueReusableCell(withIdentifier: SendTextMessageCell.IDENTIFIER, for: indexPath) as! SendTextMessageCell
-            }
+            let identifier = TextMessageCell.makeIdentifier(message: message)
+            cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! TextMessageCell
         }
         cell.delegate = self
         cell.setMessage(message, user: user)

@@ -20,9 +20,10 @@ struct STMessage{
     var localFile: String?
     var state: State = .unspecified
     var timestamp: Date
+    var showTimestamp: Bool
     var direction: Direction = .unspecified
     
-    init(id: String, from: XCJid, to: XCJid, isGroup: Bool, type: XCMessageType, content: XCMessageContent, clientType: XCClientType, localFile: String? = nil, state: State, timestamp: Date, direction: Direction) {
+    init(id: String, from: XCJid, to: XCJid, isGroup: Bool, type: XCMessageType, content: XCMessageContent, clientType: XCClientType, localFile: String? = nil, state: State, timestamp: Date, showTimestamp: Bool, direction: Direction) {
         self.id = id
         self.from = from
         self.to = to
@@ -33,10 +34,11 @@ struct STMessage{
         self.localFile = localFile
         self.state = state
         self.timestamp = timestamp
+        self.showTimestamp = showTimestamp
         self.direction = direction
     }
     
-    init(message: XCMessage, localFile: String? = nil, direction: Direction = .unspecified, state: State) {
+    init(message: XCMessage, localFile: String? = nil, direction: Direction = .unspecified, showTimestamp: Bool = false, state: State) {
         self.id = message.id
         self.from = message.header.from
         self.to = message.header.to
@@ -47,6 +49,7 @@ struct STMessage{
         self.localFile = localFile
         self.timestamp = Date(milliseconds: message.timestamp)
         self.direction = direction
+        self.showTimestamp = false
         self.state = state
     }
     
@@ -179,6 +182,7 @@ extension STMessage: Codable{
         self.clientType = .ios
         self.timestamp = Date(milliseconds: time)
         self.state = (readFlag == 1) ? .read : .sent
+        self.showTimestamp = false
     }
     
     func encode(to encoder: Encoder) throws{
@@ -230,6 +234,7 @@ extension STMessage{
         let stateValue = try resultSet.getInt32("state")
         let state = State(rawValue: Int(stateValue))
         let milliseconds = try resultSet.getInt64("timestamp")
+        let showTimestamp = try resultSet.getBool("show_timestamp")
         guard let id = id, let fromJid = fromJid, let toJid = toJid, let type = type, let clientType = clientType, let state = state else{
             return nil
         }
@@ -243,6 +248,7 @@ extension STMessage{
         self.localFile = localFile
         self.state = state
         self.timestamp = Date(milliseconds: milliseconds)
+        self.showTimestamp = showTimestamp
     }
 }
 
