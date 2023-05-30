@@ -207,20 +207,6 @@ class BaseMessageCell: UITableViewCell {
     
     //MARK: identifiers
     
-    class var identifiers: [String]{
-        let firstParts = [SHOW_TIMESTAMP_IDENTIFIER, HIDE_TIMESTAMP_IDENTIFIER]
-        let secondParts = [PRIVATE_RECEIVE_IDENTIFIER, GROUP_RECEIVE_IDENTIFIER, Self.SEND_IDENTIFIER]
-        
-        var identifiers: [String] = []
-        for firstPart in firstParts {
-            for secondPart in secondParts {
-                let identifier = makeIdentifier(firstPart, secondPart)
-                identifiers.append(identifier)
-            }
-        }
-        return identifiers
-    }
-    
     class func makeIdentifier(message: STMessage) -> String{
         let part1 = message.showTimestamp ? SHOW_TIMESTAMP_IDENTIFIER : HIDE_TIMESTAMP_IDENTIFIER
         let part2: String
@@ -233,11 +219,11 @@ class BaseMessageCell: UITableViewCell {
         }else{
             part2 = SEND_IDENTIFIER
         }
-        return makeIdentifier(part1, part2)
+        return makeIdentifier(part1, part2, message.id)
     }
     
-    class private func makeIdentifier(_ part1: String, _ part2: String) -> String{
-        return "\(part1)_\(part2)_cell"
+    class private func makeIdentifier(_ part1: String, _ part2: String, _ id: String) -> String{
+        return "\(part1)_\(part2)_cell-\(id)"
     }
     
     class func parseIdentifier(_ identifier: String) -> (Bool, LayoutType)?{

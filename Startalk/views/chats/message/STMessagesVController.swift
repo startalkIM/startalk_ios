@@ -139,10 +139,20 @@ extension STMessagesVController: UITableViewDataSource{
         
         if message.content is XCImageMessageContent{
             let identifier = ImageMessageCell.makeIdentifier(message: message)
-            cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ImageMessageCell
+            let reusingCell = tableView.dequeueReusableCell(withIdentifier: identifier)
+            if let reusingCell = reusingCell as? ImageMessageCell{
+                cell = reusingCell
+            }else{
+                cell = ImageMessageCell(style: .default, reuseIdentifier: identifier)
+            }
         }else{
             let identifier = TextMessageCell.makeIdentifier(message: message)
-            cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! TextMessageCell
+            let resuingCell = tableView.dequeueReusableCell(withIdentifier: identifier)
+            if let resuingCell = resuingCell as? TextMessageCell{
+                cell = resuingCell
+            }else{
+                cell = TextMessageCell(style: .default, reuseIdentifier: identifier)
+            }
         }
         cell.delegate = self
         cell.setMessage(message, user: user)

@@ -34,14 +34,6 @@ class ImageMessageCell: BaseMessageCell{
         imageContentView.setContent(content, localFile: localFile)
     }
     
-    override class var identifiers: [String]{
-        var identifiers = super.identifiers
-        for i in identifiers.indices{
-            identifiers[i] = "\(Self.IDENTIFIER)_\(identifiers[i])"
-        }
-        return identifiers
-    }
-    
     override class func makeIdentifier(message: STMessage) -> String{
         let identifier = super.makeIdentifier(message: message)
         return "\(Self.IDENTIFIER)_\(identifier)"
