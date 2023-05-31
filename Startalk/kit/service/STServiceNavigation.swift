@@ -26,12 +26,12 @@ struct STServiceNavigation{
     }
         
     static let `default` = STServiceNavigation(
-        domain: "qtalk",
-        host: "qtalk.app",
+        domain: "startalk.im",
+        host: "startalk.soundsecho.com",
         port: 5202,
-        apiUrl: "https://uk.startalk.im/newapi",
-        pushUrl: "https://uk.startalk.im/package",
-        fileUrl: "https://uk.startalk.im"
+        apiUrl: "https://startalk.soundsecho.com/newapi",
+        pushUrl: "https://startalk.soundsecho.com/package",
+        fileUrl: "https://startalk.soundsecho.com"
     )
 }
 
